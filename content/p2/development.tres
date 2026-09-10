@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Sm2DevelopmentManifest" load_steps=2 format=3]
+[ext_resource type="Script" path="res://src/content/progression/sm2_development_manifest.gd" id="1"]
+[resource]
+script = ExtResource("1")
+rules = {
+"version":"sm2.p2.content.1", "hero_actor_id":1, "companion_actor_id":2,
+"awards":{"m2:ability.sword_strike":{"p1:stat.strength":30,"p1:skill.melee":40}},
+"mappings":[{"stat":"melee_skill","track_id":"p1:skill.melee","scale":2,"baseline":6}]
+}
+setup = {
+"battle_id":"p2:development.example", "scenario_id":"p2:scenario.development", "seed":20260910, "round_limit":60,
+"field":{"id":"p2:field.clearing","version":"p2.1","width":7,"height":5,"surfaces":[{"id":"p2:surface.ground","ap_cost":2,"fatigue_cost":4}],"default_surface_id":"p2:surface.ground","default_elevation":0,"tiles":[]},
+"actors":[
+{"actor_id":1,"loadout_id":"m2:loadout.sword_fighter","side":"company","owner":"player","controller":"player","creator":0,"q":1,"r":1,"fatigue":0,"alive":true,"on_field":true,"morale":"steady"},
+{"actor_id":2,"loadout_id":"m2:loadout.sword_fighter","side":"company","owner":"player","controller":"player","creator":0,"q":1,"r":3,"fatigue":0,"alive":true,"on_field":true,"morale":"steady"},
+{"actor_id":3,"loadout_id":"m2:loadout.sword_fighter","side":"opposition","owner":"enemy","controller":"ai","creator":0,"q":4,"r":1,"fatigue":0,"alive":true,"on_field":true,"morale":"steady"},
+{"actor_id":4,"loadout_id":"m2:loadout.sword_fighter","side":"opposition","owner":"enemy","controller":"ai","creator":0,"q":4,"r":3,"fatigue":0,"alive":true,"on_field":true,"morale":"steady"}
+]}

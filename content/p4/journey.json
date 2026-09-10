@@ -1,0 +1,17 @@
+{
+  "version": "sm2.p4.location.1",
+  "initial_loadout": "m2:loadout.sword_fighter",
+  "encounters": [
+    {"name": "Тропа у руин", "enemies": [10, 11], "seed": 20260910},
+    {"name": "Заброшенная стоянка", "enemies": [14, 15], "seed": 23},
+    {"name": "Старый мост", "enemies": [16, 17], "seed": 76}
+  ],
+  "unarmed": {
+    "id": "p4:ability.punch", "operation": "damage", "mode": "melee",
+    "ap_cost": 4, "fatigue_cost": 6, "range_min": 1, "range_max": 1,
+    "damage_min": 3, "damage_max": 6, "hit_bonus": 0, "armor_percent": 50,
+    "penetration_percent": 10, "ammo_cost": 0, "shield_damage": 0,
+    "melee_bonus": 0, "ranged_bonus": 0
+  },
+  "unarmed_awards": {"p1:stat.strength": 30, "p1:skill.melee": 40}
+}

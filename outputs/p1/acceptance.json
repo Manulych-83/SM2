@@ -1,0 +1,139 @@
+{
+  "version": "0.5.1-p1",
+  "clean_acceptance": {
+    "clean_root": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451",
+    "no_import_cache_before_checks": true,
+    "engine": "C:\\Users\\Alexandr\\AppData\\Local\\Microsoft\\WinGet\\Packages\\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\\Godot_v4.7.2-stable_win64.exe",
+    "checks_exit": 0,
+    "check_log": "E:\\GPT\\SM2\\.local\\p1\\checks-20260910-213643-451.log",
+    "ui_tested": false,
+    "checks": 5524,
+    "suites": [
+      "p1_progression",
+      "unit",
+      "integration",
+      "scenario",
+      "spatial",
+      "m2_content",
+      "m2_movement",
+      "turn_scheduler",
+      "turn_content",
+      "m2_snapshot",
+      "m2_turns",
+      "m2_turn_storage",
+      "m2_attacks",
+      "m2_combat_storage",
+      "m2_consequences",
+      "m2_consequence_storage",
+      "m2_ai",
+      "m4_effects",
+      "m4_magic",
+      "m4_ability_ai",
+      "m4_areas"
+    ],
+    "test_report": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\logs\\checks-20260910-213643-940-f9a74925.json",
+    "failures": [],
+    "ui_contracts_exit": 0,
+    "ui_contracts_log": "E:\\GPT\\SM2\\.local\\p1\\ui-contracts-20260910-213643-451.log",
+    "ui_contracts_report": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\ui-contract-report\\report.json",
+    "effects_ui_contracts_exit": 0,
+    "effects_ui_contracts_report": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\effects-ui-contract-report\\report.json",
+    "magic_ui_contracts_exit": 0,
+    "magic_ui_contracts_report": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\magic-ui-contract-report\\report.json",
+    "ai_ui_contracts_exit": 0,
+    "ai_ui_contracts_report": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\ai-ui-contract-report\\report.json",
+    "area_ui_contracts_exit": 0,
+    "area_ui_contracts_report": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\area-ui-contract-report\\report.json",
+    "progress_ui_exit": 0,
+    "progress_ui_report": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\progress-ui-report\\report.json",
+    "passed": true
+  },
+  "rendered_ui": {
+    "checks": 285,
+    "failures": [],
+    "passed": true,
+    "rendered": true
+  },
+  "ui_contracts": [
+    {
+      "checks": 332,
+      "passed": true,
+      "path": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\ui-contract-report\\report.json",
+      "rendered": false,
+      "name": "ui_contracts_report"
+    },
+    {
+      "checks": 180,
+      "passed": true,
+      "path": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\effects-ui-contract-report\\report.json",
+      "rendered": false,
+      "name": "effects_ui_contracts_report"
+    },
+    {
+      "checks": 181,
+      "passed": true,
+      "path": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\magic-ui-contract-report\\report.json",
+      "rendered": false,
+      "name": "magic_ui_contracts_report"
+    },
+    {
+      "checks": 77,
+      "passed": true,
+      "path": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\ai-ui-contract-report\\report.json",
+      "rendered": false,
+      "name": "ai_ui_contracts_report"
+    },
+    {
+      "checks": 167,
+      "passed": true,
+      "path": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\area-ui-contract-report\\report.json",
+      "rendered": false,
+      "name": "area_ui_contracts_report"
+    },
+    {
+      "checks": 271,
+      "passed": true,
+      "path": "E:\\GPT\\SM2\\.local\\p1\\clean-20260910-213643-451\\.local\\progress-ui-report\\report.json",
+      "rendered": false,
+      "name": "progress_ui_report"
+    }
+  ],
+  "native_first": {
+    "exit_code": 0,
+    "passed": true,
+    "runtime": "E:\\GPT\\SM2\\.local\\p1\\exe-runtime",
+    "exe_sha256": "216CAC23B0F7E53F16117F5A0CC34FB0629F0E81D2F682B39DEBE8CCAD3322F4"
+  },
+  "native_restart": {
+    "passed": true,
+    "exit_code": 0,
+    "exe_sha256": "216CAC23B0F7E53F16117F5A0CC34FB0629F0E81D2F682B39DEBE8CCAD3322F4",
+    "runtime": "E:\\GPT\\SM2\\.local\\p1\\exe-runtime"
+  },
+  "native_save_sha256_before": "01B10915A47FCC1183CA117687336EF4EF79D63A3892A3864FFD1DC4987A7A4F",
+  "native_save_sha256_after": "01B10915A47FCC1183CA117687336EF4EF79D63A3892A3864FFD1DC4987A7A4F",
+  "native_save_byte_identical": true,
+  "cmd_start": {
+    "scope": "startup smoke; native interactions tested separately",
+    "exit_code": 0,
+    "log": ".local/logs/launch-20260910-214408-896-dd69552b.log",
+    "arguments": "-RuntimeRoot .local/p1/cmd-runtime -NoDialogs -ExtraArguments --quit"
+  },
+  "baseline_existing_changes": [
+    "E:\\GPT\\SM2\\src\\presentation\\sm2_main.gd",
+    "E:\\GPT\\SM2\\tests\\test_runner.gd",
+    "E:\\GPT\\SM2\\tools\\run_checks.ps1",
+    "E:\\GPT\\SM2\\tools\\run_ui_checks.ps1",
+    "E:\\GPT\\SM2\\project.godot",
+    "E:\\GPT\\SM2\\export_presets.cfg"
+  ],
+  "unexpected_existing_changes": [],
+  "accepted_source_files": 370,
+  "accepted_source_differences": [],
+  "player_runtime_files_before": 15,
+  "player_runtime_files_after": 15,
+  "player_runtime_changes": [],
+  "player_runtime_new_files": [],
+  "exe_sha256": "216CAC23B0F7E53F16117F5A0CC34FB0629F0E81D2F682B39DEBE8CCAD3322F4",
+  "passed": true
+}

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Sm2AbilityContent" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/content/sm2_ability_content.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "core:ability.venom"
+display_name = "Отравление"
+operation = "status"
+ap_cost = 2
+fatigue_cost = 2
+range = 1
+damage_bonus = 0
+status_id = "core:status.poison"
+summon_template_id = ""

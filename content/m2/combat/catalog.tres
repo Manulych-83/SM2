@@ -1,0 +1,265 @@
+[gd_resource type="Resource" script_class="Sm2CombatContentManifest" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/content/combat/sm2_combat_content_manifest.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+data = {
+	"version": "m2.attacks.1",
+	"profiles": [
+		{
+			"id": "m2:profile.shieldbearer",
+			"body_id": "m2:body.human",
+			"hp_max": 65,
+			"melee_skill": 65,
+			"ranged_skill": 30,
+			"melee_defense": 10,
+			"ranged_defense": 5,
+			"resolve": 50,
+			"morale_immune": false
+		},
+		{
+			"id": "m2:profile.fighter",
+			"body_id": "m2:body.human",
+			"hp_max": 60,
+			"melee_skill": 70,
+			"ranged_skill": 30,
+			"melee_defense": 5,
+			"ranged_defense": 5,
+			"resolve": 45,
+			"morale_immune": false
+		},
+		{
+			"id": "m2:profile.archer",
+			"body_id": "m2:body.human",
+			"hp_max": 50,
+			"melee_skill": 40,
+			"ranged_skill": 65,
+			"melee_defense": 0,
+			"ranged_defense": 10,
+			"resolve": 40,
+			"morale_immune": false
+		}
+	],
+	"bodies": [
+		{
+			"id": "m2:body.human",
+			"zones": [
+				{
+					"id": "head",
+					"weight": 25,
+					"hp_percent": 150
+				},
+				{
+					"id": "body",
+					"weight": 75,
+					"hp_percent": 100
+				}
+			]
+		}
+	],
+	"equipment": [
+		{
+			"id": "m2:equipment.sword",
+			"slot": "weapon",
+			"capacity": 0,
+			"ammo": 0,
+			"melee_defense": 0,
+			"ranged_defense": 0,
+			"two_handed": false,
+			"abilities": [
+				"m2:ability.sword_strike"
+			]
+		},
+		{
+			"id": "m2:equipment.spear",
+			"slot": "weapon",
+			"capacity": 0,
+			"ammo": 0,
+			"melee_defense": 0,
+			"ranged_defense": 0,
+			"two_handed": false,
+			"abilities": [
+				"m2:ability.spear_thrust"
+			]
+		},
+		{
+			"id": "m2:equipment.axe",
+			"slot": "weapon",
+			"capacity": 0,
+			"ammo": 0,
+			"melee_defense": 0,
+			"ranged_defense": 0,
+			"two_handed": false,
+			"abilities": [
+				"m2:ability.axe_strike",
+				"m2:ability.split_shield"
+			]
+		},
+		{
+			"id": "m2:equipment.bow",
+			"slot": "weapon",
+			"capacity": 0,
+			"ammo": 8,
+			"melee_defense": 0,
+			"ranged_defense": 0,
+			"two_handed": true,
+			"abilities": [
+				"m2:ability.bow_shot"
+			]
+		},
+		{
+			"id": "m2:equipment.shield",
+			"slot": "shield",
+			"capacity": 24,
+			"ammo": 0,
+			"melee_defense": 15,
+			"ranged_defense": 15,
+			"two_handed": false,
+			"abilities": [
+				"m2:ability.shieldwall"
+			]
+		},
+		{
+			"id": "m2:equipment.padded",
+			"slot": "body",
+			"capacity": 50,
+			"ammo": 0,
+			"melee_defense": 0,
+			"ranged_defense": 0,
+			"two_handed": false,
+			"abilities": []
+		},
+		{
+			"id": "m2:equipment.mail",
+			"slot": "body",
+			"capacity": 100,
+			"ammo": 0,
+			"melee_defense": 0,
+			"ranged_defense": 0,
+			"two_handed": false,
+			"abilities": []
+		},
+		{
+			"id": "m2:equipment.helmet",
+			"slot": "head",
+			"capacity": 40,
+			"ammo": 0,
+			"melee_defense": 0,
+			"ranged_defense": 0,
+			"two_handed": false,
+			"abilities": []
+		}
+	],
+	"abilities": [
+		{
+			"id": "m2:ability.sword_strike",
+			"operation": "damage",
+			"mode": "melee",
+			"ap_cost": 4,
+			"fatigue_cost": 10,
+			"range_min": 1,
+			"range_max": 1,
+			"damage_min": 30,
+			"damage_max": 40,
+			"hit_bonus": 10,
+			"armor_percent": 100,
+			"penetration_percent": 20,
+			"ammo_cost": 0,
+			"shield_damage": 0,
+			"melee_bonus": 0,
+			"ranged_bonus": 0
+		},
+		{
+			"id": "m2:ability.spear_thrust",
+			"operation": "damage",
+			"mode": "melee",
+			"ap_cost": 4,
+			"fatigue_cost": 12,
+			"range_min": 1,
+			"range_max": 1,
+			"damage_min": 25,
+			"damage_max": 35,
+			"hit_bonus": 20,
+			"armor_percent": 80,
+			"penetration_percent": 20,
+			"ammo_cost": 0,
+			"shield_damage": 0,
+			"melee_bonus": 0,
+			"ranged_bonus": 0
+		},
+		{
+			"id": "m2:ability.axe_strike",
+			"operation": "damage",
+			"mode": "melee",
+			"ap_cost": 4,
+			"fatigue_cost": 15,
+			"range_min": 1,
+			"range_max": 1,
+			"damage_min": 35,
+			"damage_max": 45,
+			"hit_bonus": 0,
+			"armor_percent": 120,
+			"penetration_percent": 25,
+			"ammo_cost": 0,
+			"shield_damage": 0,
+			"melee_bonus": 0,
+			"ranged_bonus": 0
+		},
+		{
+			"id": "m2:ability.bow_shot",
+			"operation": "damage",
+			"mode": "ranged",
+			"ap_cost": 4,
+			"fatigue_cost": 15,
+			"range_min": 2,
+			"range_max": 6,
+			"damage_min": 30,
+			"damage_max": 40,
+			"hit_bonus": 0,
+			"armor_percent": 60,
+			"penetration_percent": 35,
+			"ammo_cost": 1,
+			"shield_damage": 0,
+			"melee_bonus": 0,
+			"ranged_bonus": 0
+		},
+		{
+			"id": "m2:ability.split_shield",
+			"operation": "shield_break",
+			"mode": "melee",
+			"ap_cost": 4,
+			"fatigue_cost": 15,
+			"range_min": 1,
+			"range_max": 1,
+			"damage_min": 0,
+			"damage_max": 0,
+			"hit_bonus": 0,
+			"armor_percent": 0,
+			"penetration_percent": 0,
+			"ammo_cost": 0,
+			"shield_damage": 16,
+			"melee_bonus": 0,
+			"ranged_bonus": 0
+		},
+		{
+			"id": "m2:ability.shieldwall",
+			"operation": "shieldwall",
+			"mode": "self",
+			"ap_cost": 3,
+			"fatigue_cost": 20,
+			"range_min": 0,
+			"range_max": 0,
+			"damage_min": 0,
+			"damage_max": 0,
+			"hit_bonus": 0,
+			"armor_percent": 0,
+			"penetration_percent": 0,
+			"ammo_cost": 0,
+			"shield_damage": 0,
+			"melee_bonus": 15,
+			"ranged_bonus": 25
+		}
+	]
+}
+

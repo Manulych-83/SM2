@@ -1,0 +1,99 @@
+[gd_resource type="Resource" script_class="Sm2TurnContentManifest" load_steps=20 format=3]
+
+[ext_resource type="Script" path="res://src/content/turns/sm2_turn_content_manifest.gd" id="manifest"]
+[ext_resource type="Script" path="res://src/content/turns/sm2_turn_profile_content.gd" id="profile"]
+[ext_resource type="Script" path="res://src/content/turns/sm2_turn_equipment_content.gd" id="equipment"]
+[ext_resource type="Script" path="res://src/content/turns/sm2_turn_loadout_content.gd" id="loadout"]
+
+[sub_resource type="Resource" id="profile_shieldbearer"]
+script = ExtResource("profile")
+id = "m2:profile.shieldbearer"
+ap_max = 9
+fatigue_base = 100
+initiative_base = 110
+
+[sub_resource type="Resource" id="profile_fighter"]
+script = ExtResource("profile")
+id = "m2:profile.fighter"
+ap_max = 9
+fatigue_base = 100
+initiative_base = 115
+
+[sub_resource type="Resource" id="profile_archer"]
+script = ExtResource("profile")
+id = "m2:profile.archer"
+ap_max = 9
+fatigue_base = 90
+initiative_base = 120
+
+[sub_resource type="Resource" id="equipment_sword"]
+script = ExtResource("equipment")
+id = "m2:equipment.sword"
+load_penalty = 5
+
+[sub_resource type="Resource" id="equipment_spear"]
+script = ExtResource("equipment")
+id = "m2:equipment.spear"
+load_penalty = 6
+
+[sub_resource type="Resource" id="equipment_axe"]
+script = ExtResource("equipment")
+id = "m2:equipment.axe"
+load_penalty = 7
+
+[sub_resource type="Resource" id="equipment_bow"]
+script = ExtResource("equipment")
+id = "m2:equipment.bow"
+load_penalty = 4
+
+[sub_resource type="Resource" id="equipment_shield"]
+script = ExtResource("equipment")
+id = "m2:equipment.shield"
+load_penalty = 10
+
+[sub_resource type="Resource" id="equipment_padded"]
+script = ExtResource("equipment")
+id = "m2:equipment.padded"
+load_penalty = 8
+
+[sub_resource type="Resource" id="equipment_mail"]
+script = ExtResource("equipment")
+id = "m2:equipment.mail"
+load_penalty = 15
+
+[sub_resource type="Resource" id="equipment_helmet"]
+script = ExtResource("equipment")
+id = "m2:equipment.helmet"
+load_penalty = 4
+
+[sub_resource type="Resource" id="loadout_spear_guard"]
+script = ExtResource("loadout")
+id = "m2:loadout.spear_guard"
+profile_id = "m2:profile.shieldbearer"
+equipment_ids = Array[String](["m2:equipment.spear", "m2:equipment.shield", "m2:equipment.mail", "m2:equipment.helmet"])
+
+[sub_resource type="Resource" id="loadout_sword_fighter"]
+script = ExtResource("loadout")
+id = "m2:loadout.sword_fighter"
+profile_id = "m2:profile.fighter"
+equipment_ids = Array[String](["m2:equipment.sword", "m2:equipment.shield", "m2:equipment.padded", "m2:equipment.helmet"])
+
+[sub_resource type="Resource" id="loadout_axe_fighter"]
+script = ExtResource("loadout")
+id = "m2:loadout.axe_fighter"
+profile_id = "m2:profile.fighter"
+equipment_ids = Array[String](["m2:equipment.axe", "m2:equipment.shield", "m2:equipment.mail", "m2:equipment.helmet"])
+
+[sub_resource type="Resource" id="loadout_bow_archer"]
+script = ExtResource("loadout")
+id = "m2:loadout.bow_archer"
+profile_id = "m2:profile.archer"
+equipment_ids = Array[String](["m2:equipment.bow", "m2:equipment.padded", "m2:equipment.helmet"])
+
+[resource]
+resource_name = "M2.2 — профили и нагрузка экипировки"
+script = ExtResource("manifest")
+version = "sm2.m2.turn_content.1"
+profiles = Array[ExtResource("profile")]([SubResource("profile_shieldbearer"), SubResource("profile_fighter"), SubResource("profile_archer")])
+equipment = Array[ExtResource("equipment")]([SubResource("equipment_sword"), SubResource("equipment_spear"), SubResource("equipment_axe"), SubResource("equipment_bow"), SubResource("equipment_shield"), SubResource("equipment_padded"), SubResource("equipment_mail"), SubResource("equipment_helmet")])
+loadouts = Array[ExtResource("loadout")]([SubResource("loadout_spear_guard"), SubResource("loadout_sword_fighter"), SubResource("loadout_axe_fighter"), SubResource("loadout_bow_archer")])

@@ -1,0 +1,194 @@
+[gd_resource type="Resource" script_class="Sm2FieldManifest" load_steps=26 format=3]
+
+[ext_resource type="Script" path="res://src/content/spatial/sm2_field_manifest.gd" id="manifest_type"]
+[ext_resource type="Script" path="res://src/content/spatial/sm2_surface_content.gd" id="surface_type"]
+[ext_resource type="Script" path="res://src/content/spatial/sm2_cell_override_content.gd" id="tile_type"]
+[ext_resource type="Script" path="res://src/content/spatial/sm2_spawn_marker_content.gd" id="spawn_type"]
+[ext_resource type="Resource" path="res://content/m2/surfaces/ground.tres" id="ground"]
+[ext_resource type="Resource" path="res://content/m2/surfaces/rough.tres" id="rough"]
+
+[sub_resource type="Resource" id="tile_0"]
+script = ExtResource("tile_type")
+q = 4
+r = 2
+surface_id = "m2:surface.rough"
+elevation = 0
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_1"]
+script = ExtResource("tile_type")
+q = 4
+r = 3
+surface_id = "m2:surface.rough"
+elevation = 0
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_2"]
+script = ExtResource("tile_type")
+q = 5
+r = 3
+surface_id = "m2:surface.rough"
+elevation = 0
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_3"]
+script = ExtResource("tile_type")
+q = 6
+r = 3
+surface_id = "m2:surface.rough"
+elevation = 0
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_4"]
+script = ExtResource("tile_type")
+q = 6
+r = 4
+surface_id = "m2:surface.rough"
+elevation = 0
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_5"]
+script = ExtResource("tile_type")
+q = 5
+r = 1
+surface_id = "m2:surface.ground"
+elevation = 0
+passable = false
+opaque = true
+
+[sub_resource type="Resource" id="tile_6"]
+script = ExtResource("tile_type")
+q = 5
+r = 5
+surface_id = "m2:surface.ground"
+elevation = 0
+passable = false
+opaque = true
+
+[sub_resource type="Resource" id="tile_7"]
+script = ExtResource("tile_type")
+q = 2
+r = 1
+surface_id = "m2:surface.ground"
+elevation = 1
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_8"]
+script = ExtResource("tile_type")
+q = 2
+r = 2
+surface_id = "m2:surface.ground"
+elevation = 1
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_9"]
+script = ExtResource("tile_type")
+q = 3
+r = 1
+surface_id = "m2:surface.ground"
+elevation = 1
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_10"]
+script = ExtResource("tile_type")
+q = 8
+r = 4
+surface_id = "m2:surface.ground"
+elevation = 1
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_11"]
+script = ExtResource("tile_type")
+q = 8
+r = 5
+surface_id = "m2:surface.ground"
+elevation = 1
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="tile_12"]
+script = ExtResource("tile_type")
+q = 7
+r = 5
+surface_id = "m2:surface.ground"
+elevation = 1
+passable = true
+opaque = false
+
+[sub_resource type="Resource" id="spawn_1"]
+script = ExtResource("spawn_type")
+id = 1
+side = "company"
+owner = "company"
+controller = "player"
+q = 1
+r = 2
+
+[sub_resource type="Resource" id="spawn_2"]
+script = ExtResource("spawn_type")
+id = 2
+side = "company"
+owner = "company"
+controller = "player"
+q = 1
+r = 3
+
+[sub_resource type="Resource" id="spawn_3"]
+script = ExtResource("spawn_type")
+id = 3
+side = "company"
+owner = "company"
+controller = "player"
+q = 1
+r = 4
+
+[sub_resource type="Resource" id="spawn_4"]
+script = ExtResource("spawn_type")
+id = 4
+side = "opposition"
+owner = "opposition"
+controller = "ai"
+q = 9
+r = 2
+
+[sub_resource type="Resource" id="spawn_5"]
+script = ExtResource("spawn_type")
+id = 5
+side = "opposition"
+owner = "opposition"
+controller = "ai"
+q = 9
+r = 3
+
+[sub_resource type="Resource" id="spawn_6"]
+script = ExtResource("spawn_type")
+id = 6
+side = "opposition"
+owner = "opposition"
+controller = "ai"
+q = 9
+r = 4
+
+[resource]
+resource_name = "M2.1 — поле стычки 3 на 3"
+script = ExtResource("manifest_type")
+version = "sm2.m2.field.1"
+scenario_id = "m2:scenario.skirmish_3x3"
+seed = 20260909
+width = 11
+height = 7
+default_surface_id = "m2:surface.ground"
+default_elevation = 0
+surfaces = Array[ExtResource("surface_type")]([ExtResource("ground"), ExtResource("rough")])
+tiles = Array[ExtResource("tile_type")]([SubResource("tile_0"), SubResource("tile_1"), SubResource("tile_2"), SubResource("tile_3"), SubResource("tile_4"), SubResource("tile_5"), SubResource("tile_6"), SubResource("tile_7"), SubResource("tile_8"), SubResource("tile_9"), SubResource("tile_10"), SubResource("tile_11"), SubResource("tile_12")])
+spawns = Array[ExtResource("spawn_type")]([SubResource("spawn_1"), SubResource("spawn_2"), SubResource("spawn_3"), SubResource("spawn_4"), SubResource("spawn_5"), SubResource("spawn_6")])
+

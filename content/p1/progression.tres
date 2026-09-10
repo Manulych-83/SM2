@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Sm2ProgressManifest" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/content/progression/sm2_progress_manifest.gd" id="1"]
+[resource]
+script = ExtResource("1")
+version = "sm2.p1.content.1"
+tracks = Array[Dictionary]([{"id":"p1:stat.strength","name":"Сила","kind":"attribute","base_level":10,"step":100,"growth":50},{"id":"p1:skill.melee","name":"Ближний бой","kind":"skill","base_level":1,"step":100,"growth":50},{"id":"p1:skill.psionics","name":"Псионика","kind":"skill","base_level":0,"step":100,"growth":50}])
+nodes = Array[Dictionary]([{"id":"p1:node.strength_1","name":"Крепкая основа","track_id":"p1:stat.strength","min_level":11,"cost":70,"bonus":1,"requires":[]},{"id":"p1:node.strength_2","name":"Развитая мускулатура","track_id":"p1:stat.strength","min_level":12,"cost":150,"bonus":2,"requires":["p1:node.strength_1"]},{"id":"p1:node.melee_1","name":"Постановка удара","track_id":"p1:skill.melee","min_level":2,"cost":60,"bonus":2,"requires":[]},{"id":"p1:node.melee_2","name":"Связка ударов","track_id":"p1:skill.melee","min_level":3,"cost":120,"bonus":2,"requires":["p1:node.melee_1"]}])
+activities = Array[Dictionary]([{"id":"p1:activity.sword_drill","name":"Упражняться с мечом","operation":"sword_exercise","seconds":10,"awards":[{"track_id":"p1:stat.strength","amount":30},{"track_id":"p1:skill.melee","amount":40}]}])
+contributions = Array[Dictionary]([{"source":"p1:stat.strength","target":"p1:skill.melee","numerator":1,"denominator":2}])
+knowledge = Array[Dictionary]([{"id":"p1:knowledge.bandaging","name":"Основы перевязки"}])

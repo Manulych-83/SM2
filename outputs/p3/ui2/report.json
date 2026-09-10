@@ -1,0 +1,11 @@
+{
+	"checks": 143,
+	"failures": [
+		"death leaves Soul without body | actual=2 expected=0",
+		"enhanced corpse visually unavailable",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: death leaves Soul without body | actual=2 expected=0",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: enhanced corpse visually unavailable"
+	],
+	"passed": false,
+	"rendered": true
+}

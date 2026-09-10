@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="Sm2TurnScenarioContent" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://src/content/turns/sm2_turn_scenario_content.gd" id="scenario"]
+[ext_resource type="Script" path="res://src/content/turns/sm2_turn_assignment_content.gd" id="assignment"]
+[ext_resource type="Resource" path="res://content/m2/skirmish_field.tres" id="field"]
+[ext_resource type="Resource" path="res://content/m2/turns/catalog.tres" id="catalog"]
+
+[sub_resource type="Resource" id="actor_1"]
+script = ExtResource("assignment")
+actor_id = 1
+loadout_id = "m2:loadout.spear_guard"
+
+[sub_resource type="Resource" id="actor_2"]
+script = ExtResource("assignment")
+actor_id = 2
+loadout_id = "m2:loadout.sword_fighter"
+
+[sub_resource type="Resource" id="actor_3"]
+script = ExtResource("assignment")
+actor_id = 3
+loadout_id = "m2:loadout.bow_archer"
+
+[sub_resource type="Resource" id="actor_4"]
+script = ExtResource("assignment")
+actor_id = 4
+loadout_id = "m2:loadout.axe_fighter"
+
+[sub_resource type="Resource" id="actor_5"]
+script = ExtResource("assignment")
+actor_id = 5
+loadout_id = "m2:loadout.spear_guard"
+
+[sub_resource type="Resource" id="actor_6"]
+script = ExtResource("assignment")
+actor_id = 6
+loadout_id = "m2:loadout.bow_archer"
+
+[resource]
+resource_name = "M2.2 — очередь стычки 3 на 3"
+script = ExtResource("scenario")
+battle_id = "m2:battle.skirmish_3x3"
+field_manifest = ExtResource("field")
+catalog_manifest = ExtResource("catalog")
+round_limit = 100
+assignments = Array[ExtResource("assignment")]([SubResource("actor_1"), SubResource("actor_2"), SubResource("actor_3"), SubResource("actor_4"), SubResource("actor_5"), SubResource("actor_6")])

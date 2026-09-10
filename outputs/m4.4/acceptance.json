@@ -1,0 +1,123 @@
+{
+  "version": "0.4.4-m4.4",
+  "passed": true,
+  "acceptance": {
+    "clean_root": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093",
+    "no_import_cache_before_checks": true,
+    "engine": "C:\\Users\\Alexandr\\AppData\\Local\\Microsoft\\WinGet\\Packages\\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\\Godot_v4.7.2-stable_win64.exe",
+    "checks_exit": 0,
+    "check_log": "E:\\GPT\\SM2\\.local\\m4.4\\checks-20260910-202713-093.log",
+    "ui_tested": false,
+    "checks": 5315,
+    "suites": [
+      "unit",
+      "integration",
+      "scenario",
+      "spatial",
+      "m2_content",
+      "m2_movement",
+      "turn_scheduler",
+      "turn_content",
+      "m2_snapshot",
+      "m2_turns",
+      "m2_turn_storage",
+      "m2_attacks",
+      "m2_combat_storage",
+      "m2_consequences",
+      "m2_consequence_storage",
+      "m2_ai",
+      "m4_effects",
+      "m4_magic",
+      "m4_ability_ai",
+      "m4_areas"
+    ],
+    "test_report": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093\\.local\\logs\\checks-20260910-202714-546-1faac038.json",
+    "failures": [],
+    "demo_exit": 0,
+    "demo_log": "E:\\GPT\\SM2\\.local\\m4.4\\demo-20260910-202713-093.log",
+    "demo_report": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093\\.local\\logs\\battle-demo-20260910-203036-902-363d5b3f.json",
+    "ui_contracts_exit": 0,
+    "ui_contracts_log": "E:\\GPT\\SM2\\.local\\m4.4\\ui-contracts-20260910-202713-093.log",
+    "ui_contracts_report": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093\\.local\\ui-contract-report\\report.json",
+    "effects_ui_contracts_exit": 0,
+    "effects_ui_contracts_report": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093\\.local\\effects-ui-contract-report\\report.json",
+    "magic_ui_contracts_exit": 0,
+    "magic_ui_contracts_report": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093\\.local\\magic-ui-contract-report\\report.json",
+    "ai_ui_contracts_exit": 0,
+    "ai_ui_contracts_report": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093\\.local\\ai-ui-contract-report\\report.json",
+    "area_ui_contracts_exit": 0,
+    "area_ui_contracts_report": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093\\.local\\area-ui-contract-report\\report.json",
+    "passed": true
+  },
+  "audit": {
+    "accepted_copy": "E:\\GPT\\SM2\\.local\\m4.4\\clean-20260910-202713-093",
+    "tested_files": 335,
+    "mismatches": [],
+    "player_before": 13,
+    "player_after": 13,
+    "player_changes": [],
+    "exe_sha256": "6E6C170CB09307A09A1588E65B6D4B1BF2DADC451E0E90FBC6014795D204A3B1",
+    "passed": true
+  },
+  "rendered_ui": [
+    {
+      "mode": "ui1",
+      "report": "outputs/m4.4/ui1/report.json",
+      "checks": 177,
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "mode": "magic-ui",
+      "report": "outputs/m4.4/magic-ui/report.json",
+      "checks": 193,
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "mode": "effects-ui",
+      "report": "outputs/m4.4/effects-ui/report.json",
+      "checks": 192,
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "mode": "ai-ui",
+      "report": "outputs/m4.4/ai-ui/report.json",
+      "checks": 80,
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "mode": "m3-ui",
+      "report": "outputs/m4.4/m3-ui/report.json",
+      "checks": 343,
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "mode": "m1-ui",
+      "report": "outputs/m4.4/m1-ui/report.json",
+      "checks": 115,
+      "passed": true,
+      "rendered": null
+    }
+  ],
+  "native": {
+    "runtime": "E:\\GPT\\SM2\\.local\\m4.4\\exe-runtime",
+    "passed": true,
+    "exe_sha256": "6E6C170CB09307A09A1588E65B6D4B1BF2DADC451E0E90FBC6014795D204A3B1",
+    "exit_code": 0
+  },
+  "restart": {
+    "runtime": "E:\\GPT\\SM2\\.local\\m4.4\\exe-runtime",
+    "exe_sha256": "6E6C170CB09307A09A1588E65B6D4B1BF2DADC451E0E90FBC6014795D204A3B1",
+    "passed": true,
+    "exit_code": 0
+  },
+  "restart_snapshot": {
+    "before": "8E403A5ECDE34373E280BCE873B9CE94854C0CB0254A3EBDBE8EE7C2D429F28F",
+    "after": "8E403A5ECDE34373E280BCE873B9CE94854C0CB0254A3EBDBE8EE7C2D429F28F",
+    "equal": true
+  }
+}

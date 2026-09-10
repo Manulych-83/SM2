@@ -1,0 +1,145 @@
+{
+    "version":  "0.5.4-p4.1",
+    "passed":  true,
+    "clean_root":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772",
+    "core_checks":  6523,
+    "core_suites":  [
+                        "p4_journey",
+                        "p3_world",
+                        "p2_development",
+                        "p1_progression",
+                        "unit",
+                        "integration",
+                        "scenario",
+                        "spatial",
+                        "m2_content",
+                        "m2_movement",
+                        "turn_scheduler",
+                        "turn_content",
+                        "m2_snapshot",
+                        "m2_turns",
+                        "m2_turn_storage",
+                        "m2_attacks",
+                        "m2_combat_storage",
+                        "m2_consequences",
+                        "m2_consequence_storage",
+                        "m2_ai",
+                        "m4_effects",
+                        "m4_magic",
+                        "m4_ability_ai",
+                        "m4_areas"
+                    ],
+    "core_report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\logs\\checks-20260911-002123-170-36ade2e6.json",
+    "core_command":  "powershell -NoProfile -ExecutionPolicy Bypass -File .local/p4_1/acceptance.ps1 -Suite all",
+    "old_ui":  [
+                   {
+                       "suite":  "ui_contracts_report",
+                       "report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\ui-contract-report\\report.json",
+                       "checks":  338,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "effects_ui_contracts_report",
+                       "report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\effects-ui-contract-report\\report.json",
+                       "checks":  192,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "magic_ui_contracts_report",
+                       "report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\magic-ui-contract-report\\report.json",
+                       "checks":  193,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "ai_ui_contracts_report",
+                       "report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\ai-ui-contract-report\\report.json",
+                       "checks":  83,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "area_ui_contracts_report",
+                       "report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\area-ui-contract-report\\report.json",
+                       "checks":  179,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "progress_ui_report",
+                       "report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\progress-ui-report\\report.json",
+                       "checks":  283,
+                       "passed":  true
+                   },
+                   {
+                       "suite":  "development_ui_report",
+                       "report":  "E:\\GPT\\SM2\\.local\\p4_1\\clean-20260911-002122-772\\.local\\development-ui-report\\report.json",
+                       "checks":  410,
+                       "passed":  true
+                   }
+               ],
+    "p3_ui":  {
+                  "checks":  192,
+                  "failures":  [
+
+                               ],
+                  "passed":  true,
+                  "rendered":  false
+              },
+    "p4_headless_ui":  {
+                           "checks":  201,
+                           "failures":  [
+
+                                        ],
+                           "passed":  true,
+                           "rendered":  false
+                       },
+    "p4_rendered_ui":  {
+                           "checks":  217,
+                           "failures":  [
+
+                                        ],
+                           "passed":  true,
+                           "rendered":  true
+                       },
+    "rendered_report":  "outputs/p4_1/ui3/report.json",
+    "rendered_frames":  8,
+    "native_scenario":  "Final EXE: load inventory, enter battle without sword, move twice, punch, save, close, restart, load active encounter, save again; files byte-identical.",
+    "native_roundtrip":  {
+                             "equal":  true,
+                             "exe_sha256":  "3458743CA03299559935C8D5BC9279D2200DC8A0F5FB89E87FFB72A63C780C77",
+                             "after":  "2575F7821A69AE5B18A932375CD9CDE0FD81E53D1EDB70937B6765BCA9F0DED5",
+                             "before":  "2575F7821A69AE5B18A932375CD9CDE0FD81E53D1EDB70937B6765BCA9F0DED5"
+                         },
+    "native_launch":  {
+                          "runtime":  "E:\\GPT\\SM2\\.local\\p4_1\\exe-runtime",
+                          "exit_code":  0,
+                          "exe_sha256":  "3458743CA03299559935C8D5BC9279D2200DC8A0F5FB89E87FFB72A63C780C77",
+                          "passed":  true
+                      },
+    "native_restart":  {
+                           "runtime":  "E:\\GPT\\SM2\\.local\\p4_1\\exe-runtime",
+                           "exit_code":  0,
+                           "exe_sha256":  "3458743CA03299559935C8D5BC9279D2200DC8A0F5FB89E87FFB72A63C780C77",
+                           "passed":  true
+                       },
+    "native_fixture":  ".local/p4_1/native-final-before-restart.json",
+    "exe":  "builds/SM2.exe",
+    "exe_sha256":  "3458743CA03299559935C8D5BC9279D2200DC8A0F5FB89E87FFB72A63C780C77",
+    "cmd_launch_log":  ".local/logs/launch-20260911-002526-180-13f08c7a.log",
+    "sources_checked":  425,
+    "configs_checked":  2,
+    "source_differences":  [
+
+                           ],
+    "user_runtime_before":  15,
+    "user_runtime_after":  15,
+    "user_runtime_changed":  [
+
+                             ],
+    "git_committed":  false,
+    "published":  false,
+    "limits":  [
+                   "Three authored encounters",
+                   "No anatomy, prosthetics, healing, repair or summons",
+                   "Bounded 4096-entry validation history; large campaign checkpointing deferred",
+                   "Punch values are prototype choices"
+               ]
+}

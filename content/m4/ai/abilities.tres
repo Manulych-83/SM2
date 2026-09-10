@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Sm2AiManifest" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/content/ai/sm2_ai_manifest.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+data = {"policy":"sm2.ai.abilities.1", "hp_weight":4, "armor_weight":1, "shield_threshold":16, "attempt_limit":16, "query_limit":200000, "mana_weight":25, "low_mana_weight":100, "mana_reserve":8, "defense_weight":150, "effect_horizon":3, "future_tick_percent":50}

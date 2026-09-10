@@ -1,0 +1,8 @@
+.godot/
+.local/
+work/
+artifacts/
+builds/
+*.tmp
+*.bak
+export_credentials.cfg

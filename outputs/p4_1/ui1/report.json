@@ -1,0 +1,13 @@
+{
+	"checks": 196,
+	"failures": [
+		"res://src/presentation/sm2_hex_board.gd:144 Sm2HexBoard._pawn: Invalid access to property or key 'definition_id' on a base object of type 'Dictionary'.",
+		"res://src/presentation/sm2_hex_board.gd:144 Sm2HexBoard._pawn: Invalid access to property or key 'definition_id' on a base object of type 'Dictionary'.",
+		"res://src/presentation/sm2_hex_board.gd:144 Sm2HexBoard._pawn: Invalid access to property or key 'definition_id' on a base object of type 'Dictionary'.",
+		"res://src/presentation/sm2_hex_board.gd:144 Sm2HexBoard._pawn: Invalid access to property or key 'definition_id' on a base object of type 'Dictionary'.",
+		"res://src/presentation/sm2_hex_board.gd:144 Sm2HexBoard._pawn: Invalid access to property or key 'definition_id' on a base object of type 'Dictionary'.",
+		"res://src/presentation/sm2_hex_board.gd:144 Sm2HexBoard._pawn: Invalid access to property or key 'definition_id' on a base object of type 'Dictionary'."
+	],
+	"passed": false,
+	"rendered": false
+}

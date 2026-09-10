@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Sm2MagicManifest" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/content/magic/sm2_magic_manifest.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+version = "sm2.m4.areas.content.1"
+spells = Array[Dictionary]([{
+"id": "m4:spell.arcane_bolt", "name": "Магическая стрела", "operation": "direct_hp_damage", "target_side": "enemy",
+"ap_cost": 4, "fatigue_cost": 6, "mana_cost": 8, "range_min": 1, "range_max": 4, "damage": 18, "channel": "arcane"
+},{"id":"m4:spell.arcane_burst","name":"Чародейский взрыв","operation":"area_hp_damage","target_side":"enemy","ap_cost":5,"fatigue_cost":10,"mana_cost":12,"range_min":1,"range_max":4,"damage":14,"channel":"arcane","radius":1}])
+profiles = Array[Dictionary]([
+{"id":"m2:loadout.spear_guard", "mana_max":24, "mana_per_round":4, "arcane_resistance":50, "spells":["m4:spell.arcane_bolt","m4:spell.arcane_burst"]},
+{"id":"m2:loadout.sword_fighter", "mana_max":24, "mana_per_round":4, "arcane_resistance":25, "spells":["m4:spell.arcane_bolt","m4:spell.arcane_burst"]},
+{"id":"m2:loadout.axe_fighter", "mana_max":24, "mana_per_round":4, "arcane_resistance":0, "spells":["m4:spell.arcane_bolt","m4:spell.arcane_burst"]},
+{"id":"m2:loadout.bow_archer", "mana_max":24, "mana_per_round":4, "arcane_resistance":0, "spells":["m4:spell.arcane_bolt","m4:spell.arcane_burst"]}
+])

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Sm2LifeManifest" load_steps=2 format=3]
+[ext_resource type="Script" path="res://src/content/world/sm2_life_manifest.gd" id="1"]
+[resource]
+script = ExtResource("1")
+specification = {
+"version":"sm2.p3.content.1",
+"bodies":[
+{"id":2,"name":"Первое тело героя","human":true,"enhanced":false,"prepared":false,"alive":true},
+{"id":4,"name":"Спутник","human":true,"enhanced":false,"prepared":false,"alive":true},
+{"id":8,"name":"Обычный человек","human":true,"enhanced":false,"prepared":true,"alive":false},
+{"id":9,"name":"Человек с имплантами","human":true,"enhanced":true,"prepared":true,"alive":false},
+{"id":10,"name":"Противник 1","human":true,"enhanced":false,"prepared":false,"alive":true},
+{"id":11,"name":"Противник 2","human":true,"enhanced":false,"prepared":false,"alive":true}
+]}

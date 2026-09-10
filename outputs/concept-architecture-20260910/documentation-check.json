@@ -1,0 +1,63 @@
+{
+  "scope": "documentation_only",
+  "passed": true,
+  "documents": [
+    {
+      "path": "README.md",
+      "lines": 52,
+      "sha256": "931CDE3EADECE1EE5D2EF328F0D916172A12247315E4AF3FC1704C21FC1EF251"
+    },
+    {
+      "path": "AGENTS.md",
+      "lines": 30,
+      "sha256": "08DBFB208F780D603BEEC64793872479CB3D6CC6039A3CAE8B2FB7FD038AA74D"
+    },
+    {
+      "path": "docs/WORLD_CONCEPT.md",
+      "lines": 110,
+      "sha256": "EE6453C33E7766C739DC199A84150C3676918124049372D81721B0A2CEE17233"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "lines": 109,
+      "sha256": "350851C53E1C800471ED03FA2B54FD4E5220B2CF17CA2B645BC1FA70D66D66FB"
+    },
+    {
+      "path": "docs/SOUL_BODY_PROGRESSION_ARCHITECTURE.md",
+      "lines": 211,
+      "sha256": "D3E9613A7397B931587C53BBCA010A659BE277F17016489DD3EC5A460CDDB56E"
+    },
+    {
+      "path": "docs/DEVELOPMENT_ROADMAP.md",
+      "lines": 118,
+      "sha256": "A6A122F850CF6FAA06236F7E31F66720A06405C069E756F76D231559FB7D787E"
+    },
+    {
+      "path": "docs/ARCHITECTURE_PLAN.md",
+      "lines": 717,
+      "sha256": "2E8C911F4E1120C8E8A38CD126AC327AAD98A8E27CE1743FDCC691772960BE2D"
+    },
+    {
+      "path": "docs/FILE_LAYOUT.md",
+      "lines": 33,
+      "sha256": "E7212E07E6961FFC6DC519C8DE55D2B75CE4067A6D6F57B094055F5E43565820"
+    }
+  ],
+  "local_links_checked": 58,
+  "document_problems": [],
+  "protected_files_checked": 353,
+  "protected_changes": [],
+  "protected_additions": [],
+  "modified_existing_documents": [
+    "E:\\GPT\\SM2\\docs\\ARCHITECTURE_PLAN.md",
+    "E:\\GPT\\SM2\\docs\\DECISIONS.md",
+    "E:\\GPT\\SM2\\docs\\FILE_LAYOUT.md",
+    "E:\\GPT\\SM2\\AGENTS.md",
+    "E:\\GPT\\SM2\\README.md"
+  ],
+  "unplanned_document_changes": [],
+  "game_tests_run": false,
+  "export_run": false,
+  "current_game_version": "0.4.4-m4.4",
+  "review": "Independent read-only review; unique world source IDs and purchase-spend consistency added."
+}

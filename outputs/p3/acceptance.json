@@ -1,0 +1,131 @@
+{
+    "version":  "0.5.3-p3",
+    "clean_acceptance":  {
+                             "clean_root":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802",
+                             "no_import_cache_before_checks":  true,
+                             "engine":  "C:\\Users\\Alexandr\\AppData\\Local\\Microsoft\\WinGet\\Packages\\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\\Godot_v4.7.2-stable_win64.exe",
+                             "checks_exit":  0,
+                             "check_log":  "E:\\GPT\\SM2\\.local\\p3\\checks-20260910-232832-802.log",
+                             "ui_tested":  false,
+                             "checks":  6240,
+                             "suites":  [
+                                            "p3_world",
+                                            "p2_development",
+                                            "p1_progression",
+                                            "unit",
+                                            "integration",
+                                            "scenario",
+                                            "spatial",
+                                            "m2_content",
+                                            "m2_movement",
+                                            "turn_scheduler",
+                                            "turn_content",
+                                            "m2_snapshot",
+                                            "m2_turns",
+                                            "m2_turn_storage",
+                                            "m2_attacks",
+                                            "m2_combat_storage",
+                                            "m2_consequences",
+                                            "m2_consequence_storage",
+                                            "m2_ai",
+                                            "m4_effects",
+                                            "m4_magic",
+                                            "m4_ability_ai",
+                                            "m4_areas"
+                                        ],
+                             "test_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\logs\\checks-20260910-232833-215-96bd7ba3.json",
+                             "failures":  [
+
+                                          ],
+                             "ui_contracts_exit":  0,
+                             "ui_contracts_log":  "E:\\GPT\\SM2\\.local\\p3\\ui-contracts-20260910-232832-802.log",
+                             "ui_contracts_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\ui-contract-report\\report.json",
+                             "effects_ui_contracts_exit":  0,
+                             "effects_ui_contracts_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\effects-ui-contract-report\\report.json",
+                             "magic_ui_contracts_exit":  0,
+                             "magic_ui_contracts_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\magic-ui-contract-report\\report.json",
+                             "ai_ui_contracts_exit":  0,
+                             "ai_ui_contracts_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\ai-ui-contract-report\\report.json",
+                             "area_ui_contracts_exit":  0,
+                             "area_ui_contracts_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\area-ui-contract-report\\report.json",
+                             "progress_ui_exit":  0,
+                             "progress_ui_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\progress-ui-report\\report.json",
+                             "development_ui_exit":  0,
+                             "development_ui_report":  "E:\\GPT\\SM2\\.local\\p3\\clean-20260910-232832-802\\.local\\development-ui-report\\report.json",
+                             "passed":  true
+                         },
+    "rendered_ui":  {
+                        "checks":  208,
+                        "failures":  [
+
+                                     ],
+                        "passed":  true,
+                        "rendered":  true
+                    },
+    "headless_p3_ui":  {
+                           "checks":  190,
+                           "failures":  [
+
+                                        ],
+                           "passed":  true,
+                           "rendered":  false
+                       },
+    "native":  {
+                   "companion_hp":  30,
+                   "companion_preserved":  true,
+                   "new_body_practice_zero":  true,
+                   "item_owner_id":  "8",
+                   "new_body_id":  "8",
+                   "soul_id_preserved":  true,
+                   "reload_save_byte_identical":  true,
+                   "disembodied_save":  true,
+                   "old_body_dead":  true,
+                   "new_body_hp":  60,
+                   "world_id_preserved":  true,
+                   "old_body_strength_spent":  70,
+                   "receipt_preserved":  true,
+                   "item_id":  "7",
+                   "knowledge_preserved":  true,
+                   "old_body_strength_xp":  270
+               },
+    "source_files_equal_clean_copy":  410,
+    "mismatches":  [
+
+                   ],
+    "user_runtime_file_count":  15,
+    "user_runtime_changes":  [
+
+                             ],
+    "modified_existing_files":  [
+                                    "E:\\GPT\\SM2\\AGENTS.md",
+                                    "E:\\GPT\\SM2\\README.md",
+                                    "E:\\GPT\\SM2\\project.godot",
+                                    "E:\\GPT\\SM2\\export_presets.cfg",
+                                    "E:\\GPT\\SM2\\src\\presentation\\sm2_battle_screen.gd",
+                                    "E:\\GPT\\SM2\\src\\presentation\\sm2_main.gd",
+                                    "E:\\GPT\\SM2\\tests\\test_runner.gd",
+                                    "E:\\GPT\\SM2\\tools\\run_checks.ps1",
+                                    "E:\\GPT\\SM2\\tools\\run_ui_checks.ps1",
+                                    "E:\\GPT\\SM2\\docs\\DECISIONS.md",
+                                    "E:\\GPT\\SM2\\docs\\DEVELOPMENT_ROADMAP.md",
+                                    "E:\\GPT\\SM2\\docs\\LAUNCH_AND_CHECKS.md",
+                                    "E:\\GPT\\SM2\\docs\\SOUL_BODY_PROGRESSION_ARCHITECTURE.md",
+                                    "E:\\GPT\\SM2\\docs\\WORLD_CONCEPT.md"
+                                ],
+    "exe_version":  "0.5.3.0",
+    "exe_sha256":  "D20A0967F9164D323D34593A2D7B3866E669677B9A16D50CB02B859F96211BE6",
+    "native_first_exit":  {
+                              "runtime":  "E:\\GPT\\SM2\\.local\\p3\\exe-runtime",
+                              "exit_code":  0,
+                              "exe_sha256":  "D20A0967F9164D323D34593A2D7B3866E669677B9A16D50CB02B859F96211BE6",
+                              "passed":  true
+                          },
+    "native_restart_exit":  {
+                                "runtime":  "E:\\GPT\\SM2\\.local\\p3\\exe-runtime",
+                                "exit_code":  0,
+                                "exe_sha256":  "D20A0967F9164D323D34593A2D7B3866E669677B9A16D50CB02B859F96211BE6",
+                                "passed":  true
+                            },
+    "cmd_log":  ".local/logs/launch-20260910-233543-471-5f7dd201.log",
+    "passed":  true
+}

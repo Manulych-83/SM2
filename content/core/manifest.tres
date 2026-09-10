@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Sm2ContentManifest" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://src/content/sm2_content_manifest.gd" id="1_manifest"]
+[ext_resource type="Script" path="res://src/content/sm2_actor_content.gd" id="actor_type"]
+[ext_resource type="Script" path="res://src/content/sm2_weapon_content.gd" id="weapon_type"]
+[ext_resource type="Script" path="res://src/content/sm2_ability_content.gd" id="ability_type"]
+[ext_resource type="Script" path="res://src/content/sm2_status_content.gd" id="status_type"]
+[ext_resource type="Resource" path="res://content/core/actors/vanguard.tres" id="data_0"]
+[ext_resource type="Resource" path="res://content/core/actors/raider.tres" id="data_1"]
+[ext_resource type="Resource" path="res://content/core/actors/wisp.tres" id="data_2"]
+[ext_resource type="Resource" path="res://content/core/weapons/practice_blade.tres" id="data_3"]
+[ext_resource type="Resource" path="res://content/core/weapons/heavy_practice_blade.tres" id="data_4"]
+[ext_resource type="Resource" path="res://content/core/abilities/strike.tres" id="data_5"]
+[ext_resource type="Resource" path="res://content/core/abilities/venom.tres" id="data_6"]
+[ext_resource type="Resource" path="res://content/core/abilities/summon.tres" id="data_7"]
+[ext_resource type="Resource" path="res://content/core/statuses/poison.tres" id="data_8"]
+
+[resource]
+script = ExtResource("1_manifest")
+version = "core.m1.1"
+actors = Array[ExtResource("actor_type")]([ExtResource("data_0"), ExtResource("data_1"), ExtResource("data_2")])
+weapons = Array[ExtResource("weapon_type")]([ExtResource("data_3"), ExtResource("data_4")])
+abilities = Array[ExtResource("ability_type")]([ExtResource("data_5"), ExtResource("data_6"), ExtResource("data_7")])
+statuses = Array[ExtResource("status_type")]([ExtResource("data_8")])
