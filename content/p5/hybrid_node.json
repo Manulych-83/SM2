@@ -1,0 +1,6 @@
+{
+  "id":"p5:node.psionic_strike","name":"Псионический удар",
+  "track_id":"p1:skill.melee","min_level":2,"cost":70,"bonus":0,"requires":[],
+  "extra_requirements":[{"track_id":"p1:skill.psionics","min_level":2}],
+  "extra_costs":[{"track_id":"p1:skill.psionics","amount":90}]
+}

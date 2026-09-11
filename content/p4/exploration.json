@@ -1,0 +1,8 @@
+{
+  "version": "sm2.exploration.content.1",
+  "sites": [
+    {"id":"first_aid","name":"Старая санитарная сумка","description":"В укрытии у поляны сохранились перевязочные материалы.","minutes":30,"after_encounters":0,"rewards":{"medicine":4}},
+    {"id":"workshop","name":"Разобранная мастерская","description":"За заброшенной стоянкой лежат пригодные детали устройств.","minutes":60,"after_encounters":1,"rewards":{"parts":4}},
+    {"id":"supply_cache","name":"Схрон у старого моста","description":"Дальняя часть пути открывает доступ к забытому запасу.","minutes":90,"after_encounters":2,"rewards":{"medicine":3,"parts":2}}
+  ]
+}

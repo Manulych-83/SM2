@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "version": "0.5.7-p4.4",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_4\\clean-20260911-110157-142",
+  "clean_files_compared": 252,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 7118
+    },
+    "ui": {
+      "path": "ui3/report.json",
+      "passed": true,
+      "checks": 169
+    },
+    "legacy_ui": {
+      "path": "legacy-party/report.json",
+      "passed": true,
+      "checks": 233
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 13
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    }
+  },
+  "visual_review": [
+    "ui2/menu.png",
+    "ui2/injured.png",
+    "ui2/treated.png",
+    "ui3/aimed-preview.png"
+  ],
+  "limits": [
+    "EXE startup verified; rendered interaction tested through the Godot project",
+    "Treatment scenario uses explicit isolated enemy-only-aimed-strike test content",
+    "No prostheses or complete medical system",
+    "No commit or push"
+  ]
+}

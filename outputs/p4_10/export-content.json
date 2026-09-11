@@ -1,0 +1,6 @@
+{
+	"checks": 13,
+	"failures": [],
+	"passed": true,
+	"scope": "Godot opens exported resource pack and navigates via UI signals; rendered mouse flow tested separately in source project"
+}

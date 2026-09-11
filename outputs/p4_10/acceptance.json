@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "version": "0.5.13-p4.10",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_10\\clean-20260911-201857-834",
+  "core_source": "E:\\GPT\\SM2\\.local\\p4_10\\clean-20260911-201857-834\\.local\\logs\\checks-20260911-201858-523-38cac645.json",
+  "clean_files_compared": 285,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 7895
+    },
+    "ui": {
+      "path": "ui3/report.json",
+      "passed": true,
+      "checks": 114
+    },
+    "legacy_ui": {
+      "path": "legacy-discovery/report.json",
+      "passed": true,
+      "checks": 96
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 15
+    },
+    "compatibility": {
+      "path": "compatibility.json",
+      "passed": true,
+      "checks": 31
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 13
+    },
+    "domain_unchanged": {
+      "path": "domain-unchanged.json",
+      "passed": true,
+      "checks": null
+    }
+  },
+  "visual_review": [
+    "ui3/connections.png",
+    "ui3/learned.png",
+    "ui3/new-life.png"
+  ],
+  "initial_failure": {
+    "path": "ui1/report.json",
+    "reason": "Empty filter left track list empty. Explicit empty-query handling fixed it; later UI runs passed."
+  },
+  "limits": [
+    "Presentation only, same world, catalogs and save slots.",
+    "Links and cards, not a spatial zoomable graph. No large-card-count performance acceptance.",
+    "Rendered keyboard/mouse flow tested in source project; EXE startup and packed navigation checked separately.",
+    "No commit or push."
+  ]
+}

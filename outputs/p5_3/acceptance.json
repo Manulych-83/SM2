@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "version": "0.6.2-p5.3",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p5_3\\clean-20260911-215803-503",
+  "core_source": "E:\\GPT\\SM2\\.local\\p5_3\\clean-20260911-215803-503\\.local\\logs\\checks-20260911-215804-201-3b2569b5.json",
+  "clean_files_compared": 306,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 8485
+    },
+    "ui": {
+      "path": "ui2/report.json",
+      "passed": true,
+      "checks": 173
+    },
+    "detail_ui": {
+      "path": "detail-ui/report.json",
+      "passed": true,
+      "checks": 173
+    },
+    "legacy_ui": {
+      "path": "legacy-ui/report.json",
+      "passed": true,
+      "checks": 138
+    },
+    "legacy_magic": {
+      "path": "legacy-magic/report.json",
+      "passed": true,
+      "checks": 146
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 11
+    },
+    "compatibility": {
+      "path": "compatibility.json",
+      "passed": true,
+      "checks": 14
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 24
+    }
+  },
+  "changed_since_p5_2": [
+    "src\\application\\sm2_ability_parameter_text.gd",
+    "src\\application\\sm2_battle_runner.gd",
+    "src\\application\\sm2_hero_development_view.gd",
+    "src\\application\\sm2_journey_session.gd",
+    "src\\application\\sm2_tactical_session.gd",
+    "src\\presentation\\sm2_battle_progress_panel.gd",
+    "src\\presentation\\sm2_battle_screen.gd",
+    "src\\presentation\\sm2_battle_text.gd",
+    "src\\presentation\\sm2_main.gd",
+    "src\\content\\world\\sm2_psionic_shield_content_loader.gd",
+    "src\\domain\\ai\\sm2_ability_ai.gd",
+    "src\\domain\\combat\\sm2_attack_resolver.gd",
+    "src\\domain\\combat\\sm2_battle_outcome.gd",
+    "src\\domain\\combat\\sm2_departure_resolver.gd",
+    "src\\domain\\combat\\sm2_hp_application.gd",
+    "src\\domain\\magic\\sm2_area_spell_resolver.gd",
+    "src\\domain\\magic\\sm2_barrier_resolver.gd",
+    "src\\domain\\magic\\sm2_barrier_rules.gd",
+    "src\\domain\\magic\\sm2_barrier_state.gd",
+    "src\\domain\\magic\\sm2_magic_catalog.gd",
+    "src\\domain\\magic\\sm2_spell_definition.gd",
+    "src\\domain\\magic\\sm2_spell_resolver.gd",
+    "src\\domain\\progression\\sm2_development_catalog.gd",
+    "src\\domain\\progression\\sm2_development_snapshot.gd",
+    "src\\domain\\progression\\sm2_encounter_origin.gd",
+    "src\\domain\\progression\\sm2_psionic_catalog.gd",
+    "src\\domain\\tactical\\sm2_tactical_actor.gd",
+    "src\\domain\\tactical\\sm2_tactical_battle.gd",
+    "src\\domain\\tactical\\sm2_turn_scheduler.gd",
+    "src\\domain\\world\\sm2_journey_world.gd",
+    "content\\p5\\shields.json",
+    "content\\p5\\shield_node.json",
+    "tools\\run_checks.ps1",
+    "tools\\run_ui_checks.ps1",
+    "tests\\p5_shield_ui.gd",
+    "tests\\test_runner.gd",
+    "tests\\scenarios\\test_p5_shield.gd",
+    "project.godot",
+    "export_presets.cfg"
+  ],
+  "visual_review": [
+    "ui2/cast.png",
+    "ui2/forecast.png",
+    "ui2/new-body.png",
+    "detail-ui/learned.png",
+    "detail-ui/forecast.png"
+  ],
+  "limits": [
+    "Only hero self-barrier; existing AI profiles do not select it.",
+    "Numeric tuning is provisional. No summons, allies shield, reflection or migrations.",
+    "Area and poison interaction validated in isolated diagnostic compositions, not newly authored enemies.",
+    "Source UI rendered; packed EXE content and native EXE/CMD launch checked separately.",
+    "No commit or push."
+  ]
+}

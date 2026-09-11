@@ -1,0 +1,20 @@
+{
+	"checks": 148,
+	"failures": [
+		"both training tracks in battle inspector",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: both training tracks in battle inspector",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\".",
+		"res://src/presentation/sm2_battle_screen.gd:232 Sm2BattleScreen._inspect: Trying to assign an array of type \"Array\" to a variable of type \"Array[String]\"."
+	],
+	"passed": false,
+	"rendered": true
+}

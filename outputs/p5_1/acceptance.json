@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "version": "0.6.0-p5.1",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p5_1\\clean-20260911-205824-713",
+  "core_source": "E:\\GPT\\SM2\\.local\\p5_1\\clean-20260911-205824-713\\.local\\logs\\checks-20260911-205825-420-5cab5000.json",
+  "clean_files_compared": 291,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 8125
+    },
+    "ui": {
+      "path": "ui3/report.json",
+      "passed": true,
+      "checks": 156
+    },
+    "legacy_ui": {
+      "path": "legacy-ui/report.json",
+      "passed": true,
+      "checks": 104
+    },
+    "legacy_magic": {
+      "path": "legacy-magic/report.json",
+      "passed": true,
+      "checks": 146
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 7
+    },
+    "compatibility": {
+      "path": "compatibility.json",
+      "passed": true,
+      "checks": 15
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 13
+    }
+  },
+  "changed_since_p4_10": [
+    "src\\application\\sm2_battle_runner.gd",
+    "src\\application\\sm2_hero_development_view.gd",
+    "src\\application\\sm2_journey_session.gd",
+    "src\\application\\sm2_tactical_session.gd",
+    "src\\presentation\\sm2_battle_progress_panel.gd",
+    "src\\presentation\\sm2_battle_screen.gd",
+    "src\\presentation\\sm2_battle_text.gd",
+    "src\\presentation\\sm2_life_screen.gd",
+    "src\\presentation\\sm2_main.gd",
+    "src\\content\\world\\sm2_psionic_content_loader.gd",
+    "src\\domain\\effects\\sm2_effect_catalog.gd",
+    "src\\domain\\magic\\sm2_magic_catalog.gd",
+    "src\\domain\\magic\\sm2_mana_resolver.gd",
+    "src\\domain\\magic\\sm2_spell_resolver.gd",
+    "src\\domain\\progression\\sm2_development_catalog.gd",
+    "src\\domain\\progression\\sm2_development_snapshot.gd",
+    "src\\domain\\progression\\sm2_encounter_origin.gd",
+    "src\\domain\\progression\\sm2_psionic_catalog.gd",
+    "src\\domain\\tactical\\sm2_tactical_battle.gd",
+    "src\\domain\\world\\sm2_encounter_factory.gd",
+    "src\\domain\\world\\sm2_journey_world.gd",
+    "content\\p5\\progression.json",
+    "content\\p5\\psionics.json",
+    "tools\\run_checks.ps1",
+    "tools\\run_ui_checks.ps1",
+    "tests\\p5_psionic_ui.gd",
+    "tests\\test_runner.gd",
+    "tests\\scenarios\\test_p5_psionics.gd",
+    "project.godot",
+    "export_presets.cfg"
+  ],
+  "visual_review": [
+    "ui3/unlock.png",
+    "ui3/forecast.png",
+    "ui3/cast.png",
+    "ui3/new-body.png",
+    "ui3/new-body-battle.png"
+  ],
+  "limits": [
+    "One hero ability with prototype numbers and explicit new save slot.",
+    "No psionic companion/enemy, summons, large campaign or large-content performance acceptance.",
+    "Source UI tested with rendered mouse/keyboard, EXE startup and packed content checked separately.",
+    "No commit or push."
+  ]
+}

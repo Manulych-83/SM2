@@ -1,0 +1,56 @@
+extends "res://tests/p3_world_ui.gd"
+const REGION=preload("res://tests/scenarios/test_p6_region.gd")
+
+func _run() -> void:
+	OS.add_logger(captured)
+	var args: PackedStringArray=OS.get_cmdline_user_args()
+	if args.size()==2 and args[0]=="--output": output=args[1]
+	DirAccess.make_dir_recursive_absolute(output)
+	root.content_scale_size=Vector2i.ZERO; root.size=Vector2i(1000,700)
+	app=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await _frames()
+	await _press("NewRegionButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	var s: Sm2JourneySession=life.session as Sm2JourneySession
+	t.equal(s.slot_name(),Sm2JourneySession.REGION_SLOT,"primary starts map")
+	t.expect(_button("Travel_camp").disabled,"current place selected")
+	t.expect(_button("WorldBattle").disabled,"battle disabled in camp")
+	await _capture("camp-1000.png")
+	await _press("WorldDeposit"); await _press("Travel_ruins")
+	t.equal(s.journey().region.location_id,"ruins","mouse travels")
+	t.equal(s.journey().region.seconds,1800,"mouse advances clock")
+	t.expect((app.find_child("RegionClock",true,false) as Label).text.contains("00:30:00"),"clock visible")
+	t.expect(_button("WorldTake").disabled,"remote camp stone disabled")
+	t.expect(_button("PsiTrain").disabled,"remote camp training disabled")
+	t.expect(not _button("Explore_first_aid").disabled,"local search available")
+	await _press("Explore_first_aid")
+	t.equal(s.journey().region.seconds,3600,"search clock")
+	await _capture("ruins-1000.png")
+	await _press("Travel_enclave")
+	t.expect(not _button("UpgradeCollect_psi_amplifier").disabled,"enclave kit available")
+	await _press("UpgradeCollect_psi_amplifier"); await _press("UpgradeApply_psi_amplifier")
+	t.expect(s.world.bodies[2].upgrades.installed.has("p5:upgrade.psi_amplifier"),"mouse installs implant locally")
+	await _press("WorldSave"); var saved: String=s.state_hash()
+	await _press("Travel_camp"); await _press("WorldLoad")
+	t.equal(s.state_hash(),saved,"UI restore place visits discoveries time upgrades")
+	root.size=Vector2i(1280,800); await _frames(); await _capture("enclave-1280.png")
+	await _press("Travel_ruins"); await _press("WorldBattle")
+	screen=app.find_child("BattleScreen",true,false) as Sm2BattleScreen; screen.auto_advance=false
+	await _press("BattleMenuButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	t.expect(_button("Travel_camp").disabled and _button("Travel_enclave").disabled,"active encounter prevents UI travel")
+	REGION.JOURNEY.finish(s,t)
+	if s.world.hero_id()!=0: t.expect(s.act(s.command("end_life")).ok,"end life after encounter")
+	life.redraw(); await _frames()
+	t.expect(_button("WorldIncarnate8")!=null,"local carrier visible")
+	t.expect(_button("WorldIncarnate18")==null,"remote carrier hidden")
+	t.expect(_button("Travel_camp").disabled,"unembodied travel disabled")
+	await _capture("soul-1280.png")
+	await _press("WorldIncarnate8"); t.equal(s.world.hero_id(),8,"mouse incarnates locally")
+	await _press("Travel_camp"); await _press("WorldTake")
+	t.equal(s.world.item_owner,8,"new embodiment retrieves stone in camp")
+	await _press("WorldSave"); var hash_now: String=s.state_hash()
+	await _press("WorldMenu"); await _press("ContinueRegionButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	t.equal(life.session.state_hash(),hash_now,"main Continue exact map after incarnation")
+	await _capture("incarnated-camp.png")
+	await _press("WorldMenu"); await _press("NewHybridButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	t.equal((life.session as Sm2JourneySession).slot_name(),Sm2JourneySession.HYBRID_SLOT,"legacy hybrid available")
+	t.expect(app.find_child("RegionMap",true,false)==null,"old world has no new map")
+	_finish()

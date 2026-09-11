@@ -2,7 +2,7 @@
 param(
     [string]$GodotPath = '',
     [string]$RuntimeRoot = '.local\test-runtime',
-    [ValidateSet('all', 'unit', 'integration', 'scenario', 'spatial', 'm2_content', 'm2_movement', 'turn_scheduler', 'turn_content', 'm2_snapshot', 'm2_turns', 'm2_turn_storage', 'm2_attacks', 'm2_combat_storage', 'm2_consequences', 'm2_consequence_storage', 'm2_ai', 'm4_effects', 'm4_magic', 'm4_ability_ai','m4_areas','p4_journey','p3_world','p2_development','p1_progression')][string]$Suite = 'all',
+    [ValidateSet('all', 'unit', 'integration', 'scenario', 'spatial', 'm2_content', 'm2_movement', 'turn_scheduler', 'turn_content', 'm2_snapshot', 'm2_turns', 'm2_turn_storage', 'm2_attacks', 'm2_combat_storage', 'm2_consequences', 'm2_consequence_storage', 'm2_ai', 'm4_effects', 'm4_magic', 'm4_ability_ai','m4_areas','p6_region','p5_hybrids','p5_cross_nodes','p5_implants','p5_upgrades','p5_shield','p5_growth','p5_psionics','p4_hero_screen','p4_discovery','p4_search','p4_exploration','p4_care','p4_prosthesis','p4_body','p4_party','p4_attributes','p4_journey','p3_world','p2_development','p1_progression')][string]$Suite = 'all',
     [switch]$ShowResult
 )
 Set-StrictMode -Version Latest

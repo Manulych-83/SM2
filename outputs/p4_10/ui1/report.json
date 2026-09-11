@@ -1,0 +1,23 @@
+{
+	"checks": 114,
+	"failures": [
+		"usable button HeroTrack_5922c11cc265b00f",
+		"usable button HeroNext_a98ed90bfaa6951b",
+		"next-node link keeps correct direction | actual=p4s:skill.search expected=p1:stat.strength",
+		"next-node link focuses destination | actual= expected=p1:node.strength_2",
+		"usable button HeroRequires_00f19e2416267408",
+		"prerequisite link focuses prior node | actual= expected=p1:node.strength_1",
+		"usable button HeroContribution_746a87660dcfcf37",
+		"characteristic contribution navigates to linked skill | actual=p4s:skill.search expected=p1:skill.melee",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button HeroTrack_5922c11cc265b00f",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button HeroNext_a98ed90bfaa6951b",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: next-node link keeps correct direction | actual=p4s:skill.search expected=p1:stat.strength",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: next-node link focuses destination | actual= expected=p1:node.strength_2",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button HeroRequires_00f19e2416267408",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: prerequisite link focuses prior node | actual= expected=p1:node.strength_1",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button HeroContribution_746a87660dcfcf37",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: characteristic contribution navigates to linked skill | actual=p4s:skill.search expected=p1:skill.melee"
+	],
+	"passed": false,
+	"rendered": true
+}

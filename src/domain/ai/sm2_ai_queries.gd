@@ -2,9 +2,11 @@ class_name Sm2AiQueries
 extends RefCounted
 ## Detached query projection. Actual RNG, allocator and mutable battle are never retained.
 var _state: Sm2TacticalState
+var _active_id: int=0
 var _catalog: Sm2CombatCatalog
 
 func _init(state: Sm2TacticalState, catalog: Sm2CombatCatalog) -> void:
+	_active_id=state.active_id()
 	_state = Sm2TacticalState.new()
 	_state.round = state.round
 	_state.effect_catalog = state.effect_catalog
@@ -27,6 +29,9 @@ func action_info(id: String) -> Dictionary:
 	var weapon: Sm2CombatAbility = _catalog.ability(id)
 	if weapon != null:
 		var data: Dictionary = {"id":weapon.id,"operation":weapon.operation,"ap_cost":weapon.ap_cost,"fatigue_cost":weapon.fatigue_cost,"ammo_cost":weapon.ammo_cost}
+		if weapon.mode!="self": data.fatigue_cost+=Sm2AttackResolver.extra_fatigue(_state,_active_id)
+		var hybrid: Dictionary=Sm2HybridQuery.details(_state,_active_id,id)
+		if not hybrid.is_empty(): data["mana_cost"]=hybrid.mana_cost; data["hybrid"]=hybrid
 		data["kind"] = "weapon"
 		data["target_side"] = "self" if weapon.mode == "self" else "enemy"
 		return data
@@ -34,6 +39,7 @@ func action_info(id: String) -> Dictionary:
 		var spell: Sm2SpellDefinition = _state.magic_catalog.spell(id)
 		if spell != null:
 			var data: Dictionary = spell.to_data()
+			data["mana_cost"]=Sm2ManaResolver.cost(_state,_active_id,spell).total
 			data["kind"] = "spell"
 			return data
 	if _state.effect_catalog != null:

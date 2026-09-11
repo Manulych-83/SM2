@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "version": "0.6.5-p5.6",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p5_6\\clean-20260911-230041-575",
+  "clean_files_compared": 319,
+  "different_files": [],
+  "reports": {
+    "core-unit": {
+      "checks": 518,
+      "source": "E:\\GPT\\SM2\\.local\\p5_6\\clean-20260911-230041-575\\.local\\logs\\checks-20260911-230042-275-f8c97cff.json",
+      "path": "core-unit.json"
+    },
+    "core-implants": {
+      "checks": 159,
+      "source": "E:\\GPT\\SM2\\.local\\p5_6\\clean-20260911-230041-575\\.local\\logs\\checks-20260911-230115-608-5345fd8c.json",
+      "path": "core-implants.json"
+    },
+    "menu": {
+      "path": "menu3/report.json",
+      "checks": 97,
+      "rendered": true
+    },
+    "implant_ui": {
+      "path": "implant-ui/report.json",
+      "checks": 198,
+      "rendered": true
+    },
+    "legacy_battle": {
+      "path": "old-battle/report.json",
+      "checks": 315,
+      "rendered": false
+    },
+    "legacy_upgrades": {
+      "path": "old-upgrade/report.json",
+      "checks": 140,
+      "rendered": false
+    },
+    "legacy_party": {
+      "path": "old-party2/report.json",
+      "checks": 83,
+      "rendered": null
+    },
+    "restart": {
+      "path": "restart.json",
+      "checks": 18,
+      "rendered": null
+    },
+    "compatibility": {
+      "path": "compatibility.json",
+      "checks": 19,
+      "rendered": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "checks": 38,
+      "rendered": null
+    },
+    "launch": {
+      "path": "launch.json",
+      "checks": null,
+      "rendered": null
+    }
+  },
+  "changed_since_p5_5": [
+    "src\\presentation\\sm2_main.gd",
+    "tools\\run_ui_checks.ps1",
+    "tests\\m3_ui.gd",
+    "tests\\p5_menu_ui.gd",
+    "tests\\ui_smoke.gd",
+    "project.godot",
+    "export_presets.cfg"
+  ],
+  "domain_application_content_unchanged": true,
+  "visual_review": [
+    "menu3/main-1000.png",
+    "menu3/main-1280.png",
+    "menu3/other-modes.png",
+    "menu3/load-error.png"
+  ],
+  "limits": [
+    "Presentation-only stage. Same P5.5 slot and format, no new combat/campaign mechanics.",
+    "Current main game is still the authored three-encounter example, not a large campaign.",
+    "Modes expansion stays in memory and resets with the application.",
+    "Corrupted-save fixture only in isolated test runtime; user files unchanged.",
+    "Source real-input UI and exported pack/native startup tested separately.",
+    "Full historic all-suite not repeated for this presentation-only change; clean unit/architecture, implant rules, current and legacy UI checked.",
+    "No commit or push."
+  ]
+}

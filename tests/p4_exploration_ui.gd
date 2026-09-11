@@ -1,0 +1,57 @@
+extends "res://tests/p4_prosthesis_ui.gd"
+const EXPLORATION_TEST=preload("res://tests/scenarios/test_p4_exploration.gd")
+func _run() -> void:
+	OS.add_logger(captured)
+	var args: PackedStringArray=OS.get_cmdline_user_args()
+	if args.size()==2 and args[0]=="--output": output=args[1]
+	DirAccess.make_dir_recursive_absolute(output)
+	root.content_scale_size=Vector2i.ZERO; root.size=Vector2i(1000,700)
+	app=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await _frames()
+	await _capture("menu.png")
+	await _press("NewExplorationButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	t.expect(life!=null,"new exploration mode opens")
+	if life==null: _finish(); return
+	var s: Sm2JourneySession=life.session as Sm2JourneySession
+	t.equal(s.format_id(),Sm2JourneySession.EXPLORATION_FORMAT,"explicit exploration session")
+	t.expect(not _button("Explore_first_aid").disabled,"first site available")
+	t.expect(_button("Explore_workshop").disabled,"later site locked")
+	await _capture("sites.png")
+	await _press("Explore_first_aid")
+	t.equal(s.journey().care.supplies.medicine,16,"mouse collection adds medicine")
+	t.equal(s.journey().exploration.minutes,30,"mouse collection adds search time")
+	t.expect(_button("Explore_first_aid").disabled,"collected site unavailable")
+	await _press("WorldSave"); var saved: String=s.state_hash()
+	await _press("WorldMenu"); await _press("ContinueExplorationButton")
+	life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	t.equal(life.session.state_hash(),saved,"menu continuation keeps collected site")
+	t.expect(_button("Explore_first_aid").disabled,"menu load cannot duplicate loot")
+	await _capture("collected.png")
+	# Prepared zero-stock encounter proves that search unlocks actual treatment.
+	s=Sm2JourneySession.new(EXPLORATION_TEST.fixture_content(),Sm2AiContentLoader.load_profile().profile,Sm2SaveStore.new("user://exploration-ui-flow"))
+	t.expect(s.new_game().ok,"zero-stock UI fixture starts")
+	app.set("_life",s); app.set("_page","life"); app.call("_redraw_page"); await _frames()
+	life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	await _fight_to_retreat(s)
+	t.expect(s.world.hero_id()==2 and s.world.bodies[2].hp==51,"actual injury before searching")
+	if s.world.hero_id()!=2: _finish(); return
+	t.expect(_button("HealHpButton").disabled,"no medicine disables wound treatment")
+	await _press("Explore_first_aid")
+	t.expect(not _button("HealHpButton").disabled,"found medicine enables treatment")
+	await _press("HealHpButton")
+	t.equal(s.world.bodies[2].hp,60,"found medicine used to restore real HP")
+	t.equal(s.journey().care.supplies.medicine,2,"only remaining found medicine retained")
+	await _press("Explore_workshop")
+	t.equal(s.journey().care.supplies.parts,4,"new accessible workshop supplies parts")
+	root.size=Vector2i(1280,800); await _frames(); await _capture("gathered-and-treated.png")
+	await _fight_to_retreat(s)
+	await _press("Explore_supply_cache")
+	t.equal(s.journey().care.supplies.medicine,5,"mixed cache medicine collected")
+	t.equal(s.journey().care.supplies.parts,6,"mixed cache parts collected")
+	t.equal(s.journey().exploration.minutes,180,"all places counted once")
+	await _press("WorldSave"); saved=s.state_hash(); await _press("WorldLoad")
+	t.equal(s.state_hash(),saved,"UI save restores gather and spend history")
+	await _press("WorldEndLife"); await _press("WorldConfirmDeath"); await _press("WorldIncarnate8")
+	for id: String in ["first_aid","workshop","supply_cache"]: t.expect(_button("Explore_"+id).disabled,"new body cannot recollect "+id)
+	t.equal(s.journey().care.supplies.medicine,5,"new body does not refill medicine")
+	await _press("WorldSave"); await _capture("new-life.png")
+	_finish()

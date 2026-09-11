@@ -1,0 +1,9 @@
+{
+	"checks": 171,
+	"failures": [
+		"journal names hybrid and cost",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: journal names hybrid and cost"
+	],
+	"passed": false,
+	"rendered": true
+}

@@ -2,6 +2,23 @@ extends SceneTree
 ## Structured, non-empty acceptance report; unknown arguments always fail.
 
 const SUITES: Dictionary = {
+ "p6_region":"res://tests/scenarios/test_p6_region.gd",
+	"p5_hybrids":"res://tests/scenarios/test_p5_hybrids.gd",
+	"p5_cross_nodes":"res://tests/scenarios/test_p5_cross_nodes.gd",
+	"p5_implants":"res://tests/scenarios/test_p5_implants.gd",
+	"p5_upgrades":"res://tests/scenarios/test_p5_upgrades.gd",
+	"p5_shield":"res://tests/scenarios/test_p5_shield.gd",
+	"p5_growth":"res://tests/scenarios/test_p5_growth.gd",
+	"p5_psionics":"res://tests/scenarios/test_p5_psionics.gd",
+	"p4_hero_screen":"res://tests/scenarios/test_p4_hero_screen.gd",
+	"p4_discovery":"res://tests/scenarios/test_p4_discovery.gd",
+	"p4_search":"res://tests/scenarios/test_p4_search.gd",
+	"p4_exploration":"res://tests/scenarios/test_p4_exploration.gd",
+	"p4_care":"res://tests/scenarios/test_p4_care.gd",
+	"p4_prosthesis":"res://tests/scenarios/test_p4_prosthesis.gd",
+	"p4_body":"res://tests/scenarios/test_p4_body.gd",
+	"p4_party":"res://tests/scenarios/test_p4_party.gd",
+	"p4_attributes":"res://tests/scenarios/test_p4_attributes.gd",
 	"p4_journey":"res://tests/scenarios/test_p4_journey.gd",
 	"p3_world":"res://tests/scenarios/test_p3_world.gd",
  "p2_development":"res://tests/scenarios/test_p2_development.gd",

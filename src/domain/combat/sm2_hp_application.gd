@@ -6,6 +6,7 @@ static func apply(state: Sm2TacticalState, target: Sm2TacticalActor, source_id: 
 	target.combat.hp -= loss
 	events.append({"type":"hp_damaged","target_actor_id":str(target.spatial.actor_id),"loss":loss,"remaining":target.combat.hp})
 	if target.combat.hp != 0 or not target.spatial.alive: return
+	Sm2BarrierRules.clear(target,"death",events)
 	target.spatial.alive = false
 	target.spatial.ap = 0
 	target.reactions_left = 0

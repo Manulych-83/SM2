@@ -1,0 +1,9 @@
+{
+	"checks": 99,
+	"failures": [
+		"usable button Travel_ruins",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button Travel_ruins"
+	],
+	"passed": false,
+	"rendered": true
+}

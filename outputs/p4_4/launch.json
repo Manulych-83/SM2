@@ -1,0 +1,10 @@
+﻿{
+    "exe_sha256":  "5EA663DC52C352C3B090D2EFC276D8A46EED4BA3177DDEBC38479B2DDCBBB237",
+    "passed":  true,
+    "exe_exit":  0,
+    "cmd_exit":  0,
+    "exe_log":  "E:\\GPT\\SM2\\.local\\logs\\body-exe-20260911-110413-449-cdd18f49.log",
+    "restart_log":  "E:\\GPT\\SM2\\.local\\logs\\body-restart-20260911-110412-588-839f1b20.log",
+    "exe_version":  "0.5.7.0",
+    "player_saves_unchanged":  4
+}

@@ -16,4 +16,9 @@ static func recover_round(state: Sm2TacticalState, id: int, events: Array[Dictio
 	var pool: Sm2ManaPool = state.mana[id]
 	var gained: int = mini(profile.mana_per_round,profile.mana_max-pool.current)
 	pool.current += gained
-	if gained > 0: events.append({"type":"mana_recovered","actor_id":str(id),"amount":gained,"current":pool.current,"maximum":profile.mana_max})
+	if gained > 0: events.append({"type":"concentration_recovered" if state.magic_catalog.is_psionic() else "mana_recovered","actor_id":str(id),"amount":gained,"current":pool.current,"maximum":profile.mana_max})
+
+static func cost(state: Sm2TacticalState,actor_id: int,spell: Sm2SpellDefinition) -> Dictionary:
+	if spell.channel=="psionic" and state.development!=null:
+		return Sm2PsionicCostQuery.resolve(spell.mana_cost,state.development.catalog.upgrades(),state.development.upgrades.get(actor_id))
+	return Sm2PsionicCostQuery.resolve(spell.mana_cost)

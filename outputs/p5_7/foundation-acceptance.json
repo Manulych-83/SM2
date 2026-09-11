@@ -1,0 +1,32 @@
+{
+  "scope": "P5.7 cross-node foundation only; combat ability pending miss rule",
+  "checks": {
+    "all": {
+      "checks": 8933,
+      "passed": true,
+      "source": "E:\\GPT\\SM2\\.local\\p5_7\\clean-20260911-231632-652\\.local\\logs\\checks-20260911-231633-379-f4bcff0c.json"
+    },
+    "cross_nodes": {
+      "checks": 150,
+      "passed": true,
+      "source": "E:\\GPT\\SM2\\.local\\logs\\checks-20260911-231525-762-1f2ff342.json"
+    },
+    "cross_ui": {
+      "checks": 60,
+      "passed": true,
+      "source": "E:\\GPT\\SM2\\outputs\\p5_7\\nodes-ui1\\report.json"
+    },
+    "legacy_ui": {
+      "checks": 198,
+      "passed": true,
+      "source": "E:\\GPT\\SM2\\outputs\\p5_7\\legacy-ui\\report.json"
+    }
+  },
+  "clean_source_files_compared": 580,
+  "save_hashes_unchanged": 4,
+  "source_tree": "E:\\GPT\\SM2",
+  "clean_tree": "E:\\GPT\\SM2\\.local\\p5_7\\clean-20260911-231632-652",
+  "runtime_isolation": "project-local runtimes; no user save writes",
+  "game_version": "0.6.5-p5.6; export unchanged",
+  "commit_or_push": false
+}

@@ -2,6 +2,7 @@ class_name Sm2BattleProgressPanel
 extends PanelContainer
 signal close_requested
 signal changed(events: Array[Dictionary])
+var life_session: Sm2LifeSession=null
 var runner: Sm2BattleRunner
 var selected_actor: int = 0
 var _content: VBoxContainer
@@ -21,6 +22,8 @@ func refresh() -> void:
 	if is_instance_valid(_content): remove_child(_content); _content.queue_free()
 	_content=VBoxContainer.new(); _content.add_theme_constant_override("separation",12); add_child(_content)
 	var state: Dictionary=runner.view()
+	if state.ruleset in [Sm2EncounterOrigin.PARTY_RULESET,Sm2EncounterOrigin.BODY_RULESET,Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET]:
+		_party(state); return
 	var members: Array[Dictionary]=[]
 	for actor: Dictionary in state.actors:
 		if actor.has("development"): members.append(actor)
@@ -68,7 +71,7 @@ func _purchase(id: String) -> void:
 	refresh()
 
 func _save() -> void:
-	var result: Dictionary=runner.save_game()
+	var result: Dictionary=life_session.save_game() if life_session!=null else runner.save_game()
 	_message="Бой и развитие сохранены вместе." if result.ok else "Ошибка сохранения: "+str(result.errors)
 	refresh()
 
@@ -79,3 +82,31 @@ static func _label(text_value: String, size_value: int, color_value: Color=Color
 static func _button(text_value: String, id: String, action: Callable) -> Button:
 	var button: Button=Button.new(); button.text=text_value; button.name=id; button.custom_minimum_size=Vector2(120,40); button.pressed.connect(action)
 	return button
+
+func _party(state: Dictionary) -> void:
+	_content.add_child(_label("ГЕРОЙ И СПУТНИК",24,Color("e3bf7b")))
+	var selectors: HBoxContainer=HBoxContainer.new(); _content.add_child(selectors)
+	var selected: Dictionary={}
+	if selected_actor==0: selected_actor=1
+	for actor: Dictionary in state.actors:
+		if not actor.has("development"): continue
+		selectors.add_child(_button(Sm2BattleText.actor(actor),"DevelopActor"+str(actor.actor_id),func() -> void: selected_actor=int(actor.actor_id); refresh()))
+		if int(actor.actor_id)==selected_actor: selected=actor
+	var data: Dictionary=selected.development
+	_content.add_child(_label("Погиб" if not selected.alive else "Герой: собственная практика и узлы" if data.role=="hero" else "Спутник: общий опыт и автоматический рост",18))
+	if data.has("growth"):
+		_content.add_child(_label("Уровень %s · общий опыт %s · до следующего %s/%s" % [data.growth.level,data.growth.earned,data.growth.progress,data.growth.needed],18))
+	_content.add_child(_label("Личные атаки, промахи и реакции дают опыт. У спутника нет отдельных деревьев и покупки узлов.",14))
+	var scroll: ScrollContainer=ScrollContainer.new(); scroll.size_flags_vertical=SIZE_EXPAND_FILL; scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; _content.add_child(scroll)
+	var rows: VBoxContainer=VBoxContainer.new(); rows.size_flags_horizontal=SIZE_EXPAND_FILL; scroll.add_child(rows)
+	if selected.has("body_functions"):
+		for part: Dictionary in selected.body_functions.parts:
+			rows.add_child(_label(("Правая рука" if part.id=="right_hand" else "Левая рука")+": "+Sm2BattleText.function_status(part),17))
+	for track: Dictionary in data.tracks:
+		rows.add_child(_label("%s: %s" % [track.name,track.effective] if data.has("growth") else "%s: %s · опыт %s/%s · для узлов %s" % [track.name,track.effective,track.progress,track.needed,track.available],17))
+	rows.add_child(_label("Навык попадания: %s · развитие %+d" % [selected.melee_stat.value,data.melee_bonus],17))
+	if data.role=="hero": rows.add_child(_label("Узлы изучаются в локации после боя. Знания Души: "+", ".join(data.knowledge),15))
+	_content.add_child(_label(_message,14))
+	var footer: HBoxContainer=HBoxContainer.new(); _content.add_child(footer)
+	footer.add_child(_button("Сохранить","SaveDevelopmentButton",_save))
+	footer.add_child(_button("Назад к бою","CloseDevelopmentButton",func() -> void: close_requested.emit()))

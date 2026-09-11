@@ -50,6 +50,7 @@ static func resolve(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 				events.append({"type": "movement_interrupted", "actor_id": str(command.actor_id), "by_actor_id": str(id), "action": command.kind})
 				return {"accepted": true, "code": "movement_interrupted", "events": events}
 	if command.kind == "escape":
+		Sm2BarrierRules.clear(actor,"escaped",events)
 		actor.spatial.on_field = false
 		actor.spatial.ap = 0
 		actor.reactions_left = 0

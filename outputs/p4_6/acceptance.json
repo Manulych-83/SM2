@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "version": "0.5.9-p4.6",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_6\\clean-20260911-115922-013",
+  "clean_files_compared": 264,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 7493
+    },
+    "ui": {
+      "path": "ui2/report.json",
+      "passed": true,
+      "checks": 183
+    },
+    "legacy_ui": {
+      "path": "legacy-prosthesis/report.json",
+      "passed": true,
+      "checks": 188
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 26
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 9
+    }
+  },
+  "visual_review": [
+    "ui2/menu.png",
+    "ui2/treated.png",
+    "ui2/no-supplies.png"
+  ],
+  "limits": [
+    "EXE startup verified; mouse interaction tested through Godot project",
+    "Exported resource pack loaded by Godot and care mode starts schema12 encounter",
+    "Prices and starting supplies are prototype settings; no resupply or medical practice",
+    "Procedure time is not a world calendar",
+    "No commit or push"
+  ]
+}

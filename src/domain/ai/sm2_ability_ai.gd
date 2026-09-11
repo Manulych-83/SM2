@@ -84,6 +84,8 @@ static func decide(view: Dictionary, queries: Sm2AiQueries, profile: Sm2AiProfil
 	return {"ok":true,"command":move,"choice":"approach","route":destination,"work":budget.used}
 
 static func _target(info: Dictionary, active: Dictionary, target: Dictionary) -> bool:
+	# Existing AI profiles have no barrier utility policy. Player casts it in P5.3.
+	if info.operation == "self_barrier": return false
 	if info.operation == "area_hp_damage": return target.has("area_center")
 	if target.has("area_center"): return false
 	if info.target_side == "self": return target.actor_id == active.actor_id

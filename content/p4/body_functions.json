@@ -1,0 +1,12 @@
+{
+  "version": "sm2.body_functions.content.1",
+  "trauma_armor_slot": "body",
+  "parts": [{"id":"left_hand","name":"Левая рука"},{"id":"right_hand","name":"Правая рука"}],
+  "bindings": {"weapon":["right_hand"],"shield":["left_hand"],"two_handed":["left_hand","right_hand"]},
+  "trauma_abilities": {"p4:ability.hand_strike":"right_hand","p4:ability.shield_hand_strike":"left_hand"},
+  "practice_requirements": {
+    "p1:activity.sword_drill":["right_hand"],
+    "p4a:activity.power":["left_hand","right_hand"],
+    "p4a:activity.motorics":["left_hand","right_hand"]
+  }
+}

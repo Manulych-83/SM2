@@ -1,0 +1,38 @@
+{
+  "version": "sm2.region.content.1",
+  "start": "camp", "stash": "camp",
+  "locations": [
+    {"id":"camp","name":"Лагерь","description":"Простое убежище: тайник, упражнения, лечение и работа с протезами."},
+    {"id":"ruins","name":"Руины","description":"Остатки древней цивилизации: три последовательные встречи и места для поиска припасов."},
+    {"id":"enclave","name":"Технологический анклав","description":"Работающая техника среди разрушенного мира. Здесь доступен комплект пси-усилителя и его установка."}
+  ],
+  "routes": [
+    {"from":"camp","to":"ruins","seconds":1800},
+    {"from":"ruins","to":"camp","seconds":1800},
+    {"from":"camp","to":"enclave","seconds":7200},
+    {"from":"enclave","to":"camp","seconds":7200},
+    {"from":"ruins","to":"enclave","seconds":5400},
+    {"from":"enclave","to":"ruins","seconds":5400}
+  ],
+  "bodies": [
+    {"id":"2","location":"camp"},{"id":"4","location":"camp"},
+    {"id":"8","location":"ruins"},{"id":"9","location":"enclave"},
+    {"id":"10","location":"ruins"},{"id":"11","location":"ruins"},
+    {"id":"14","location":"ruins"},{"id":"15","location":"ruins"},
+    {"id":"16","location":"ruins"},{"id":"17","location":"ruins"},
+    {"id":"18","location":"camp"},{"id":"19","location":"enclave"}
+  ],
+  "encounters": [{"id":"0","location":"ruins"},{"id":"1","location":"ruins"},{"id":"2","location":"ruins"}],
+  "sites": [
+    {"id":"first_aid","location":"ruins"},{"id":"workshop","location":"ruins"},
+    {"id":"supply_cache","location":"ruins"},{"id":"abandoned_camp","location":"ruins"},{"id":"hidden_niche","location":"ruins"}
+  ],
+  "upgrades": [
+    {"id":"p5:upgrade.muscles","collect":"ruins","apply":"camp"},
+    {"id":"p5:upgrade.psi_amplifier","collect":"enclave","apply":"enclave"}
+  ],
+  "services": [
+    {"id":"practice","location":"camp"},{"id":"heal_hp","location":"camp"},{"id":"heal_hand","location":"camp"},
+    {"id":"install_prosthesis","location":"camp"},{"id":"remove_prosthesis","location":"*"},{"id":"repair_prosthesis","location":"camp"}
+  ]
+}

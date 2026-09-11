@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "version": "0.5.12-p4.9",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_9\\clean-20260911-130713-677",
+  "core_source": "E:\\GPT\\SM2\\.local\\p4_9\\clean-20260911-130713-677\\.local\\logs\\checks-20260911-130714-377-95336f28.json",
+  "clean_files_compared": 281,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 7844
+    },
+    "ui": {
+      "path": "ui1/report.json",
+      "passed": true,
+      "checks": 101
+    },
+    "legacy_search_ui": {
+      "path": "legacy-search/report.json",
+      "passed": true,
+      "checks": 112
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 31
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 16
+    }
+  },
+  "visual_review": [
+    "ui1/menu.png",
+    "ui1/learned.png",
+    "ui1/new-life.png"
+  ],
+  "limits": [
+    "Own search level 2 and 100 search XP purchase a body-owned zero-bonus node. Values are prototype settings.",
+    "The hidden site card is visible with an access requirement; separate map discovery is not implemented.",
+    "GUI interaction tested in Godot project; EXE and CMD startup tested separately. Exported pack validates new node and site gate and starts schema12 battle.",
+    "No commit or push."
+  ]
+}

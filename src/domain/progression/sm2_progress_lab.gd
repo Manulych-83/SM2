@@ -16,9 +16,9 @@ func start(world_id: String) -> Dictionary:
 		var track: Sm2ProgressTrackState = Sm2ProgressTrackState.new()
 		track.track_id=id; value.body.tracks[id]=track
 	for id: String in _catalog.activity_ids(): value.activity_counts[id]=0
-	return restore(value.to_data(_catalog.fingerprint()))
+	return restore(value.to_data(_catalog.fingerprint(),_catalog.snapshot_format(),_catalog.ruleset()))
 
-func capture() -> Dictionary: return {} if _state == null else _state.to_data(_catalog.fingerprint())
+func capture() -> Dictionary: return {} if _state == null else _state.to_data(_catalog.fingerprint(),_catalog.snapshot_format(),_catalog.ruleset())
 func state_hash() -> String: return Sm2Canonical.hash(capture())
 func restore(raw: Dictionary) -> Dictionary:
 	var result: Dictionary = Sm2ProgressSnapshot.decode(raw,_catalog)
@@ -35,20 +35,27 @@ func preview(command: Sm2ProgressCommand) -> Dictionary:
 		if command.practice_sequence != _state.practice_sequence+1: return _error("practice_sequence")
 		var activity: Sm2PracticeDefinition = _catalog.activity(command.target_id)
 		if activity == null: return _error("activity_missing")
+		var capability: Dictionary = Sm2PracticeCapability.query(activity,_state.body,_catalog)
+		if not capability.allowed:
+			var refusal: Dictionary = _error("capability_required")
+			refusal["capability"]=capability
+			return refusal
 		if _state.practice_sequence >= 1000000: return _error("practice_limit")
 		for id: String in activity.awards:
 			if _state.body.tracks[id].earned > Sm2ProgressCatalog.XP_LIMIT-activity.awards[id]: return _error("experience_limit")
 		var awards: Array[Dictionary] = []
 		var ids: Array[String] = []; ids.assign(activity.awards.keys()); ids.sort()
 		for id: String in ids: awards.append({"track_id":id,"name":_catalog.track(id).title,"amount":activity.awards[id]})
-		return {"ok":true,"errors":PackedStringArray(),"awards":awards,"seconds":activity.seconds}
+		return {"ok":true,"errors":PackedStringArray(),"awards":awards,"seconds":activity.seconds,"capability":capability}
 	if command.kind == "buy_node":
 		if command.practice_sequence != 0: return _error("purchase_sequence")
 		var node: Sm2ProgressNodeDefinition = _catalog.node(command.target_id)
 		if node == null: return _error("node_missing")
 		var purchase_error: String = Sm2ProgressRules.purchase_error(_state.body,_catalog,node.id)
 		if not purchase_error.is_empty(): return _error(purchase_error)
-		return {"ok":true,"errors":PackedStringArray(),"cost":node.cost,"track_id":node.track_id}
+		var result: Dictionary={"ok":true,"errors":PackedStringArray(),"cost":node.cost,"track_id":node.track_id}
+		if not node.extra_costs.is_empty(): result["prices"]=node.prices()
+		return result
 	return _error("unknown_command")
 
 func execute(command: Sm2ProgressCommand) -> Dictionary:
@@ -71,9 +78,11 @@ func execute(command: Sm2ProgressCommand) -> Dictionary:
 	else:
 		var node: Sm2ProgressNodeDefinition = _catalog.node(command.target_id)
 		Sm2ProgressRules.purchase(candidate.body,node)
-		events.append({"kind":"node_purchased","node_id":node.id,"cost":node.cost,"track_id":node.track_id})
+		var event: Dictionary={"kind":"node_purchased","node_id":node.id,"cost":node.cost,"track_id":node.track_id}
+		if not node.extra_costs.is_empty(): event["prices"]=node.prices()
+		events.append(event)
 	candidate.revision+=1
-	var verified: Dictionary = Sm2ProgressSnapshot.decode(candidate.to_data(_catalog.fingerprint()),_catalog)
+	var verified: Dictionary = Sm2ProgressSnapshot.decode(candidate.to_data(_catalog.fingerprint(),_catalog.snapshot_format(),_catalog.ruleset()),_catalog)
 	if not verified.ok: return verified
 	_state=verified.state
 	for event: Dictionary in events:
@@ -94,7 +103,10 @@ func view() -> Dictionary:
 	for id: String in _catalog.activity_ids():
 		var activity: Sm2PracticeDefinition = _catalog.activity(id)
 		elapsed+=_state.activity_counts[id]*activity.seconds
-		activities.append({"id":id,"name":activity.title,"preview":preview(_command("practice",id))})
+		var award_rows: Array[Dictionary] = []
+		for track_id: String in _catalog.track_ids():
+			if activity.awards.has(track_id): award_rows.append({"track_id":track_id,"name":_catalog.track(track_id).title,"amount":activity.awards[track_id]})
+		activities.append({"id":id,"name":activity.title,"awards":award_rows,"seconds":activity.seconds,"preview":preview(_command("practice",id))})
 	var knowledge: Array[Dictionary] = []
 	for id: String in _state.soul.knowledge: knowledge.append({"id":id,"name":_catalog.knowledge_name(id)})
 	return {"world_id":_state.world_id,"body_id":_state.body.id,"incarnation_id":_state.incarnation.id,"revision":_state.revision,"practice_sequence":_state.practice_sequence,"elapsed":elapsed,"tracks":tracks,"nodes":nodes,"activities":activities,"knowledge":knowledge}

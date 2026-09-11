@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "version": "0.5.11-p4.8",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_8\\clean-20260911-125529-676",
+  "core_source": "E:\\GPT\\SM2\\.local\\p4_8\\clean-20260911-125529-676\\.local\\logs\\checks-20260911-125530-367-364b1ac4.json",
+  "clean_files_compared": 276,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 7719
+    },
+    "ui": {
+      "path": "ui3/report.json",
+      "passed": true,
+      "checks": 122
+    },
+    "legacy_exploration_ui": {
+      "path": "legacy-exploration/report.json",
+      "passed": true,
+      "checks": 102
+    },
+    "legacy_battle_ui": {
+      "path": "legacy-m3/report.json",
+      "passed": true,
+      "checks": 326
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 28
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 13
+    }
+  },
+  "visual_review": [
+    "ui3/menu.png",
+    "ui3/sites.png",
+    "ui3/collected.png",
+    "ui3/new-life.png"
+  ],
+  "initial_failure": {
+    "path": "ui1/report.json",
+    "reason": "New menu row exceeded viewport; fixed with menu scrolling. The later rendered runs passed."
+  },
+  "limits": [
+    "Prototype awards: 50 search and 10 perception XP per completed site. No new search nodes or loot scaling.",
+    "GUI interaction tested in Godot project; EXE and CMD startup tested separately. Exported resource pack loaded by Godot and earns practice before schema12 battle.",
+    "Finite sites remain collected across incarnations; no world calendar or map.",
+    "No commit or push."
+  ]
+}

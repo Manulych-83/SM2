@@ -31,8 +31,12 @@ func _init(catalog: Sm2TurnCatalog, combat: Sm2CombatCatalog = null, consequence
 		_development.build(development.to_data(),development.progression(),_combat)
 
 func start(setup: Dictionary) -> Dictionary:
+	if _development!=null and _development.ready() and _development.progression().is_party() and _origin.is_empty(): return _failure("party_requires_origin")
 	if not _origin.is_empty() and _development==null: return _failure("origin_requires_development")
 	if _development != null and (not _development.ready() or not _consequences or _combat == null): return _failure("development_requires_combat")
+	if _development!=null and _development.has_psionics() and (_origin.is_empty() or _magic==null or not _magic.is_psionic()): return _failure("psionic_layers_required")
+	if _development!=null and _development.has_psionics() and _development.has_psionic_shields()!=_magic.supports_shields(): return _failure("shield_layers_required")
+	if _magic!=null and _magic.is_psionic() and (_development==null or not _development.has_psionics()): return _failure("psionic_development_required")
 	if _magic != null and (_effects == null or _magic.fingerprint().is_empty()): return _failure("magic_requires_valid_effects")
 	if _effects != null and (not _consequences or _effects.fingerprint().is_empty()): return _failure("effects_require_valid_consequences")
 	if (_consequences and _combat == null) or (_combat != null and not _combat.matches(_catalog)):
@@ -116,6 +120,8 @@ func start(setup: Dictionary) -> Dictionary:
 		if not _origin.is_empty():
 			var origin_error: String = Sm2EncounterOrigin.initialize(candidate,_development,_combat,_origin,true)
 			if not origin_error.is_empty(): return _failure(origin_error)
+	if _development!=null and _development.has_psionic_shields():
+		for id: int in candidate.sorted_ids(): candidate.actor(id).barrier=Sm2BarrierState.new()
 	var events: Array[Dictionary] = []
 	Sm2TurnScheduler.advance(candidate, _catalog, events)
 	if _consequences:
@@ -246,13 +252,19 @@ func view() -> Dictionary:
 	var actors: Array[Dictionary] = []
 	for id: int in _state.sorted_ids():
 		var actor_view: Dictionary = _state.actor(id).view()
+		if _development!=null and _development.has_upgrades(): actor_view["upgrade_attack_fatigue"]=_state.development.extra_attack_fatigue(id)
 		if _state.development != null and _state.development.bodies.has(id):
 			actor_view["development"] = _state.development.view(_state,id)
 			actor_view["display_name"] = "Герой" if id == _development.hero() else "Спутник"
 			actor_view["melee_stat"] = Sm2CombatStatQuery.explain(_state,_state.actor(id),_combat,"melee_skill")
 		if _combat != null:
 			actor_view["hp_max"] = _combat.profile(_state.actor(id).loadout_id).hp_max
-			actor_view["abilities"] = Sm2AttackResolver.available_abilities(_state.actor(id), _combat)
+			actor_view["abilities"] = Sm2AttackResolver.available_abilities(_state.actor(id), _combat, _state)
+		if _development!=null and _development.has_hybrids():
+			actor_view["hybrids"]=[]
+			for ability_id: String in actor_view.get("abilities",[]):
+				var details: Dictionary=Sm2HybridQuery.details(_state,id,ability_id)
+				if not details.is_empty(): details["id"]=ability_id; actor_view.hybrids.append(details)
 		if _effects != null:
 			actor_view.abilities.append_array(_effects.grants(_state.actor(id).loadout_id))
 			actor_view["effect_actions"] = []
@@ -263,14 +275,17 @@ func view() -> Dictionary:
 			for stat: String in Sm2EffectCatalog.STATS: actor_view.stats[stat] = Sm2CombatStatQuery.explain(_state,_state.actor(id),_combat,stat)
 		if _magic != null:
 			var profile: Sm2MagicProfile = _magic.profile(_state.actor(id).loadout_id)
+			if _magic.is_psionic(): actor_view["psionic"]=true
 			actor_view["mana"] = _state.mana[id].current
 			actor_view["magic_profile"] = profile.to_data()
 			actor_view["spells"] = []
 			for spell_id: String in profile.spells:
 				actor_view.abilities.append(spell_id)
-				actor_view.spells.append(_magic.spell(spell_id).to_data())
+				var spell_view: Dictionary=_magic.spell(spell_id).to_data()
+				spell_view.mana_cost=Sm2ManaResolver.cost(_state,id,_magic.spell(spell_id)).total
+				actor_view.spells.append(spell_view)
 		actors.append(actor_view)
-	return {"ruleset": Sm2EncounterOrigin.RULESET if not _origin.is_empty() else Sm2DevelopmentSnapshot.RULESET if _development != null else Sm2MagicSnapshot.AREA_RULESET if _magic != null and _magic.supports_areas() else Sm2MagicSnapshot.RULESET if _magic != null else Sm2EffectSnapshot.RULESET if _effects != null else Sm2CombatSnapshot.CONSEQUENCE_RULESET if _consequences else (Sm2CombatSnapshot.RULESET if _combat != null else Sm2TacticalState.RULESET), "battle_id": _state.battle_id,
+	return {"ruleset": str(_origin.version) if not _origin.is_empty() else Sm2DevelopmentSnapshot.RULESET if _development != null else Sm2MagicSnapshot.AREA_RULESET if _magic != null and _magic.supports_areas() else Sm2MagicSnapshot.RULESET if _magic != null else Sm2EffectSnapshot.RULESET if _effects != null else Sm2CombatSnapshot.CONSEQUENCE_RULESET if _consequences else (Sm2CombatSnapshot.RULESET if _combat != null else Sm2TacticalState.RULESET), "battle_id": _state.battle_id,
 		"scenario_id": _state.scenario_id, "round": _state.round, "round_limit": _state.round_limit,
 		"revision": _state.revision, "active_actor_id": _state.active_id(), "phase": _state.phase,
 		"finished": _state.finished, "finish_reason": _state.finish_reason, "winner": _state.winner if not _state.winner.is_empty() else null,

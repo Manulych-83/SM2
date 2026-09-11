@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "version": "0.7.0-p6.1",
+  "scope": "P6.1 region map, safe travel and persistent world",
+  "checks": {
+    "all": {
+      "checks": 9535,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\.local\\p6_1\\clean-20260912-000534-970\\.local\\logs\\checks-20260912-000535-697-958a2a55.json"
+    },
+    "ui": {
+      "checks": 181,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\outputs\\p6_1\\ui2\\report.json"
+    },
+    "menu": {
+      "checks": 98,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\outputs\\p6_1\\menu2\\report.json"
+    },
+    "legacy_ui": {
+      "checks": 172,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\outputs\\p6_1\\legacy-ui\\report.json"
+    },
+    "write": {
+      "checks": 53,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\outputs\\p6_1\\probe-write.json"
+    },
+    "restart": {
+      "checks": 9,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\outputs\\p6_1\\probe-read.json"
+    },
+    "packed": {
+      "checks": 53,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\outputs\\p6_1\\probe-pack.json"
+    },
+    "legacy_save": {
+      "checks": 2,
+      "passed": true,
+      "exit_code": 0,
+      "report": "E:\\GPT\\SM2\\outputs\\p6_1\\probe-legacy.json"
+    }
+  },
+  "clean_root": "E:\\GPT\\SM2\\.local\\p6_1\\clean-20260912-000534-970",
+  "source_files_compared": 604,
+  "native": {
+    "cmd_exit": 0,
+    "version": "0.7.0.0",
+    "sha256": "36A0123C11A95D584FEC95FCD637D2D2BA6906CA64E5C8DC04B536018EC53009",
+    "passed": true,
+    "exe_log": "E:\\GPT\\SM2\\.local\\logs\\region-exe-20260912-001041-534-93b9e27a.log",
+    "exe_exit": 0,
+    "player_saves_unchanged": 4
+  },
+  "player_saves_unchanged": 4,
+  "commit_or_push": false
+}

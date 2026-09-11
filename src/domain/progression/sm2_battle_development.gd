@@ -1,5 +1,6 @@
 class_name Sm2BattleDevelopment
 extends RefCounted
+var upgrades: Dictionary[int,Sm2BodyUpgradeState]={}
 var origin: Dictionary = {}
 var world_id: String = ""
 var soul: Sm2SoulState = Sm2SoulState.new()
@@ -20,6 +21,8 @@ func initialize(state: Sm2TacticalState, definitions: Sm2DevelopmentCatalog) -> 
 	soul.knowledge = progress.knowledge_ids()
 	for actor_id: int in [catalog.hero(),catalog.companion()]:
 		bodies[actor_id] = Sm2ProgressRules.empty_body(2 if actor_id == catalog.hero() else 4,progress)
+		if progress.is_party() and actor_id==catalog.companion():
+			bodies[actor_id]=Sm2CompanionProgress.new(); bodies[actor_id].id=4
 		counts[actor_id] = {}
 		for id: String in catalog.ability_ids(): counts[actor_id][id] = 0
 	return ""
@@ -28,6 +31,7 @@ func copy() -> Sm2BattleDevelopment:
 	var value: Sm2BattleDevelopment = Sm2BattleDevelopment.new()
 	value.catalog = catalog; value.progress = progress; value.world_id = world_id; value.sequence = sequence
 	value.origin = origin.duplicate(true)
+	for id: int in upgrades: value.upgrades[id]=upgrades[id].copy()
 	value.soul.incarnation_id = soul.incarnation_id
 	value.incarnation.id = incarnation.id; value.incarnation.body_id = incarnation.body_id
 	value.soul.knowledge = soul.knowledge.duplicate()
@@ -51,6 +55,14 @@ func award(actor_id: int, ability_id: String, events: Array[Dictionary]) -> Stri
 	var rewards: Dictionary = catalog.awards(ability_id)
 	if rewards.is_empty(): return ""
 	if sequence >= 1000000: return "practice_limit"
+	if bodies[actor_id] is Sm2CompanionProgress:
+		var body: Sm2CompanionProgress=bodies[actor_id] as Sm2CompanionProgress
+		var amount: int=int(progress.companion_growth().attack_xp)
+		if body.earned>Sm2ProgressCatalog.XP_LIMIT-amount: return "experience_limit"
+		var before: int=int(body.describe(progress).level)
+		body.earned+=amount; sequence+=1; counts[actor_id][ability_id]+=1
+		events.append({"type":"companion_experience_awarded","actor_id":str(actor_id),"body_id":str(body.id),"ability_id":ability_id,"amount":amount,"level_before":before,"level_after":body.describe(progress).level})
+		return ""
 	for id: String in rewards:
 		if bodies[actor_id].tracks[id].earned > Sm2ProgressCatalog.XP_LIMIT-int(rewards[id]): return "experience_limit"
 	sequence += 1
@@ -76,17 +88,28 @@ func purchase(command: Sm2Command, events: Array[Dictionary]) -> void:
 	Sm2ProgressRules.purchase(bodies[command.actor_id],node)
 	events.append({"type":"battle_node_purchased","actor_id":str(command.actor_id),"body_id":str(bodies[command.actor_id].id),"node_id":node.id,"name":node.title,"cost":node.cost,"track_id":node.track_id})
 
+func track_modifiers(actor_id: int) -> Array[Dictionary]:
+	var result: Array[Dictionary]=[]
+	if catalog.has_upgrades(): result=catalog.upgrades().track_modifiers(upgrades.get(actor_id))
+	return result
+func extra_attack_fatigue(actor_id: int) -> int:
+	return catalog.upgrades().attack_fatigue(upgrades.get(actor_id)) if catalog.has_upgrades() else 0
+
 func stat_bonus(actor_id: int, stat: String) -> int:
 	if not bodies.has(actor_id): return 0
+	if bodies[actor_id] is Sm2CompanionProgress:
+		return (int((bodies[actor_id] as Sm2CompanionProgress).describe(progress).level)-1)*int(progress.companion_growth().melee_per_level) if stat=="melee_skill" else 0
 	var result: int = 0
 	for mapping: Dictionary in catalog.mappings():
 		if mapping.stat != stat: continue
-		for row: Dictionary in Sm2ProgressRules.tracks(bodies[actor_id],progress):
+		for row: Dictionary in Sm2ProgressRules.tracks(bodies[actor_id],progress,track_modifiers(actor_id)):
 			if row.id == mapping.track_id: result += (int(row.effective)-int(mapping.baseline))*int(mapping.scale)
 	return result
 
 func view(state: Sm2TacticalState, actor_id: int) -> Dictionary:
 	if not bodies.has(actor_id): return {}
+	if bodies[actor_id] is Sm2CompanionProgress:
+		return {"world_id":world_id,"body_id":bodies[actor_id].id,"role":"companion","growth":(bodies[actor_id] as Sm2CompanionProgress).describe(progress),"knowledge":[],"tracks":Sm2ProgressRules.tracks(bodies[actor_id],progress,track_modifiers(actor_id)),"nodes":[],"attacks":counts[actor_id].duplicate(true),"melee_bonus":stat_bonus(actor_id,"melee_skill")}
 	var knowledge: Array[String] = []
 	if actor_id == catalog.hero():
 		for id: String in soul.knowledge: knowledge.append(progress.knowledge_name(id))
@@ -97,10 +120,11 @@ func view(state: Sm2TacticalState, actor_id: int) -> Dictionary:
 		command.kind = "buy_node"; command.actor_id = actor_id; command.target_actor_id = actor_id; command.ability_id = id
 		var reason: String = purchase_error(state,command)
 		nodes.append({"id":id,"name":node.title,"cost":node.cost,"track_name":progress.track(node.track_id).title,"bonus":node.bonus,"min_level":node.min_level,"owned":id in bodies[actor_id].tracks[node.track_id].nodes,"allowed":reason.is_empty(),"reason":reason})
-	return {"world_id":world_id,"body_id":bodies[actor_id].id,"role":"hero" if actor_id == catalog.hero() else "companion","knowledge":knowledge,"tracks":Sm2ProgressRules.tracks(bodies[actor_id],progress),"nodes":nodes,"attacks":counts[actor_id].duplicate(true),"melee_bonus":stat_bonus(actor_id,"melee_skill")}
+	return {"world_id":world_id,"body_id":bodies[actor_id].id,"role":"hero" if actor_id == catalog.hero() else "companion","knowledge":knowledge,"tracks":Sm2ProgressRules.tracks(bodies[actor_id],progress,track_modifiers(actor_id)),"nodes":nodes,"attacks":counts[actor_id].duplicate(true),"melee_bonus":stat_bonus(actor_id,"melee_skill")}
 
 static func decode(raw: Dictionary, state: Sm2TacticalState, definitions: Sm2DevelopmentCatalog) -> Dictionary:
 	var invalid: Dictionary = {"ok":false,"errors":PackedStringArray(["development_snapshot_invalid"])}
+	if definitions.progression().is_party(): return invalid
 	if not Sm2Validate.fields(raw,["world_id","fingerprint","soul","incarnation","source_id","next_id","sequence","members"]): return invalid
 	if raw.world_id != state.battle_id or raw.fingerprint != definitions.fingerprint() or raw.source_id != "5" or raw.next_id != "6" or not Sm2Validate.decimal(raw.sequence,0,1000000): return invalid
 	var value: Sm2BattleDevelopment = Sm2BattleDevelopment.new()

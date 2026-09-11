@@ -53,7 +53,7 @@ func _build() -> void:
 	_title = _label("",22,GOLD)
 	_title.size_flags_horizontal = SIZE_EXPAND_FILL
 	header.add_child(_title)
-	if runner.view().ruleset == Sm2DevelopmentSnapshot.RULESET and life_session == null:
+	if (runner.view().ruleset == Sm2DevelopmentSnapshot.RULESET and life_session == null) or runner.view().ruleset in [Sm2EncounterOrigin.PARTY_RULESET,Sm2EncounterOrigin.BODY_RULESET,Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET]:
 		header.add_child(_button("Развитие", "DevelopmentButton", _open_development))
 	header.add_child(_button("Сохранить", "SaveBattleButton", _save))
 	header.add_child(_button("Загрузить", "LoadBattleButton", _load))
@@ -83,7 +83,9 @@ func _build() -> void:
 	_inspector.selection_enabled = true
 	_inspector.name = "ActorDetails"
 	_inspector.custom_minimum_size = Vector2(292,130)
-	if runner.view().ruleset in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET]: _inspector.custom_minimum_size.y=180
+	if runner.view().ruleset in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET,Sm2EncounterOrigin.PARTY_RULESET,Sm2EncounterOrigin.BODY_RULESET,Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET]: _inspector.custom_minimum_size.y=180
+	# This profile has more actions; retain space for the second action row at 1000x700.
+	if runner.view().ruleset in [Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET]: _inspector.custom_minimum_size.y=125
 	_inspector.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	side.add_child(_inspector)
 	side.add_child(_label("ПРОГНОЗ ДЕЙСТВИЯ",12,GOLD))
@@ -128,7 +130,7 @@ func _refresh() -> void:
 		_delay = 0.55
 	var active: Dictionary = _actor(_active)
 	_title.text = ("Области · Раунд %s" if state.ruleset == Sm2MagicSnapshot.AREA_RULESET else "Магия · Раунд %s" if state.ruleset == Sm2MagicSnapshot.RULESET else "Эффекты · Раунд %s" if state.ruleset == Sm2EffectSnapshot.RULESET else "Стычка · Раунд %s") % state.round
-	if state.ruleset in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET]: _title.text = "Развитие · Раунд %s" % state.round
+	if state.ruleset in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET,Sm2EncounterOrigin.PARTY_RULESET,Sm2EncounterOrigin.BODY_RULESET,Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET]: _title.text = "Развитие · Раунд %s" % state.round
 	var ids: Array[String] = []
 	for id: int in state.main_queue: ids.append("№%s" % id)
 	var deferred: Array[String] = []
@@ -176,18 +178,30 @@ func _refresh_actions() -> void:
 	var active: Dictionary = _actor(_active)
 	if not active.is_empty():
 		for id: String in active.abilities:
-			var self_target: bool = id.ends_with("shieldwall")
+			var self_target: bool = id.ends_with("shieldwall") or _spell_action(id).get("operation")=="self_barrier"
 			var text_value: String = _ability_name(id)
 			if _selected == id: text_value = "• " + text_value
 			var disabled_value: bool = not player
 			if self_target: disabled_value = disabled_value or not runner.preview(_command("use_ability",id,_active)).allowed
 			var button: Button = _button(text_value, "Ability_"+id.get_slice(".",1), _ability_clicked.bind(id,self_target),disabled_value)
+			if _spell_action(id).get("operation")=="self_barrier":
+				button.tooltip_text="Щит на себя до следующего хода. Поглощает атаки после брони; яд проходит. Повтор обновляет защиту."
+				button.mouse_entered.connect(_barrier_preview.bind(id))
 			_actions.add_child(button)
 	for action: Array in [["wait","Ждать","WaitButton"],["end_turn","Конец хода","EndTurnButton"],["escape","Уйти с поля","EscapeButton"]]:
 		var check: Dictionary = runner.preview(_command(action[0]))
 		var button: Button = _button(action[1],action[2],_execute_kind.bind(action[0]),not player or not check.allowed)
 		button.tooltip_text = "" if check.allowed else Sm2BattleText.reason(check.reason)
 		_actions.add_child(button)
+
+func _barrier_preview(id: String) -> void:
+	var check: Dictionary=runner.preview(_command("use_ability",id,_active))
+	_preview.text="Псионический щит · на себя\n"
+	if not check.allowed: _preview.text+=Sm2BattleText.reason(check.reason); return
+	_preview.text+=_cost_text(check)
+	_preview.text+="Цена: %s действий · %s концентрации\n" % [check.ap_cost,check.mana_cost]
+	_preview.text+=Sm2AbilityParameterText.describe(check.capacity_calculation,"Защита","защиты","защиты")
+	_preview.text+="\nДо начала следующего хода.\nАтаки поглощаются после брони; яд проходит.\nПовтор заменит оставшиеся %s защиты.\nПрактика Псионики и Резонанса." % check.previous
 
 func _player_turn() -> bool:
 	if state.is_empty() or state.finished or not runner.error_reason().is_empty(): return false
@@ -209,7 +223,7 @@ func _inspect(id: int) -> void:
 	_inspector.text = "%s · %s\nЗдоровье: %s / %s\nДействия: %s / %s · Усталость: %s / %s\nШлем: %s · Броня: %s · Щит: %s\n%s · Инициатива: %s" % [Sm2BattleText.actor(actor),"отряд" if actor.side == "company" else "враг",actor.combat.hp,actor.hp_max,actor.ap,actor.ap_max,actor.fatigue,actor.fatigue_max,head.get("current",0),body.get("current",0),shield.get("current",0),Sm2BattleText.MORALE.get(actor.morale,actor.morale),actor.initiative]
 	if str(weapon.get("definition_id","")).ends_with("bow"): _inspector.text += "\nСтрелы: %s" % weapon.ammo
 	elif actor.combat.shieldwall_source != "0": _inspector.text += "\nЗащита щитом активна"
-	if actor.has("effects"):
+	if actor.has("effects") and not actor.get("psionic",false):
 		var details: String = _inspector.text
 		_inspector.text = "%s · HP %s/%s · AP %s/%s\n" % [Sm2BattleText.actor(actor),actor.combat.hp,actor.hp_max,actor.ap,actor.ap_max]
 		for effect: Dictionary in actor.effects: _inspector.text += Sm2BattleText.effect_description(effect)+"\n"
@@ -221,15 +235,32 @@ func _inspect(id: int) -> void:
 		for stat: String in actor.stats:
 			_inspector.text += "%s: %s (эффекты %+d)\n" % [Sm2BattleText.STATS.get(stat,stat),actor.stats[stat].value,actor.stats[stat].flat]
 
-	if actor.has("mana"):
+	if actor.has("mana") and not actor.get("psionic",false):
 		_inspector.text = "Мана: %s / %s · +%s за раунд\nСопротивление магии: %s%%\n" % [actor.mana,actor.magic_profile.mana_max,actor.magic_profile.mana_per_round,actor.magic_profile.arcane_resistance] + _inspector.text
 	if actor.has("development"):
 		var development_lines: String="%s · HP %s/%s · AP %s/%s\nУсталость %s/%s · %s\n" % [actor.display_name,actor.combat.hp,actor.hp_max,actor.ap,actor.ap_max,actor.fatigue,actor.fatigue_max,Sm2BattleText.MORALE.get(actor.morale,actor.morale)]
+		if actor.development.has("growth"):
+			development_lines+="Уровень %s · общий опыт %s/%s\n" % [actor.development.growth.level,actor.development.growth.progress,actor.development.growth.needed]
+		var shown_tracks: Array[String]=[]
+		shown_tracks.assign(["p1:skill.melee","p1:skill.psionics","p4a:stat.resonance"] if state.ruleset==Sm2EncounterOrigin.HYBRID_RULESET else ["p1:stat.strength","p1:skill.psionics","p4a:stat.resonance"] if state.ruleset in [Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET] else ["p1:skill.psionics","p4a:stat.resonance"] if state.ruleset in [Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET] else ["p1:skill.psionics"] if actor.get("psionic",false) else ["p1:stat.strength","p1:skill.melee"])
 		for track: Dictionary in actor.development.tracks:
-			if track.id == "p1:skill.psionics": continue
+			if actor.development.has("growth") or track.id not in shown_tracks: continue
+			if int(track.get("upgrade_bonus",0))>0:
+				development_lines+="%s: свой %s +%s улучшение = %s\n" % [track.name,track.level,track.upgrade_bonus,track.effective]
+				continue
 			development_lines += "%s %s · опыт %s/%s\n" % [track.name,track.level,track.progress,track.needed]
 		development_lines += "Навык попадания %s (развитие %+d)\nШлем %s · Броня %s · Щит %s" % [actor.melee_stat.value,actor.development.melee_bonus,head.get("current",0),body.get("current",0),shield.get("current",0)]
 		_inspector.text=development_lines
+	if actor.has("barrier") and int(actor.magic_profile.mana_max)>0:
+		_inspector.text="Пси-щит: %s · до следующего хода\n" % actor.barrier.get("remaining",0)+_inspector.text if not actor.barrier.is_empty() else "Пси-щит: не действует\n"+_inspector.text
+	if actor.get("psionic",false) and int(actor.magic_profile.mana_max)>0:
+		_inspector.text="Концентрация: %s/%s · +%s за раунд\n" % [actor.mana,actor.magic_profile.mana_max,actor.magic_profile.mana_per_round]+_inspector.text
+	if actor.has("body_functions"):
+		for part: Dictionary in actor.body_functions.parts:
+			if not part.working or not str(part.get("prosthesis_id","")).is_empty(): _inspector.text+="\n"+("Правая рука" if part.id=="right_hand" else "Левая рука")+": "+Sm2BattleText.function_status(part)
+
+func actor_upgrade_cost() -> int:
+	return int(_actor(_active).get("upgrade_attack_fatigue",0))
 
 func _spell_action(id: String) -> Dictionary:
 	for spell: Dictionary in _actor(_active).get("spells",[]):
@@ -242,6 +273,8 @@ func _effect_action(id: String) -> Dictionary:
 	return {}
 
 func _ability_name(id: String) -> String:
+	for hybrid: Dictionary in _actor(_active).get("hybrids",[]):
+		if hybrid.id==id: return hybrid.name
 	var spell: Dictionary = _spell_action(id)
 	if not spell.is_empty(): return spell.name
 	var action: Dictionary = _effect_action(id)
@@ -256,7 +289,7 @@ func _attack_id() -> String:
 
 func _command(kind: String, ability: String = "", target_id: int = 0, cell: Vector2i = Vector2i.ZERO) -> Sm2Command:
 	var result: Sm2Command = Sm2Command.new()
-	if state.get("ruleset") in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET]: result.battle_id = state.battle_id
+	if state.get("ruleset") in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET,Sm2EncounterOrigin.PARTY_RULESET,Sm2EncounterOrigin.BODY_RULESET,Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET]: result.battle_id = state.battle_id
 	result.kind = kind
 	result.actor_id = _active
 	result.expected_revision = int(state.get("revision",0))
@@ -297,9 +330,22 @@ func _hovered(cell: Vector2i) -> void:
 		var check: Dictionary = runner.preview(_command("use_ability",id,int(target.actor_id)))
 		_preview.text = "%s → №%s\n" % [_ability_name(id),target.actor_id]
 		if not check.allowed: _preview.text += Sm2BattleText.reason(check.reason); return
-		_preview.text += "Цена: %s действий · %s усталости\n" % [check.ap_cost,check.fatigue_cost]
+		if actor_upgrade_cost()>0 and check.get("kind","")=="" and not check.has("hybrid"): _preview.text+="Улучшения тела: +%s усталости за физическую атаку (включено в цену).\n" % actor_upgrade_cost()
+		if check.has("hybrid"):
+			_preview.text+="Цена: %s ОД · %s усталости\nКонцентрация: %s · пси-часть: %s\n" % [check.ap_cost,check.fatigue_cost,check.mana_cost,check.hybrid.psionic_damage]
+		else:
+			_preview.text += "Цена: %s действий · %s усталости\n" % [check.ap_cost,check.fatigue_cost]
 		if check.get("kind","") == "spell":
-			_preview.text += "Мана: %s\nУрон здоровью: %s HP\nСопротивление магии: %s%%\nОбходит броню и щит.\nБез броска попадания." % [check.mana_cost,check.hp_loss,check.resistance]
+			if check.channel=="psionic":
+				if check.has("damage_calculation"):
+					_preview.text+=_cost_text(check)
+					_preview.text+="Концентрация: %s · цель потеряет %s HP\n" % [check.mana_cost,check.hp_loss]
+					_preview.text+=Sm2AbilityParameterText.describe(check.damage_calculation)+"\nБез промаха; обходит броню и предметный щит.\nПрактика Псионики и Резонанса."
+				else:
+					_preview.text+="Концентрация: %s\nУрон здоровью: %s HP\nОбходит броню и щит.\nГарантированное попадание.\nПрактика Псионики за применение." % [check.mana_cost,check.hp_loss]
+			else:
+				_preview.text += "Мана: %s\nУрон здоровью: %s HP\nСопротивление магии: %s%%\nОбходит броню и щит.\nБез броска попадания." % [check.mana_cost,check.hp_loss,check.resistance]
+			if check.has("absorbed") and check.absorbed>0: _preview.text+="\nПси-щит поглотит: %s." % check.absorbed
 			if check.lethal: _preview.text += "\nСмертельный урон."
 		elif check.get("kind","") == "effect":
 			_preview.text += "Наложение без броска попадания.\n" if check.operation == "apply_effect" else "Снять эффекты:\n"
@@ -309,9 +355,14 @@ func _hovered(cell: Vector2i) -> void:
 			_preview.text += "Щит потеряет %s прочности\nБез броска попадания" % check.shield_loss
 		else:
 			_preview.text += "Попадание: %s%%\n" % check.hit_chance
+			if not target.get("barrier",{}).is_empty(): _preview.text+="Пси-щит цели: %s. Потери HP ниже уже учитывают защиту.\n" % target.barrier.remaining
 			for zone: Dictionary in check.zones:
-				_preview.text += "%s (%s%%): HP %s–%s, броня %s–%s\n" % ["Голова" if zone.id == "head" else "Тело",zone.chance,zone.hp_min,zone.hp_max,zone.armor_min,zone.armor_max]
+				_preview.text += "%s (%s%%): HP %s–%s, броня %s–%s\n" % [str(check.function_trauma) if check.has("function_trauma") else "Голова" if zone.id == "head" else "Тело",zone.chance,zone.hp_min,zone.hp_max,zone.armor_min,zone.armor_max]
 			_preview.text += "Урон указан при попадании."
+			if check.has("hybrid"):
+				_preview.text+="\nПси-часть уже включена в потери HP выше.\nПромах: урона нет, затраты и практика сохраняются."
+				_preview.text+="\n"+_cost_text(check)
+			if check.has("function_trauma"): _preview.text += "\n"+str(check.function_trauma)+(": утрата при потере HP выжившей целью; установленный протез повреждается." if check.get("function_sever",false) else ": травма при потере HP, если цель выживет.")
 	elif _reachable.has(cell) and _selected.is_empty():
 		var value: Dictionary = _reachable[cell]
 		board.route.assign(value.path)
@@ -392,7 +443,7 @@ func _append(events: Array[Dictionary]) -> void:
 func _open_development() -> void:
 	if is_instance_valid(_development_panel): return
 	_path.clear()
-	_development_panel=Sm2BattleProgressPanel.new(); _development_panel.name="BattleProgressPanel"; _development_panel.runner=runner
+	_development_panel=Sm2BattleProgressPanel.new(); _development_panel.name="BattleProgressPanel"; _development_panel.runner=runner; _development_panel.life_session=life_session
 	_development_panel.changed.connect(_append)
 	_development_panel.close_requested.connect(func() -> void:
 		remove_child(_development_panel); _development_panel.queue_free(); _development_panel=null; _refresh())
@@ -436,3 +487,8 @@ static func _button(value: String, node_name: String, action: Callable, disabled
 	button.disabled = disabled_value
 	button.pressed.connect(action)
 	return button
+
+func _cost_text(check: Dictionary) -> String:
+	var text: String=""
+	for source: Dictionary in check.get("cost_calculation",{}).get("sources",[]): text+="%s: +%s концентрации (включено в цену).\n" % [source.name,source.amount]
+	return text

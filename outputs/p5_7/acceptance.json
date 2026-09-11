@@ -1,0 +1,72 @@
+{
+  "scope": "P5.7 complete hybrid ability and cross-node progression",
+  "version": "0.6.6-p5.7",
+  "checks": {
+    "all": {
+      "passed": true,
+      "checks": 9381,
+      "report": "E:\\GPT\\SM2\\.local\\p5_7\\clean-20260911-234126-009\\.local\\logs\\checks-20260911-234126-730-594cb717.json",
+      "exit_code": 0
+    },
+    "hybrids": {
+      "passed": true,
+      "checks": 446,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260911-234018-441-dab5d776.json",
+      "exit_code": 0
+    },
+    "ui": {
+      "passed": true,
+      "checks": 171,
+      "report": "E:\\GPT\\SM2\\outputs\\p5_7\\hybrid-ui2\\report.json",
+      "exit_code": 0
+    },
+    "legacy_ui": {
+      "passed": true,
+      "checks": 199,
+      "report": "E:\\GPT\\SM2\\outputs\\p5_7\\hybrid-legacy-ui\\report.json",
+      "exit_code": 0
+    },
+    "menu_ui": {
+      "passed": true,
+      "checks": 97,
+      "report": "E:\\GPT\\SM2\\outputs\\p5_7\\hybrid-menu1\\report.json",
+      "exit_code": 0
+    },
+    "restart": {
+      "passed": true,
+      "checks": 18,
+      "report": "E:\\GPT\\SM2\\outputs\\p5_7\\hybrid-restart.json",
+      "exit_code": 0
+    },
+    "compatibility": {
+      "passed": true,
+      "checks": 22,
+      "report": "E:\\GPT\\SM2\\outputs\\p5_7\\hybrid-compatibility.json",
+      "exit_code": 0
+    },
+    "packed": {
+      "passed": true,
+      "checks": 63,
+      "report": "E:\\GPT\\SM2\\outputs\\p5_7\\hybrid-export-content.json",
+      "exit_code": 0
+    }
+  },
+  "clean_source_files_compared": 592,
+  "clean_root": "E:\\GPT\\SM2\\.local\\p5_7\\clean-20260911-234126-009",
+  "player_save_hashes_unchanged": 4,
+  "launch": {
+    "exe_sha256": "46B07A1D5F54D76C204653768CAD2CB560DE7EE7C565718FAB3C7A1BDCDE3A91",
+    "logs": {
+      "export": "E:\\GPT\\SM2\\.local\\logs\\hybrid-export-20260911-234446-802-f2478cd0.log",
+      "compatibility": "E:\\GPT\\SM2\\.local\\logs\\hybrid-compatibility-20260911-234445-815-1c2cccbc.log",
+      "reload": "E:\\GPT\\SM2\\.local\\logs\\hybrid-reload-20260911-234444-693-7ac19b7d.log"
+    },
+    "passed": true,
+    "exe_exit": 0,
+    "cmd_exit": 0,
+    "exe_log": "E:\\GPT\\SM2\\.local\\logs\\hybrid-exe-20260911-234451-731-49632732.log",
+    "exe_version": "0.6.6.0",
+    "player_saves_unchanged": 4
+  },
+  "commit_or_push": false
+}

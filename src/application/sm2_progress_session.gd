@@ -4,9 +4,10 @@ const SLOT: String = "p1_lab"
 var lab: Sm2ProgressLab
 var _store: Sm2SaveStore
 var _catalog: Sm2ProgressCatalog
-func _init(catalog: Sm2ProgressCatalog, store: Sm2SaveStore) -> void:
+var _slot: String
+func _init(catalog: Sm2ProgressCatalog, store: Sm2SaveStore, slot: String = SLOT) -> void:
 	_catalog=Sm2ProgressCatalog.new(); _catalog.build(catalog.to_data())
-	_store=store; lab=Sm2ProgressLab.new(_catalog)
+	_store=store; _slot=slot; lab=Sm2ProgressLab.new(_catalog)
 func new_game() -> Dictionary:
 	var bytes: PackedByteArray = Crypto.new().generate_random_bytes(16)
 	if bytes.size() != 16: return {"ok":false,"errors":PackedStringArray(["world_id_failed"])}
@@ -20,14 +21,14 @@ func act(kind: String, target_id: String) -> Dictionary:
 	command.body_id=state.body_id; command.incarnation_id=state.incarnation_id; command.expected_revision=state.revision
 	command.practice_sequence=int(state.practice_sequence)+1 if kind == "practice" else 0
 	return lab.execute(command)
-func has_save() -> bool: return _store != null and _store.has_slot(SLOT)
+func has_save() -> bool: return _store != null and _store.has_slot(_slot)
 func save_game() -> Dictionary:
 	if _store == null: return {"ok":false,"errors":PackedStringArray(["no_store"])}
 	var checked: Dictionary = Sm2ProgressSnapshot.decode(lab.capture(),_catalog)
 	if not checked.ok: return checked
-	return _store.save_slot(lab.capture(),SLOT)
+	return _store.save_slot(lab.capture(),_slot)
 func load_game() -> Dictionary:
 	if _store == null: return {"ok":false,"errors":PackedStringArray(["no_store"])}
-	var saved: Dictionary = _store.load_slot(SLOT)
+	var saved: Dictionary = _store.load_slot(_slot)
 	if not saved.ok: return saved
 	return lab.restore(saved.payload)

@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "version": "0.6.3-p5.4",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p5_4\\clean-20260911-222635-113",
+  "core_source": "E:\\GPT\\SM2\\.local\\p5_4\\clean-20260911-222635-113\\.local\\logs\\checks-20260911-222635-819-4f3f2825.json",
+  "clean_files_compared": 313,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 8623
+    },
+    "ui": {
+      "path": "ui-final/report.json",
+      "passed": true,
+      "checks": 149
+    },
+    "legacy_ui": {
+      "path": "legacy-ui2/report.json",
+      "passed": true,
+      "checks": 161
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 15
+    },
+    "compatibility": {
+      "path": "compatibility.json",
+      "passed": true,
+      "checks": 15
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 28
+    }
+  },
+  "changed_since_p5_3": [
+    "src\\application\\sm2_ability_parameter_text.gd",
+    "src\\application\\sm2_battle_runner.gd",
+    "src\\application\\sm2_hero_development_view.gd",
+    "src\\application\\sm2_journey_session.gd",
+    "src\\application\\sm2_tactical_session.gd",
+    "src\\presentation\\sm2_battle_progress_panel.gd",
+    "src\\presentation\\sm2_battle_screen.gd",
+    "src\\presentation\\sm2_hero_development_screen.gd",
+    "src\\presentation\\sm2_life_screen.gd",
+    "src\\presentation\\sm2_main.gd",
+    "src\\content\\world\\sm2_body_upgrade_content_loader.gd",
+    "src\\domain\\ai\\sm2_ai_queries.gd",
+    "src\\domain\\body\\sm2_body_upgrade_catalog.gd",
+    "src\\domain\\body\\sm2_body_upgrade_state.gd",
+    "src\\domain\\body\\sm2_body_upgrade_supply.gd",
+    "src\\domain\\combat\\sm2_attack_resolver.gd",
+    "src\\domain\\magic\\sm2_barrier_resolver.gd",
+    "src\\domain\\magic\\sm2_barrier_rules.gd",
+    "src\\domain\\magic\\sm2_spell_resolver.gd",
+    "src\\domain\\progression\\sm2_ability_parameter_query.gd",
+    "src\\domain\\progression\\sm2_battle_development.gd",
+    "src\\domain\\progression\\sm2_development_catalog.gd",
+    "src\\domain\\progression\\sm2_encounter_origin.gd",
+    "src\\domain\\progression\\sm2_progress_rules.gd",
+    "src\\domain\\progression\\sm2_psionic_catalog.gd",
+    "src\\domain\\tactical\\sm2_tactical_battle.gd",
+    "src\\domain\\world\\sm2_journey_world.gd",
+    "src\\domain\\world\\sm2_world_body.gd",
+    "content\\p5\\upgrades.json",
+    "tools\\run_checks.ps1",
+    "tools\\run_ui_checks.ps1",
+    "tests\\p5_upgrade_ui.gd",
+    "tests\\test_runner.gd",
+    "tests\\scenarios\\test_p5_upgrades.gd",
+    "project.godot",
+    "export_presets.cfg"
+  ],
+  "visual_review": [
+    "ui1/camp.png",
+    "ui1/power.png",
+    "ui1/combined.png",
+    "ui1/physical-forecast.png",
+    "ui1/new-body.png",
+    "ui-final/combined.png"
+  ],
+  "screens_byte_identical_after_fix": {
+    "camp.png": true,
+    "power.png": true,
+    "combined.png": true,
+    "physical-forecast.png": true,
+    "new-body.png": true
+  },
+  "resolved_issue": "Empty modifier return used an untyped Array for legacy profiles. Fixed explicit Array[Dictionary] in battle/world query; prior checks and saved P5.3 now pass. Failed run logs retained.",
+  "limits": [
+    "One authored genetics upgrade; no new functional cybernetic implant or summons.",
+    "Numeric tuning provisional; +2 Power changes existing melee hit mapping, not weapon damage.",
+    "Finite prepared drug stash; no repeat install, removal or refund on death.",
+    "Synthetic cybernetics definition in core test demonstrates additive composition only.",
+    "Source UI rendered; packed content and native EXE/CMD checked separately.",
+    "No migration, history still capped at4096; large-scale content performance not accepted.",
+    "No commit or push."
+  ]
+}

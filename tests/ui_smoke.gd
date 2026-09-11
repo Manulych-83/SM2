@@ -57,6 +57,9 @@ func _run() -> void:
 func _press(button_name: String) -> void:
 	var button: Button = _button(button_name)
 	_harness.expect(button != null and not button.disabled, button_name + " is usable")
+	if button!=null and not button.is_visible_in_tree():
+		var toggle: Button=_button("OtherModesButton")
+		if toggle!=null: toggle.pressed.emit(); await process_frame; await process_frame
 	if button != null and not button.disabled:
 		button.pressed.emit()
 	await process_frame
@@ -74,7 +77,12 @@ func _contains_label(text_value: String) -> bool:
 func _capture(filename: String) -> void:
 	await RenderingServer.frame_post_draw
 	for node: Node in _screen.find_children("*", "Control", true, false):
-		if node is Label or node is Button:
+		var parent: Node=node.get_parent(); var clipped: bool=false
+		while parent!=null:
+			if parent is ScrollContainer: clipped=true; break
+			parent=parent.get_parent()
+		# Scroll content may extend below its viewport; the viewport itself must fit.
+		if not clipped and (node is Label or node is Button or node is ScrollContainer) and (node as Control).is_visible_in_tree():
 			_harness.expect(_screen.get_global_rect().encloses((node as Control).get_global_rect()), filename + ": visible control inside screen: " + node.name)
 	var picture: Image = root.get_texture().get_image()
 	_harness.expect(not picture.is_empty(), filename + ": rendered image exists")

@@ -74,7 +74,7 @@ func capture() -> Dictionary:
 		data["result_recorded"] = _result_recorded
 	if _effects != null: data.format = EFFECT_FORMAT
 	if _magic != null: data.format = AREA_FORMAT if _magic.supports_areas() else MAGIC_FORMAT
-	if _development != null: data.format = DEVELOPMENT_FORMAT if _origin.is_empty() else "sm2.session.p4.encounter.1"
+	if _development != null: data.format = DEVELOPMENT_FORMAT if _origin.is_empty() else ("sm2.session.p5.hybrid_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.HYBRID_RULESET else "sm2.session.p5.implant_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.IMPLANT_RULESET else "sm2.session.p5.upgrade_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.UPGRADE_RULESET else "sm2.session.p5.psionic_shield_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET else "sm2.session.p5.psionic_growth_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET else "sm2.session.p5.psionic_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PSIONIC_RULESET else "sm2.session.p4.prosthesis_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PROSTHESIS_RULESET else "sm2.session.p4.body_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.BODY_RULESET else "sm2.session.p4.party_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PARTY_RULESET else "sm2.session.p4.encounter.1")
 	return data
 
 func view() -> Dictionary:
@@ -159,7 +159,7 @@ func load_game() -> Dictionary:
 
 func _decode(payload: Dictionary) -> Dictionary:
 	var expected_format: String = AREA_FORMAT if _magic != null and _magic.supports_areas() else MAGIC_FORMAT if _magic != null else EFFECT_FORMAT if _effects != null else CONSEQUENCE_FORMAT if _consequences else (COMBAT_FORMAT if _combat != null else FORMAT)
-	if _development != null: expected_format = DEVELOPMENT_FORMAT if _origin.is_empty() else "sm2.session.p4.encounter.1"
+	if _development != null: expected_format = DEVELOPMENT_FORMAT if _origin.is_empty() else ("sm2.session.p5.hybrid_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.HYBRID_RULESET else "sm2.session.p5.implant_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.IMPLANT_RULESET else "sm2.session.p5.upgrade_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.UPGRADE_RULESET else "sm2.session.p5.psionic_shield_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET else "sm2.session.p5.psionic_growth_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET else "sm2.session.p5.psionic_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PSIONIC_RULESET else "sm2.session.p4.prosthesis_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PROSTHESIS_RULESET else "sm2.session.p4.body_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.BODY_RULESET else "sm2.session.p4.party_encounter.1" if _origin.get("version")==Sm2EncounterOrigin.PARTY_RULESET else "sm2.session.p4.encounter.1")
 	var fields: Array[String] = ["format", "catalog", "battle"]
 	if _consequences:
 		fields.append("result_recorded")

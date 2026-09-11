@@ -1,0 +1,24 @@
+{
+  "version": "0.5.5-p4.2",
+  "passed": true,
+  "full_checks": 6735,
+  "target_checks": 211,
+  "ui_checks": 280,
+  "ui_rendered": true,
+  "legacy_p1_checks": 299,
+  "legacy_p4_checks": 202,
+  "restart_checks": 23,
+  "audit": {
+    "saves_checked": 4,
+    "changed_saves": 0,
+    "source_files_compared": 238,
+    "source_differences": []
+  },
+  "windows_launch": {
+    "exit_code": 0,
+    "engine_errors": false,
+    "file_version": "0.5.5.0",
+    "sha256": "238AC4D2EC29D0A2150240E2794BA41D5661BD5DB9E2AC2137AF5569EC58BD00",
+    "log": "E:\\GPT\\SM2\\.local\\logs\\attributes-exe-20260911-095035-854-42f683ca.log"
+  }
+}

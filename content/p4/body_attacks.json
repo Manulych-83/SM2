@@ -1,0 +1,38 @@
+[
+  {
+    "id": "p4:ability.hand_strike",
+    "operation": "damage",
+    "mode": "melee",
+    "ap_cost": 4,
+    "fatigue_cost": 10,
+    "range_min": 1,
+    "range_max": 1,
+    "damage_min": 12,
+    "damage_max": 12,
+    "hit_bonus": -10,
+    "armor_percent": 100,
+    "penetration_percent": 100,
+    "ammo_cost": 0,
+    "shield_damage": 0,
+    "melee_bonus": 0,
+    "ranged_bonus": 0
+  },
+  {
+    "id": "p4:ability.shield_hand_strike",
+    "operation": "damage",
+    "mode": "melee",
+    "ap_cost": 4,
+    "fatigue_cost": 10,
+    "range_min": 1,
+    "range_max": 1,
+    "damage_min": 12,
+    "damage_max": 12,
+    "hit_bonus": -10,
+    "armor_percent": 100,
+    "penetration_percent": 100,
+    "ammo_cost": 0,
+    "shield_damage": 0,
+    "melee_bonus": 0,
+    "ranged_bonus": 0
+  }
+]

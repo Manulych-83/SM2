@@ -133,6 +133,7 @@ static func _activate_head(state: Sm2TacticalState, events: Array[Dictionary]) -
 		events.append({"type": "activation_resumed", "actor_id": str(active.spatial.actor_id)})
 	elif not active.activation_started:
 		active.activation_started = true
+		Sm2BarrierRules.expire(active,state.round,events)
 		if active.combat != null and active.combat.shieldwall_source != 0 and active.combat.shieldwall_until_round <= state.round:
 			var source_id: int = active.combat.shieldwall_source
 			active.combat.clear_wall()

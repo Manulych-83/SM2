@@ -1,0 +1,8 @@
+{
+  "id": "p4s:skill.search",
+  "name": "Поиск",
+  "kind": "skill",
+  "base_level": 1,
+  "step": 100,
+  "growth": 50
+}

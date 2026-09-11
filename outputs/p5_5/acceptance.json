@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "version": "0.6.4-p5.5",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p5_5\\clean-20260911-224416-200",
+  "core_source": "E:\\GPT\\SM2\\.local\\p5_5\\clean-20260911-224416-200\\.local\\logs\\checks-20260911-224416-932-251e23f1.json",
+  "clean_files_compared": 318,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 8783
+    },
+    "ui": {
+      "path": "ui2/report.json",
+      "passed": true,
+      "checks": 198
+    },
+    "legacy_ui": {
+      "path": "legacy-ui/report.json",
+      "passed": true,
+      "checks": 139
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 18
+    },
+    "compatibility": {
+      "path": "compatibility.json",
+      "passed": true,
+      "checks": 19
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 33
+    }
+  },
+  "changed_since_p5_4": [
+    "src\\application\\sm2_battle_runner.gd",
+    "src\\application\\sm2_hero_development_view.gd",
+    "src\\application\\sm2_journey_session.gd",
+    "src\\application\\sm2_tactical_session.gd",
+    "src\\presentation\\sm2_battle_progress_panel.gd",
+    "src\\presentation\\sm2_battle_screen.gd",
+    "src\\presentation\\sm2_life_screen.gd",
+    "src\\presentation\\sm2_main.gd",
+    "src\\content\\world\\sm2_implant_content_loader.gd",
+    "src\\domain\\ai\\sm2_ai_queries.gd",
+    "src\\domain\\body\\sm2_body_upgrade_catalog.gd",
+    "src\\domain\\magic\\sm2_area_spell_resolver.gd",
+    "src\\domain\\magic\\sm2_barrier_resolver.gd",
+    "src\\domain\\magic\\sm2_mana_resolver.gd",
+    "src\\domain\\magic\\sm2_spell_resolver.gd",
+    "src\\domain\\progression\\sm2_development_catalog.gd",
+    "src\\domain\\progression\\sm2_encounter_origin.gd",
+    "src\\domain\\progression\\sm2_psionic_cost_query.gd",
+    "src\\domain\\tactical\\sm2_tactical_battle.gd",
+    "src\\domain\\world\\sm2_journey_world.gd",
+    "content\\p5\\implants.json",
+    "tools\\run_checks.ps1",
+    "tools\\run_ui_checks.ps1",
+    "tests\\p5_implant_ui.gd",
+    "tests\\test_runner.gd",
+    "tests\\scenarios\\test_p5_implants.gd",
+    "project.godot",
+    "export_presets.cfg"
+  ],
+  "visual_review": [
+    "ui2/implant-controls.png",
+    "ui2/resonance.png",
+    "ui2/shield-forecast.png",
+    "ui2/combined.png",
+    "ui2/impulse-forecast.png",
+    "ui2/new-body.png"
+  ],
+  "limits": [
+    "One authored non-removable amplifier and one finite implantation kit. No general surgery, implant damage or Synchronization XP.",
+    "Own practice is separate from effective Resonance and resource penalty.",
+    "Numeric tuning provisional; no new companion abilities or summons.",
+    "Source UI rendered; packed content and native EXE/CMD checked separately.",
+    "No migration; history cap4096; large-content performance not accepted.",
+    "No commit or push."
+  ]
+}

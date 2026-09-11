@@ -1,0 +1,18 @@
+{
+  "pack": {
+    "exit": 0,
+    "log": "E:\\GPT\\SM2\\.local\\logs\\region-pack-20260912-000834-094-c2f34e3e.log"
+  },
+  "read": {
+    "exit": 0,
+    "log": "E:\\GPT\\SM2\\.local\\logs\\region-read-20260912-000832-800-d3911504.log"
+  },
+  "write": {
+    "exit": 0,
+    "log": "E:\\GPT\\SM2\\.local\\logs\\region-write-20260912-000827-697-e39101d2.log"
+  },
+  "legacy": {
+    "exit": 0,
+    "log": "E:\\GPT\\SM2\\.local\\logs\\region-legacy-20260912-000838-542-e19bb2c7.log"
+  }
+}

@@ -4,7 +4,7 @@ static func decode(raw: Dictionary, catalog: Sm2ProgressCatalog) -> Dictionary:
 	var invalid: Dictionary = {"ok":false,"errors":PackedStringArray(["progress_snapshot_invalid"])}
 	if catalog == null or not catalog.is_ready(): return invalid
 	if not Sm2Validate.fields(raw,["format","schema_version","ruleset","content_fingerprint","world_id","soul","body","incarnation","source_id","next_id","revision","practice_sequence","activity_counts"]): return invalid
-	if raw.format != "sm2.progression_lab" or not Sm2Validate.integer(raw.schema_version,1,1) or raw.ruleset != "sm2.p1.practice.1" or raw.content_fingerprint != catalog.fingerprint(): return invalid
+	if raw.format != catalog.snapshot_format() or not Sm2Validate.integer(raw.schema_version,1,1) or raw.ruleset != catalog.ruleset() or raw.content_fingerprint != catalog.fingerprint(): return invalid
 	if not Sm2Validate.text(raw.world_id) or raw.source_id != "4" or raw.next_id != "5": return invalid
 	if not Sm2Validate.decimal(raw.revision,0,1001000) or not Sm2Validate.decimal(raw.practice_sequence,0,1000000): return invalid
 	if not raw.soul is Dictionary or not Sm2Validate.fields(raw.soul,["id","incarnation_id","knowledge"]): return invalid
@@ -31,25 +31,14 @@ static func decode(raw: Dictionary, catalog: Sm2ProgressCatalog) -> Dictionary:
 		var activity: Sm2PracticeDefinition = catalog.activity(count.activity_id)
 		for id: String in activity.awards: earned[id]+=number*activity.awards[id]
 	if sequence != state.practice_sequence: return invalid
-	var purchased: Array[String] = []
-	for index: int in raw.body.tracks.size():
-		var entry: Variant = raw.body.tracks[index]
-		if not entry is Dictionary or not Sm2Validate.fields(entry,["track_id","earned_total","spent_total","owned_nodes"]): return invalid
-		if entry.track_id != catalog.track_ids()[index] or not Sm2Validate.integer(entry.earned_total,0,Sm2ProgressCatalog.XP_LIMIT) or not Sm2Validate.integer(entry.spent_total,0,int(entry.earned_total)): return invalid
-		if int(entry.earned_total) != earned[entry.track_id] or not Sm2Validate.string_list(entry.owned_nodes): return invalid
-		var value: Sm2ProgressTrackState = Sm2ProgressTrackState.new()
-		value.track_id=entry.track_id; value.earned=int(entry.earned_total); value.spent=int(entry.spent_total); value.nodes.assign(entry.owned_nodes)
-		var sorted_nodes: Array[String] = value.nodes.duplicate(); sorted_nodes.sort()
-		if sorted_nodes != value.nodes: return invalid
-		var cost: int = 0
-		for id: String in value.nodes:
-			var node: Sm2ProgressNodeDefinition = catalog.node(id)
-			if node == null or node.track_id != value.track_id or catalog.track(value.track_id).describe(value.earned).level < node.min_level: return invalid
-			cost+=node.cost; purchased.append(id)
-		if cost != value.spent: return invalid
-		state.body.tracks[value.track_id]=value
-	for id: String in purchased:
-		for prerequisite: String in catalog.node(id).requires:
-			if prerequisite not in purchased: return invalid
+	var decoded: Dictionary=Sm2ProgressRules.decode_body(raw.body,catalog)
+	if not decoded.ok: return invalid
+	state.body=decoded.body
+	var purchased: Array[String]=[]
+	for id: String in catalog.track_ids():
+		if state.body.tracks[id].earned!=earned[id]: return invalid
+		purchased.append_array(state.body.tracks[id].nodes)
 	if state.revision != sequence+purchased.size(): return invalid
+	for id: String in catalog.activity_ids():
+		if state.activity_counts[id] > 0 and not Sm2PracticeCapability.query(catalog.activity(id),state.body,catalog).allowed: return invalid
 	return {"ok":true,"errors":PackedStringArray(),"state":state}

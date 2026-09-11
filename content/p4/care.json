@@ -1,0 +1,14 @@
+{
+  "version": "sm2.care.content.1",
+  "resources": [
+    {"id": "medicine", "name": "Медикаменты", "initial": 12},
+    {"id": "parts", "name": "Детали", "initial": 10}
+  ],
+  "services": [
+    {"command": "heal_hp", "name": "Обработать раны", "minutes": 120, "cost": {"medicine": 2}, "heal_hp": 20},
+    {"command": "heal_hand", "name": "Лечить травму руки", "minutes": 240, "cost": {"medicine": 3}, "heal_hp": 0},
+    {"command": "install_prosthesis", "name": "Установить протез", "minutes": 180, "cost": {"medicine": 1, "parts": 2}, "heal_hp": 0},
+    {"command": "remove_prosthesis", "name": "Снять протез", "minutes": 30, "cost": {}, "heal_hp": 0},
+    {"command": "repair_prosthesis", "name": "Ремонт протеза", "minutes": 120, "cost": {"parts": 2}, "heal_hp": 0}
+  ]
+}

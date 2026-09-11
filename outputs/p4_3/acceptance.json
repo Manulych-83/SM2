@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "version": "0.5.6-p4.3",
+  "engine": "Godot 4.7.2",
+  "reports": {
+    "all": {
+      "path": "core-all.json",
+      "checks": 6977,
+      "passed": true
+    },
+    "party": {
+      "path": "core-party.json",
+      "checks": 272,
+      "passed": true
+    },
+    "ui": {
+      "path": "ui1/report.json",
+      "checks": 249,
+      "passed": true
+    },
+    "legacy_ui": {
+      "path": "legacy-p4/report.json",
+      "checks": 204,
+      "passed": true
+    },
+    "restart": {
+      "path": "restart.json",
+      "checks": 12,
+      "passed": true
+    },
+    "launch": {
+      "path": "launch.json",
+      "checks": null,
+      "passed": true
+    }
+  },
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_3\\clean-20260911-102547-611",
+  "clean_files_compared": 243,
+  "different_files": [],
+  "all_suite_gameplay_matches": true,
+  "all_suite_party_checks": 241,
+  "focused_party_checks": 272,
+  "visual_review": [
+    "menu.png",
+    "companion-grown.png",
+    "battle-hero.png"
+  ],
+  "limits": [
+    "EXE startup only; rendered interaction tested using engine project",
+    "Prototype growth tuning; full effects of eight attributes not implemented",
+    "No commit or push"
+  ]
+}

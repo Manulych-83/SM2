@@ -144,8 +144,18 @@ func _button(id: String) -> Button:
 
 func _press(id: String) -> void:
 	var button: Button = _button(id)
-	t.expect(button != null and not button.disabled,"usable button " + id)
+	if button!=null and not button.is_visible_in_tree() and id!="OtherModesButton":
+		var toggle: Button=_button("OtherModesButton")
+		if toggle!=null and toggle.is_visible_in_tree():
+			await _press("OtherModesButton")
+			button=_button(id)
+	t.expect(button != null and button.is_visible_in_tree() and not button.disabled,"usable button " + id)
 	if button != null and not button.disabled:
+		var parent: Node=button.get_parent()
+		while parent!=null:
+			if parent is ScrollContainer:
+				(parent as ScrollContainer).ensure_control_visible(button); await _frames(); break
+			parent=parent.get_parent()
 		await _mouse(button.get_global_rect().get_center(),false)
 
 func _cell(cell: Vector2i, right: bool) -> void:
@@ -171,7 +181,12 @@ func _mouse(point: Vector2, right: bool) -> void:
 func _capture(filename: String) -> void:
 	await _frames()
 	for node: Node in app.find_children("*","Control",true,false):
-		if node is Label or node is Button or node is RichTextLabel:
+		var parent: Node=node.get_parent(); var clipped: bool=false
+		while parent!=null:
+			if parent is ScrollContainer: clipped=true; break
+			parent=parent.get_parent()
+		# Menu overflow is intentionally scrollable; its viewport must still fit.
+		if not clipped and (node is Label or node is Button or node is RichTextLabel or node is ScrollContainer):
 			t.expect(app.get_global_rect().encloses((node as Control).get_global_rect()),filename+": inside screen "+str(node.name))
 	if DisplayServer.get_name() != "headless":
 		await RenderingServer.frame_post_draw

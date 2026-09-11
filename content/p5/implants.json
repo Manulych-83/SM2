@@ -1,0 +1,41 @@
+{
+  "version": "sm2.p5.body_upgrades.2",
+  "upgrades": [
+    {
+      "id": "p5:upgrade.muscles",
+      "name": "Усиленные мышцы",
+      "path": "genetics",
+      "cache_name": "Подготовленный медицинский тайник",
+      "doses": 1,
+      "modifiers": [
+        {
+          "kind": "track_bonus",
+          "track_id": "p1:stat.strength",
+          "amount": 2
+        },
+        {
+          "kind": "physical_attack_fatigue",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "p5:upgrade.psi_amplifier",
+      "name": "Пси-усилитель",
+      "path": "cybernetics",
+      "cache_name": "Подготовленный комплект имплантации",
+      "doses": 1,
+      "modifiers": [
+        {
+          "kind": "track_bonus",
+          "track_id": "p4a:stat.resonance",
+          "amount": 2
+        },
+        {
+          "kind": "psionic_focus_cost",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

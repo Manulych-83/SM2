@@ -3,17 +3,25 @@ extends RefCounted
 ## Shared deterministic attack rules. The caller owns a detached transaction candidate.
 const MAX_COUNTER: int = 9223372036854775806
 
-static func available_abilities(actor: Sm2TacticalActor, catalog: Sm2CombatCatalog) -> Array[String]:
+static func extra_fatigue(state: Sm2TacticalState,actor_id: int) -> int:
+	return state.development.extra_attack_fatigue(actor_id) if state.development!=null else 0
+
+static func available_abilities(actor: Sm2TacticalActor, catalog: Sm2CombatCatalog, state: Sm2TacticalState=null) -> Array[String]:
 	var result: Array[String] = []
 	if actor.combat == null:
 		return result
-	if actor.combat.item("weapon") == null and not catalog.unarmed_ability().is_empty(): result.append(catalog.unarmed_ability())
+	if Sm2BodyCapabilityQuery.unarmed(actor,catalog) and not catalog.unarmed_ability().is_empty(): result.append(catalog.unarmed_ability())
 	for slot: String in ["weapon", "shield"]:
 		var item: Sm2CombatItem = actor.combat.item(slot)
-		if item != null and (slot != "shield" or item.current > 0):
+		if item != null and (slot != "shield" or item.current > 0) and Sm2BodyCapabilityQuery.item_allowed(actor,catalog.gear(item.definition_id)):
 			for id: String in catalog.gear(item.definition_id).abilities:
 				if not result.has(id):
 					result.append(id)
+	if state!=null and state.development!=null and state.development.catalog.has_hybrids():
+		var dev: Sm2BattleDevelopment=state.development
+		if actor.spatial.actor_id==dev.catalog.hero():
+			for id: String in dev.catalog.hybrids().ids():
+				if dev.catalog.hybrids().ability(id).base_attack in result and dev.catalog.hybrids().available(dev.bodies[actor.spatial.actor_id],id): result.append(id)
 	result.sort()
 	return result
 
@@ -27,7 +35,7 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 		return _deny(result, "actor_unavailable")
 	if source.morale == "fleeing":
 		return _deny(result, "fleeing_cannot_attack")
-	if not available_abilities(source, catalog).has(command.ability_id):
+	if not available_abilities(source, catalog, state).has(command.ability_id):
 		return _deny(result, "ability_unavailable")
 	var ability: Sm2CombatAbility = catalog.ability(command.ability_id)
 	if target == null or target.combat == null or not target.spatial.occupies():
@@ -57,8 +65,15 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 		return _deny(result, "target_shield_missing")
 	if reaction and (ability.operation != "damage" or ability.mode != "melee" or not neighbors_threatening(state, target, catalog, true).has(command.actor_id)):
 		return _deny(result, "reaction_unavailable")
+	var hybrid: Dictionary=Sm2HybridQuery.details(state,command.actor_id,ability.id)
+	if not hybrid.is_empty():
+		if reaction: return _deny(result,"reaction_unavailable")
+		result["hybrid"]=hybrid
+		result["mana_cost"]=hybrid.mana_cost
+		result["cost_calculation"]=hybrid.cost_calculation
+		if not state.mana.has(command.actor_id) or state.mana[command.actor_id].current<int(hybrid.mana_cost): return _deny(result,"insufficient_concentration")
 	var ap_cost: int = 0 if reaction else ability.ap_cost
-	var fatigue_cost: int = 5 if reaction else ability.fatigue_cost
+	var fatigue_cost: int = (5 if reaction else ability.fatigue_cost)+extra_fatigue(state,command.actor_id) if ability.mode!="self" else ability.fatigue_cost
 	if not position_only and source.spatial.ap < ap_cost:
 		return _deny(result, "insufficient_ap")
 	if not position_only and source.spatial.fatigue_max - source.spatial.fatigue < fatigue_cost:
@@ -68,6 +83,9 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 	if not position_only and ability.operation == "damage" and state.rng.draws >= MAX_COUNTER:
 		return _deny(result, "rng_counter_limit")
 	result.allowed = true
+	if target.body_catalog!=null and not target.body_catalog.trauma(ability.id).is_empty():
+		result["function_trauma"]=target.body_catalog.title(target.body_catalog.trauma(ability.id))
+		if target.body_catalog.supports_prostheses(): result["function_sever"]=target.body_catalog.severs(ability.id)
 	result.ap_cost = ap_cost
 	result.fatigue_cost = fatigue_cost
 	result.ammo_cost = ability.ammo_cost
@@ -81,7 +99,7 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 	result.hit_chance = clampi(modifiers.skill + modifiers.ability + modifiers.height + modifiers.surround + modifiers.range - modifiers.defense, 5, 95)
 	var hp_weighted: int = 0
 	var armor_weighted: int = 0
-	for zone: Dictionary in catalog.zones(target.loadout_id):
+	for zone: Dictionary in attack_zones(target,catalog,ability):
 		var armor_item: Sm2CombatItem = target.combat.item(zone.id)
 		var armor: int = armor_item.current if armor_item != null else 0
 		var hp_min: int = 2147483647
@@ -91,7 +109,8 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 		var sum_hp: int = 0
 		var sum_armor: int = 0
 		for raw_damage: int in range(ability.damage_min, ability.damage_max + 1):
-			var damage: Dictionary = damage_losses(raw_damage, armor, target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
+			var damage: Dictionary = damage_losses(raw_damage, armor, 2147483647 if target.barrier!=null or not hybrid.is_empty() else target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
+			damage.hp_loss=Sm2BarrierRules.loss(target,int(damage.hp_loss)+int(hybrid.get("psionic_damage",0))).hp_loss
 			hp_min = mini(hp_min, damage.hp_loss)
 			hp_max = maxi(hp_max, damage.hp_loss)
 			armor_min = mini(armor_min, damage.armor_loss)
@@ -113,7 +132,7 @@ static func hit_modifiers(state: Sm2TacticalState, source: Sm2TacticalActor, tar
 	var defense: int = Sm2CombatStatQuery.explain(state,target,catalog,"ranged_defense" if ranged else "melee_defense").value
 	var shield: int = 0
 	var wall: int = 0
-	if target.combat.shield_intact():
+	if Sm2BodyCapabilityQuery.shield(target,catalog):
 		var gear: Sm2CombatGear = catalog.gear(target.combat.item("shield").definition_id)
 		shield = gear.ranged_defense if ranged else gear.melee_defense
 		if target.combat.shieldwall_source != 0:
@@ -136,7 +155,7 @@ static func neighbors_threatening(state: Sm2TacticalState, target: Sm2TacticalAc
 			continue
 		if Sm2Hex.distance(actor.spatial.position, target.spatial.position) != 1 or absi(int(state.field.cell(actor.spatial.position).elevation) - int(state.field.cell(target.spatial.position).elevation)) > 1:
 			continue
-		if require_reaction and (actor.reactions_left == 0 or actor.spatial.fatigue_max - actor.spatial.fatigue < 5):
+		if require_reaction and (actor.reactions_left == 0 or actor.spatial.fatigue_max - actor.spatial.fatigue < 5+extra_fatigue(state,id)):
 			continue
 		var weapon_item: Sm2CombatItem = actor.combat.item("weapon")
 		if require_reaction and weapon_item != null and catalog.gear(weapon_item.definition_id).two_handed:
@@ -164,6 +183,11 @@ static func resolve(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 	var target: Sm2TacticalActor = state.actor(command.target_actor_id)
 	var ability: Sm2CombatAbility = catalog.ability(command.ability_id)
 	var events: Array[Dictionary] = []
+	var hybrid: Dictionary=check.get("hybrid",{})
+	if not hybrid.is_empty():
+		state.mana[command.actor_id].current-=int(hybrid.mana_cost)
+		events.append({"type":"hybrid_started","actor_id":str(command.actor_id),"target_actor_id":str(command.target_actor_id),"ability_id":ability.id,"name":hybrid.name})
+		events.append({"type":"concentration_spent","actor_id":str(command.actor_id),"amount":hybrid.mana_cost,"current":state.mana[command.actor_id].current})
 	source.spatial.ap -= int(check.ap_cost)
 	source.spatial.fatigue += int(check.fatigue_cost)
 	if reaction:
@@ -198,19 +222,23 @@ static func resolve(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 				return {"accepted": false, "code": "rng_counter_limit", "events": []}
 			var zone: Dictionary = {}
 			var ceiling: int = 0
-			for candidate: Dictionary in catalog.zones(target.loadout_id):
+			for candidate: Dictionary in attack_zones(target,catalog,ability):
 				ceiling += int(candidate.weight)
 				if zone_roll <= ceiling:
 					zone = candidate
 					break
 			var armor: Sm2CombatItem = target.combat.item(zone.id)
 			var losses: Dictionary = damage_losses(damage_roll, armor.current if armor != null else 0,
-				target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
+				2147483647 if target.barrier!=null or not hybrid.is_empty() else target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
 			events.append({"type": "damage_rolled", "target_actor_id": str(command.target_actor_id), "zone": zone.id, "zone_roll": zone_roll, "raw_damage": damage_roll})
 			if armor != null:
 				armor.current = losses.armor_after
 			events.append({"type": "armor_damaged", "target_actor_id": str(command.target_actor_id), "zone": zone.id, "loss": losses.armor_loss, "remaining": losses.armor_after})
+			if not hybrid.is_empty():
+				events.append({"type":"hybrid_damage","actor_id":str(command.actor_id),"target_actor_id":str(command.target_actor_id),"ability_id":ability.id,"physical":losses.hp_loss,"psionic":hybrid.psionic_damage})
+			losses.hp_loss=Sm2BarrierRules.absorb(target,int(losses.hp_loss)+int(hybrid.get("psionic_damage",0)),events)
 			Sm2HpApplication.apply(state,target,command.actor_id,int(losses.hp_loss),events)
+			Sm2BodyFunctionRules.after_hit(state,source,target,ability.id,int(losses.hp_loss),events)
 			if context != null and not Sm2MoraleResolver.after_hit(state, catalog, target, int(losses.hp_loss), context, events):
 				return {"accepted": false, "code": "rng_counter_limit", "events": []}
 	if state.development != null and ability.operation == "damage":
@@ -220,6 +248,11 @@ static func resolve(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 
 static func morale_percent(morale: String) -> int:
 	return 90 if morale == "wavering" else (80 if morale == "breaking" else 100)
+
+static func attack_zones(target: Sm2TacticalActor, catalog: Sm2CombatCatalog, ability: Sm2CombatAbility) -> Array:
+	if target.body_catalog!=null and not target.body_catalog.trauma(ability.id).is_empty():
+		return [{"id":target.body_catalog.armor_slot(),"weight":100,"hp_percent":100}]
+	return catalog.zones(target.loadout_id)
 
 static func _div(numerator: int, denominator: int) -> int:
 	@warning_ignore("integer_division")

@@ -1,0 +1,9 @@
+{
+	"checks": 193,
+	"failures": [
+		"loss-preview.png: screen bounds BattleNotice",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: loss-preview.png: screen bounds BattleNotice"
+	],
+	"passed": false,
+	"rendered": true
+}

@@ -1,5 +1,7 @@
 class_name Sm2MagicCatalog
 extends RefCounted
+const SHIELD_VERSION: String="sm2.p5.psionic_operations.2"
+const PSIONIC_VERSION: String="sm2.p5.psionic_operations.1"
 const AREA_VERSION: String = "sm2.m4.areas.content.1"
 var _raw: Dictionary = {}
 var _hash: String = ""
@@ -24,15 +26,18 @@ func build(raw: Dictionary, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog)
 	var profiles: Dictionary[String, Sm2MagicProfile] = {}
 	for data: Dictionary in normalized.spells:
 		var fields: Array[String] = ["id","name","operation","target_side","ap_cost","fatigue_cost","mana_cost","range_min","range_max","damage","channel"]
+		var shield: bool=data.get("operation")=="self_barrier"
+		if shield: fields.erase("damage"); fields.append("capacity")
 		var area: bool = data.get("operation") == "area_hp_damage"
 		if area: fields.append("radius")
 		if not Sm2Validate.fields(data,fields) or not Sm2Validate.text(data.name): return _error("spell_fields")
 		if combat.ability(data.id) != null or effects.action(data.id) != null: return _error("spell_id_collision")
-		if data.operation not in ["direct_hp_damage","area_hp_damage"] or data.target_side != "enemy" or data.channel != "arcane": return _error("spell_operation")
+		if data.operation not in ["direct_hp_damage","area_hp_damage","self_barrier"] or data.target_side != ("self" if shield else "enemy") or data.channel != ("psionic" if raw.version in [PSIONIC_VERSION,SHIELD_VERSION] else "arcane"): return _error("spell_operation")
+		if shield and (raw.version!=SHIELD_VERSION or data.range_min!=1 or data.range_max!=1 or data.fatigue_cost!=0): return _error("spell_shield_profile")
 		if area:
 			if raw.version != AREA_VERSION or not Sm2Validate.integer(data.radius,1,3): return _error("spell_area")
 			data.radius = int(data.radius)
-		for key: String in ["ap_cost","fatigue_cost","mana_cost","range_min","range_max","damage"]:
+		for key: String in ["ap_cost","fatigue_cost","mana_cost","range_min","range_max","capacity" if shield else "damage"]:
 			var upper: int = 64 if key.begins_with("range") else 10000
 			if not Sm2Validate.integer(data[key],0 if key == "fatigue_cost" else 1,upper): return _error("spell_range")
 			data[key] = int(data[key])
@@ -54,6 +59,8 @@ func build(raw: Dictionary, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog)
 
 func fingerprint() -> String: return _hash
 func supports_areas() -> bool: return _raw.get("version") == AREA_VERSION
+func supports_shields() -> bool: return _raw.get("version")==SHIELD_VERSION
+func is_psionic() -> bool: return _raw.get("version") in [PSIONIC_VERSION,SHIELD_VERSION]
 func to_data() -> Dictionary: return _raw.duplicate(true)
 func spell(id: String) -> Sm2SpellDefinition:
 	return Sm2SpellDefinition.from_data(_spells[id].to_data()) if _spells.has(id) else null

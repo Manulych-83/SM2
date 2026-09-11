@@ -7,14 +7,30 @@ const MUTED: Color = Color("a3b0b4")
 const GOLD: Color = Color("d1b478")
 var _session: Sm2Session
 var _page: String = "menu"
+var _modes_expanded: bool=false
 var _notice: String = ""
 var _is_error: bool = false
 var _body: Control
 var _battle: Sm2BattleRunner = null
 var _progress: Sm2ProgressSession = null
+var _attributes: Sm2ProgressSession = null
 var _life: Sm2LifeSession = null
 var _journey_store: Sm2SaveStore = Sm2SaveStore.new("user://journey")
 var _life_store: Sm2SaveStore = Sm2SaveStore.new("user://world")
+var _exploration_store: Sm2SaveStore=Sm2SaveStore.new("user://exploration_journey")
+var _search_store: Sm2SaveStore=Sm2SaveStore.new("user://search_journey")
+var _hybrid_store: Sm2SaveStore=Sm2SaveStore.new("user://hybrid_journey")
+var _region_store: Sm2SaveStore=Sm2SaveStore.new("user://region_journey")
+var _implant_store: Sm2SaveStore=Sm2SaveStore.new("user://implant_journey")
+var _upgrade_store: Sm2SaveStore=Sm2SaveStore.new("user://upgrade_journey")
+var _psionic_shield_store: Sm2SaveStore=Sm2SaveStore.new("user://psionic_shield_journey")
+var _psionic_growth_store: Sm2SaveStore=Sm2SaveStore.new("user://psionic_growth_journey")
+var _psionic_store: Sm2SaveStore=Sm2SaveStore.new("user://psionic_journey")
+var _discovery_store: Sm2SaveStore=Sm2SaveStore.new("user://discovery_journey")
+var _care_store: Sm2SaveStore=Sm2SaveStore.new("user://care_journey")
+var _prosthesis_store: Sm2SaveStore=Sm2SaveStore.new("user://prosthesis_journey")
+var _body_store: Sm2SaveStore=Sm2SaveStore.new("user://body_journey")
+var _party_store: Sm2SaveStore=Sm2SaveStore.new("user://party_journey")
 var _development_store: Sm2SaveStore = Sm2SaveStore.new("user://development")
 var _magic_store: Sm2SaveStore = Sm2SaveStore.new("user://magic")
 var _area_store: Sm2SaveStore = Sm2SaveStore.new("user://areas")
@@ -60,14 +76,26 @@ func _redraw_page() -> void:
 		var life_screen: Sm2LifeScreen=Sm2LifeScreen.new()
 		life_screen.name="LifeScreen"; life_screen.session=_life
 		life_screen.menu_requested.connect(_show_menu)
+		life_screen.development_requested.connect(func() -> void: _page="hero_development"; _redraw_page())
 		life_screen.battle_requested.connect(func() -> void: _page="life_battle"; _redraw_page())
 		_body.add_child(life_screen)
+		return
+	if _page == "hero_development" and _life != null:
+		var hero_screen: Sm2HeroDevelopmentScreen=Sm2HeroDevelopmentScreen.new()
+		hero_screen.name="HeroDevelopmentScreen"; hero_screen.session=_life
+		hero_screen.camp_requested.connect(func() -> void: _page="life"; _redraw_page())
+		_body.add_child(hero_screen)
 		return
 	if _page == "life_battle" and _life != null:
 		var life_battle: Sm2BattleScreen=Sm2BattleScreen.new()
 		life_battle.name="BattleScreen"; life_battle.life_session=_life; life_battle.runner=_life.runner
 		life_battle.menu_requested.connect(func() -> void: _page="life"; _redraw_page())
 		_body.add_child(life_battle)
+		return
+	if _page == "attributes" and _attributes != null:
+		var attribute_screen: Sm2AttributeScreen = Sm2AttributeScreen.new()
+		attribute_screen.name="AttributeScreen"; attribute_screen.session=_attributes
+		attribute_screen.menu_requested.connect(_show_menu); _body.add_child(attribute_screen)
 		return
 	if _page == "progress" and _progress != null:
 		var progress_screen: Sm2ProgressScreen = Sm2ProgressScreen.new()
@@ -109,7 +137,15 @@ func _redraw_page() -> void:
 	var row: HBoxContainer = HBoxContainer.new()
 	row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	row.add_theme_constant_override("separation", 46)
-	column.add_child(row)
+	if _page=="party":
+		column.add_child(row)
+	else:
+		var menu_scroll: ScrollContainer=ScrollContainer.new()
+		menu_scroll.name="MenuScroll"
+		menu_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL
+		menu_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+		row.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		column.add_child(menu_scroll); menu_scroll.add_child(row)
 	var left: VBoxContainer = VBoxContainer.new()
 	left.add_theme_constant_override("separation",10)
 	left.custom_minimum_size.x = 330
@@ -133,13 +169,90 @@ func _redraw_page() -> void:
 	footer.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	column.add_child(footer)
 
-func _build_menu(left: VBoxContainer, right: VBoxContainer) -> void:
+func _build_menu(left: VBoxContainer,right: VBoxContainer) -> void:
+	left.add_child(_label("ПУТЬ ГЕРОЯ",12,GOLD))
+	var heading: Label=_label("От человека к сверхсуществу",26,INK)
+	heading.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(heading)
+	var description: Label=_label("Одна Душа. Разные воплощения. Мир сохраняет последствия ваших жизней.",16,MUTED)
+	description.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(description)
+	left.add_child(_button("Новая игра","NewRegionButton",_start_region.bind(false),false,true))
+	left.add_child(_button("Продолжить","ContinueRegionButton",_start_region.bind(true),not _region_store.has_slot(Sm2JourneySession.REGION_SLOT)))
+	var current: bool=_life is Sm2JourneySession and (_life as Sm2JourneySession).format_id()==Sm2JourneySession.REGION_FORMAT
+	left.add_child(_button("Вернуться в игру","ResumeMainButton",_resume_main,not current))
+	var note: Label=_label("Продолжить — открыть сохранение. Вернуться — продолжить текущую игру без загрузки.",14,MUTED)
+	note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(note)
+	left.add_child(_button("Дополнительные режимы","OtherModesButton",_toggle_modes))
+	left.add_child(_button("Выйти из игры","QuitButton",_quit_game))
+	_card(right,"ТРИ ПУТИ РАЗВИТИЯ","Развивайте своё тело","Практика и навыки, генетика и кибернетика, псионический удар и защита. Усиления помогают в бою; собственные навыки вы осваиваете действиями.")
+	_card(right,"ГЕРОЙ И СПУТНИК","Сражайтесь и возвращайтесь","Пошаговые бои на гексах, лагерь, припасы и снаряжение. После гибели героя новое воплощение начинает развитие заново.")
+	var other_left: VBoxContainer=VBoxContainer.new(); other_left.name="OtherModesLeft"; left.add_child(other_left)
+	var other_right: VBoxContainer=VBoxContainer.new(); other_right.name="OtherModesRight"; right.add_child(other_right)
+	_build_other_modes(other_left,other_right)
+	other_left.visible=_modes_expanded; other_right.visible=_modes_expanded
+	_update_modes_button()
+
+func _resume_main() -> void:
+	if not _life is Sm2JourneySession or (_life as Sm2JourneySession).format_id()!=Sm2JourneySession.REGION_FORMAT: return
+	_page="life"; _notice=""; _is_error=false; _redraw_page()
+
+func _toggle_modes() -> void:
+	_modes_expanded=not _modes_expanded
+	for id: String in ["OtherModesLeft","OtherModesRight"]:
+		var group: Control=_body.find_child(id,true,false) as Control
+		if group!=null: group.visible=_modes_expanded
+	_update_modes_button()
+
+func _update_modes_button() -> void:
+	var button: Button=_body.find_child("OtherModesButton",true,false) as Button
+	if button!=null: button.text="Скрыть дополнительные режимы" if _modes_expanded else "Дополнительные режимы"
+
+func _build_other_modes(left: VBoxContainer, right: VBoxContainer) -> void:
 	left.add_theme_constant_override("separation",6)
 	right.add_theme_constant_override("separation",8)
-	left.add_child(_label("СЕВЕРНЫЙ ТРАКТ", 12, GOLD))
-	left.add_child(_label("Отряд и развитие", 30, INK))
-	var description: Label = _label("Герой и спутник. Рост через практику.", 16, MUTED)
+	left.add_child(_label("ДОПОЛНИТЕЛЬНЫЕ РЕЖИМЫ",12,GOLD))
+	left.add_child(_label("Отдельные сохранения",23,INK))
+	var description: Label = _label("Каждый режим продолжает свою отдельную игру.", 16, MUTED)
+	description.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	left.add_child(description)
+	var implant_row: HBoxContainer=HBoxContainer.new(); left.add_child(implant_row)
+	var hybrid_row: HBoxContainer=HBoxContainer.new(); left.add_child(hybrid_row)
+	hybrid_row.add_child(_button("Три пути: псионический удар","NewHybridButton",_start_hybrids.bind(false),false,true))
+	hybrid_row.add_child(_button("Продолжить","ContinueHybridButton",_start_hybrids.bind(true),not _hybrid_store.has_slot(Sm2JourneySession.HYBRID_SLOT)))
+	implant_row.add_child(_button("Три пути: пси-усилитель","NewImplantButton",_start_implants.bind(false),false,true))
+	implant_row.add_child(_button("Продолжить","ContinueImplantButton",_start_implants.bind(true),not _implant_store.has_slot(Sm2JourneySession.IMPLANT_SLOT)))
+	var upgrade_row: HBoxContainer=HBoxContainer.new(); left.add_child(upgrade_row)
+	upgrade_row.add_child(_button("Генетика и псионика","NewUpgradeButton",_start_upgrades.bind(false),false,true))
+	upgrade_row.add_child(_button("Продолжить","ContinueUpgradeButton",_start_upgrades.bind(true),not _upgrade_store.has_slot(Sm2JourneySession.UPGRADE_SLOT)))
+	var psionic_shield_row: HBoxContainer=HBoxContainer.new(); left.add_child(psionic_shield_row)
+	psionic_shield_row.add_child(_button("Псионика: атака и защита","NewPsionicShieldButton",_start_psionic_shield.bind(false),false,true))
+	psionic_shield_row.add_child(_button("Продолжить","ContinuePsionicShieldButton",_start_psionic_shield.bind(true),not _psionic_shield_store.has_slot(Sm2JourneySession.PSIONIC_SHIELD_SLOT)))
+	var psionic_growth_row: HBoxContainer=HBoxContainer.new(); left.add_child(psionic_growth_row)
+	psionic_growth_row.add_child(_button("Псионика: сила развития","NewPsionicGrowthButton",_start_psionic_growth.bind(false),false,true))
+	psionic_growth_row.add_child(_button("Продолжить","ContinuePsionicGrowthButton",_start_psionic_growth.bind(true),not _psionic_growth_store.has_slot(Sm2JourneySession.PSIONIC_GROWTH_SLOT)))
+	var psionic_row: HBoxContainer=HBoxContainer.new(); left.add_child(psionic_row)
+	psionic_row.add_child(_button("Путь героя: псионика","NewPsionicButton",_start_psionic.bind(false),false,true))
+	psionic_row.add_child(_button("Продолжить","ContinuePsionicButton",_start_psionic.bind(true),not _psionic_store.has_slot(Sm2JourneySession.PSIONIC_SLOT)))
+	var discovery_row: HBoxContainer=HBoxContainer.new(); left.add_child(discovery_row)
+	discovery_row.add_child(_button("Тайники и узлы","NewDiscoveryButton",_start_discovery.bind(false),false,true))
+	discovery_row.add_child(_button("Продолжить","ContinueDiscoveryButton",_start_discovery.bind(true),not _discovery_store.has_slot(Sm2JourneySession.DISCOVERY_SLOT)))
+	var search_row: HBoxContainer=HBoxContainer.new(); left.add_child(search_row)
+	search_row.add_child(_button("Исследование и опыт","NewSearchButton",_start_search.bind(false),false,true))
+	search_row.add_child(_button("Продолжить","ContinueSearchButton",_start_search.bind(true),not _search_store.has_slot(Sm2JourneySession.SEARCH_SLOT)))
+	var exploration_row: HBoxContainer=HBoxContainer.new(); left.add_child(exploration_row)
+	exploration_row.add_child(_button("Исследование","NewExplorationButton",_start_exploration.bind(false),false,true))
+	exploration_row.add_child(_button("Продолжить","ContinueExplorationButton",_start_exploration.bind(true),not _exploration_store.has_slot(Sm2JourneySession.EXPLORATION_SLOT)))
+	var care_row: HBoxContainer=HBoxContainer.new(); left.add_child(care_row)
+	care_row.add_child(_button("Лечение и припасы","NewCareJourneyButton",_start_care.bind(false),false,true))
+	care_row.add_child(_button("Продолжить","ContinueCareJourneyButton",_start_care.bind(true),not _care_store.has_slot(Sm2JourneySession.CARE_SLOT)))
+	var prosthesis_row: HBoxContainer=HBoxContainer.new(); left.add_child(prosthesis_row)
+	prosthesis_row.add_child(_button("Протезирование","NewProsthesisJourneyButton",_start_prosthesis.bind(false),false,true))
+	prosthesis_row.add_child(_button("Продолжить","ContinueProsthesisJourneyButton",_start_prosthesis.bind(true),not _prosthesis_store.has_slot(Sm2JourneySession.PROSTHESIS_SLOT)))
+	var injury_row: HBoxContainer=HBoxContainer.new(); left.add_child(injury_row)
+	injury_row.add_child(_button("Травмы и лечение","NewBodyJourneyButton",_start_body.bind(false),false,true))
+	injury_row.add_child(_button("Продолжить","ContinueBodyJourneyButton",_start_body.bind(true),not _body_store.has_slot(Sm2JourneySession.BODY_SLOT)))
+	var growth_row: HBoxContainer=HBoxContainer.new(); left.add_child(growth_row)
+	growth_row.add_child(_button("Герой и спутник","NewPartyJourneyButton",_start_party.bind(false),false,true))
+	growth_row.add_child(_button("Продолжить","ContinuePartyJourneyButton",_start_party.bind(true),not _party_store.has_slot(Sm2JourneySession.PARTY_SLOT)))
 	var journey_row: HBoxContainer=HBoxContainer.new(); journey_row.add_theme_constant_override("separation",8); left.add_child(journey_row)
 	journey_row.add_child(_button("Путь героя","NewJourneyButton",_start_journey.bind(false),false,true))
 	journey_row.add_child(_button("Продолжить путь","ContinueJourneyButton",_start_journey.bind(true),not _journey_store.has_slot(Sm2JourneySession.JOURNEY_SLOT)))
@@ -147,30 +260,160 @@ func _build_menu(left: VBoxContainer, right: VBoxContainer) -> void:
 	life_row.add_child(_button("Мир и воплощение","NewWorldButton",_start_life.bind(false)))
 	life_row.add_child(_button("Продолжить","ContinueWorldButton",_start_life.bind(true),not _life_store.has_slot(Sm2LifeSession.SLOT)))
 	if _life != null: life_row.add_child(_button("Вернуться","ResumeWorldButton",func() -> void: _page="life"; _redraw_page()))
-	var development_row: HBoxContainer=HBoxContainer.new(); development_row.add_theme_constant_override("separation",8); left.add_child(development_row)
+	var development_row: HBoxContainer=HBoxContainer.new(); development_row.add_theme_constant_override("separation",8); right.add_child(development_row)
 	development_row.add_child(_button("Бой с развитием","NewDevelopmentButton",_start_development.bind(false)))
 	development_row.add_child(_button("Продолжить","ContinueDevelopmentButton",_start_development.bind(true),not _development_store.has_slot(Sm2BattleRunner.DEVELOPMENT_SLOT)))
-	left.add_child(_button("Начать сражение", "NewBattleButton", _new_battle, false, true))
-	left.add_child(_button("Продолжить бой", "ContinueBattleButton", _load_battle, not _battle_store.has_slot(Sm2BattleRunner.SLOT)))
+	var battle_row: HBoxContainer=HBoxContainer.new(); battle_row.add_theme_constant_override("separation",8); left.add_child(battle_row)
+	battle_row.add_child(_button("Начать сражение", "NewBattleButton", _new_battle, false, true))
+	battle_row.add_child(_button("Продолжить бой", "ContinueBattleButton", _load_battle, not _battle_store.has_slot(Sm2BattleRunner.SLOT)))
 	if _battle != null:
 		left.add_child(_button("Вернуться на поле", "ResumeBattleButton", _resume_battle))
-	var party_row: HBoxContainer=HBoxContainer.new(); left.add_child(party_row)
+	var party_row: HBoxContainer=HBoxContainer.new(); right.add_child(party_row)
 	party_row.add_child(_button("Создать отряд", "NewGameButton", _new_game, _session == null))
 	party_row.add_child(_button("Продолжить отряд", "ContinueButton", _load_game, _session == null or not _session.has_save()))
-	left.add_child(_button("Выйти из игры", "QuitButton", _quit_game))
 	right.add_child(_label("Выбирайте позицию",23,INK))
 	var hint: Label = _label("Гексы, высоты и препятствия меняют доступные цели.",16,MUTED)
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	right.add_child(hint)
 	right.add_child(_button("Лаборатория развития", "ProgressButton", _open_progress))
+	right.add_child(_button("Восемь характеристик", "AttributesButton", _open_attributes))
 	right.add_child(_label("ЭФФЕКТЫ И МАГИЯ / ОТДЕЛЬНЫЕ СРАЖЕНИЯ",12,GOLD))
-	right.add_child(_button("Бой с эффектами", "NewEffectsButton", _start_effects.bind(false)))
-	right.add_child(_button("Продолжить бой с эффектами", "ContinueEffectsButton", _start_effects.bind(true),not _effects_store.has_slot(Sm2BattleRunner.EFFECT_SLOT)))
+	var row_Effects: HBoxContainer=HBoxContainer.new(); right.add_child(row_Effects)
+	row_Effects.add_child(_button("Бой с эффектами", "NewEffectsButton", _start_effects.bind(false)))
+	row_Effects.add_child(_button("Продолжить", "ContinueEffectsButton", _start_effects.bind(true),not _effects_store.has_slot(Sm2BattleRunner.EFFECT_SLOT)))
 
-	right.add_child(_button("Бой с магией", "NewMagicButton", _start_magic.bind(false)))
-	right.add_child(_button("Продолжить бой с магией", "ContinueMagicButton", _start_magic.bind(true),not _magic_store.has_slot(Sm2BattleRunner.MAGIC_SLOT)))
-	right.add_child(_button("Бой по области", "NewAreaButton", _start_area.bind(false)))
-	right.add_child(_button("Продолжить бой по области", "ContinueAreaButton", _start_area.bind(true),not _area_store.has_slot(Sm2BattleRunner.AREA_SLOT)))
+	var row_Magic: HBoxContainer=HBoxContainer.new(); right.add_child(row_Magic)
+	row_Magic.add_child(_button("Бой с магией", "NewMagicButton", _start_magic.bind(false)))
+	row_Magic.add_child(_button("Продолжить", "ContinueMagicButton", _start_magic.bind(true),not _magic_store.has_slot(Sm2BattleRunner.MAGIC_SLOT)))
+	var row_Area: HBoxContainer=HBoxContainer.new(); right.add_child(row_Area)
+	row_Area.add_child(_button("Бой по области", "NewAreaButton", _start_area.bind(false)))
+	row_Area.add_child(_button("Продолжить", "ContinueAreaButton", _start_area.bind(true),not _area_store.has_slot(Sm2BattleRunner.AREA_SLOT)))
+
+func _start_region(from_save: bool) -> void:
+	var content: Dictionary=Sm2RegionContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить карту."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_region_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_hybrids(from_save: bool) -> void:
+	var content: Dictionary=Sm2HybridContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить игру."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_hybrid_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_implants(from_save: bool) -> void:
+	var content: Dictionary=Sm2ImplantContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить развитие псионики."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_implant_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_upgrades(from_save: bool) -> void:
+	var content: Dictionary=Sm2BodyUpgradeContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить развитие псионики."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_upgrade_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_psionic_shield(from_save: bool) -> void:
+	var content: Dictionary=Sm2PsionicShieldContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить развитие псионики."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_psionic_shield_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_psionic_growth(from_save: bool) -> void:
+	var content: Dictionary=Sm2PsionicGrowthContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить развитие псионики."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_psionic_growth_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_psionic(from_save: bool) -> void:
+	var content: Dictionary=Sm2PsionicContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить псионику."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_psionic_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_discovery(from_save: bool) -> void:
+	var content: Dictionary=Sm2DiscoveryContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить исследование."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_discovery_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_search(from_save: bool) -> void:
+	var content: Dictionary=Sm2SearchContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить исследование."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_search_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_exploration(from_save: bool) -> void:
+	var content: Dictionary=Sm2ExplorationContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить лечение."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_exploration_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_care(from_save: bool) -> void:
+	var content: Dictionary=Sm2CareContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить лечение."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_care_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_prosthesis(from_save: bool) -> void:
+	var content: Dictionary=Sm2ProsthesisContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить протезирование."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_prosthesis_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_body(from_save: bool) -> void:
+	var content: Dictionary=Sm2BodyContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить функции тела."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_body_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
+
+func _start_party(from_save: bool) -> void:
+	var content: Dictionary=Sm2PartyContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить развитие отряда."; _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_party_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
 
 func _start_journey(from_save: bool) -> void:
 	var content: Dictionary=Sm2JourneyContentLoader.load_scenario()
@@ -189,6 +432,16 @@ func _start_life(from_save: bool) -> void:
 	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
 	if _handle_result(result,""): _life=candidate; _page="life"
 	_redraw_page()
+
+func _open_attributes() -> void:
+	if _attributes == null:
+		var content: Dictionary = Sm2ProgressContentLoader.load_catalog("res://content/p4/attributes.tres")
+		if not content.ok:
+			_handle_result(content,""); _redraw_page(); return
+		var candidate: Sm2ProgressSession = Sm2ProgressSession.new(content.catalog,Sm2SaveStore.new("user://attributes"),"p4_attribute_lab")
+		if not _handle_result(candidate.new_game(),""): _redraw_page(); return
+		_attributes=candidate
+	_page="attributes"; _redraw_page()
 
 func _open_progress() -> void:
 	if _progress == null:
@@ -304,7 +557,7 @@ func _build_party(left: VBoxContainer, right: VBoxContainer) -> void:
 	_spacer(left, 12)
 	left.add_child(_button("Сохранить отряд", "SaveButton", _save_game, false, true))
 	left.add_child(_button("Главное меню", "MenuButton", _show_menu))
-	left.add_child(_button("Выйти из игры", "QuitButton", _quit_game))
+	right.add_child(_button("Выйти из игры", "QuitButton", _quit_game))
 	var state: Dictionary = _session.view()
 	for actor: Dictionary in state.get("actors", []):
 		if actor.get("side") == "company":
@@ -343,6 +596,7 @@ func _quit_game() -> void:
 func _handle_result(result: Dictionary, success_message: String) -> bool:
 	_is_error = not result.get("ok", false)
 	_notice = "\n".join(result.get("errors", PackedStringArray(["Не удалось завершить действие."]))) if _is_error else success_message
+	_notice = _notice.replace("Файл сохранения содержит повреждённый JSON.","Файл сохранения повреждён.")
 	return not _is_error
 
 func _card(parent: VBoxContainer, eyebrow: String, title: String, description: String) -> void:

@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "version": "0.5.8-p4.5",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_5\\clean-20260911-114128-858",
+  "clean_files_compared": 258,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 7303
+    },
+    "ui": {
+      "path": "ui2/report.json",
+      "passed": true,
+      "checks": 204
+    },
+    "legacy_ui": {
+      "path": "legacy-body/report.json",
+      "passed": true,
+      "checks": 157
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 20
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 9
+    }
+  },
+  "visual_review": [
+    "ui2/menu.png",
+    "ui2/loss-preview.png",
+    "ui2/device-controls.png",
+    "ui2/damaged.png",
+    "ui2/new-life.png"
+  ],
+  "limits": [
+    "EXE startup verified; mouse interaction tested through the Godot project",
+    "Exported resource pack loaded by Godot and schema12 started; release EXE external script probe produced no report and was stopped",
+    "Guaranteed loss scenario uses isolated enemy equipment with sever ability only",
+    "Devices and operations are prototype fixtures, no complete medicine or implant economy",
+    "No commit or push"
+  ]
+}

@@ -13,6 +13,9 @@ var activation_started: bool = false
 var wait_used: bool = false
 var turn_done: bool = false
 var reactions_left: int = 0
+var body_functions: Sm2BodyFunctionState=null
+var body_catalog: Sm2BodyFunctionCatalog=null
+var barrier: Sm2BarrierState=null
 var combat: Sm2Combatant = null
 
 static func from_setup(raw: Dictionary, catalog: Sm2TurnCatalog) -> Dictionary:
@@ -64,6 +67,9 @@ func copy() -> Sm2TacticalActor:
 	result.wait_used = wait_used
 	result.turn_done = turn_done
 	result.reactions_left = reactions_left
+	result.body_functions=body_functions.copy() if body_functions!=null else null
+	result.body_catalog=body_catalog
+	result.barrier=barrier.copy() if barrier!=null else null
 	result.combat = combat.copy() if combat != null else null
 	return result
 
@@ -83,6 +89,8 @@ func to_data() -> Dictionary:
 		"round_fatigue": round_fatigue, "round_morale": round_morale, "initiative": initiative,
 		"activation_started": activation_started, "wait_used": wait_used, "turn_done": turn_done,
 		"reactions_left": reactions_left}
+	if barrier!=null: data["barrier"]=barrier.to_data()
+	if body_functions!=null: data["body_functions"]=body_functions.to_data()
 	if combat != null:
 		data["combat"] = combat.to_data()
 	return data

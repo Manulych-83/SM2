@@ -1,0 +1,9 @@
+{
+  "version":"sm2.p5.hybrid.content.1",
+  "abilities":[{
+    "id":"p5:ability.psionic_strike","name":"Псионический удар","base_attack":"m2:ability.sword_strike","required_node":"p5:node.psionic_strike",
+    "concentration_cost":6,"damage":6,
+    "damage_scaling":{"maximum":10000,"terms":[{"track_id":"p1:skill.psionics","baseline":6,"numerator":2,"denominator":1}]},
+    "awards":{"p1:skill.melee":20,"p1:stat.strength":5,"p1:skill.psionics":20,"p4a:stat.resonance":5}
+  }]
+}

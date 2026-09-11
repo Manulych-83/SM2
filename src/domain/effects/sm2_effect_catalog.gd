@@ -1,5 +1,6 @@
 class_name Sm2EffectCatalog
 extends RefCounted
+const EMPTY_VERSION: String="sm2.p5.empty_effects.1"
 const STATS: Array[String] = ["melee_skill","ranged_skill","melee_defense","ranged_defense"]
 var _raw: Dictionary = {}
 var _hash: String = ""
@@ -11,7 +12,8 @@ func build(raw: Dictionary, combat: Sm2CombatCatalog) -> PackedStringArray:
 	if combat == null or not Sm2Validate.fields(raw,["version","effects","actions","profiles"]) or not Sm2Validate.text(raw.version): return _error("effect_catalog_shape")
 	var normalized: Dictionary = {"version":raw.version}
 	for group: String in ["effects","actions","profiles"]:
-		if not raw[group] is Array or raw[group].is_empty() or raw[group].size() > 10000: return _error("effect_catalog_group")
+		var empty_layer: bool=raw.version==EMPTY_VERSION and group!="profiles"
+		if not raw[group] is Array or (raw[group].is_empty() and not empty_layer) or raw[group].size() > 10000 or (empty_layer and not raw[group].is_empty()): return _error("effect_catalog_group")
 		var entries: Array[Dictionary] = []
 		var ids: Dictionary = {}
 		for entry: Variant in raw[group]:

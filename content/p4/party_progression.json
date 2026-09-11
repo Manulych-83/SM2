@@ -1,0 +1,375 @@
+{
+  "tracks": [
+    {
+      "id": "p1:stat.strength",
+      "name": "Мощь",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p1:skill.melee",
+      "name": "Ближний бой",
+      "kind": "skill",
+      "base_level": 1,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p1:skill.psionics",
+      "name": "Псионика",
+      "kind": "skill",
+      "base_level": 0,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p4a:stat.motorics",
+      "name": "Моторика",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p4a:stat.resilience",
+      "name": "Стойкость",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p4a:stat.intellect",
+      "name": "Интеллект",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p4a:stat.perception",
+      "name": "Восприятие",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p4a:stat.will",
+      "name": "Воля",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p4a:stat.resonance",
+      "name": "Резонанс",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    },
+    {
+      "id": "p4a:stat.synchronization",
+      "name": "Синхронизация",
+      "kind": "attribute",
+      "base_level": 10,
+      "step": 100,
+      "growth": 50
+    }
+  ],
+  "nodes": [
+    {
+      "id": "p1:node.strength_1",
+      "name": "Крепкая основа",
+      "track_id": "p1:stat.strength",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    },
+    {
+      "id": "p1:node.strength_2",
+      "name": "Развитая мускулатура",
+      "track_id": "p1:stat.strength",
+      "min_level": 12,
+      "cost": 150,
+      "bonus": 2,
+      "requires": [
+        "p1:node.strength_1"
+      ]
+    },
+    {
+      "id": "p1:node.melee_1",
+      "name": "Постановка удара",
+      "track_id": "p1:skill.melee",
+      "min_level": 2,
+      "cost": 60,
+      "bonus": 2,
+      "requires": []
+    },
+    {
+      "id": "p1:node.melee_2",
+      "name": "Связка ударов",
+      "track_id": "p1:skill.melee",
+      "min_level": 3,
+      "cost": 120,
+      "bonus": 2,
+      "requires": [
+        "p1:node.melee_1"
+      ]
+    },
+    {
+      "id": "p4a:node.motorics",
+      "name": "Координация",
+      "track_id": "p4a:stat.motorics",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    },
+    {
+      "id": "p4a:node.resilience",
+      "name": "Размеренный темп",
+      "track_id": "p4a:stat.resilience",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    },
+    {
+      "id": "p4a:node.intellect",
+      "name": "Системный анализ",
+      "track_id": "p4a:stat.intellect",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    },
+    {
+      "id": "p4a:node.perception",
+      "name": "Внимательное наблюдение",
+      "track_id": "p4a:stat.perception",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    },
+    {
+      "id": "p4a:node.will",
+      "name": "Устойчивое внимание",
+      "track_id": "p4a:stat.will",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    },
+    {
+      "id": "p4a:node.resonance",
+      "name": "Различение пси-сигнала",
+      "track_id": "p4a:stat.resonance",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    },
+    {
+      "id": "p4a:node.synchronization",
+      "name": "Устойчивая обратная связь",
+      "track_id": "p4a:stat.synchronization",
+      "min_level": 11,
+      "cost": 70,
+      "bonus": 1,
+      "requires": []
+    }
+  ],
+  "activities": [
+    {
+      "id": "p1:activity.sword_drill",
+      "name": "Упражняться с мечом",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p1:stat.strength",
+          "amount": 30
+        },
+        {
+          "track_id": "p1:skill.melee",
+          "amount": 40
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.power",
+      "name": "Силовое упражнение",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p1:stat.strength",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.motorics",
+      "name": "Точность движений",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p4a:stat.motorics",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.resilience",
+      "name": "Работа с нагрузкой",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p4a:stat.resilience",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.intellect",
+      "name": "Разобрать учебную задачу",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p4a:stat.intellect",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.perception",
+      "name": "Поиск учебного сигнала",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p4a:stat.perception",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.will",
+      "name": "Удержать концентрацию",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p4a:stat.will",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.resonance",
+      "name": "Псионическое упражнение",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p4a:stat.resonance",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    },
+    {
+      "id": "p4a:activity.synchronization",
+      "name": "Освоить учебный интерфейс",
+      "operation": "attribute_exercise",
+      "seconds": 10,
+      "awards": [
+        {
+          "track_id": "p4a:stat.synchronization",
+          "amount": 25
+        }
+      ],
+      "capability": {}
+    }
+  ],
+  "contributions": [
+    {
+      "source": "p1:stat.strength",
+      "target": "p1:skill.melee",
+      "numerator": 1,
+      "denominator": 2
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "p1:knowledge.bandaging",
+      "name": "Основы перевязки"
+    }
+  ],
+  "version": "sm2.p4.party.content.1",
+  "companion_growth": {
+    "step": 100,
+    "growth": 50,
+    "attack_xp": 40,
+    "melee_per_level": 2,
+    "attributes": [
+      {
+        "track_id": "p1:stat.strength",
+        "base": 10,
+        "per_level": 1
+      },
+      {
+        "track_id": "p4a:stat.motorics",
+        "base": 10,
+        "per_level": 1
+      },
+      {
+        "track_id": "p4a:stat.resilience",
+        "base": 10,
+        "per_level": 1
+      },
+      {
+        "track_id": "p4a:stat.intellect",
+        "base": 10,
+        "per_level": 1
+      },
+      {
+        "track_id": "p4a:stat.perception",
+        "base": 10,
+        "per_level": 1
+      },
+      {
+        "track_id": "p4a:stat.will",
+        "base": 10,
+        "per_level": 1
+      },
+      {
+        "track_id": "p4a:stat.resonance",
+        "base": 10,
+        "per_level": 1
+      },
+      {
+        "track_id": "p4a:stat.synchronization",
+        "base": 10,
+        "per_level": 1
+      }
+    ]
+  }
+}

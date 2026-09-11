@@ -3,6 +3,7 @@ extends RefCounted
 const RULESET: String = "sm2.m2.turns.1"
 var battle_id: String = ""
 var scenario_id: String = ""
+var body_changes: Array[Dictionary]=[]
 var field: Sm2Battlefield = null
 var round_limit: int = 100
 var round: int = 0
@@ -67,6 +68,7 @@ func copy() -> Sm2TacticalState:
 		result.field = Sm2Battlefield.new()
 		result.field.build(field.to_data())
 	result.round_limit = round_limit
+	result.body_changes.assign(body_changes.duplicate(true))
 	result.round = round
 	result.revision = revision
 	result.next_actor_id = next_actor_id
@@ -134,7 +136,8 @@ func to_data(catalog_fingerprint: String) -> Dictionary:
 		for id: int in sorted_ids(): pools.append({"actor_id":str(id),"current":mana[id].current})
 		data["mana"] = pools
 	if development != null:
-		data.schema_version = 8 if development.origin.is_empty() else 9
-		data.ruleset = Sm2DevelopmentSnapshot.RULESET if development.origin.is_empty() else Sm2EncounterOrigin.RULESET
+		data.schema_version = Sm2EncounterOrigin.schema(development.catalog,development.origin)
+		data.ruleset = Sm2DevelopmentSnapshot.RULESET if development.origin.is_empty() else str(development.origin.version)
 		data["development"] = development.to_data()
+		if development.catalog.has_body_functions(): data["body_changes"]=body_changes.duplicate(true)
 	return data

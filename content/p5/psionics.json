@@ -1,0 +1,7 @@
+{
+  "version": "sm2.p5.psionics.content.1",
+  "track_id": "p1:skill.psionics",
+  "concentration_max": 12,
+  "concentration_per_round": 3,
+  "abilities": [{"id":"p5:ability.impulse","name":"Пси-импульс","required_node":"p5:node.impulse","ap_cost":4,"concentration_cost":6,"range_min":1,"range_max":4,"damage":12,"practice_xp":20}]
+}

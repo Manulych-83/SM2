@@ -1,0 +1,8 @@
+{
+  "version": "sm2.exploration.content.2",
+  "sites": [
+    {"id": "first_aid", "name": "Старая санитарная сумка", "description": "Осмотрите оставленные у руин вещи и соберите пригодные медикаменты.", "minutes": 30, "after_encounters": 0, "rewards": {"medicine": 4}, "practice": {"p4s:skill.search": 50, "p4a:stat.perception": 10}},
+    {"id": "workshop", "name": "Разобранная мастерская", "description": "Переберите остатки мастерской и найдите исправные детали.", "minutes": 60, "after_encounters": 1, "rewards": {"parts": 4}, "practice": {"p4s:skill.search": 50, "p4a:stat.perception": 10}},
+    {"id": "supply_cache", "name": "Схрон у старого моста", "description": "Проверьте старый схрон с медицинскими и техническими припасами.", "minutes": 90, "after_encounters": 2, "rewards": {"medicine": 3, "parts": 2}, "practice": {"p4s:skill.search": 50, "p4a:stat.perception": 10}}
+  ]
+}

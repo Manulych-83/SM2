@@ -1,0 +1,23 @@
+{
+  "version": "sm2.p5.body_upgrades.1",
+  "upgrades": [
+    {
+      "id": "p5:upgrade.muscles",
+      "name": "Усиленные мышцы",
+      "path": "genetics",
+      "cache_name": "Подготовленный медицинский тайник",
+      "doses": 1,
+      "modifiers": [
+        {
+          "kind": "track_bonus",
+          "track_id": "p1:stat.strength",
+          "amount": 2
+        },
+        {
+          "kind": "physical_attack_fatigue",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

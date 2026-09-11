@@ -1,0 +1,75 @@
+{
+  "version": "sm2.body_functions.content.2",
+  "trauma_armor_slot": "body",
+  "parts": [
+    {
+      "id": "left_hand",
+      "name": "Левая рука",
+      "interface": "human_arm.basic"
+    },
+    {
+      "id": "right_hand",
+      "name": "Правая рука",
+      "interface": "human_arm.basic"
+    }
+  ],
+  "bindings": {
+    "weapon": [
+      "right_hand"
+    ],
+    "shield": [
+      "left_hand"
+    ],
+    "two_handed": [
+      "left_hand",
+      "right_hand"
+    ]
+  },
+  "trauma_abilities": {
+    "p4:ability.hand_strike": "right_hand",
+    "p4:ability.shield_hand_strike": "left_hand"
+  },
+  "practice_requirements": {
+    "p1:activity.sword_drill": [
+      "right_hand"
+    ],
+    "p4a:activity.power": [
+      "left_hand",
+      "right_hand"
+    ],
+    "p4a:activity.motorics": [
+      "left_hand",
+      "right_hand"
+    ]
+  },
+  "sever_abilities": {
+    "p4:ability.sever_right": "right_hand",
+    "p4:ability.sever_left": "left_hand"
+  },
+  "prostheses": [
+    {
+      "id": "p4:prosthesis.right",
+      "name": "Простой протез правой руки",
+      "part_id": "right_hand",
+      "interface": "human_arm.basic"
+    },
+    {
+      "id": "p4:prosthesis.left",
+      "name": "Простой протез левой руки",
+      "part_id": "left_hand",
+      "interface": "human_arm.basic"
+    },
+    {
+      "id": "p4:prosthesis.alien",
+      "name": "Протез с другим креплением",
+      "part_id": "right_hand",
+      "interface": "human_arm.advanced"
+    }
+  ],
+  "starter_prostheses": [
+    "p4:prosthesis.right",
+    "p4:prosthesis.left",
+    "p4:prosthesis.right",
+    "p4:prosthesis.alien"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+	"checks": 155,
+	"failures": [
+		"resource visible in actor inspector",
+		"forecast.png: screen bounds BattleNotice",
+		"cast.png: screen bounds BattleNotice",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: resource visible in actor inspector",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: forecast.png: screen bounds BattleNotice",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: cast.png: screen bounds BattleNotice"
+	],
+	"passed": false,
+	"rendered": true
+}

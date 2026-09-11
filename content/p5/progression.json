@@ -1,0 +1,4 @@
+{
+  "node": {"id":"p5:node.impulse","name":"Пси-импульс","track_id":"p1:skill.psionics","min_level":1,"cost":100,"bonus":0,"requires":[]},
+  "activity": {"id":"p5:activity.psionics","name":"Практика пси-импульса","operation":"attribute_exercise","seconds":10,"awards":[{"track_id":"p1:skill.psionics","amount":25}],"capability":{}}
+}

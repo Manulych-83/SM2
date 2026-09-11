@@ -1,0 +1,6 @@
+{
+	"checks": 24,
+	"failures": [],
+	"passed": true,
+	"scope": "Exported pack loaded by Godot, UI signals and world commands; native EXE launch checked separately."
+}

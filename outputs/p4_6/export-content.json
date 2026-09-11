@@ -1,0 +1,6 @@
+{
+	"checks": 9,
+	"failures": [],
+	"passed": true,
+	"scope": "Godot loads the exported resource pack, opens mode and starts schema12 encounter via menu signal; not interaction in the exported EXE"
+}

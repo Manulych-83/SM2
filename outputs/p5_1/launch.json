@@ -1,0 +1,14 @@
+﻿{
+    "exe_sha256":  "B64970ED6E0DA12E9DC6F2FD050E9FD7F7AA8C439DAD34C04B925FADAF69DFAF",
+    "logs":  {
+                 "export":  "E:\\GPT\\SM2\\.local\\logs\\p5-export-20260911-210042-218-96e8922d.log",
+                 "compatibility":  "E:\\GPT\\SM2\\.local\\logs\\p5-compatibility-20260911-210041-318-cffcb7b7.log",
+                 "restart":  "E:\\GPT\\SM2\\.local\\logs\\p5-restart-20260911-210040-567-f93dda75.log"
+             },
+    "passed":  true,
+    "exe_exit":  0,
+    "cmd_exit":  0,
+    "exe_log":  "E:\\GPT\\SM2\\.local\\logs\\p5-exe-20260911-210043-113-9c51cd02.log",
+    "exe_version":  "0.6.0.0",
+    "player_saves_unchanged":  4
+}

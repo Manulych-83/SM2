@@ -25,6 +25,7 @@ static func evaluate(state: Sm2TacticalState, events: Array[Dictionary]) -> void
 	state.main_queue.clear()
 	state.deferred_queue.clear()
 	for id: int in state.sorted_ids():
+		Sm2BarrierRules.clear(state.actor(id),"battle_finished",events)
 		state.actor(id).spatial.ap = 0
 		state.actor(id).turn_done = true
 	events.append({"type": "battle_finished", "reason": reason, "winner": winner if not winner.is_empty() else null})

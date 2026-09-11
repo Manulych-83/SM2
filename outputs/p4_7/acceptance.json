@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "version": "0.5.10-p4.7",
+  "clean_root": "E:\\GPT\\SM2\\.local\\p4_7\\clean-20260911-121351-971",
+  "clean_files_compared": 271,
+  "different_files": [],
+  "reports": {
+    "core": {
+      "path": "core-all.json",
+      "passed": true,
+      "checks": 7607
+    },
+    "ui": {
+      "path": "ui1/report.json",
+      "passed": true,
+      "checks": 146
+    },
+    "legacy_ui": {
+      "path": "legacy-care/report.json",
+      "passed": true,
+      "checks": 173
+    },
+    "restart": {
+      "path": "restart.json",
+      "passed": true,
+      "checks": 24
+    },
+    "launch": {
+      "path": "launch.json",
+      "passed": true,
+      "checks": null
+    },
+    "packed_content": {
+      "path": "export-content.json",
+      "passed": true,
+      "checks": 11
+    }
+  },
+  "visual_review": [
+    "ui1/menu.png",
+    "ui1/sites.png",
+    "ui1/new-life.png"
+  ],
+  "limits": [
+    "EXE startup verified; mouse interaction tested through Godot project",
+    "Exported resource pack loaded by Godot and care mode starts schema12 encounter",
+    "Prices and starting supplies are prototype settings; finite authored supply sources, no search practice",
+    "Search and procedure times are separate, not a world calendar",
+    "No commit or push"
+  ]
+}
