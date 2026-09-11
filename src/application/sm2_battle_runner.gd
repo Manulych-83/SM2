@@ -7,6 +7,7 @@ var _effects: Sm2EffectCatalog = null
 var _magic: Sm2MagicCatalog = null
 var _development: Sm2DevelopmentCatalog = null
 var _origin: Dictionary = {}
+var _survival: Sm2SurvivalState = null
 const DEVELOPMENT_FORMAT: String = "sm2.development_run.1"
 const DEVELOPMENT_SLOT: String = "p2_development_run"
 const MAGIC_FORMAT: String = "sm2.magic_run.1"
@@ -30,7 +31,7 @@ var _attempts: int = 0
 var _error: String = ""
 
 func _init(turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, profile: Sm2AiProfile,
-	store: Sm2SaveStore = null, self_play: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}) -> void:
+	store: Sm2SaveStore = null, self_play: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}, survival: Sm2SurvivalState = null) -> void:
 	_turns = Sm2TurnCatalog.new()
 	_turns.build(turns.to_data())
 	_combat = Sm2CombatCatalog.new()
@@ -41,6 +42,7 @@ func _init(turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, profile: Sm2AiProfil
 	if magic != null:
 		_magic = Sm2MagicCatalog.new()
 		_magic.build(magic.to_data(),_combat,_effects)
+	_survival=survival.copy() if survival!=null else null
 	_origin = origin.duplicate(true)
 	if development != null:
 		_development = Sm2DevelopmentCatalog.new()
@@ -49,7 +51,7 @@ func _init(turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, profile: Sm2AiProfil
 	_profile.build(profile.to_data())
 	_store = store
 	_self_play = self_play
-	_session = Sm2TacticalSession.new(_turns, store, _combat, true, _effects, _magic, _development, _origin)
+	_session = Sm2TacticalSession.new(_turns, store, _combat, true, _effects, _magic, _development, _origin, _survival)
 
 func new_battle(setup: Dictionary) -> Dictionary:
 	if _profile.to_data().is_empty():
@@ -157,7 +159,7 @@ func restore(payload: Dictionary) -> Dictionary:
 		return {"ok": false, "errors": PackedStringArray(["ai_run_version"])}
 	if not payload.session is Dictionary or not payload.activation_key is String or not payload.error is String or payload.error.length() > 256 or not Sm2Validate.integer(payload.attempts, 0, int(_profile.to_data().get("attempt_limit", 0))):
 		return {"ok": false, "errors": PackedStringArray(["ai_run_fields"])}
-	var candidate: Sm2TacticalSession = Sm2TacticalSession.new(_turns, _store, _combat, true, _effects, _magic, _development, _origin)
+	var candidate: Sm2TacticalSession = Sm2TacticalSession.new(_turns, _store, _combat, true, _effects, _magic, _development, _origin, _survival)
 	var checked: Dictionary = candidate.restore_payload(payload.session)
 	if not checked.ok:
 		return checked

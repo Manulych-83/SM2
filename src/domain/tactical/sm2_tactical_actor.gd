@@ -1,5 +1,6 @@
 class_name Sm2TacticalActor
 extends RefCounted
+var anatomy: Sm2Anatomy = null
 ## Combat scheduling state owns one spatial projection, never duplicated vitals.
 const MORALES: Array[String] = ["steady", "wavering", "breaking", "fleeing"]
 var spatial: Sm2SpatialActor = Sm2SpatialActor.new()
@@ -67,6 +68,7 @@ func copy() -> Sm2TacticalActor:
 	result.wait_used = wait_used
 	result.turn_done = turn_done
 	result.reactions_left = reactions_left
+	result.anatomy=anatomy.copy() if anatomy!=null else null
 	result.body_functions=body_functions.copy() if body_functions!=null else null
 	result.body_catalog=body_catalog
 	result.barrier=barrier.copy() if barrier!=null else null

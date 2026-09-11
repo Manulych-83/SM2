@@ -9,8 +9,10 @@ var _effects: Sm2EffectCatalog = null
 var _magic: Sm2MagicCatalog = null
 var _development: Sm2DevelopmentCatalog = null
 var _origin: Dictionary = {}
+var _survival: Sm2SurvivalState = null
 
-func _init(catalog: Sm2TurnCatalog, combat: Sm2CombatCatalog = null, consequences: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}) -> void:
+func _init(catalog: Sm2TurnCatalog, combat: Sm2CombatCatalog = null, consequences: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}, survival: Sm2SurvivalState = null) -> void:
+	_survival=survival.copy() if survival!=null else null
 	_consequences = consequences
 	_catalog = Sm2TurnCatalog.new()
 	if catalog != null:
@@ -50,6 +52,10 @@ func start(setup: Dictionary) -> Dictionary:
 	if not setup.actors is Array or setup.actors.is_empty() or setup.actors.size() > 4096:
 		return _failure("actor_count")
 	var candidate: Sm2TacticalState = Sm2TacticalState.new()
+	candidate.survival=_survival.copy() if _survival!=null else null
+	if candidate.survival!=null:
+		candidate.survival.last_round=0
+		candidate.survival_initial=Sm2Canonical.hash(_survival.to_data())
 	candidate.consequences = _consequences
 	candidate.effect_catalog = _effects
 	candidate.magic_catalog = _magic
@@ -122,6 +128,8 @@ func start(setup: Dictionary) -> Dictionary:
 			if not origin_error.is_empty(): return _failure(origin_error)
 	if _development!=null and _development.has_psionic_shields():
 		for id: int in candidate.sorted_ids(): candidate.actor(id).barrier=Sm2BarrierState.new()
+	if candidate.survival!=null:
+		for id: int in candidate.sorted_ids(): Sm2SurvivalBattle.sync_actor(candidate,candidate.actor(id))
 	var events: Array[Dictionary] = []
 	Sm2TurnScheduler.advance(candidate, _catalog, events)
 	if _consequences:
@@ -136,6 +144,7 @@ func preview(command: Sm2Command) -> Dictionary:
 	var reason: String = _validate(command)
 	if not reason.is_empty():
 		return {"allowed": false, "reason": reason, "ap_cost": 0, "fatigue_cost": 0}
+	if command.kind=="bandage": return Sm2SurvivalBattle.bandage_preview(_state,command)
 	if _consequences and command.kind in ["move", "escape"]:
 		return Sm2DepartureResolver.preview(_state, command)
 	if command.kind == "move":
@@ -168,8 +177,12 @@ func execute(command: Sm2Command) -> Sm2CommandResult:
 	var accepted_code: String = "accepted"
 	if _consequences:
 		var context: Sm2ConsequenceContext = Sm2ConsequenceContext.new()
+		if candidate.survival!=null:
+			candidate.survival_context=context; candidate.survival_combat=_combat
 		var resolved: Dictionary = {"accepted": true, "code": "accepted", "events": []}
-		if command.kind in ["move", "escape"]:
+		if command.kind=="bandage":
+			resolved=Sm2SurvivalBattle.bandage(candidate,command)
+		elif command.kind in ["move", "escape"]:
 			resolved = Sm2DepartureResolver.resolve(candidate, _combat, command, context)
 		elif command.kind == "use_ability":
 			if _magic != null and _magic.spell(command.ability_id) != null:
@@ -223,6 +236,8 @@ func execute(command: Sm2Command) -> Sm2CommandResult:
 					return result
 				events.assign(resolved.events)
 				Sm2TurnScheduler.after_action(candidate, _catalog, events)
+	if not candidate.survival_error.is_empty():
+		result.code=candidate.survival_error; return result
 	if _effects != null: Sm2EffectResolver.cleanup(candidate,events)
 	candidate.revision += 1
 	var checked: Dictionary = _decode(candidate.to_data(_catalog.fingerprint()))
@@ -284,6 +299,10 @@ func view() -> Dictionary:
 				var spell_view: Dictionary=_magic.spell(spell_id).to_data()
 				spell_view.mana_cost=Sm2ManaResolver.cost(_state,id,_magic.spell(spell_id)).total
 				actor_view.spells.append(spell_view)
+		if _state.survival!=null:
+			actor_view["anatomy"]=_state.actor(id).anatomy.to_data()
+			actor_view["bandage_ap"]=int(_state.survival.catalog.to_data().bandage_ap)
+			for wound: Dictionary in actor_view.anatomy.wounds: wound["name"]=_state.survival.catalog.part_name(wound.part)
 		actors.append(actor_view)
 	return {"ruleset": str(_origin.version) if not _origin.is_empty() else Sm2DevelopmentSnapshot.RULESET if _development != null else Sm2MagicSnapshot.AREA_RULESET if _magic != null and _magic.supports_areas() else Sm2MagicSnapshot.RULESET if _magic != null else Sm2EffectSnapshot.RULESET if _effects != null else Sm2CombatSnapshot.CONSEQUENCE_RULESET if _consequences else (Sm2CombatSnapshot.RULESET if _combat != null else Sm2TacticalState.RULESET), "battle_id": _state.battle_id,
 		"scenario_id": _state.scenario_id, "round": _state.round, "round_limit": _state.round_limit,
@@ -349,7 +368,7 @@ func _validate(command: Sm2Command) -> String:
 		return "counter_limit"
 	if command.actor_id != _state.active_id():
 		return "not_active_actor"
-	if command.kind not in ["move", "wait", "end_turn"] and not (_combat != null and command.kind == "use_ability") and not (_consequences and command.kind == "escape"):
+	if command.kind not in (["move", "wait", "end_turn","bandage"] if _survival!=null else ["move", "wait", "end_turn"]) and not (_combat != null and command.kind == "use_ability") and not (_consequences and command.kind == "escape"):
 		return "unsupported_command"
 	if command.kind == "wait":
 		var actor: Sm2TacticalActor = _state.actor(command.actor_id)
@@ -364,6 +383,7 @@ func _validate(command: Sm2Command) -> String:
 	return ""
 
 func _decode(snapshot: Dictionary) -> Dictionary:
+	if _survival!=null: return Sm2SurvivalBattle.decode(snapshot,_catalog,_combat,_effects,_magic,_development,_origin,_survival)
 	if _development != null:
 		if not _consequences or _combat == null: return _failure("development_requires_combat")
 		return Sm2DevelopmentSnapshot.decode(snapshot,_catalog,_combat,_effects,_magic,_development,_origin)

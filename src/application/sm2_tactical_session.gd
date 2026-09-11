@@ -14,6 +14,7 @@ var _effects: Sm2EffectCatalog = null
 var _magic: Sm2MagicCatalog = null
 var _development: Sm2DevelopmentCatalog = null
 var _origin: Dictionary = {}
+var _survival: Sm2SurvivalState = null
 const DEVELOPMENT_FORMAT: String = "sm2.session.p2.development.1"
 const MAGIC_FORMAT: String = "sm2.session.m4.magic.1"
 const AREA_FORMAT: String = "sm2.session.m4.areas.1"
@@ -25,7 +26,7 @@ func save_slot() -> String:
 const EFFECT_FORMAT: String = "sm2.session.m4.effects.1"
 var _result_recorded: bool = false
 
-func _init(catalog: Sm2TurnCatalog, store: Sm2SaveStore, combat: Sm2CombatCatalog = null, consequences: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}) -> void:
+func _init(catalog: Sm2TurnCatalog, store: Sm2SaveStore, combat: Sm2CombatCatalog = null, consequences: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}, survival: Sm2SurvivalState = null) -> void:
 	_consequences = consequences
 	_catalog = Sm2TurnCatalog.new()
 	if catalog != null:
@@ -41,6 +42,7 @@ func _init(catalog: Sm2TurnCatalog, store: Sm2SaveStore, combat: Sm2CombatCatalo
 	if magic != null:
 		_magic = Sm2MagicCatalog.new()
 		_magic.build(magic.to_data(),_combat,_effects)
+	_survival=survival.copy() if survival!=null else null
 	_origin = origin.duplicate(true)
 	if development != null:
 		_development = Sm2DevelopmentCatalog.new()
@@ -49,7 +51,7 @@ func _init(catalog: Sm2TurnCatalog, store: Sm2SaveStore, combat: Sm2CombatCatalo
 func new_battle(setup: Dictionary) -> Dictionary:
 	if _consequences and _battle != null and _battle.view().finished and not _result_recorded:
 		return _failure("outcome_not_recorded")
-	var candidate: Sm2TacticalBattle = Sm2TacticalBattle.new(_catalog, _combat, _consequences, _effects, _magic, _development, _origin)
+	var candidate: Sm2TacticalBattle = Sm2TacticalBattle.new(_catalog, _combat, _consequences, _effects, _magic, _development, _origin, _survival)
 	var result: Dictionary = candidate.start(setup)
 	if result.ok:
 		_battle = candidate
@@ -167,7 +169,7 @@ func _decode(payload: Dictionary) -> Dictionary:
 		return _failure("incompatible_session")
 	if not payload.battle is Dictionary:
 		return _failure("battle_shape")
-	var candidate: Sm2TacticalBattle = Sm2TacticalBattle.new(_catalog, _combat, _consequences, _effects, _magic, _development, _origin)
+	var candidate: Sm2TacticalBattle = Sm2TacticalBattle.new(_catalog, _combat, _consequences, _effects, _magic, _development, _origin, _survival)
 	var restored: Dictionary = candidate.restore(payload.battle)
 	if not restored.ok:
 		return restored

@@ -14,6 +14,9 @@ static func evaluate(state: Sm2TacticalState, events: Array[Dictionary]) -> void
 	var remaining: Array[String] = presence(state)
 	if remaining.size() == 2 and not state.finished:
 		return
+	if state.survival!=null:
+		Sm2SurvivalBattle.close_round(state,events)
+		remaining=presence(state)
 	var reason: String = "round_limit" if remaining.size() == 2 else ("opposition_removed" if remaining.size() == 1 else "mutual_removal")
 	var winner: String = remaining[0] if remaining.size() == 1 else ""
 	if state.finished and state.finish_reason == reason and state.winner == winner and reason != "round_limit":

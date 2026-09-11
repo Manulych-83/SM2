@@ -3,7 +3,7 @@ extends RefCounted
 const RULESET: String = "sm2.m2.attacks.1"
 const CONSEQUENCE_RULESET: String = "sm2.m2.consequences.1"
 
-static func decode(data: Dictionary, turns: Sm2TurnCatalog, catalog: Sm2CombatCatalog, consequences: bool = false) -> Dictionary:
+static func decode(data: Dictionary, turns: Sm2TurnCatalog, catalog: Sm2CombatCatalog, consequences: bool = false, anatomical: bool = false) -> Dictionary:
 	var schema: int = 4 if consequences else 3
 	var ruleset: String = CONSEQUENCE_RULESET if consequences else RULESET
 	if catalog == null or not catalog.matches(turns) or data.get("format") != "sm2.battle" or not Sm2Validate.integer(data.get("schema_version"), schema, schema) or data.get("ruleset") != ruleset or data.get("combat_fingerprint") != catalog.fingerprint() or not Sm2Validate.decimal(data.get("next_item_id"), 2):
@@ -48,7 +48,7 @@ static func decode(data: Dictionary, turns: Sm2TurnCatalog, catalog: Sm2CombatCa
 		var raw: Dictionary = components[str(id)]
 		if not Sm2Validate.fields(raw, ["hp", "items", "shieldwall_used", "shieldwall_source", "shieldwall_until_round"]) or not Sm2Validate.integer(raw.hp, 0, catalog.profile(actor.loadout_id).hp_max) or not raw.items is Array or not raw.shieldwall_used is bool or not Sm2Validate.decimal(raw.shieldwall_source) or not Sm2Validate.decimal(raw.shieldwall_until_round, 0, state.round_limit + 1):
 			return _failure("combat_component_fields")
-		if actor.spatial.alive != (int(raw.hp) > 0):
+		if not anatomical and actor.spatial.alive != (int(raw.hp) > 0):
 			return _failure("combat_hp_life_mismatch")
 		var component: Sm2Combatant = Sm2Combatant.new()
 		component.hp = int(raw.hp)

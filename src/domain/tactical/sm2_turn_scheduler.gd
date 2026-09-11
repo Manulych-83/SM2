@@ -21,6 +21,10 @@ static func compute_initiative(definition: Sm2TurnDefinition, fatigue: int, mora
 static func start_round(state: Sm2TacticalState, catalog: Sm2TurnCatalog, events: Array[Dictionary]) -> void:
 	if state == null or catalog == null or state.finished:
 		return
+	if state.survival!=null and state.round>0:
+		Sm2SurvivalBattle.close_round(state,events)
+		Sm2BattleOutcome.evaluate(state,events)
+		if state.finished: return
 	if not _has_participants(state):
 		_finish(state, "no_participants", events)
 		return

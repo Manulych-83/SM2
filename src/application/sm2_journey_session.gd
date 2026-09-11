@@ -48,12 +48,15 @@ func _init(content: Dictionary, profile: Sm2AiProfile, store: Sm2SaveStore=null)
 		_content["region"]=content.region.copy()
 		journey().region_catalog=_content.region
 		journey().region=Sm2RegionState.new()
+	if content.has("survival"):
+		_content["survival"]=content.survival
+		journey().survival=Sm2SurvivalState.new(); journey().survival.catalog=content.survival
 	runner=null
 
 func has_search_practice() -> bool: return _content.has("exploration") and _content.exploration.has_practice()
 func has_discovery() -> bool: return _content.has("exploration") and _content.exploration.has_requirements()
-func format_id() -> String: return REGION_FORMAT if _content.has("region") else HYBRID_FORMAT if _content.development.has_hybrids() else IMPLANT_FORMAT if _content.development.has_implants() else UPGRADE_FORMAT if _content.development.has_upgrades() else PSIONIC_SHIELD_FORMAT if _content.development.has_psionic_shields() else PSIONIC_GROWTH_FORMAT if _content.development.has_psionic_growth() else PSIONIC_FORMAT if _content.development.has_psionics() else DISCOVERY_FORMAT if has_discovery() else SEARCH_FORMAT if has_search_practice() else EXPLORATION_FORMAT if _content.has("exploration") else CARE_FORMAT if _content.has("care") else PROSTHESIS_FORMAT if _content.development.has_prostheses() else BODY_FORMAT if _content.development.has_body_functions() else PARTY_FORMAT if _content.development.progression().is_party() else JOURNEY_FORMAT
-func slot_name() -> String: return REGION_SLOT if _content.has("region") else HYBRID_SLOT if _content.development.has_hybrids() else IMPLANT_SLOT if _content.development.has_implants() else UPGRADE_SLOT if _content.development.has_upgrades() else PSIONIC_SHIELD_SLOT if _content.development.has_psionic_shields() else PSIONIC_GROWTH_SLOT if _content.development.has_psionic_growth() else PSIONIC_SLOT if _content.development.has_psionics() else DISCOVERY_SLOT if has_discovery() else SEARCH_SLOT if has_search_practice() else EXPLORATION_SLOT if _content.has("exploration") else CARE_SLOT if _content.has("care") else PROSTHESIS_SLOT if _content.development.has_prostheses() else BODY_SLOT if _content.development.has_body_functions() else PARTY_SLOT if _content.development.progression().is_party() else JOURNEY_SLOT
+func format_id() -> String: return "sm2.survival_journey_session.1" if _content.has("survival") else REGION_FORMAT if _content.has("region") else HYBRID_FORMAT if _content.development.has_hybrids() else IMPLANT_FORMAT if _content.development.has_implants() else UPGRADE_FORMAT if _content.development.has_upgrades() else PSIONIC_SHIELD_FORMAT if _content.development.has_psionic_shields() else PSIONIC_GROWTH_FORMAT if _content.development.has_psionic_growth() else PSIONIC_FORMAT if _content.development.has_psionics() else DISCOVERY_FORMAT if has_discovery() else SEARCH_FORMAT if has_search_practice() else EXPLORATION_FORMAT if _content.has("exploration") else CARE_FORMAT if _content.has("care") else PROSTHESIS_FORMAT if _content.development.has_prostheses() else BODY_FORMAT if _content.development.has_body_functions() else PARTY_FORMAT if _content.development.progression().is_party() else JOURNEY_FORMAT
+func slot_name() -> String: return "survival_journey" if _content.has("survival") else REGION_SLOT if _content.has("region") else HYBRID_SLOT if _content.development.has_hybrids() else IMPLANT_SLOT if _content.development.has_implants() else UPGRADE_SLOT if _content.development.has_upgrades() else PSIONIC_SHIELD_SLOT if _content.development.has_psionic_shields() else PSIONIC_GROWTH_SLOT if _content.development.has_psionic_growth() else PSIONIC_SLOT if _content.development.has_psionics() else DISCOVERY_SLOT if has_discovery() else SEARCH_SLOT if has_search_practice() else EXPLORATION_SLOT if _content.has("exploration") else CARE_SLOT if _content.has("care") else PROSTHESIS_SLOT if _content.development.has_prostheses() else BODY_SLOT if _content.development.has_body_functions() else PARTY_SLOT if _content.development.progression().is_party() else JOURNEY_SLOT
 
 func journey() -> Sm2JourneyWorld: return world as Sm2JourneyWorld
 
@@ -99,7 +102,8 @@ func _camp(raw: Dictionary, restoring: bool=false) -> Dictionary:
 func _prepare() -> Dictionary:
 	_encounter=Sm2EncounterFactory.build(_content,journey())
 	if not _encounter.ok: return _encounter
-	runner=Sm2BattleRunner.new(_encounter.catalog,_encounter.combat,_profile,null,false,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin)
+	if journey().survival!=null: _encounter["survival"]=journey().survival.copy()
+	runner=Sm2BattleRunner.new(_encounter.catalog,_encounter.combat,_profile,null,false,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin,_encounter.get("survival"))
 	return {"ok":true}
 
 func attack(value: Sm2Command) -> Sm2CommandResult:
@@ -142,7 +146,7 @@ func _finish() -> Dictionary:
 func _check_battle(raw: Dictionary) -> Dictionary:
 	var loaded: Dictionary=runner.restore(raw)
 	if not loaded.ok: return loaded
-	var decoded: Dictionary=Sm2DevelopmentSnapshot.decode(runner.capture().session.battle,_encounter.catalog,_encounter.combat,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin)
+	var decoded: Dictionary=Sm2SurvivalBattle.decode(runner.capture().session.battle,_encounter.catalog,_encounter.combat,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin,_encounter.survival) if _encounter.has("survival") else Sm2DevelopmentSnapshot.decode(runner.capture().session.battle,_encounter.catalog,_encounter.combat,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin)
 	if not decoded.ok: return decoded
 	var state: Sm2TacticalState=decoded.state
 	if state.scenario_id!=_encounter.setup.scenario_id or state.field.to_data()!=_encounter.setup.field or state.round_limit!=int(_encounter.setup.round_limit) or state.actors.size()!=4: return _error("encounter_definition")
@@ -190,7 +194,7 @@ func _copy() -> Sm2LifeSession:
 	candidate.history.assign(history)
 	candidate._encounter=_encounter
 	if runner!=null:
-		candidate.runner=Sm2BattleRunner.new(_encounter.catalog,_encounter.combat,_profile,null,false,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin)
+		candidate.runner=Sm2BattleRunner.new(_encounter.catalog,_encounter.combat,_profile,null,false,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin,_encounter.get("survival"))
 		if not candidate.runner.restore(runner.capture()).ok: return null
 	return candidate
 

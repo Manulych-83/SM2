@@ -2,6 +2,7 @@ extends SceneTree
 ## Structured, non-empty acceptance report; unknown arguments always fail.
 
 const SUITES: Dictionary = {
+ "survival":"res://tests/scenarios/test_survival.gd",
  "p6_region":"res://tests/scenarios/test_p6_region.gd",
 	"p5_hybrids":"res://tests/scenarios/test_p5_hybrids.gd",
 	"p5_cross_nodes":"res://tests/scenarios/test_p5_cross_nodes.gd",

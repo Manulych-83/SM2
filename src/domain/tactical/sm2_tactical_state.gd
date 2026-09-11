@@ -1,5 +1,10 @@
 class_name Sm2TacticalState
 extends RefCounted
+var survival: Sm2SurvivalState = null
+var survival_initial: String = ""
+var survival_error: String = ""
+var survival_context: Sm2ConsequenceContext = null
+var survival_combat: Sm2CombatCatalog = null
 const RULESET: String = "sm2.m2.turns.1"
 var battle_id: String = ""
 var scenario_id: String = ""
@@ -62,6 +67,8 @@ func occupancy() -> Array[Vector2i]:
 
 func copy() -> Sm2TacticalState:
 	var result: Sm2TacticalState = Sm2TacticalState.new()
+	result.survival=survival.copy() if survival!=null else null
+	result.survival_initial=survival_initial; result.survival_error=survival_error
 	result.battle_id = battle_id
 	result.scenario_id = scenario_id
 	if field != null:
@@ -140,4 +147,7 @@ func to_data(catalog_fingerprint: String) -> Dictionary:
 		data.ruleset = Sm2DevelopmentSnapshot.RULESET if development.origin.is_empty() else str(development.origin.version)
 		data["development"] = development.to_data()
 		if development.catalog.has_body_functions(): data["body_changes"]=body_changes.duplicate(true)
+	if survival!=null:
+		data.schema_version=19; data.ruleset=Sm2SurvivalBattle.RULESET
+		data["survival"]=survival.to_data(); data["survival_initial"]=survival_initial
 	return data

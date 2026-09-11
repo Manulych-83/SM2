@@ -1,0 +1,38 @@
+[
+  {
+    "id": "p4:prosthesis.right",
+    "name": "Простой протез правой руки",
+    "mass": 2000,
+    "volume": 8,
+    "size": 3,
+    "capacity": 0,
+    "max_mass": 0,
+    "max_size": 0,
+    "quick": false,
+    "slot": ""
+  },
+  {
+    "id": "p4:prosthesis.left",
+    "name": "Простой протез левой руки",
+    "mass": 2000,
+    "volume": 8,
+    "size": 3,
+    "capacity": 0,
+    "max_mass": 0,
+    "max_size": 0,
+    "quick": false,
+    "slot": ""
+  },
+  {
+    "id": "p4:prosthesis.alien",
+    "name": "Протез с другим креплением",
+    "mass": 2000,
+    "volume": 8,
+    "size": 3,
+    "capacity": 0,
+    "max_mass": 0,
+    "max_size": 0,
+    "quick": false,
+    "slot": ""
+  }
+]

@@ -2,6 +2,7 @@ class_name Sm2BodyFunctionRules
 extends RefCounted
 
 static func after_hit(state: Sm2TacticalState, source: Sm2TacticalActor, target: Sm2TacticalActor, ability_id: String, hp_loss: int, events: Array[Dictionary]) -> void:
+	if state.survival!=null: return
 	if target.body_catalog==null or hp_loss<=0 or not target.spatial.alive: return
 	var part: String=target.body_catalog.trauma(ability_id)
 	var operation: String=_operation(target,ability_id)

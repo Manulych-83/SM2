@@ -32,6 +32,7 @@ static func preview(state: Sm2TacticalState, command: Sm2Command) -> Dictionary:
 	@warning_ignore("integer_division")
 	var damage: int = power*(100-resistance)/100
 	result.merge({"allowed":true,"ap_cost":spell.ap_cost,"fatigue_cost":spell.fatigue_cost,"mana_cost":cost.total,"name":spell.name,"channel":spell.channel,"resistance":resistance,"base_damage":power,"damage":damage,"hp_loss":Sm2BarrierRules.loss(target,damage).hp_loss,"lethal":Sm2BarrierRules.loss(target,damage).hp_loss >= target.combat.hp},true)
+	if state.survival!=null: result.lethal=Sm2SurvivalBattle.lethal_damage(target,int(result.hp_loss),state.survival.catalog.to_data())
 	if target.barrier!=null: result["absorbed"]=Sm2BarrierRules.loss(target,damage).absorbed
 	return result
 

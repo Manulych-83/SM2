@@ -1,0 +1,14 @@
+﻿[2026-09-12T01:50:21.3337284+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\survival\ui-check4\.local\ui-runtime
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T01:50:21.3655513+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tests/survival_restart.gd
+RuntimeRoot: E:\GPT\SM2\.local\survival\ui-check4\.local\ui-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SURVIVAL_RESTART {"checks":6,"failures":[],"passed":true}
+
+
+ExitCode: 0

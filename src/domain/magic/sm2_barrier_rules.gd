@@ -4,7 +4,7 @@ extends RefCounted
 static func loss(target: Sm2TacticalActor, incoming: int) -> Dictionary:
 	var amount: int=maxi(0,incoming)
 	var absorbed: int=mini(amount,target.barrier.remaining) if target.barrier!=null else 0
-	return {"absorbed":absorbed,"hp_loss":mini(target.combat.hp,amount-absorbed)}
+	return {"absorbed":absorbed,"hp_loss":amount-absorbed if target.anatomy!=null else mini(target.combat.hp,amount-absorbed)}
 
 static func absorb(target: Sm2TacticalActor, incoming: int, events: Array[Dictionary]) -> int:
 	var result: Dictionary=loss(target,incoming)

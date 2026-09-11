@@ -1,5 +1,6 @@
 class_name Sm2JourneyWorld
 extends Sm2LifeWorld
+var survival: Sm2SurvivalState = null
 ## Persistent ownership; equipped items are projected into the common battle engine.
 var hybrid_catalog: Sm2HybridCatalog=null
 var region_catalog: Sm2RegionCatalog=null
@@ -54,6 +55,8 @@ func start(id: String) -> void:
 	if has_prostheses():
 		for definition_id: String in body_catalog.starters(): prostheses.create(next_id,definition_id); next_id+=1
 
+	if survival!=null: survival.initialize(self)
+
 func has_prostheses() -> bool: return body_catalog!=null and body_catalog.supports_prostheses()
 
 func item(id: String) -> Dictionary:
@@ -78,6 +81,11 @@ func _check_action(command: Sm2WorldCommand) -> String:
 	if command==null or command.world_id!=world_id or command.expected_revision!=revision or command.incarnation_id!=soul.incarnation_id or command.body_id!=hero_id(): return "Устаревшая команда или другой мир."
 	if revision>=1000000: return "Достигнут предел действий примера."
 	if busy(): return "Сначала завершите сражение."
+	if survival!=null:
+		var extra_error: String=survival.check_world(command,self)
+		if not extra_error.is_empty(): return extra_error
+		if command.kind in ["bandage","store_item","wear_item","drop_item"]:
+			return "Сначала выберите новое тело." if hero_id()==0 else ""
 	if region!=null:
 		var local_error: String=region.check(command,self)
 		if not local_error.is_empty(): return local_error
@@ -146,9 +154,11 @@ func _check_action(command: Sm2WorldCommand) -> String:
 	return super.check(command)
 
 func apply(command: Sm2WorldCommand) -> void:
+	if survival!=null and survival.apply_world(command,self): return
 	if region!=null: region.apply(command,self)
 	_apply_action(command)
 	if care!=null: care.spend(command.kind,care_catalog)
+	if survival!=null: survival.after_world(command,self)
 
 func _apply_action(command: Sm2WorldCommand) -> void:
 	if region!=null and command.kind=="travel": revision+=1; return
@@ -207,6 +217,12 @@ func settle(state: Sm2TacticalState, hash_value: String) -> String:
 			if int(entry.owner_id)==body.id and entry.equipped:
 				var local_item: Sm2CombatItem=actor.combat.item(entry.slot)
 				entry.current=local_item.current; entry.ammo=local_item.ammo
+	if survival!=null:
+		survival=state.survival.copy(); survival.last_round=0
+		for entry: Dictionary in items:
+			survival.inventory.items[entry.id].current=entry.current
+			survival.inventory.items[entry.id].ammo=entry.ammo
+		survival.sync_world(self)
 	if has_prostheses(): prostheses.settle(self)
 	if not bodies[ids[0]].alive: _end_incarnation()
 	receipt=hash_value; completed+=1
@@ -224,6 +240,8 @@ func capture() -> Dictionary:
 	if region!=null:
 		data.format="sm2.world.p6.region.1"; data.location_id=region.location_id
 		data["region"]=region.to_data()
+	if survival!=null:
+		data.format="sm2.world.survival.1"; data["survival"]=survival.to_data()
 	return data
 
 func view() -> Dictionary:
@@ -246,10 +264,12 @@ func view() -> Dictionary:
 	if region!=null:
 		data["region"]=region.to_data()
 		for body: Dictionary in data.bodies: body["location_id"]=region.bodies[str(body.id)]
+	if survival!=null: data["survival"]=survival.to_data()
 	return data
 
 func copy_world() -> Sm2JourneyWorld:
 	var value: Sm2JourneyWorld=Sm2JourneyWorld.new(_progress,_definition,_gear,encounters,_initial_loadout,body_catalog,care_catalog,exploration_catalog,psionic_catalog,upgrade_catalog,hybrid_catalog)
+	value.survival=survival.copy() if survival!=null else null
 	value.region_catalog=region_catalog
 	if region!=null: value.region=region.copy()
 	if upgrade_supply!=null: value.upgrade_supply=upgrade_supply.copy()
@@ -281,6 +301,12 @@ func eligible(id: int) -> String:
 	return super.eligible(id)
 
 func validate() -> String:
+	if survival!=null:
+		var checked: Dictionary=Sm2SurvivalState.decode(survival.to_data(),survival)
+		if not checked.ok: return str(checked.errors[0])
+		if survival.seconds!=region.seconds: return "survival_world_time"
+		for id: String in survival.bodies:
+			if bodies[int(id)].alive!=survival.bodies[id].cause(survival.catalog.to_data()).is_empty() or bodies[int(id)].hp!=survival.bodies[id].summary(survival.catalog.to_data()): return "survival_world_body"
 	if (region_catalog!=null)!=(region!=null): return "region_profile_state"
 	if region!=null:
 		var region_error: String=region.validate(self)
@@ -311,7 +337,7 @@ func validate() -> String:
 		if body_catalog!=null and (body.functions==null or not Sm2BodyFunctionState.decode(body.functions.to_data(),body_catalog).ok): return "journey_functions_invalid"
 		if body_catalog==null and body.functions!=null: return "journey_unexpected_functions"
 		if (body.progress is Sm2CompanionProgress)!=(_progress.is_party() and id==4): return "journey_progression_role"
-		if body.id!=id or body.hp<0 or body.hp>60 or body.alive!=(body.hp>0) or body.progress.id!=id or not Sm2ProgressRules.decode_body(body.progress.to_data(),_progress).ok: return "journey_body_state"
+		if body.id!=id or body.hp<0 or body.hp>60 or (survival==null and body.alive!=(body.hp>0)) or body.progress.id!=id or not Sm2ProgressRules.decode_body(body.progress.to_data(),_progress).ok: return "journey_body_state"
 	if hero_id()!=0 and (not bodies.has(hero_id()) or not bodies[hero_id()].alive): return "journey_hero_state"
 	var ids: Array[String]=[]
 	var slots: Dictionary={}

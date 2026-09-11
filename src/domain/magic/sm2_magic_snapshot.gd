@@ -3,7 +3,7 @@ extends RefCounted
 const RULESET: String = "sm2.m4.magic.1"
 const AREA_RULESET: String = "sm2.m4.areas.1"
 
-static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog, magic: Sm2MagicCatalog) -> Dictionary:
+static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog, magic: Sm2MagicCatalog, anatomical: bool = false) -> Dictionary:
 	if magic == null: return _failure("magic_snapshot_version")
 	var schema: int = 7 if magic.supports_areas() else 6
 	var ruleset: String = AREA_RULESET if magic.supports_areas() else RULESET
@@ -13,7 +13,7 @@ static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCat
 	projection.erase("mana")
 	projection.schema_version = 5
 	projection.ruleset = Sm2EffectSnapshot.RULESET
-	var decoded: Dictionary = Sm2EffectSnapshot.decode(projection,turns,combat,effects)
+	var decoded: Dictionary = Sm2EffectSnapshot.decode(projection,turns,combat,effects,anatomical)
 	if not decoded.ok: return decoded
 	var state: Sm2TacticalState = decoded.state
 	if data.mana.size() != state.actors.size(): return _failure("mana_coverage")

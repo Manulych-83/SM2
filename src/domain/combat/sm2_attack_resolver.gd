@@ -109,7 +109,7 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 		var sum_hp: int = 0
 		var sum_armor: int = 0
 		for raw_damage: int in range(ability.damage_min, ability.damage_max + 1):
-			var damage: Dictionary = damage_losses(raw_damage, armor, 2147483647 if target.barrier!=null or not hybrid.is_empty() else target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
+			var damage: Dictionary = damage_losses(raw_damage, armor, 2147483647 if target.anatomy!=null or target.barrier!=null or not hybrid.is_empty() else target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
 			damage.hp_loss=Sm2BarrierRules.loss(target,int(damage.hp_loss)+int(hybrid.get("psionic_damage",0))).hp_loss
 			hp_min = mini(hp_min, damage.hp_loss)
 			hp_max = maxi(hp_max, damage.hp_loss)
@@ -229,15 +229,24 @@ static func resolve(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 					break
 			var armor: Sm2CombatItem = target.combat.item(zone.id)
 			var losses: Dictionary = damage_losses(damage_roll, armor.current if armor != null else 0,
-				2147483647 if target.barrier!=null or not hybrid.is_empty() else target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
+				2147483647 if target.anatomy!=null or target.barrier!=null or not hybrid.is_empty() else target.combat.hp, ability.armor_percent, ability.penetration_percent, zone.hp_percent)
 			events.append({"type": "damage_rolled", "target_actor_id": str(command.target_actor_id), "zone": zone.id, "zone_roll": zone_roll, "raw_damage": damage_roll})
 			if armor != null:
 				armor.current = losses.armor_after
 			events.append({"type": "armor_damaged", "target_actor_id": str(command.target_actor_id), "zone": zone.id, "loss": losses.armor_loss, "remaining": losses.armor_after})
 			if not hybrid.is_empty():
 				events.append({"type":"hybrid_damage","actor_id":str(command.actor_id),"target_actor_id":str(command.target_actor_id),"ability_id":ability.id,"physical":losses.hp_loss,"psionic":hybrid.psionic_damage})
-			losses.hp_loss=Sm2BarrierRules.absorb(target,int(losses.hp_loss)+int(hybrid.get("psionic_damage",0)),events)
-			Sm2HpApplication.apply(state,target,command.actor_id,int(losses.hp_loss),events)
+			var hit_part: String=target.body_catalog.trauma(ability.id) if target.body_catalog!=null and not target.body_catalog.trauma(ability.id).is_empty() else "head" if zone.id=="head" else "torso"
+			if state.survival!=null:
+				# Barrier is spent in channel order; psionic damage cannot create a cut.
+				var physical: int=Sm2BarrierRules.absorb(target,int(losses.hp_loss),events)
+				var psionic: int=Sm2BarrierRules.absorb(target,int(hybrid.get("psionic_damage",0)),events)
+				Sm2HpApplication.apply(state,target,command.actor_id,physical,events,hit_part,ability.mode in ["melee","ranged"] and not ability.id.contains("unarmed"))
+				if target.spatial.alive: Sm2HpApplication.apply(state,target,command.actor_id,psionic,events,hit_part,false)
+				losses.hp_loss=physical+psionic
+			else:
+				losses.hp_loss=Sm2BarrierRules.absorb(target,int(losses.hp_loss)+int(hybrid.get("psionic_damage",0)),events)
+				Sm2HpApplication.apply(state,target,command.actor_id,int(losses.hp_loss),events,hit_part,ability.mode in ["melee","ranged"] and not ability.id.contains("unarmed"))
 			Sm2BodyFunctionRules.after_hit(state,source,target,ability.id,int(losses.hp_loss),events)
 			if context != null and not Sm2MoraleResolver.after_hit(state, catalog, target, int(losses.hp_loss), context, events):
 				return {"accepted": false, "code": "rng_counter_limit", "events": []}

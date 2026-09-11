@@ -188,6 +188,15 @@ func _refresh_actions() -> void:
 				button.tooltip_text="Щит на себя до следующего хода. Поглощает атаки после брони; яд проходит. Повтор обновляет защиту."
 				button.mouse_entered.connect(_barrier_preview.bind(id))
 			_actions.add_child(button)
+	if active.has("anatomy"):
+		for target: Dictionary in runner.view().actors:
+			if target.side!=active.side or not target.has("anatomy"): continue
+			for wound: Dictionary in target.anatomy.wounds:
+				if int(wound.rate)==0: continue
+				var command: Sm2Command=_command("bandage",wound.id,int(target.actor_id))
+				var check: Dictionary=runner.preview(command)
+				var button: Button=_button("Перевязать №%s · %s · %s ОД" % [target.actor_id,wound.name,active.bandage_ap],"Bandage_%s_%s" % [target.actor_id,wound.id],_execute.bind(command),not player or not check.allowed)
+				button.tooltip_text=check.reason; _actions.add_child(button)
 	for action: Array in [["wait","Ждать","WaitButton"],["end_turn","Конец хода","EndTurnButton"],["escape","Уйти с поля","EscapeButton"]]:
 		var check: Dictionary = runner.preview(_command(action[0]))
 		var button: Button = _button(action[1],action[2],_execute_kind.bind(action[0]),not player or not check.allowed)
@@ -258,6 +267,13 @@ func _inspect(id: int) -> void:
 	if actor.has("body_functions"):
 		for part: Dictionary in actor.body_functions.parts:
 			if not part.working or not str(part.get("prosthesis_id","")).is_empty(): _inspector.text+="\n"+("Правая рука" if part.id=="right_hand" else "Левая рука")+": "+Sm2BattleText.function_status(part)
+
+	if actor.has("anatomy"):
+		var bleeding: int=0
+		for wound: Dictionary in actor.anatomy.wounds: bleeding+=int(wound.rate)
+		_inspector.text="Кровь %s мл\nКровотечение %s мл/мин\n" % [actor.anatomy.blood,bleeding]+_inspector.text
+		for wound: Dictionary in actor.anatomy.wounds:
+			_inspector.text+="\nРана %s: %s · %s мл/мин" % [wound.id,wound.part,wound.rate]
 
 func actor_upgrade_cost() -> int:
 	return int(_actor(_active).get("upgrade_attack_fatigue",0))
@@ -346,6 +362,7 @@ func _hovered(cell: Vector2i) -> void:
 			else:
 				_preview.text += "Мана: %s\nУрон здоровью: %s HP\nСопротивление магии: %s%%\nОбходит броню и щит.\nБез броска попадания." % [check.mana_cost,check.hp_loss,check.resistance]
 			if check.has("absorbed") and check.absorbed>0: _preview.text+="\nПси-щит поглотит: %s." % check.absorbed
+			if target.has("anatomy"): _preview.text=_preview.text.replace("цель потеряет", "повреждение тканей:").replace("Урон здоровью:","Повреждение тканей:").replace(" HP", "")
 			if check.lethal: _preview.text += "\nСмертельный урон."
 		elif check.get("kind","") == "effect":
 			_preview.text += "Наложение без броска попадания.\n" if check.operation == "apply_effect" else "Снять эффекты:\n"

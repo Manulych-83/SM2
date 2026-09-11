@@ -1,13 +1,13 @@
 class_name Sm2EffectSnapshot
 extends RefCounted
 const RULESET: String = "sm2.m4.effects.1"
-static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog) -> Dictionary:
+static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog, anatomical: bool = false) -> Dictionary:
 	if effects == null or effects.fingerprint().is_empty() or data.get("ruleset") != RULESET or not Sm2Validate.integer(data.get("schema_version"),5,5) or data.get("effect_fingerprint") != effects.fingerprint() or not Sm2Validate.decimal(data.get("next_effect_id"),1,9223372036854775806) or not data.get("effects") is Array or data.effects.size() > Sm2EffectResolver.MAX_TOTAL: return _failure("effect_snapshot_version")
 	var projection: Dictionary = data.duplicate(true)
 	for key: String in ["effect_fingerprint","next_effect_id","effects"]: projection.erase(key)
 	projection.schema_version = 4
 	projection.ruleset = Sm2CombatSnapshot.CONSEQUENCE_RULESET
-	var decoded: Dictionary = Sm2CombatSnapshot.decode(projection,turns,combat,true)
+	var decoded: Dictionary = Sm2CombatSnapshot.decode(projection,turns,combat,true,anatomical)
 	if not decoded.ok: return decoded
 	var state: Sm2TacticalState = decoded.state
 	state.effect_catalog = effects

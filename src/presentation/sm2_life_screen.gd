@@ -39,6 +39,11 @@ func redraw() -> void:
 	var rows: HBoxContainer=HBoxContainer.new(); rows.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(rows)
 	var left: VBoxContainer=VBoxContainer.new(); left.size_flags_horizontal=Control.SIZE_EXPAND_FILL; left.size_flags_stretch_ratio=1.15; rows.add_child(left)
 	var right: VBoxContainer=VBoxContainer.new(); right.size_flags_horizontal=Control.SIZE_EXPAND_FILL; rows.add_child(right)
+	if v.has("survival"):
+		var panel: Sm2SurvivalPanel=Sm2SurvivalPanel.new(); panel.name="SurvivalPanel"
+		panel.session=session as Sm2JourneySession
+		panel.changed=func(message: String) -> void: _notice=message; redraw()
+		right.add_child(panel)
 	if session is Sm2JourneySession:
 		left.add_child(_label(v.encounter_name,21,GOLD))
 		left.add_child(_label("Завершено встреч: %s/%s. Здоровье, опыт и состояние вещей переходят в следующий бой." % [v.completed,v.encounter_count],15,MUTED))
@@ -123,7 +128,7 @@ func redraw() -> void:
 	right.add_child(_button("Положить в тайник","WorldDeposit",_act.bind("deposit",0,""),not session.world.check(session.command("deposit")).is_empty()))
 	right.add_child(_button("Забрать камень","WorldTake",_act.bind("take",0,""),not session.world.check(session.command("take")).is_empty()))
 	right.add_child(_label("Вещи принадлежат миру: Душа не переносит их между телами.",14,MUTED))
-	if session is Sm2JourneySession:
+	if session is Sm2JourneySession and not v.has("survival"):
 		if v.has("care"): _care(right,v)
 		if v.has("prostheses"): _prostheses(right,v)
 		_equipment(right,v)

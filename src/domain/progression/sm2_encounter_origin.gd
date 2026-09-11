@@ -49,7 +49,7 @@ static func initialize(state: Sm2TacticalState, definitions: Sm2DevelopmentCatal
 		if index<2 and int(entry.body_id)!=used_bodies[index]: return "origin_binding"
 		if not Sm2Validate.integer(entry.hp,0,combat.profile(actor.loadout_id).hp_max) or not entry.items is Array or entry.items.size()!=actor.combat.items.size(): return "origin_resources"
 		if resources:
-			if actor.spatial.alive!=(int(entry.hp)>0): return "origin_life"
+			if state.survival==null and actor.spatial.alive!=(int(entry.hp)>0): return "origin_life"
 			actor.combat.hp=int(entry.hp)
 		elif actor.combat.hp>int(entry.hp): return "encounter_unearned_healing"
 		var previous_slot: int=-1

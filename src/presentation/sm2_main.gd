@@ -20,6 +20,7 @@ var _life_store: Sm2SaveStore = Sm2SaveStore.new("user://world")
 var _exploration_store: Sm2SaveStore=Sm2SaveStore.new("user://exploration_journey")
 var _search_store: Sm2SaveStore=Sm2SaveStore.new("user://search_journey")
 var _hybrid_store: Sm2SaveStore=Sm2SaveStore.new("user://hybrid_journey")
+var _survival_store: Sm2SaveStore=Sm2SaveStore.new("user://survival_journey")
 var _region_store: Sm2SaveStore=Sm2SaveStore.new("user://region_journey")
 var _implant_store: Sm2SaveStore=Sm2SaveStore.new("user://implant_journey")
 var _upgrade_store: Sm2SaveStore=Sm2SaveStore.new("user://upgrade_journey")
@@ -175,6 +176,8 @@ func _build_menu(left: VBoxContainer,right: VBoxContainer) -> void:
 	heading.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(heading)
 	var description: Label=_label("Одна Душа. Разные воплощения. Мир сохраняет последствия ваших жизней.",16,MUTED)
 	description.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(description)
+	left.add_child(_button("Тело и инвентарь · новый пример","NewSurvivalButton",_start_survival.bind(false),false,true))
+	left.add_child(_button("Продолжить пример тела","ContinueSurvivalButton",_start_survival.bind(true),not _survival_store.has_slot("survival_journey")))
 	left.add_child(_button("Новая игра","NewRegionButton",_start_region.bind(false),false,true))
 	left.add_child(_button("Продолжить","ContinueRegionButton",_start_region.bind(true),not _region_store.has_slot(Sm2JourneySession.REGION_SLOT)))
 	var current: bool=_life is Sm2JourneySession and (_life as Sm2JourneySession).format_id()==Sm2JourneySession.REGION_FORMAT
@@ -288,6 +291,15 @@ func _build_other_modes(left: VBoxContainer, right: VBoxContainer) -> void:
 	var row_Area: HBoxContainer=HBoxContainer.new(); right.add_child(row_Area)
 	row_Area.add_child(_button("Бой по области", "NewAreaButton", _start_area.bind(false)))
 	row_Area.add_child(_button("Продолжить", "ContinueAreaButton", _start_area.bind(true),not _area_store.has_slot(Sm2BattleRunner.AREA_SLOT)))
+
+func _start_survival(from_save: bool) -> void:
+	var content: Dictionary=Sm2SurvivalContentLoader.load_scenario()
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить тело и инвентарь: "+str(content.get("errors",[])); _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_survival_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
 
 func _start_region(from_save: bool) -> void:
 	var content: Dictionary=Sm2RegionContentLoader.load_scenario()

@@ -1,0 +1,30 @@
+{
+  "version":"sm2.survival.content.1",
+  "blood_max":5000,"blood_fatal":1500,"bleeding_per_damage":30,
+  "round_seconds":6,"bandage_ap":4,"bandage_seconds":6,
+  "parts":[
+    {"id":"torso","name":"Туловище","capacity":60,"critical":false,"parent":""},
+    {"id":"head","name":"Голова","capacity":30,"critical":false,"parent":"torso"},
+    {"id":"left_hand","name":"Левая рука","capacity":30,"critical":false,"parent":"torso"},
+    {"id":"right_hand","name":"Правая рука","capacity":30,"critical":false,"parent":"torso"},
+    {"id":"left_leg","name":"Левая нога","capacity":40,"critical":false,"parent":"torso"},
+    {"id":"right_leg","name":"Правая нога","capacity":40,"critical":false,"parent":"torso"},
+    {"id":"brain","name":"Мозг","capacity":15,"critical":true,"parent":"head"},
+    {"id":"heart","name":"Сердце","capacity":20,"critical":true,"parent":"torso"}
+  ],
+  "items":[
+    {"id":"bandage","name":"Перевязочный материал","mass":50,"volume":1,"size":1,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":""},
+    {"id":"pockets","name":"Одежда с карманами","mass":700,"volume":3,"size":2,"capacity":4,"max_mass":1000,"max_size":1,"quick":true,"slot":"clothes"},
+    {"id":"belt","name":"Поясная сумка","mass":300,"volume":3,"size":2,"capacity":6,"max_mass":2000,"max_size":2,"quick":true,"slot":"belt"},
+    {"id":"backpack","name":"Рюкзак","mass":1000,"volume":12,"size":4,"capacity":40,"max_mass":25000,"max_size":4,"quick":false,"slot":"backpack"},
+    {"id":"stash","name":"Лагерный сундук","mass":12000,"volume":60,"size":6,"capacity":200,"max_mass":100000,"max_size":6,"quick":false,"slot":""},
+    {"id":"m2:equipment.sword","name":"Меч","mass":1200,"volume":8,"size":4,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"weapon"},
+    {"id":"m2:equipment.spear","name":"Копьё","mass":2000,"volume":12,"size":5,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"weapon"},
+    {"id":"m2:equipment.axe","name":"Топор","mass":1800,"volume":8,"size":4,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"weapon"},
+    {"id":"m2:equipment.bow","name":"Лук","mass":1000,"volume":10,"size":5,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"weapon"},
+    {"id":"m2:equipment.shield","name":"Щит","mass":3000,"volume":18,"size":4,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"shield"},
+    {"id":"m2:equipment.padded","name":"Стёганая броня","mass":4000,"volume":12,"size":3,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"body"},
+    {"id":"m2:equipment.mail","name":"Кольчуга","mass":9000,"volume":15,"size":3,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"body"},
+    {"id":"m2:equipment.helmet","name":"Шлем","mass":1500,"volume":5,"size":2,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":"head"}
+  ]
+}

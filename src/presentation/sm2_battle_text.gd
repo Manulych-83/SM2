@@ -55,6 +55,9 @@ static func lines(events: Array[Dictionary]) -> Array[String]:
 		var source: String = "№" + str(event.get("actor_id", ""))
 		var target: String = "№" + str(event.get("target_actor_id", ""))
 		match event.type:
+			"anatomy_injured": result.append("№%s: ранение %s, кровотечение %s мл/мин" % [event.target_actor_id,event.part,event.bleeding])
+			"wound_bandaged": result.append("№%s перевязал рану №%s у №%s" % [event.actor_id,event.wound_id,event.target_actor_id])
+			"physiology_advanced": result.append("Прошло %s сек. Учтена кровопотеря." % event.seconds)
 			"barrier_cast": result.append("%s: пси-щит — %s защиты до следующего хода" % [source,event.capacity])
 			"barrier_absorbed": result.append("%s: пси-щит поглотил %s, осталось %s" % [target,event.amount,event.remaining])
 			"barrier_removed": result.append("%s: пси-щит снят (%s)" % [target,{"expired":"начался следующий ход","death":"смерть","escaped":"выход с поля","battle_finished":"конец боя"}.get(event.reason,event.reason)])
