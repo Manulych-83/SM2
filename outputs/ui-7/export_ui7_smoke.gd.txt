@@ -1,0 +1,29 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("_run")
+func _run() -> void:
+	if ProjectSettings.get_setting("application/config/version")!="0.8.13-ui.7": quit(1); return
+	if root.mode!=Window.MODE_EXCLUSIVE_FULLSCREEN or root.content_scale_size!=Vector2i(2560,1440): quit(2); return
+	var app: Control=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app)
+	await process_frame; await process_frame
+	app.call("_start_survival_tissues",false); await process_frame; await process_frame
+	var life: Sm2LifeScreen=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	if life==null: quit(3); return
+	var s: Sm2JourneySession=life.session as Sm2JourneySession; var before: String=s.state_hash()
+	var map: Sm2RegionMap=app.find_child("RegionMap",true,false) as Sm2RegionMap
+	if map==null or map.choices.size()!=3: quit(4); return
+	map.location_selected.emit("enclave"); await process_frame; await process_frame
+	if s.state_hash()!=before or life._map_selection!="enclave": quit(5); return
+	(app.find_child("Travel_ruins",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	if s.journey().region.location_id!="ruins" or s.journey().region.seconds!=1800: quit(6); return
+	if app.find_child("PsiTrain",true,false)!=null: quit(7); return
+	(app.find_child("Explore_first_aid",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	if not s.journey().exploration.collected.has("first_aid"): quit(8); return
+	(app.find_child("RegionMap",true,false) as Sm2RegionMap).location_selected.emit("ruins"); await process_frame; await process_frame
+	await RenderingServer.frame_post_draw
+	var picture: Image=root.get_texture().get_image()
+	if picture.is_empty() or picture.save_png("E:/GPT/SM2/outputs/ui-7/pack-map.png")!=OK: quit(9); return
+	if not s.save_game().ok: quit(10); return
+	before=s.state_hash()
+	if not s.load_game().ok or s.state_hash()!=before: quit(11); return
+	print("SM2_UI7_PACK_OK: QHD route map, read-only destination, actual travel/search and exact save/load")
+	quit(0)

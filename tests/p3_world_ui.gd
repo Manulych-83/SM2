@@ -86,7 +86,7 @@ func _capture(filename: String) -> void:
 		while parent!=null:
 			if parent is ScrollContainer: clipped=true; break
 			parent=parent.get_parent()
-		if not clipped and (node is Label or node is Button or node is ScrollContainer):
+		if not clipped and (node as Control).is_visible_in_tree() and (node is Label or node is Button or node is ScrollContainer):
 			t.expect(app.get_global_rect().encloses((node as Control).get_global_rect()),filename+": screen bounds "+str(node.name))
 	if DisplayServer.get_name()!="headless":
 		await RenderingServer.frame_post_draw

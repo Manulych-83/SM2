@@ -1,0 +1,27 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("_run")
+func frames() -> void:
+	await process_frame; await process_frame
+func _run() -> void:
+	if ProjectSettings.get_setting("application/config/version")!="0.8.15-ui.9": quit(1); return
+	var app: Control=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await frames()
+	if not (app.find_child("MenuIllustration",true,false) as TextureRect).texture: quit(2); return
+	await RenderingServer.frame_post_draw
+	if root.get_texture().get_image().save_png("E:/GPT/SM2/outputs/ui-9/pack-start.png")!=OK: quit(3); return
+	app._open_campaign(1,false); await frames()
+	var session: Sm2JourneySession=app._life as Sm2JourneySession
+	if (session._store as Sm2CampaignStore).campaign_index!=1 or not session.save_game().ok: quit(4); return
+	var before: String=session.state_hash()
+	if not session.act(session.command("practice",2,"p5:activity.psionics")).ok or not session.save_game().ok: quit(5); return
+	var path: String=session._store._slot_path(session.slot_name())
+	var file: FileAccess=FileAccess.open(path,FileAccess.WRITE); file.store_string("{broken"); file.close()
+	app._show_menu(); await frames(); app._show_campaigns(); await frames()
+	if not (app.find_child("CampaignInfo_1",true,false) as Label).text.contains("Резервная копия"): quit(6); return
+	await RenderingServer.frame_post_draw
+	if root.get_texture().get_image().save_png("E:/GPT/SM2/outputs/ui-9/pack-campaigns.png")!=OK: quit(7); return
+	app._open_campaign(1,true); await frames(); session=app._life as Sm2JourneySession
+	if session.state_hash()!=before or not (session._store as Sm2CampaignStore).recovered: quit(8); return
+	if not session.save_game().ok: quit(9); return
+	if app._campaigns().occupied(0) or app._campaigns().occupied(2): quit(10); return
+	print("SM2_UI9_PACK_OK: packaged background, campaign 2 isolation, damaged primary recovery and repaired save")
+	quit(0)

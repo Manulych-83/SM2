@@ -1,0 +1,23 @@
+{
+	"checks": 501,
+	"failures": [
+		"inventory-2560.png: screen bounds @ScrollContainer@228",
+		"inventory-2560.png: screen bounds WorkspaceNotice",
+		"body-2560.png: screen bounds @ScrollContainer@228",
+		"body-2560.png: screen bounds WorkspaceNotice",
+		"usable button Guide_development",
+		"development-2560.png: screen bounds @ScrollContainer@228",
+		"development-2560.png: screen bounds WorkspaceNotice",
+		"usable button HeroDevelopmentBack",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: inventory-2560.png: screen bounds @ScrollContainer@228",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: inventory-2560.png: screen bounds WorkspaceNotice",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: body-2560.png: screen bounds @ScrollContainer@228",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: body-2560.png: screen bounds WorkspaceNotice",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button Guide_development",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: development-2560.png: screen bounds @ScrollContainer@228",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: development-2560.png: screen bounds WorkspaceNotice",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button HeroDevelopmentBack"
+	],
+	"passed": false,
+	"rendered": true
+}

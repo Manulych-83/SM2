@@ -3,7 +3,12 @@ extends RefCounted
 var _raw: Dictionary = {}
 
 func build(raw: Dictionary) -> PackedStringArray:
-	if not Sm2Validate.fields(raw,["version","blood_max","blood_fatal","bleeding_per_damage","round_seconds","bandage_ap","bandage_seconds","parts","items"]) or raw.version!="sm2.survival.content.1": return PackedStringArray(["survival_catalog_fields"])
+	var layered: bool=raw.get("version")=="sm2.survival.content.3"
+	var enhanced: bool=layered or raw.get("version")=="sm2.survival.content.2"
+	var fields: Array[String]=["version","blood_max","blood_fatal","bleeding_per_damage","round_seconds","bandage_ap","bandage_seconds","parts","items"]
+	if enhanced: fields.append("devices")
+	if layered: fields.append_array(["tissue_layers","supplies"])
+	if not Sm2Validate.fields(raw,fields) or raw.version not in ["sm2.survival.content.1","sm2.survival.content.2","sm2.survival.content.3"]: return PackedStringArray(["survival_catalog_fields"])
 	for key: String in ["blood_max","blood_fatal","bleeding_per_damage","round_seconds","bandage_ap","bandage_seconds"]:
 		if not Sm2Validate.integer(raw[key],1,10000): return PackedStringArray(["survival_catalog_number"])
 	if int(raw.blood_fatal)>=int(raw.blood_max) or not raw.parts is Array or raw.parts.is_empty() or raw.parts.size()>64 or not raw.items is Array or raw.items.is_empty() or raw.items.size()>1000: return PackedStringArray(["survival_catalog_bounds"])
@@ -14,6 +19,7 @@ func build(raw: Dictionary) -> PackedStringArray:
 		ids.append(part.id)
 	for required: String in ["head","torso","right_hand","left_hand","right_leg","left_leg","brain","heart"]:
 		if required not in ids: return PackedStringArray(["survival_human_parts"])
+	var part_ids: Array[String]=ids.duplicate()
 	ids.clear()
 	for item: Variant in raw.items:
 		if not item is Dictionary or not Sm2Validate.fields(item,["id","name","mass","volume","size","capacity","max_mass","max_size","quick","slot"]) or not Sm2Validate.text(item.id) or item.id in ids or not Sm2Validate.text(item.name) or not item.quick is bool or not item.slot is String: return PackedStringArray(["physical_item_definition"])
@@ -23,6 +29,21 @@ func build(raw: Dictionary) -> PackedStringArray:
 		ids.append(item.id)
 	for required: String in ["bandage","pockets","belt","backpack","stash"]:
 		if required not in ids: return PackedStringArray(["physical_fixture_items"])
+	if enhanced:
+		var reason: String=Sm2SurvivalDevices.validate_catalog(raw.devices,raw.items,part_ids)
+		if not reason.is_empty(): return PackedStringArray([reason])
+		if "repair_parts" not in ids: return PackedStringArray(["survival_repair_parts_missing"])
+	if layered:
+		var error: String=Sm2TissueLayers.validate(raw.tissue_layers,raw.parts)
+		if not error.is_empty(): return PackedStringArray([error])
+		if not raw.supplies is Dictionary or not Sm2Validate.fields(raw.supplies,["care","upgrades"]): return PackedStringArray(["physical_supply_binding"])
+		var mapped: Array[String]=[]
+		for group: String in ["care","upgrades"]:
+			if not raw.supplies[group] is Dictionary or raw.supplies[group].is_empty(): return PackedStringArray(["physical_supply_binding"])
+			for id: Variant in raw.supplies[group]:
+				var definition: Variant=raw.supplies[group][id]
+				if not Sm2Validate.text(id) or not definition is String or definition not in ids or definition in mapped: return PackedStringArray(["physical_supply_definition"])
+				mapped.append(definition)
 	_raw = raw.duplicate(true)
 	return PackedStringArray()
 
@@ -36,3 +57,14 @@ func part_name(id: String) -> String:
 	for part: Dictionary in _raw.parts:
 		if part.id == id: return str(part.name)
 	return id
+
+func has_layers() -> bool: return _raw.get("version")=="sm2.survival.content.3"
+func has_devices() -> bool: return has_layers() or _raw.get("version")=="sm2.survival.content.2"
+func devices() -> Dictionary: return _raw.get("devices",{}).duplicate(true)
+func device(id: String) -> Dictionary:
+	for entry: Dictionary in _raw.get("devices",{}).get("definitions",[]):
+		if entry.id==id: return entry.duplicate(true)
+	return {}
+func state_format() -> String: return "sm2.survival_state.3" if has_layers() else "sm2.survival_state.2" if has_devices() else "sm2.survival_state.1"
+func battle_schema() -> int: return 21 if has_layers() else 20 if has_devices() else 19
+func battle_ruleset() -> String: return "sm2.survival_encounter.3" if has_layers() else "sm2.survival_encounter.2" if has_devices() else "sm2.survival_encounter.1"

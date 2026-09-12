@@ -1,0 +1,22 @@
+﻿[2026-09-12T11:51:02.7494892+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\survival\tissues-ui1\.local\restart-runtime
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T11:51:02.7975325+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2\.local\survival\tissues-ui1 --script res://tests/survival_tissues_restart.gd -- --prepare
+RuntimeRoot: E:\GPT\SM2\.local\survival\tissues-ui1\.local\restart-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TISSUES_RESTART {"checks":25,"failures":[],"passed":true}
+
+
+ExitCode: 0
+[2026-09-12T11:51:06.7450766+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2\.local\survival\tissues-ui1 --script res://tests/survival_tissues_restart.gd -- --verify
+RuntimeRoot: E:\GPT\SM2\.local\survival\tissues-ui1\.local\restart-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TISSUES_RESTART {"checks":17,"failures":[],"passed":true}
+
+
+ExitCode: 0

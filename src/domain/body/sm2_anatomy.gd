@@ -3,6 +3,8 @@ extends RefCounted
 ## Small data-defined body. Health is a read model, never a spendable life pool.
 const FORMAT: String = "sm2.anatomy.1"
 var tissues: Dictionary = {}
+var layers: Dictionary = {}
+var layer_rules: Dictionary = {}
 var wounds: Array[Dictionary] = []
 var blood: int = 5000
 var remainder: int = 0
@@ -14,17 +16,21 @@ static func fresh(rules: Dictionary) -> Sm2Anatomy:
 	body.blood = int(rules.blood_max)
 	for part: Dictionary in rules.parts:
 		body.tissues[part.id] = int(part.capacity)
+	if rules.has("tissue_layers"): Sm2TissueLayers.initialize(body,rules)
 	return body
 
 func copy() -> Sm2Anatomy:
 	var body: Sm2Anatomy = Sm2Anatomy.new()
 	body.tissues = tissues.duplicate(true)
+	body.layers=layers.duplicate(true); body.layer_rules=layer_rules.duplicate(true)
 	body.wounds.assign(wounds.duplicate(true))
 	body.blood = blood; body.remainder = remainder; body.next_wound = next_wound; body.death = death
 	return body
 
 func to_data() -> Dictionary:
-	return {"format":FORMAT,"tissues":tissues.duplicate(true),"wounds":wounds.duplicate(true),"blood":blood,"remainder":remainder,"next_wound":next_wound,"death":death}
+	var data: Dictionary={"format":FORMAT,"tissues":tissues.duplicate(true),"wounds":wounds.duplicate(true),"blood":blood,"remainder":remainder,"next_wound":next_wound,"death":death}
+	if not layers.is_empty(): data.format="sm2.anatomy.2"; data["layers"]=layers.duplicate(true)
+	return data
 
 func cause(rules: Dictionary) -> String:
 	if not death.is_empty(): return death
@@ -44,12 +50,14 @@ func summary(rules: Dictionary) -> int:
 	return int(60.0 * current / capacity)
 
 func working(part: String) -> bool:
+	if not layers.is_empty(): return Sm2TissueLayers.working(self,part)
 	return int(tissues.get(part,0)) > 0
 
 func injure(part: String, amount: int, cut: bool, rules: Dictionary) -> String:
 	if not tissues.has(part) or amount < 0: return "anatomy_damage_target"
 	if amount == 0 or not death.is_empty(): return ""
 	if wounds.size() >= 256 or next_wound >= 1000000: return "anatomy_wound_limit"
+	if not layers.is_empty(): return Sm2TissueLayers.injure(self,part,amount,cut,rules)
 	var loss: int = mini(int(tissues[part]), amount)
 	tissues[part] -= loss
 	wounds.append({"id":str(next_wound),"part":part,"loss":loss,"rate":loss*int(rules.bleeding_per_damage) if cut else 0,"initial_rate":loss*int(rules.bleeding_per_damage) if cut else 0})
@@ -88,6 +96,7 @@ func advance(seconds: int, rules: Dictionary) -> void:
 	death = cause(rules)
 
 static func decode(raw: Variant, rules: Dictionary) -> Dictionary:
+	if rules.has("tissue_layers"): return Sm2TissueLayers.decode(raw,rules)
 	var fail: Dictionary = {"ok":false,"errors":PackedStringArray(["anatomy_invalid"])}
 	if not raw is Dictionary or not Sm2Validate.fields(raw,["format","tissues","wounds","blood","remainder","next_wound","death"]) or raw.format != FORMAT: return fail
 	if not raw.tissues is Dictionary or raw.tissues.size()!=rules.parts.size() or not raw.wounds is Array or raw.wounds.size()>256 or not raw.death is String: return fail

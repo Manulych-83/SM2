@@ -69,6 +69,9 @@ func view() -> Dictionary:
 func preview(command: Sm2Command) -> Dictionary:
 	return _session.preview(command)
 
+func ability_cost(actor_id: int, ability_id: String) -> Dictionary:
+	return _session.ability_cost(actor_id,ability_id)
+
 func reachable(actor_id: int) -> Dictionary:
 	return _session.reachable(actor_id)
 

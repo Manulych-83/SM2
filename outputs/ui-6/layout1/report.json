@@ -1,0 +1,11 @@
+{
+	"checks": 177,
+	"failures": [
+		"purchase preserves nine exercises of fifty XP | actual=225 expected=450",
+		"escape returns from development",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: purchase preserves nine exercises of fifty XP | actual=225 expected=450",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: escape returns from development"
+	],
+	"passed": false,
+	"rendered": true
+}

@@ -3,20 +3,38 @@ extends Control
 signal menu_requested
 signal battle_requested
 signal development_requested
+signal settings_requested
 var session: Sm2LifeSession
+var _workspace_state: Dictionary={}
 var _content: Control
 var _notice: String=""
 var _selected: int=0
 var _exercise: String=""
+var _map_selection: String=""
+var _camp_resize_pending: bool=false
 const INK: Color=Color("e9e8de")
 const GOLD: Color=Color("d1b478")
 const MUTED: Color=Color("a3b0b4")
 
 func _ready() -> void:
-	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); redraw()
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); resized.connect(_resize_camp); redraw()
+
+func _resize_camp() -> void:
+	if _camp_resize_pending or not session is Sm2JourneySession: return
+	var world: Sm2JourneyWorld=(session as Sm2JourneySession).journey()
+	if world.survival==null or not world.survival.catalog.has_layers(): return
+	_camp_resize_pending=true; call_deferred("_reflow_camp")
+
+func _reflow_camp() -> void:
+	_camp_resize_pending=false
+	if is_inside_tree() and is_instance_valid(_content) and _content.visible: redraw()
 
 func redraw() -> void:
 	if is_instance_valid(_content): remove_child(_content); _content.queue_free()
+	if session is Sm2JourneySession:
+		var world: Sm2JourneyWorld=(session as Sm2JourneySession).journey()
+		if world.survival!=null and world.survival.catalog.has_layers():
+			Sm2CampScreen.new().build(self); return
 	var margin: MarginContainer=MarginContainer.new(); _content=margin
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side: String in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,24)
@@ -29,6 +47,7 @@ func redraw() -> void:
 	header.add_child(_button("Загрузить","WorldLoad",_load))
 	header.add_child(_button("Меню","WorldMenu",func() -> void: menu_requested.emit()))
 	var v: Dictionary=session.view()
+	var workspace_profile: bool=v.has("survival") and (session as Sm2JourneySession).journey().survival.catalog.has_layers()
 	if v.has("region"):
 		title.text=(session as Sm2JourneySession).journey().region_catalog.location(v.region.location_id).name.to_upper()
 		_region(outer,v)
@@ -36,10 +55,19 @@ func redraw() -> void:
 	outer.add_child(_label("Знания Души: "+", ".join(v.knowledge),15,MUTED))
 	if not _notice.is_empty(): outer.add_child(_label(_notice,14,GOLD))
 	var scroll: ScrollContainer=ScrollContainer.new(); scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; outer.add_child(scroll)
-	var rows: HBoxContainer=HBoxContainer.new(); rows.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(rows)
+	var page: VBoxContainer=VBoxContainer.new(); page.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(page)
+	if workspace_profile: Sm2JourneyGuide.build(self,page)
+	var rows: HBoxContainer=HBoxContainer.new(); rows.size_flags_horizontal=Control.SIZE_EXPAND_FILL; page.add_child(rows)
 	var left: VBoxContainer=VBoxContainer.new(); left.size_flags_horizontal=Control.SIZE_EXPAND_FILL; left.size_flags_stretch_ratio=1.15; rows.add_child(left)
 	var right: VBoxContainer=VBoxContainer.new(); right.size_flags_horizontal=Control.SIZE_EXPAND_FILL; rows.add_child(right)
-	if v.has("survival"):
+	if workspace_profile:
+		right.add_child(_label("Тело и инвентарь",21,GOLD))
+		for person: int in [v.hero_id,4]:
+			if person==0: continue
+			var body: Sm2Anatomy=(session as Sm2JourneySession).journey().survival.bodies[str(person)]
+			right.add_child(_label(("Герой" if person==v.hero_id else "Спутник")+": кровь %s мл · кровотечение %s мл/мин" % [body.blood,body.rate()],16,INK))
+		right.add_child(_button("Открыть тело и инвентарь","WorldBodyInventory",_open_workspace))
+	elif v.has("survival"):
 		var panel: Sm2SurvivalPanel=Sm2SurvivalPanel.new(); panel.name="SurvivalPanel"
 		panel.session=session as Sm2JourneySession
 		panel.changed=func(message: String) -> void: _notice=message; redraw()
@@ -70,13 +98,13 @@ func redraw() -> void:
 		for body: Dictionary in v.bodies:
 			if body.id!=_selected: continue
 			left.add_child(_label(body.name+" · "+("здоровье %s/%s" % [body.hp,body.hp_max] if body.alive else "погиб"),18,INK))
-			if v.has("care"):
+			if v.has("care") and not workspace_profile:
 				var care_catalog: Sm2CareCatalog=(session as Sm2JourneySession).journey().care_catalog
 				var hp_reason: String=session.world.check(session.command("heal_hp",body.id))
 				var treatment: Button=_button("Обработать раны · до %s HP" % int(care_catalog.service("heal_hp").heal_hp),"HealHpButton",_act.bind("heal_hp",body.id,""),not hp_reason.is_empty())
 				treatment.tooltip_text=hp_reason; left.add_child(treatment)
 				left.add_child(_label(care_catalog.description("heal_hp"),13,MUTED))
-			if body.has("functions"):
+			if body.has("functions") and not workspace_profile:
 				left.add_child(_label("Функции тела",18,GOLD))
 				for part: Dictionary in body.functions:
 					left.add_child(_label(part.name+": "+Sm2BattleText.function_status(part),14,INK))
@@ -157,6 +185,9 @@ func _upgrades(parent: VBoxContainer) -> void:
 		var active: bool=world.hero_id()!=0 and id in world.bodies[world.hero_id()].upgrades.installed
 		var status: Label=_label("Действует в этом теле" if active else "Не установлено в текущем теле",14,GOLD); status.name="UpgradeStatus_"+id.get_slice(".",1); parent.add_child(status)
 		parent.add_child(_label(a.cache_name+" · "+("собран" if id in world.upgrade_supply.collected else "не собран")+(" · комплектов: %s" if a.path=="cybernetics" else " · доз в запасе: %s") % int(world.upgrade_supply.remaining[id]),14,MUTED))
+		if world.survival!=null and world.survival.catalog.has_layers():
+			var definition: String=world.survival.catalog.to_data().supplies.upgrades[id]
+			parent.add_child(_label("Физических предметов доступно здесь: %s. Находку для дороги нужно положить в контейнер." % Sm2PhysicalSupplies.matching(world.survival,definition,world).size(),14,MUTED))
 		for entry: Array in [["collect_upgrade",0,"Забрать комплект" if a.path=="cybernetics" else "Забрать препарат","UpgradeCollect_"],["apply_upgrade",world.hero_id(),"Установить имплант" if a.path=="cybernetics" else "Применить препарат","UpgradeApply_"]]:
 			var reason: String=world.check(session.command(entry[0],entry[1],id))
 			var button: Button=_button(entry[2],entry[3]+id.get_slice(".",1),_act.bind(entry[0],entry[1],id),not reason.is_empty()); button.tooltip_text=reason; parent.add_child(button)
@@ -284,11 +315,19 @@ func _item_button(title: String,kind: String,target: int,id: String) -> Button:
 	return result
 
 func _act(kind: String, target: int, content_id: String) -> void:
-	var result: Dictionary=session.act(session.command(kind,target,content_id))
-	_notice="Действие выполнено." if result.ok else str(result.errors[0]); redraw()
+	_act_captured(session.command(kind,target,content_id))
+
+func _act_captured(command: Sm2WorldCommand) -> void:
+	var before: Dictionary=session.view()
+	var result: Dictionary=session.act(command)
+	_notice="Действие выполнено." if result.ok else str(result.errors[0])
+	if result.ok and before.has("survival") and (session as Sm2JourneySession).journey().survival.catalog.has_layers():
+		_notice=Sm2JourneyGuideView.feedback(command.kind,before,session.view())
+	redraw()
 
 func _region(parent: VBoxContainer,v: Dictionary) -> void:
 	var world: Sm2JourneyWorld=(session as Sm2JourneySession).journey()
+	var compact: bool=world.survival!=null and world.survival.catalog.has_layers()
 	var seconds: int=int(v.region.seconds)
 	var clock_label: Label=_label("МАЛАЯ КАРТА · День %s · %02d:%02d:%02d" % [1+seconds/86400,(seconds/3600)%24,(seconds/60)%60,seconds%60],17,GOLD)
 	clock_label.name="RegionClock"; parent.add_child(clock_label)
@@ -299,13 +338,14 @@ func _region(parent: VBoxContainer,v: Dictionary) -> void:
 		var column: VBoxContainer=VBoxContainer.new(); panel.add_child(column)
 		var here: bool=id==v.region.location_id
 		var caption: Label=_label(definition.name+" · "+("Вы здесь" if here else "Посещено" if id in v.region.visited else "Не посещено"),16,GOLD if here else INK)
-		caption.custom_minimum_size.y=52; column.add_child(caption)
+		caption.custom_minimum_size.y=40 if compact else 52; caption.tooltip_text=definition.description; column.add_child(caption)
 		var time: int=world.region_catalog.route(v.region.location_id,id)
 		var reason: String=world.check(session.command("travel",0,id))
 		var button: Button=_button("Вы здесь" if here else "Перейти · %s мин" % (time/60) if time>0 else "Нет прямого пути","Travel_"+id,_act.bind("travel",0,id),here or not reason.is_empty())
 		button.tooltip_text=reason; column.add_child(button)
-	parent.add_child(_label(world.region_catalog.location(v.region.location_id).description,14,MUTED))
-	parent.add_child(_label("Безопасные переходы · время действий учитывается сразу · спутник и переносимые вещи идут с героем",12,MUTED))
+	if not compact:
+		parent.add_child(_label(world.region_catalog.location(v.region.location_id).description,14,MUTED))
+		parent.add_child(_label("Безопасные переходы · время действий учитывается сразу · спутник и переносимые вещи идут с героем",12,MUTED))
 
 func _battle() -> void:
 	if not session.view().busy:
@@ -314,6 +354,7 @@ func _battle() -> void:
 	battle_requested.emit()
 
 func _confirm_end() -> void:
+	var command: Sm2WorldCommand=session.command("end_life")
 	var dialog: ColorRect=ColorRect.new(); dialog.name="WorldDeathDialog"
 	dialog.color=Color(0,0,0,0.8); dialog.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(dialog)
 	var panel: PanelContainer=PanelContainer.new(); dialog.add_child(panel)
@@ -326,7 +367,7 @@ func _confirm_end() -> void:
 	column.add_child(_label("Тело и вещи останутся здесь. Душа сможет выбрать нового носителя. Это завершение жизни в первом примере.",16,INK))
 	var buttons: HBoxContainer=HBoxContainer.new(); column.add_child(buttons)
 	buttons.add_child(_button("Продолжить жизнь","WorldCancelDeath",func() -> void: dialog.queue_free()))
-	buttons.add_child(_button("Завершить жизнь","WorldConfirmDeath",func() -> void: dialog.queue_free(); _act("end_life",0,"")))
+	buttons.add_child(_button("Завершить жизнь","WorldConfirmDeath",func() -> void: dialog.queue_free(); _act_captured(command)))
 
 func _save() -> void:
 	var result: Dictionary=session.save_game(); _notice="Мир сохранён." if result.ok else str(result.errors); redraw()
@@ -338,3 +379,35 @@ static func _label(value: String, size: int, color: Color) -> Label:
 static func _button(value: String, id: String, action: Callable, disabled_value: bool=false) -> Button:
 	var button: Button=Button.new(); button.text=value; button.name=id; button.disabled=disabled_value
 	button.pressed.connect(action); return button
+
+func _open_soul() -> void:
+	var page: Sm2SoulScreen=Sm2SoulScreen.new(); page.name="SoulScreen"; page.session=session as Sm2JourneySession
+	_content.hide()
+	page.closed.connect(func(message: String) -> void:
+		_notice=message; remove_child(page); page.queue_free(); redraw())
+	add_child(page)
+
+func _open_journal() -> void:
+	var page: Sm2JournalScreen=Sm2JournalScreen.new(); page.name="JournalScreen"; page.session=session as Sm2JourneySession
+	_content.hide()
+	page.closed.connect(func() -> void: remove_child(page); page.queue_free(); redraw())
+	add_child(page)
+
+func _open_workspace() -> void:
+	var workspace: Sm2SurvivalWorkspace=Sm2SurvivalWorkspace.new(); workspace.name="SurvivalWorkspace"; workspace.session=session as Sm2JourneySession
+	if not _workspace_state.is_empty(): workspace.ui=_workspace_state.duplicate(true)
+	_content.hide()
+	workspace.closed.connect(func(state: Dictionary,message: String) -> void:
+		_workspace_state=state; _notice=message; remove_child(workspace); workspace.queue_free(); redraw())
+	add_child(workspace)
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not is_instance_valid(_content) or not _content.is_visible_in_tree() or Sm2Controls.text_focused(self): return
+	if find_child("WorldDeathDialog",true,false)!=null: return
+	if not session is Sm2JourneySession: return
+	var world: Sm2JourneyWorld=(session as Sm2JourneySession).journey()
+	if world.survival==null or not world.survival.catalog.has_layers(): return
+	var targets: Dictionary={"inventory":"CampInventory","body":"WorldBodyInventory","development":"WorldDevelopment","journal":"CampJournal","soul":"CampSoul","settings":"CampSettings"}
+	var id: String=Sm2Controls.action(event)
+	if targets.has(id):
+		get_viewport().set_input_as_handled(); Sm2Controls.press(_content,targets[id])

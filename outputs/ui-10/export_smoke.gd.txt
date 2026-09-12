@@ -1,0 +1,34 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("_run")
+func frames() -> void:
+	await process_frame; await process_frame
+func _run() -> void:
+	if ProjectSettings.get_setting("application/config/version")!="0.8.16-ui.10": quit(1); return
+	var app: Control=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await frames()
+	app._open_campaign(0,false); await frames()
+	var session: Sm2JourneySession=app._life as Sm2JourneySession
+	if not session.act(session.command("travel",0,"ruins")).ok or not session.act(session.command("start_battle")).ok: quit(2); return
+	for index: int in 500:
+		if not session.world.busy(): break
+		var view: Dictionary=session.runner.view(); var player: bool=false
+		for actor: Dictionary in view.actors:
+			if actor.actor_id==view.active_actor_id and actor.controller=="player" and actor.morale!="fleeing": player=true
+		if player:
+			var choice: Dictionary=session.runner._session.ai_decision(session._profile)
+			if not choice.ok or not session.attack(choice.command).accepted: quit(3); return
+		elif not session.step().ok: quit(4); return
+	if session.world.busy(): quit(5); return
+	var data: Dictionary=Sm2BattleResultsView.build(session)
+	if data.is_empty() or data.party.size()!=2 or data.party[0].practice.is_empty(): quit(6); return
+	var before: String=session.state_hash()
+	if not session.save_game().ok or not session.load_game().ok or session.state_hash()!=before: quit(7); return
+	app._page="life_battle"; app._redraw_page(); await frames()
+	var screen: Sm2BattleScreen=app.find_child("BattleScreen",true,false) as Sm2BattleScreen
+	if screen._results==null or screen._results.view.party!=data.party: quit(8); return
+	await RenderingServer.frame_post_draw
+	if root.get_texture().get_image().save_png("E:/GPT/SM2/outputs/ui-10/pack-results.png")!=OK: quit(9); return
+	(screen.find_child("ResultsBody",true,false) as Button).pressed.emit(); await frames()
+	var workspace: Sm2SurvivalWorkspace=app.find_child("SurvivalWorkspace",true,false) as Sm2SurvivalWorkspace
+	if workspace==null or workspace.ui.tab!=0 or session.state_hash()!=before: quit(10); return
+	print("SM2_UI10_PACK_OK: real encounter, frozen results, campaign save/load, results rendering and anatomy navigation")
+	quit(0)

@@ -1,0 +1,5 @@
+{
+  "baseline": "outputs/ui-1/source-sha256.json",
+  "changed_existing_domain_application_game_content": [],
+  "added_presentation_catalog": "content/presentation/battle_art.json"
+}

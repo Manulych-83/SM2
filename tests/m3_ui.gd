@@ -7,6 +7,10 @@ var output: String = "user://m3-ui"
 var captured: Sm2ErrorCapture = Sm2ErrorCapture.new()
 
 func _initialize() -> void:
+	# Historical layout suites deliberately inspect their original logical pixel sizes.
+	# display_ui.gd overrides this entry point to test actual production scaling/fullscreen.
+	root.mode=Window.MODE_WINDOWED
+	root.content_scale_factor=1.0
 	call_deferred("_run")
 
 func _run() -> void:

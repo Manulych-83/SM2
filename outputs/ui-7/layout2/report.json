@@ -1,0 +1,21 @@
+{
+	"checks": 142,
+	"failures": [
+		"usable button WorldEndLife",
+		"usable button WorldConfirmDeath",
+		"usable button WorldEndLife",
+		"usable button WorldConfirmDeath",
+		"fresh explicit confirmation ends current life | actual=2 expected=0",
+		"usable button WorldIncarnate18",
+		"camp revives only local prepared carrier | actual=2 expected=18",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button WorldEndLife",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button WorldConfirmDeath",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button WorldEndLife",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button WorldConfirmDeath",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: fresh explicit confirmation ends current life | actual=2 expected=0",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button WorldIncarnate18",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: camp revives only local prepared carrier | actual=2 expected=18"
+	],
+	"passed": false,
+	"rendered": true
+}

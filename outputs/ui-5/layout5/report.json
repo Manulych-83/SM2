@@ -1,0 +1,17 @@
+{
+	"checks": 196,
+	"failures": [
+		"popup chooses second physical bandage | actual=59 expected=60",
+		"only selected instance moves to companion backpack | actual=58 expected=68",
+		"first instance stays in hero belt | actual=68 expected=58",
+		"remaining card has correct two IDs | actual=[\"60\", \"61\"] expected=[\"59\", \"61\"]",
+		"companion backpack contains transferred instance | actual=[\"59\"] expected=[\"60\"]",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: popup chooses second physical bandage | actual=59 expected=60",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: only selected instance moves to companion backpack | actual=58 expected=68",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: first instance stays in hero belt | actual=68 expected=58",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: remaining card has correct two IDs | actual=[\"60\", \"61\"] expected=[\"59\", \"61\"]",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: companion backpack contains transferred instance | actual=[\"59\"] expected=[\"60\"]"
+	],
+	"passed": false,
+	"rendered": true
+}

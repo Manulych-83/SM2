@@ -1,0 +1,228 @@
+{
+  "tissue_layers": {
+    "torso": [
+      {
+        "id": "skin",
+        "name": "Кожа",
+        "capacity": 12,
+        "bleeding": 15,
+        "function_min": 0,
+        "blunt_order": 2
+      },
+      {
+        "id": "muscle",
+        "name": "Мышцы",
+        "capacity": 30,
+        "bleeding": 30,
+        "function_min": 7,
+        "blunt_order": 0
+      },
+      {
+        "id": "bone",
+        "name": "Кость",
+        "capacity": 18,
+        "bleeding": 5,
+        "function_min": 4,
+        "blunt_order": 1
+      }
+    ],
+    "head": [
+      {
+        "id": "skin",
+        "name": "Кожа",
+        "capacity": 6,
+        "bleeding": 15,
+        "function_min": 0,
+        "blunt_order": 2
+      },
+      {
+        "id": "muscle",
+        "name": "Мышцы",
+        "capacity": 15,
+        "bleeding": 30,
+        "function_min": 3,
+        "blunt_order": 0
+      },
+      {
+        "id": "bone",
+        "name": "Кость",
+        "capacity": 9,
+        "bleeding": 5,
+        "function_min": 2,
+        "blunt_order": 1
+      }
+    ],
+    "left_hand": [
+      {
+        "id": "skin",
+        "name": "Кожа",
+        "capacity": 6,
+        "bleeding": 15,
+        "function_min": 0,
+        "blunt_order": 2
+      },
+      {
+        "id": "muscle",
+        "name": "Мышцы",
+        "capacity": 15,
+        "bleeding": 30,
+        "function_min": 3,
+        "blunt_order": 0
+      },
+      {
+        "id": "bone",
+        "name": "Кость",
+        "capacity": 9,
+        "bleeding": 5,
+        "function_min": 2,
+        "blunt_order": 1
+      }
+    ],
+    "right_hand": [
+      {
+        "id": "skin",
+        "name": "Кожа",
+        "capacity": 6,
+        "bleeding": 15,
+        "function_min": 0,
+        "blunt_order": 2
+      },
+      {
+        "id": "muscle",
+        "name": "Мышцы",
+        "capacity": 15,
+        "bleeding": 30,
+        "function_min": 3,
+        "blunt_order": 0
+      },
+      {
+        "id": "bone",
+        "name": "Кость",
+        "capacity": 9,
+        "bleeding": 5,
+        "function_min": 2,
+        "blunt_order": 1
+      }
+    ],
+    "left_leg": [
+      {
+        "id": "skin",
+        "name": "Кожа",
+        "capacity": 8,
+        "bleeding": 15,
+        "function_min": 0,
+        "blunt_order": 2
+      },
+      {
+        "id": "muscle",
+        "name": "Мышцы",
+        "capacity": 20,
+        "bleeding": 30,
+        "function_min": 5,
+        "blunt_order": 0
+      },
+      {
+        "id": "bone",
+        "name": "Кость",
+        "capacity": 12,
+        "bleeding": 5,
+        "function_min": 3,
+        "blunt_order": 1
+      }
+    ],
+    "right_leg": [
+      {
+        "id": "skin",
+        "name": "Кожа",
+        "capacity": 8,
+        "bleeding": 15,
+        "function_min": 0,
+        "blunt_order": 2
+      },
+      {
+        "id": "muscle",
+        "name": "Мышцы",
+        "capacity": 20,
+        "bleeding": 30,
+        "function_min": 5,
+        "blunt_order": 0
+      },
+      {
+        "id": "bone",
+        "name": "Кость",
+        "capacity": 12,
+        "bleeding": 5,
+        "function_min": 3,
+        "blunt_order": 1
+      }
+    ],
+    "brain": [
+      {
+        "id": "organ",
+        "name": "Ткань органа",
+        "capacity": 15,
+        "bleeding": 40,
+        "function_min": 1,
+        "blunt_order": 0
+      }
+    ],
+    "heart": [
+      {
+        "id": "organ",
+        "name": "Ткань органа",
+        "capacity": 20,
+        "bleeding": 40,
+        "function_min": 1,
+        "blunt_order": 0
+      }
+    ]
+  },
+  "supplies": {
+    "care": {
+      "medicine": "medical_kit",
+      "parts": "repair_parts"
+    },
+    "upgrades": {
+      "p5:upgrade.muscles": "genetic_dose",
+      "p5:upgrade.psi_amplifier": "psi_implant_kit"
+    }
+  },
+  "items": [
+    {
+      "id": "medical_kit",
+      "name": "Медикаменты",
+      "mass": 100,
+      "volume": 1,
+      "size": 1,
+      "capacity": 0,
+      "max_mass": 0,
+      "max_size": 0,
+      "quick": false,
+      "slot": ""
+    },
+    {
+      "id": "genetic_dose",
+      "name": "Препарат «Усиленные мышцы»",
+      "mass": 100,
+      "volume": 1,
+      "size": 1,
+      "capacity": 0,
+      "max_mass": 0,
+      "max_size": 0,
+      "quick": false,
+      "slot": ""
+    },
+    {
+      "id": "psi_implant_kit",
+      "name": "Комплект пси-усилителя",
+      "mass": 500,
+      "volume": 1,
+      "size": 1,
+      "capacity": 0,
+      "max_mass": 0,
+      "max_size": 0,
+      "quick": false,
+      "slot": ""
+    }
+  ]
+}

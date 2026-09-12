@@ -1,0 +1,95 @@
+{
+	"base": "(2560, 1440)",
+	"captures": [
+		{
+			"file": "menu-fullscreen.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "camp-2560.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "inventory-2560.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "body-2560.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "development-2560.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "layout-overview-2560.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "layout-target-2560.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "battle-2560-1440.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		},
+		{
+			"file": "battle-1920-1080.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(1920, 1080)",
+			"window": "(1920, 1080)"
+		},
+		{
+			"file": "battle-1280-720.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(1280, 720)",
+			"window": "(1280, 720)"
+		},
+		{
+			"file": "battle-1280-800.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 40.0)",
+			"pixels": "(1280, 720)",
+			"window": "(1280, 800)"
+		},
+		{
+			"file": "shield-2560.png",
+			"logical": "(1600.0, 900.0)",
+			"offset": "(0.0, 0.0)",
+			"pixels": "(2560, 1440)",
+			"window": "(2560, 1440)"
+		}
+	],
+	"driver": "Windows",
+	"logical": "(1600.0, 900.0)",
+	"mode": 4,
+	"monitor": "(2560, 1440)",
+	"ui_scale": 1.60000002384186,
+	"window": "(2560, 1440)"
+}

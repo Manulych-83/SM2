@@ -1,0 +1,20 @@
+{
+  "aimed": [
+    "p4:ability.hand_strike",
+    "p4:ability.shield_hand_strike",
+    "p4:ability.sever_right",
+    "p4:ability.sever_left"
+  ],
+  "psi": [
+    "p5:ability.impulse",
+    "p5:ability.shield",
+    "p5:ability.psionic_strike"
+  ],
+  "labels": {
+    "p5:ability.shield": "Пси-щит",
+    "p4:ability.hand_strike": "По правой руке",
+    "p4:ability.shield_hand_strike": "По левой руке",
+    "p4:ability.sever_right": "Отсечь правую",
+    "p4:ability.sever_left": "Отсечь левую"
+  }
+}

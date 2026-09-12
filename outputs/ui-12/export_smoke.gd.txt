@@ -1,0 +1,46 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("_run")
+func frames() -> void:
+	await process_frame; await process_frame
+func _run() -> void:
+	if ProjectSettings.get_setting("application/config/version")!="0.8.18-ui.12": quit(1); return
+	var app: Control=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await frames()
+	app._open_campaign(0,false); await frames()
+	var session: Sm2JourneySession=app._life as Sm2JourneySession
+	if not session.act(session.command("travel",0,"ruins")).ok or not session.act(session.command("start_battle")).ok: quit(2); return
+	for index: int in 500:
+		if not session.world.busy(): break
+		var view: Dictionary=session.runner.view(); var player: bool=false
+		for actor: Dictionary in view.actors:
+			if actor.actor_id==view.active_actor_id and actor.controller=="player" and actor.morale!="fleeing": player=true
+		if player:
+			var choice: Dictionary=session.runner._session.ai_decision(session._profile)
+			if not choice.ok or not session.attack(choice.command).accepted: quit(3); return
+		elif not session.step().ok: quit(4); return
+	if session.world.busy() or session.world.hero_id()==0: quit(5); return
+	for body_id: int in [session.world.hero_id(),4]:
+		if not session.world.bodies[body_id].alive: continue
+		for wound: Dictionary in session.journey().survival.bodies[str(body_id)].wounds.duplicate(true):
+			if int(wound.rate)>0 and not session.act(session.command("bandage",body_id,wound.id)).ok: quit(6); return
+	if not session.act(session.command("explore",0,"first_aid")).ok: quit(15); return
+	if not session.act(session.command("travel",0,"camp")).ok or not session.act(session.command("end_life")).ok: quit(7); return
+	app._page="life"; app._redraw_page(); await frames()
+	(app.find_child("CampSoul",true,false) as Button).pressed.emit(); await frames()
+	var soul: Sm2SoulScreen=app.find_child("SoulScreen",true,false) as Sm2SoulScreen
+	if soul==null or soul.model.hero!=0 or soul.model.available!=1: quit(8); return
+	var before: String=session.state_hash(); soul.save(); soul.restore()
+	if session.state_hash()!=before: quit(9); return
+	await frames(); await RenderingServer.frame_post_draw
+	if root.get_texture().get_image().save_png("E:/GPT/SM2/outputs/ui-12/pack-soul.png")!=OK: quit(10); return
+	(soul.find_child("SoulIncarnate18",true,false) as Button).pressed.emit(); await frames()
+	if session.world.hero_id()!=18 or soul.model.history.size()!=2: quit(11); return
+	soul.save(); before=session.state_hash(); soul.restore()
+	if session.state_hash()!=before: quit(12); return
+	(soul.find_child("SoulBack",true,false) as Button).pressed.emit(); await frames()
+	(app.find_child("CampJournal",true,false) as Button).pressed.emit(); await frames()
+	var journal: Sm2JournalScreen=app.find_child("JournalScreen",true,false) as Sm2JournalScreen
+	if journal==null or not journal.model.ok or journal.model.rows.size()!=session.history.size() or session.state_hash()!=before: quit(13); return
+	await RenderingServer.frame_post_draw
+	if root.get_texture().get_image().save_png("E:/GPT/SM2/outputs/ui-12/pack-journal.png")!=OK: quit(14); return
+	print("SM2_UI12_PACK_OK: packaged journal, real battle and incarnation history, exact save/load and read-only view")
+	quit(0)

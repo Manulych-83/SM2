@@ -1,5 +1,5 @@
-﻿[CmdletBinding()]
-param([string]$GodotPath = '', [string]$RuntimeRoot = '', [string]$OutputDirectory = '', [ValidateSet('survival','p6_region','p5_hybrids','p5_cross_nodes','p5_menu','p5_implants','p5_upgrades','p5_shield','p5_growth','p5_psionics','p4_hero_screen','p4_discovery','p4_search','p4_exploration','p4_care','p4_prosthesis','p4_body','p4_party','p4_attributes','p4','p3','p2','p1','m4_areas','m4_ai','m4_magic','m4','m3','m1')][string]$Suite = 'm3', [switch]$Headless)
+[CmdletBinding()]
+param([string]$GodotPath = '', [string]$RuntimeRoot = '', [string]$OutputDirectory = '', [ValidateSet('controls','settings','journal','soul','battle_results','campaigns','start_menu','camp_layout','development_layout','inventory_layout','display','journey_guide','combat_hud','battle_feedback','battle_art','survival_workspace','survival_tissues','survival_devices','survival','p6_region','p5_hybrids','p5_cross_nodes','p5_menu','p5_implants','p5_upgrades','p5_shield','p5_growth','p5_psionics','p4_hero_screen','p4_discovery','p4_search','p4_exploration','p4_care','p4_prosthesis','p4_body','p4_party','p4_attributes','p4','p3','p2','p1','m4_areas','m4_ai','m4_magic','m4','m3','m1')][string]$Suite = 'm3', [switch]$Headless)
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'find_godot.ps1')
@@ -19,6 +19,24 @@ try {
     $scriptPath = if ($Suite -eq 'm4_areas') { 'res://tests/m4_area_ui.gd' } elseif ($Suite -eq 'm4_ai') { 'res://tests/m4_ability_ai_ui.gd' } elseif ($Suite -eq 'm4_magic') { 'res://tests/m4_magic_ui.gd' } elseif ($Suite -eq 'm4') { 'res://tests/m4_ui.gd' } elseif ($Suite -eq 'm3') { 'res://tests/m3_ui.gd' } else { 'res://tests/ui_smoke.gd' }
     if ($Suite -eq 'p1') { $scriptPath = 'res://tests/p1_progress_ui.gd' }
     if ($Suite -eq 'p4_attributes') { $scriptPath = 'res://tests/p4_attribute_ui.gd' }
+    if ($Suite -eq 'controls') { $scriptPath = 'res://tests/controls_ui.gd' }
+    if ($Suite -eq 'settings') { $scriptPath = 'res://tests/settings_ui.gd' }
+    if ($Suite -eq 'journal') { $scriptPath = 'res://tests/journal_ui.gd' }
+    if ($Suite -eq 'soul') { $scriptPath = 'res://tests/soul_ui.gd' }
+    if ($Suite -eq 'battle_results') { $scriptPath = 'res://tests/battle_results_ui.gd' }
+    if ($Suite -eq 'campaigns') { $scriptPath = 'res://tests/campaigns_ui.gd' }
+    if ($Suite -eq 'start_menu') { $scriptPath = 'res://tests/start_menu_ui.gd' }
+    if ($Suite -eq 'camp_layout') { $scriptPath = 'res://tests/camp_layout_ui.gd' }
+    if ($Suite -eq 'development_layout') { $scriptPath = 'res://tests/development_layout_ui.gd' }
+    if ($Suite -eq 'inventory_layout') { $scriptPath = 'res://tests/inventory_layout_ui.gd' }
+    if ($Suite -eq 'display') { $scriptPath = 'res://tests/display_ui.gd' }
+    if ($Suite -eq 'journey_guide') { $scriptPath = 'res://tests/journey_guide_ui.gd' }
+    if ($Suite -eq 'combat_hud') { $scriptPath = 'res://tests/combat_hud_ui.gd' }
+    if ($Suite -eq 'battle_feedback') { $scriptPath = 'res://tests/battle_feedback_ui.gd' }
+    if ($Suite -eq 'battle_art') { $scriptPath = 'res://tests/battle_art_ui.gd' }
+    if ($Suite -eq 'survival_workspace') { $scriptPath = 'res://tests/survival_workspace_ui.gd' }
+    if ($Suite -eq 'survival_tissues') { $scriptPath = 'res://tests/survival_tissues_ui.gd' }
+    if ($Suite -eq 'survival_devices') { $scriptPath = 'res://tests/survival_devices_ui.gd' }
     if ($Suite -eq 'survival') { $scriptPath = 'res://tests/survival_ui.gd' }
     if ($Suite -eq 'p6_region') { $scriptPath = 'res://tests/p6_region_ui.gd' }
     if ($Suite -eq 'p5_hybrids') { $scriptPath = 'res://tests/p5_hybrid_ui.gd' }

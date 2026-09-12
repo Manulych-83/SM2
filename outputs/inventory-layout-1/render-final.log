@@ -1,0 +1,9 @@
+﻿[2026-09-12T19:14:22.3099460+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --path E:\GPT\SM2 --script res://outputs/inventory-layout-1/inventory_mockup.gd --quit-after 600
+RuntimeRoot: E:\GPT\SM2\.local\inventory-layout
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5080
+
+SM2_M3_UI_REPORT {"checks":137,"failures":[],"passed":true,"rendered":true}
+
+
+ExitCode: 0

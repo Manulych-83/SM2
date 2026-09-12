@@ -1,0 +1,14 @@
+{
+  "slots": {"head":"Голова","body":"Броня","clothes":"Одежда","shield":"Щит","belt":"Пояс","backpack":"Рюкзак","weapon":"Оружие"},
+  "captions": {"Одежда с карманами":"Карманы","Поясная сумка":"Пояс","Стёганая броня":"Стёганка","Перевязочный материал":"Перевязка"},
+  "icons": {
+    "pockets":"res://assets/inventory/pockets.svg",
+    "belt":"res://assets/inventory/belt.svg",
+    "backpack":"res://assets/inventory/backpack.svg",
+    "stash":"res://assets/inventory/backpack.svg",
+    "bandage":"res://assets/hud/bandage.svg",
+    "medicine":"res://assets/hud/bandage.svg",
+    "parts":"res://assets/hud/hand.svg"
+  },
+  "parts": {"head":[0.52,0.13],"brain":[0.52,0.13],"torso":[0.50,0.40],"heart":[0.55,0.35],"right_hand":[0.18,0.57],"left_hand":[0.87,0.57],"right_leg":[0.35,0.84],"left_leg":[0.69,0.84]}
+}

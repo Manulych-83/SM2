@@ -1,0 +1,4 @@
+{
+  "positions": {"camp": [0.20, 0.70], "ruins": [0.51, 0.23], "enclave": [0.80, 0.66]},
+  "symbols": {"camp": "ЛАГЕРЬ", "ruins": "РУИНЫ", "enclave": "АНКЛАВ"}
+}

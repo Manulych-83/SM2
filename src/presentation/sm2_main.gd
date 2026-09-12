@@ -8,6 +8,12 @@ const GOLD: Color = Color("d1b478")
 var _session: Sm2Session
 var _page: String = "menu"
 var _modes_expanded: bool=false
+var _campaign_service: Sm2Campaigns
+var _campaigns_open: bool=false
+var _campaign_delete: int=-1
+var _campaign_token: String=""
+var _start_resize_pending: bool=false
+var _settings_return: String="menu"
 var _notice: String = ""
 var _is_error: bool = false
 var _body: Control
@@ -20,6 +26,8 @@ var _life_store: Sm2SaveStore = Sm2SaveStore.new("user://world")
 var _exploration_store: Sm2SaveStore=Sm2SaveStore.new("user://exploration_journey")
 var _search_store: Sm2SaveStore=Sm2SaveStore.new("user://search_journey")
 var _hybrid_store: Sm2SaveStore=Sm2SaveStore.new("user://hybrid_journey")
+var _survival_tissues_store: Sm2SaveStore=Sm2SaveStore.new("user://survival_tissues")
+var _survival_devices_store: Sm2SaveStore=Sm2SaveStore.new("user://survival_devices")
 var _survival_store: Sm2SaveStore=Sm2SaveStore.new("user://survival_journey")
 var _region_store: Sm2SaveStore=Sm2SaveStore.new("user://region_journey")
 var _implant_store: Sm2SaveStore=Sm2SaveStore.new("user://implant_journey")
@@ -39,6 +47,10 @@ var _effects_store: Sm2SaveStore = Sm2SaveStore.new("user://effects")
 var _battle_store: Sm2SaveStore = Sm2SaveStore.new("user://battles")
 
 func _ready() -> void:
+	Sm2Controls.initialize()
+	var display: Dictionary=Sm2DisplayPreferences.new().read()
+	if display.ok and display.exists: Sm2DisplaySettings.apply(get_window(),display.value)
+	resized.connect(_resize_start)
 	_apply_theme()
 	var result: Dictionary = Sm2ContentLoader.load_catalog()
 	if result.get("ok", false):
@@ -73,10 +85,15 @@ func _redraw_page() -> void:
 	_body = Control.new()
 	_body.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(_body)
+	if _page=="settings":
+		var settings: Sm2SettingsScreen=Sm2SettingsScreen.new(); settings.name="SettingsScreen"
+		settings.closed.connect(func() -> void: _page=_settings_return; _redraw_page())
+		_body.add_child(settings); return
 	if _page == "life" and _life != null:
 		var life_screen: Sm2LifeScreen=Sm2LifeScreen.new()
 		life_screen.name="LifeScreen"; life_screen.session=_life
 		life_screen.menu_requested.connect(_show_menu)
+		life_screen.settings_requested.connect(_open_settings.bind("life"))
 		life_screen.development_requested.connect(func() -> void: _page="hero_development"; _redraw_page())
 		life_screen.battle_requested.connect(func() -> void: _page="life_battle"; _redraw_page())
 		_body.add_child(life_screen)
@@ -91,6 +108,12 @@ func _redraw_page() -> void:
 		var life_battle: Sm2BattleScreen=Sm2BattleScreen.new()
 		life_battle.name="BattleScreen"; life_battle.life_session=_life; life_battle.runner=_life.runner
 		life_battle.menu_requested.connect(func() -> void: _page="life"; _redraw_page())
+		life_battle.aftermath_requested.connect(func(tab: int,body_id: int) -> void:
+			if _life==null or _life.world.busy(): return
+			_page="life"; _redraw_page()
+			var target: Sm2LifeScreen=_body.find_child("LifeScreen",true,false) as Sm2LifeScreen
+			target._workspace_state={"body":body_id,"tab":tab,"part":"","item":"","destination":"","scope":0,"query":""}
+			target._open_workspace())
 		_body.add_child(life_battle)
 		return
 	if _page == "attributes" and _attributes != null:
@@ -110,6 +133,9 @@ func _redraw_page() -> void:
 		screen.runner = _battle
 		screen.menu_requested.connect(_show_menu)
 		_body.add_child(screen)
+		return
+	if _page == "menu":
+		Sm2StartScreen.build(self)
 		return
 	var backdrop: Control = Control.new()
 	backdrop.set_script(Backdrop)
@@ -160,7 +186,7 @@ func _redraw_page() -> void:
 	if _page == "party" and _session != null and _session.has_active_game():
 		_build_party(left, right)
 	else:
-		_build_menu(left, right)
+		_build_other_modes(left, right)
 	var status: Label = _label(_notice, 14, Color("f0a491") if _is_error else GOLD)
 	status.name = "StatusLabel"
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -170,46 +196,74 @@ func _redraw_page() -> void:
 	footer.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	column.add_child(footer)
 
-func _build_menu(left: VBoxContainer,right: VBoxContainer) -> void:
-	left.add_child(_label("ПУТЬ ГЕРОЯ",12,GOLD))
-	var heading: Label=_label("От человека к сверхсуществу",26,INK)
-	heading.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(heading)
-	var description: Label=_label("Одна Душа. Разные воплощения. Мир сохраняет последствия ваших жизней.",16,MUTED)
-	description.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(description)
-	left.add_child(_button("Тело и инвентарь · новый пример","NewSurvivalButton",_start_survival.bind(false),false,true))
-	left.add_child(_button("Продолжить пример тела","ContinueSurvivalButton",_start_survival.bind(true),not _survival_store.has_slot("survival_journey")))
-	left.add_child(_button("Новая игра","NewRegionButton",_start_region.bind(false),false,true))
-	left.add_child(_button("Продолжить","ContinueRegionButton",_start_region.bind(true),not _region_store.has_slot(Sm2JourneySession.REGION_SLOT)))
-	var current: bool=_life is Sm2JourneySession and (_life as Sm2JourneySession).format_id()==Sm2JourneySession.REGION_FORMAT
-	left.add_child(_button("Вернуться в игру","ResumeMainButton",_resume_main,not current))
-	var note: Label=_label("Продолжить — открыть сохранение. Вернуться — продолжить текущую игру без загрузки.",14,MUTED)
-	note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART; left.add_child(note)
-	left.add_child(_button("Дополнительные режимы","OtherModesButton",_toggle_modes))
-	left.add_child(_button("Выйти из игры","QuitButton",_quit_game))
-	_card(right,"ТРИ ПУТИ РАЗВИТИЯ","Развивайте своё тело","Практика и навыки, генетика и кибернетика, псионический удар и защита. Усиления помогают в бою; собственные навыки вы осваиваете действиями.")
-	_card(right,"ГЕРОЙ И СПУТНИК","Сражайтесь и возвращайтесь","Пошаговые бои на гексах, лагерь, припасы и снаряжение. После гибели героя новое воплощение начинает развитие заново.")
-	var other_left: VBoxContainer=VBoxContainer.new(); other_left.name="OtherModesLeft"; left.add_child(other_left)
-	var other_right: VBoxContainer=VBoxContainer.new(); other_right.name="OtherModesRight"; right.add_child(other_right)
-	_build_other_modes(other_left,other_right)
-	other_left.visible=_modes_expanded; other_right.visible=_modes_expanded
-	_update_modes_button()
+func _open_settings(return_page: String="menu") -> void:
+	_settings_return=return_page; _page="settings"; _redraw_page()
+
+func _resize_start() -> void:
+	if _page!="menu" or _start_resize_pending: return
+	_start_resize_pending=true; call_deferred("_reflow_start")
+
+func _reflow_start() -> void:
+	_start_resize_pending=false
+	if is_inside_tree() and _page=="menu": _redraw_page()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if _page=="menu" and not _modes_expanded and not _campaigns_open and _campaign_delete<0 and not Sm2Controls.text_focused(self) and Sm2Controls.action(event)=="settings":
+		get_viewport().set_input_as_handled(); _open_settings(); return
+	if _page!="menu" or not event is InputEventKey or not event.pressed or event.echo or event.physical_keycode!=KEY_ESCAPE: return
+	if _campaign_delete>=0: _campaign_delete=-1
+	elif _campaigns_open: _campaigns_open=false
+	elif _modes_expanded: _modes_expanded=false
+	else: return
+	get_viewport().set_input_as_handled(); _redraw_page()
 
 func _resume_main() -> void:
-	if not _life is Sm2JourneySession or (_life as Sm2JourneySession).format_id()!=Sm2JourneySession.REGION_FORMAT: return
+	if _life == null: return
 	_page="life"; _notice=""; _is_error=false; _redraw_page()
 
 func _toggle_modes() -> void:
 	_modes_expanded=not _modes_expanded
-	for id: String in ["OtherModesLeft","OtherModesRight"]:
-		var group: Control=_body.find_child(id,true,false) as Control
-		if group!=null: group.visible=_modes_expanded
-	_update_modes_button()
+	_redraw_page()
+
+func _campaigns() -> Sm2Campaigns:
+	if _campaign_service==null: _campaign_service=Sm2Campaigns.new(_survival_tissues_store._base_directory)
+	return _campaign_service
+
+func _show_campaigns() -> void:
+	_campaigns_open=true; _campaign_delete=-1; _redraw_page()
+
+func _select_campaign(index: int) -> void:
+	if not _campaigns().select(index): _notice="Не удалось запомнить выбранную кампанию."
+	_redraw_page()
+
+func _open_campaign(index: int,from_save: bool) -> void:
+	var result: Dictionary=_campaigns().open(index,from_save)
+	if _handle_result(result,""):
+		_life=result.session; _page="life"; _campaigns_open=false; _campaign_delete=-1
+		_campaigns().select(index)
+	_redraw_page()
+
+func _request_campaign_delete(index: int,token: String) -> void:
+	_campaign_delete=index; _campaign_token=token; _redraw_page()
+
+func _confirm_campaign_delete() -> void:
+	var index: int=_campaign_delete
+	var result: Dictionary=_campaigns().delete(index,_campaign_token)
+	if _handle_result(result,"Кампания удалена.") and _life!=null and _life._store is Sm2CampaignStore:
+		if (_life._store as Sm2CampaignStore).campaign_index==index: _life=null
+	_campaign_delete=-1; _redraw_page()
 
 func _update_modes_button() -> void:
 	var button: Button=_body.find_child("OtherModesButton",true,false) as Button
 	if button!=null: button.text="Скрыть дополнительные режимы" if _modes_expanded else "Дополнительные режимы"
 
 func _build_other_modes(left: VBoxContainer, right: VBoxContainer) -> void:
+	left.add_child(_button("Тело и протезы","NewSurvivalDevicesButton",_start_survival_devices.bind(false),false,true))
+	left.add_child(_button("Продолжить с протезами","ContinueSurvivalDevicesButton",_start_survival_devices.bind(true),not _survival_devices_store.has_slot("survival_devices")))
+	left.add_child(_button("Тело и инвентарь · новый пример","NewSurvivalButton",_start_survival.bind(false),false,true))
+	left.add_child(_button("Продолжить пример тела","ContinueSurvivalButton",_start_survival.bind(true),not _survival_store.has_slot("survival_journey")))
+	left.add_child(_button("Малая карта · прежний пример","NewRegionButton",_start_region.bind(false),false,true))
+	left.add_child(_button("Продолжить пример карты","ContinueRegionButton",_start_region.bind(true),not _region_store.has_slot(Sm2JourneySession.REGION_SLOT)))
 	left.add_theme_constant_override("separation",6)
 	right.add_theme_constant_override("separation",8)
 	left.add_child(_label("ДОПОЛНИТЕЛЬНЫЕ РЕЖИМЫ",12,GOLD))
@@ -291,6 +345,25 @@ func _build_other_modes(left: VBoxContainer, right: VBoxContainer) -> void:
 	var row_Area: HBoxContainer=HBoxContainer.new(); right.add_child(row_Area)
 	row_Area.add_child(_button("Бой по области", "NewAreaButton", _start_area.bind(false)))
 	row_Area.add_child(_button("Продолжить", "ContinueAreaButton", _start_area.bind(true),not _area_store.has_slot(Sm2BattleRunner.AREA_SLOT)))
+
+func _start_survival_tissues(from_save: bool) -> void:
+	var rows: Array[Dictionary]=_campaigns().inspect()
+	var index: int=Sm2Campaigns.latest(rows,_campaigns().selected()) if from_save else _campaigns().selected()
+	if not from_save and rows[index].occupied:
+		index=-1
+		for row: Dictionary in rows:
+			if not row.occupied: index=row.index; break
+	if index<0: _show_campaigns(); return
+	_open_campaign(index,from_save)
+
+func _start_survival_devices(from_save: bool) -> void:
+	var content: Dictionary=Sm2SurvivalContentLoader.load_scenario(true)
+	var ai: Dictionary=Sm2AiContentLoader.load_profile()
+	if not content.ok or not ai.ok: _notice="Не удалось подготовить протезы: "+str(content.get("errors",[])); _redraw_page(); return
+	var candidate: Sm2JourneySession=Sm2JourneySession.new(content,ai.profile,_survival_devices_store)
+	var result: Dictionary=candidate.load_game() if from_save else candidate.new_game()
+	if _handle_result(result,""): _life=candidate; _page="life"
+	_redraw_page()
 
 func _start_survival(from_save: bool) -> void:
 	var content: Dictionary=Sm2SurvivalContentLoader.load_scenario()
@@ -631,7 +704,9 @@ func _button(text_value: String, node_name: String, action: Callable, disabled_v
 	button.custom_minimum_size.y = 44
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.disabled = disabled_value
-	if primary:
+	if _page == "menu":
+		button.add_theme_stylebox_override("normal", Sm2BronzeTheme.box(Color("44331c") if primary else Sm2BronzeTheme.BUTTON,Sm2BronzeTheme.GOLD if primary else Sm2BronzeTheme.BORDER,12))
+	elif primary:
 		button.add_theme_stylebox_override("normal", _box(Color("ad905b"), Color("d1b478"), 8, 10))
 		button.add_theme_color_override("font_color", Color("131e23"))
 	button.pressed.connect(action)

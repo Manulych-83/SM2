@@ -1,0 +1,17 @@
+{
+	"checks": 98,
+	"failures": [
+		"preview switches to windowed | actual=4 expected=0",
+		"default button requires applying | actual=4 expected=0",
+		"startup applies saved window mode | actual=4 expected=0",
+		"startup applies saved resolution | actual=(2560, 1440) expected=(1920, 1080)",
+		"requested physical window size | actual=(2560, 1440) expected=(1920, 1080)",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: preview switches to windowed | actual=4 expected=0",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: default button requires applying | actual=4 expected=0",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: startup applies saved window mode | actual=4 expected=0",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: startup applies saved resolution | actual=(2560, 1440) expected=(1920, 1080)",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: requested physical window size | actual=(2560, 1440) expected=(1920, 1080)"
+	],
+	"passed": false,
+	"rendered": true
+}

@@ -1,0 +1,16 @@
+﻿[2026-09-12T15:32:54.1328170+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\display1\pack-runtime
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T15:32:54.1919289+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --main-pack E:/GPT/SM2/builds/SM2.exe --quit-after 120 --script E:/GPT/SM2/.local/display1/export_display_smoke.gd
+RuntimeRoot: E:\GPT\SM2\.local\display1\pack-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5080
+
+SM2_DISPLAY_STARTUP: mode=4 physical=(2560, 1440) base=(2560, 1440) scale=1.60000002384186
+SM2_DISPLAY_PACK_OK: fullscreen QHD settings, standalone assets, actual battle and exact save/load
+
+
+ExitCode: 0

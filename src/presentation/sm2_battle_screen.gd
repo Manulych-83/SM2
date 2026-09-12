@@ -1,6 +1,9 @@
 class_name Sm2BattleScreen
 extends Control
 signal menu_requested
+signal aftermath_requested(tab: int,body_id: int)
+var _results: Sm2BattleResultsScreen
+var _results_seen: String=""
 var life_session: Sm2LifeSession = null
 var runner: Sm2BattleRunner
 var state: Dictionary = {}
@@ -12,7 +15,7 @@ var _inspector: RichTextLabel
 var _preview: RichTextLabel
 var _notice: Label
 var _log: RichTextLabel
-var _actions: HFlowContainer
+var _actions: Container
 var _reachable: Dictionary = {}
 var _targets: Dictionary = {}
 var _selected: String = ""
@@ -24,6 +27,7 @@ var _delay: float = 0.5
 var _finished_seen: bool = false
 var _journal: Array[String] = []
 var _development_panel: Sm2BattleProgressPanel = null
+var hud: Sm2CombatHud = null
 const GOLD: Color = Color("e3bf7b")
 const MUTED: Color = Color("a0b4b4")
 
@@ -35,6 +39,10 @@ func _ready() -> void:
 		_notice.text = "Наведите на клетку или противника. Щелчок выполняет действие. Правая кнопка — отмена выбора."
 
 func _build() -> void:
+	if life_session is Sm2JourneySession:
+		var world: Sm2JourneyWorld = (life_session as Sm2JourneySession).journey()
+		if world.survival != null and world.survival.catalog.has_layers():
+			hud = Sm2CombatHud.new(); hud.build(self); return
 	var background: ColorRect = ColorRect.new()
 	background.color = Color("101c20")
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -70,6 +78,9 @@ func _build() -> void:
 	board.size_flags_horizontal = SIZE_EXPAND_FILL
 	board.size_flags_vertical = SIZE_EXPAND_FILL
 	row.add_child(board)
+	if life_session is Sm2JourneySession:
+		var journey: Sm2JourneyWorld = (life_session as Sm2JourneySession).journey()
+		if journey.survival != null and journey.survival.catalog.has_layers(): board.enable_art()
 	board.cell_clicked.connect(_clicked)
 	board.cell_hovered.connect(_hovered)
 	var side: VBoxContainer = VBoxContainer.new()
@@ -132,6 +143,7 @@ func _refresh() -> void:
 	_title.text = ("Области · Раунд %s" if state.ruleset == Sm2MagicSnapshot.AREA_RULESET else "Магия · Раунд %s" if state.ruleset == Sm2MagicSnapshot.RULESET else "Эффекты · Раунд %s" if state.ruleset == Sm2EffectSnapshot.RULESET else "Стычка · Раунд %s") % state.round
 	if state.ruleset in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET,Sm2EncounterOrigin.PARTY_RULESET,Sm2EncounterOrigin.BODY_RULESET,Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET]: _title.text = "Развитие · Раунд %s" % state.round
 	var ids: Array[String] = []
+	if board.art != null: _title.text = "Руины · Раунд %s" % state.round
 	for id: int in state.main_queue: ids.append("№%s" % id)
 	var deferred: Array[String] = []
 	for id: int in state.deferred_queue: deferred.append("№%s" % id)
@@ -155,6 +167,7 @@ func _refresh() -> void:
 	_inspect(_inspected)
 	_refresh_actions()
 	_preview.text = "Наведите на противника: шанс и урон.\nНа свободную клетку: путь и стоимость.\n\nСветлое кольцо — активный боец.\n+1 / +2 — высота. Камни закрывают проход."
+	if hud != null: _preview.text = "Выберите действие внизу и наведите на цель.\n\nНа свободной клетке показаны путь и его цена.\nКарточки сверху позволяют осмотреть очередь ходов."
 	if not state.finished and _spell_action(_selected).get("operation") == "area_hp_damage": _hovered(board.hover)
 	if state.finished:
 		_path.clear()
@@ -170,8 +183,34 @@ func _refresh() -> void:
 			_finished_seen = true
 			_notice.text = "Бой завершён. Можно сохранить итог или вернуться в меню."
 	if not runner.error_reason().is_empty(): _notice.text = "Бой остановлен из-за ошибки: " + runner.error_reason()
+	if hud != null:
+		hud.refresh()
+		var details: Button=find_child("HudDetails",true,false) as Button
+		details.text="Итоги" if state.finished else "Детали"
+		(find_child("BattleMenuButton",true,false) as Button).text="В локацию" if state.finished else "Меню"
+		if state.finished and _results_seen!=str(state.battle_id):
+			_results_seen=str(state.battle_id); _show_results()
+		elif not state.finished: _close_results()
+
+func _show_results() -> void:
+	if hud==null or not life_session is Sm2JourneySession or not state.finished: return
+	var data: Dictionary=Sm2BattleResultsView.build(life_session as Sm2JourneySession)
+	if data.is_empty(): return
+	_close_results()
+	_results=Sm2BattleResultsScreen.new(); _results.screen=self; _results.view=data; add_child(_results)
+	hud.layout.utilities.z_index=5; hud.layout.header.z_index=5; hud.target_hint.hide()
+
+func _close_results() -> void:
+	if is_instance_valid(_results): remove_child(_results); _results.queue_free()
+	_results=null
+	if hud!=null: hud.layout.utilities.z_index=0; hud.layout.header.z_index=0
+
+func _open_details_or_results() -> void:
+	if state.finished: _show_results()
+	elif hud!=null: hud.open_tab(2)
 
 func _refresh_actions() -> void:
+	if hud != null: hud.actions(); return
 	for child: Node in _actions.get_children(): _actions.remove_child(child); child.queue_free()
 	var player: bool = _player_turn() and _path.is_empty()
 	_actions.add_child(_button("Движение", "MoveButton", func() -> void: _selected = ""; _refresh(), not player))
@@ -224,6 +263,7 @@ func _actor(id: int) -> Dictionary:
 
 func _inspect(id: int) -> void:
 	var actor: Dictionary = _actor(id)
+	if hud != null: hud.show_actor(actor)
 	if actor.is_empty(): _inspector.text = "Наведите на бойца"; return
 	var head: Dictionary = Sm2BattleText.item(actor,"head")
 	var body: Dictionary = Sm2BattleText.item(actor,"body")
@@ -272,6 +312,12 @@ func _inspect(id: int) -> void:
 		var bleeding: int=0
 		for wound: Dictionary in actor.anatomy.wounds: bleeding+=int(wound.rate)
 		_inspector.text="Кровь %s мл\nКровотечение %s мл/мин\n" % [actor.anatomy.blood,bleeding]+_inspector.text
+		if actor.anatomy.has("layers"):
+			var names: Dictionary={"skin":"кожа","muscle":"мышцы","bone":"кость","organ":"орган","right_hand":"Правая рука","left_hand":"Левая рука","torso":"Туловище","head":"Голова","right_leg":"Правая нога","left_leg":"Левая нога","brain":"Мозг","heart":"Сердце"}
+			for part: String in actor.anatomy.layers:
+				var values: PackedStringArray=[]
+				for layer: String in actor.anatomy.layers[part]: values.append("%s %s" % [names.get(layer,layer),actor.anatomy.layers[part][layer]])
+				_inspector.text+="\n"+str(names.get(part,part))+": "+", ".join(values)
 		for wound: Dictionary in actor.anatomy.wounds:
 			_inspector.text+="\nРана %s: %s · %s мл/мин" % [wound.id,wound.part,wound.rate]
 
@@ -322,6 +368,7 @@ func _hovered(cell: Vector2i) -> void:
 	if state.is_empty(): return
 	var target: Dictionary = board.actor_at(cell)
 	_inspect(int(target.actor_id) if not target.is_empty() else _inspected)
+	if hud != null: hud.preview_cell(cell,target); return
 	if state.finished: return
 	if not _player_turn() or not _path.is_empty():
 		_preview.text = "Противник выполняет ход…" if not _player_turn() else "Отряд движется по маршруту…"
@@ -453,6 +500,7 @@ func _process(delta: float) -> void:
 		_delay = 0.48
 
 func _append(events: Array[Dictionary]) -> void:
+	board.play_events(events)
 	_journal.append_array(Sm2BattleText.lines(events))
 	while _journal.size() > 150: _journal.pop_front()
 	_log.text = "\n".join(_journal)
@@ -477,6 +525,7 @@ func _load() -> void:
 	if life_session != null: runner=life_session.runner
 	if result.ok and life_session != null and not life_session.world.busy(): menu_requested.emit(); return
 	if result.ok:
+		board.clear_motion()
 		_path.clear()
 		_selected = ""
 		_inspected = int(runner.view().active_actor_id)
@@ -487,6 +536,8 @@ func _load() -> void:
 		_log.text = "\n".join(_journal)
 	_refresh()
 	_notice.text = "Бой загружен." if result.ok else "Не удалось загрузить бой. Текущее состояние сохранено."
+	if result.ok and life_session!=null and life_session._store is Sm2CampaignStore and (life_session._store as Sm2CampaignStore).recovered:
+		_notice.text="Бой загружен из резервной копии. Сохраните игру для восстановления основного файла."
 
 static func _label(value: String, font_size: int, tint: Color) -> Label:
 	var label: Label = Label.new()
@@ -509,3 +560,7 @@ func _cost_text(check: Dictionary) -> String:
 	var text: String=""
 	for source: Dictionary in check.get("cost_calculation",{}).get("sources",[]): text+="%s: +%s концентрации (включено в цену).\n" % [source.name,source.amount]
 	return text
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if hud==null or not is_visible_in_tree() or is_instance_valid(_development_panel) or is_instance_valid(_results) or Sm2Controls.text_focused(self): return
+	if event is InputEventKey and hud.hotkey(event): get_viewport().set_input_as_handled()

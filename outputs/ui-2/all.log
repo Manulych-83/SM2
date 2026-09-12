@@ -1,0 +1,38 @@
+﻿[2026-09-12T13:15:57.2803824+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\ui2\all-runtime
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T13:15:57.3338745+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\ui2\all-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-12T13:16:00.6549889+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tests/test_runner.gd -- --suite all --report E:\GPT\SM2\.local\logs\checks-20260912-131557-128-3dd46a7f.json
+RuntimeRoot: E:\GPT\SM2\.local\ui2\all-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+P2_FULL 20260910 {"commands":38,"members":[{"actor":1,"alive":true,"practice":{"m2:ability.sword_strike":5}},{"actor":2,"alive":true,"practice":{"m2:ability.sword_strike":5}}],"winner":"company"}
+P2_FULL 1 {"commands":46,"members":[{"actor":1,"alive":false,"practice":{"m2:ability.sword_strike":7}},{"actor":2,"alive":false,"practice":{"m2:ability.sword_strike":5}}],"winner":"opposition"}
+P2_FULL 76 {"commands":39,"members":[{"actor":1,"alive":true,"practice":{"m2:ability.sword_strike":8}},{"actor":2,"alive":false,"practice":{"m2:ability.sword_strike":3}}],"winner":"company"}
+SM2_TEST_REPORT {"checks":9975,"engine_version":"4.7.2-stable (official)","failures":[],"passed":true,"suites":["combat_hud","survival_workspace","survival_tissues","survival_devices","survival","p6_region","p5_hybrids","p5_cross_nodes","p5_implants","p5_upgrades","p5_shield","p5_growth","p5_psionics","p4_hero_screen","p4_discovery","p4_search","p4_exploration","p4_care","p4_prosthesis","p4_body","p4_party","p4_attributes","p4_journey","p3_world","p2_development","p1_progression","unit","integration","scenario","spatial","m2_content","m2_movement","turn_scheduler","turn_content","m2_snapshot","m2_turns","m2_turn_storage","m2_attacks","m2_combat_storage","m2_consequences","m2_consequence_storage","m2_ai","m4_effects","m4_magic","m4_ability_ai","m4_areas"]}
+
+
+ExitCode: 0

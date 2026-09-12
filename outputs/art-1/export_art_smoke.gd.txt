@@ -1,0 +1,25 @@
+extends SceneTree
+
+func _initialize() -> void:
+	call_deferred("_run")
+
+func _run() -> void:
+	var packed: PackedScene = load("res://scenes/main.tscn") as PackedScene
+	if packed == null: quit(1); return
+	var app: Control = packed.instantiate() as Control
+	root.add_child(app); await process_frame; await process_frame
+	app.call("_start_survival_tissues", false); await process_frame; await process_frame
+	var life: Sm2LifeScreen = app.find_child("LifeScreen", true, false) as Sm2LifeScreen
+	if life == null: quit(2); return
+	var session: Sm2JourneySession = life.session as Sm2JourneySession
+	if not session.act(session.command("travel", 0, "ruins")).ok: quit(3); return
+	life.redraw(); await process_frame; await process_frame
+	var button: Button = app.find_child("WorldBattle", true, false) as Button
+	if button == null: quit(4); return
+	button.pressed.emit(); await process_frame; await process_frame
+	var screen: Sm2BattleScreen = app.find_child("BattleScreen", true, false) as Sm2BattleScreen
+	if screen == null or screen.board.art == null: quit(5); return
+	screen.auto_advance = false
+	if screen.board.art.sprites.size() != 16 or screen.board.art.ground == null: quit(6); return
+	print("SM2_ART_EXPORT_SMOKE_OK: production battle, manifest and both atlases loaded from exported EXE")
+	quit(0)

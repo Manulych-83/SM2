@@ -314,6 +314,18 @@ func view() -> Dictionary:
 func outcome() -> Dictionary:
 	return Sm2BattleOutcome.view(_state) if _consequences and _state != null else {}
 
+func ability_cost(actor_id: int, ability_id: String) -> Dictionary:
+	if _state == null: return {}
+	var actor: Sm2TacticalActor = _state.actor(actor_id)
+	if actor == null: return {}
+	if _magic != null and _magic.profile(actor.loadout_id).spells.has(ability_id):
+		var spell: Sm2SpellDefinition = _magic.spell(ability_id)
+		return {"ap_cost":spell.ap_cost,"fatigue_cost":spell.fatigue_cost,"mana_cost":Sm2ManaResolver.cost(_state,actor_id,spell).total,"ammo_cost":0}
+	if _combat == null or ability_id not in Sm2AttackResolver.available_abilities(actor,_combat,_state): return {}
+	var result: Dictionary = Sm2AttackResolver.costs(_state,_combat.ability(ability_id),actor_id)
+	result["mana_cost"] = int(Sm2HybridQuery.details(_state,actor_id,ability_id).get("mana_cost",0))
+	return result
+
 func ai_decision(profile: Sm2AiProfile) -> Dictionary:
 	if not _consequences or _state == null or profile == null:
 		return {"ok": false, "reason": "ai_requires_consequence_battle"}

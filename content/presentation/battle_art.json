@@ -1,0 +1,231 @@
+{
+  "version": "sm2.battle_art.1",
+  "atlas": "res://assets/art1/figures-v1.png",
+  "ground": "res://assets/art1/ground-v1.png",
+  "sprites": {
+    "human": [
+      91,
+      2,
+      165,
+      316
+    ],
+    "mutant": [
+      371,
+      1,
+      228,
+      318
+    ],
+    "head_hair": [
+      688,
+      45,
+      198,
+      241
+    ],
+    "head_beard": [
+      1018,
+      49,
+      174,
+      237
+    ],
+    "padded": [
+      47,
+      332,
+      233,
+      287
+    ],
+    "mail": [
+      360,
+      339,
+      225,
+      272
+    ],
+    "helmet": [
+      692,
+      355,
+      208,
+      241
+    ],
+    "prosthesis": [
+      1040,
+      317,
+      132,
+      310
+    ],
+    "sword": [
+      105,
+      626,
+      109,
+      311
+    ],
+    "spear": [
+      450,
+      626,
+      50,
+      312
+    ],
+    "axe": [
+      740,
+      639,
+      128,
+      291
+    ],
+    "shield": [
+      979,
+      648,
+      251,
+      274
+    ],
+    "bow": [
+      137,
+      936,
+      85,
+      311
+    ],
+    "pillar": [
+      357,
+      937,
+      241,
+      313
+    ],
+    "rocks": [
+      659,
+      974,
+      260,
+      245
+    ],
+    "grass": [
+      970,
+      964,
+      253,
+      245
+    ],
+    "grip": [
+      224,
+      166,
+      23,
+      30
+    ]
+  },
+  "attachments": {
+    "padded": {
+      "height": 0.38,
+      "point": [
+        -0.01,
+        -0.79
+      ],
+      "anchor": [
+        0.5,
+        0.0
+      ]
+    },
+    "mail": {
+      "height": 0.38,
+      "point": [
+        -0.01,
+        -0.79
+      ],
+      "anchor": [
+        0.5,
+        0.0
+      ]
+    },
+    "helmet": {
+      "height": 0.22,
+      "point": [
+        0.02,
+        -1.015
+      ],
+      "anchor": [
+        0.5,
+        0.0
+      ]
+    },
+    "prosthesis": {
+      "height": 0.23,
+      "point": [
+        0.2,
+        -0.48
+      ],
+      "anchor": [
+        0.5,
+        0.55
+      ]
+    },
+    "sword": {
+      "height": 0.64,
+      "point": [
+        0.2,
+        -0.42
+      ],
+      "anchor": [
+        0.5,
+        0.87
+      ]
+    },
+    "spear": {
+      "height": 1.04,
+      "point": [
+        0.2,
+        -0.42
+      ],
+      "anchor": [
+        0.5,
+        0.66
+      ]
+    },
+    "axe": {
+      "height": 0.58,
+      "point": [
+        0.2,
+        -0.42
+      ],
+      "anchor": [
+        0.32,
+        0.83
+      ]
+    },
+    "bow": {
+      "height": 0.7,
+      "point": [
+        0.2,
+        -0.42
+      ],
+      "anchor": [
+        0.86,
+        0.52
+      ]
+    },
+    "shield": {
+      "height": 0.36,
+      "point": [
+        -0.18,
+        -0.4
+      ],
+      "anchor": [
+        0.5,
+        0.5
+      ]
+    },
+    "grip": {
+      "height": 0.0949367088607595,
+      "point": [
+        0.1962025316455696,
+        -0.4810126582278481
+      ],
+      "anchor": [
+        0.5,
+        0.0
+      ]
+    }
+  },
+  "equipment": {
+    "m2:equipment.sword": "sword",
+    "m2:equipment.spear": "spear",
+    "m2:equipment.axe": "axe",
+    "m2:equipment.bow": "bow",
+    "m2:equipment.shield": "shield",
+    "m2:equipment.padded": "padded",
+    "m2:equipment.mail": "mail",
+    "m2:equipment.helmet": "helmet"
+  }
+}

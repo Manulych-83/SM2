@@ -148,6 +148,6 @@ func to_data(catalog_fingerprint: String) -> Dictionary:
 		data["development"] = development.to_data()
 		if development.catalog.has_body_functions(): data["body_changes"]=body_changes.duplicate(true)
 	if survival!=null:
-		data.schema_version=19; data.ruleset=Sm2SurvivalBattle.RULESET
+		data.schema_version=survival.catalog.battle_schema(); data.ruleset=survival.catalog.battle_ruleset()
 		data["survival"]=survival.to_data(); data["survival_initial"]=survival_initial
 	return data

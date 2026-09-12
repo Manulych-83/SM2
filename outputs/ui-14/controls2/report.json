@@ -1,0 +1,10 @@
+{
+	"checks": 85,
+	"failures": [
+		"controls scenario timeout",
+		"res://tests/controls_ui.gd:88 _run: Invalid access to property or key 'text' on a base object of type 'null instance'.",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: controls scenario timeout"
+	],
+	"passed": false,
+	"rendered": true
+}

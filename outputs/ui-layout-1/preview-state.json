@@ -1,0 +1,1442 @@
+{
+	"impulse_preview": {
+		"absorbed": 0,
+		"allowed": true,
+		"ap_cost": 4,
+		"base_damage": 12,
+		"channel": "psionic",
+		"cost_calculation": {
+			"base": 6,
+			"bonus": 0,
+			"sources": [],
+			"total": 6
+		},
+		"damage": 12,
+		"damage_calculation": {
+			"base": 12,
+			"bonus": 0,
+			"maximum": 10000,
+			"terms": [
+				{
+					"amount": 0,
+					"baseline": 6,
+					"denominator": 1,
+					"effective": 6,
+					"name": "Псионика",
+					"nodes": 0,
+					"numerator": 2,
+					"own": 1,
+					"sources": [
+						{
+							"amount": 5,
+							"denominator": 2,
+							"name": "Резонанс",
+							"numerator": 1,
+							"source_value": 10
+						}
+					],
+					"track_id": "p1:skill.psionics"
+				}
+			],
+			"total": 12,
+			"unclamped": 12
+		},
+		"fatigue_cost": 0,
+		"hp_loss": 12,
+		"kind": "spell",
+		"lethal": false,
+		"mana_cost": 6,
+		"name": "Пси-импульс",
+		"reason": "",
+		"resistance": 0
+	},
+	"purpose": "layout proposal, not shipped UI",
+	"read_only": true,
+	"size": "2560x1440",
+	"state": {
+		"active_actor_id": 1,
+		"actors": [
+			{
+				"abilities": [
+					"m2:ability.shieldwall",
+					"m2:ability.sword_strike",
+					"p4:ability.hand_strike",
+					"p4:ability.sever_left",
+					"p4:ability.sever_right",
+					"p4:ability.shield_hand_strike",
+					"p5:ability.impulse",
+					"p5:ability.shield"
+				],
+				"activation_started": true,
+				"actor_id": 1,
+				"alive": true,
+				"anatomy": {
+					"blood": 5000,
+					"death": "",
+					"format": "sm2.anatomy.2",
+					"layers": {
+						"brain": {
+							"organ": 15
+						},
+						"head": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"heart": {
+							"organ": 20
+						},
+						"left_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"left_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"right_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"right_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"torso": {
+							"bone": 18,
+							"muscle": 30,
+							"skin": 12
+						}
+					},
+					"next_wound": 1,
+					"remainder": 0,
+					"tissues": {
+						"brain": 15,
+						"head": 30,
+						"heart": 20,
+						"left_hand": 30,
+						"left_leg": 40,
+						"right_hand": 30,
+						"right_leg": 40,
+						"torso": 60
+					},
+					"wounds": []
+				},
+				"ap": 9,
+				"ap_max": 9,
+				"bandage_ap": 4,
+				"barrier": {},
+				"body_functions": {
+					"format": "sm2.body_functions.2",
+					"parts": [
+						{
+							"id": "left_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						},
+						{
+							"id": "right_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						}
+					]
+				},
+				"combat": {
+					"hp": 60,
+					"items": [
+						{
+							"ammo": 0,
+							"current": 0,
+							"definition_id": "m2:equipment.sword",
+							"item_id": "1",
+							"slot": "weapon"
+						},
+						{
+							"ammo": 0,
+							"current": 24,
+							"definition_id": "m2:equipment.shield",
+							"item_id": "2",
+							"slot": "shield"
+						},
+						{
+							"ammo": 0,
+							"current": 50,
+							"definition_id": "m2:equipment.padded",
+							"item_id": "3",
+							"slot": "body"
+						},
+						{
+							"ammo": 0,
+							"current": 40,
+							"definition_id": "m2:equipment.helmet",
+							"item_id": "4",
+							"slot": "head"
+						}
+					],
+					"shieldwall_source": "0",
+					"shieldwall_until_round": "0",
+					"shieldwall_used": false
+				},
+				"controller": "player",
+				"creator": 0,
+				"development": {
+					"attacks": {
+						"m2:ability.sword_strike": 0,
+						"p4:ability.hand_strike": 0,
+						"p4:ability.punch": 0,
+						"p4:ability.sever_left": 0,
+						"p4:ability.sever_right": 0,
+						"p4:ability.shield_hand_strike": 0,
+						"p5:ability.impulse": 0,
+						"p5:ability.psionic_strike": 0,
+						"p5:ability.shield": 0
+					},
+					"body_id": 2,
+					"knowledge": [
+						"Основы перевязки"
+					],
+					"melee_bonus": 0,
+					"nodes": [
+						{
+							"allowed": false,
+							"bonus": 2,
+							"cost": 60,
+							"id": "p1:node.melee_1",
+							"min_level": 2,
+							"name": "Постановка удара",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Ближний бой"
+						},
+						{
+							"allowed": false,
+							"bonus": 2,
+							"cost": 120,
+							"id": "p1:node.melee_2",
+							"min_level": 3,
+							"name": "Связка ударов",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Ближний бой"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p1:node.strength_1",
+							"min_level": 11,
+							"name": "Крепкая основа",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Мощь"
+						},
+						{
+							"allowed": false,
+							"bonus": 2,
+							"cost": 150,
+							"id": "p1:node.strength_2",
+							"min_level": 12,
+							"name": "Развитая мускулатура",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Мощь"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p4a:node.intellect",
+							"min_level": 11,
+							"name": "Системный анализ",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Интеллект"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p4a:node.motorics",
+							"min_level": 11,
+							"name": "Координация",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Моторика"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p4a:node.perception",
+							"min_level": 11,
+							"name": "Внимательное наблюдение",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Восприятие"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p4a:node.resilience",
+							"min_level": 11,
+							"name": "Размеренный темп",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Стойкость"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p4a:node.resonance",
+							"min_level": 11,
+							"name": "Различение пси-сигнала",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Резонанс"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p4a:node.synchronization",
+							"min_level": 11,
+							"name": "Устойчивая обратная связь",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Синхронизация"
+						},
+						{
+							"allowed": false,
+							"bonus": 1,
+							"cost": 70,
+							"id": "p4a:node.will",
+							"min_level": 11,
+							"name": "Устойчивое внимание",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Воля"
+						},
+						{
+							"allowed": false,
+							"bonus": 0,
+							"cost": 100,
+							"id": "p4s:node.attentive",
+							"min_level": 2,
+							"name": "Внимательный осмотр",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Поиск"
+						},
+						{
+							"allowed": false,
+							"bonus": 0,
+							"cost": 100,
+							"id": "p5:node.impulse",
+							"min_level": 1,
+							"name": "Пси-импульс",
+							"owned": true,
+							"reason": "nodes_in_camp",
+							"track_name": "Псионика"
+						},
+						{
+							"allowed": false,
+							"bonus": 0,
+							"cost": 70,
+							"id": "p5:node.psionic_strike",
+							"min_level": 2,
+							"name": "Псионический удар",
+							"owned": false,
+							"reason": "nodes_in_camp",
+							"track_name": "Ближний бой"
+						},
+						{
+							"allowed": false,
+							"bonus": 0,
+							"cost": 100,
+							"id": "p5:node.shield",
+							"min_level": 1,
+							"name": "Псионический щит",
+							"owned": true,
+							"reason": "nodes_in_camp",
+							"track_name": "Псионика"
+						}
+					],
+					"role": "hero",
+					"tracks": [
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 6,
+							"id": "p1:skill.melee",
+							"kind": "skill",
+							"level": 1,
+							"name": "Ближний бой",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [
+								{
+									"amount": 5,
+									"denominator": 2,
+									"name": "Мощь",
+									"numerator": 1,
+									"source_value": 10
+								}
+							],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 200,
+							"effective": 6,
+							"id": "p1:skill.psionics",
+							"kind": "skill",
+							"level": 1,
+							"name": "Псионика",
+							"needed": 150,
+							"node_bonus": 0,
+							"nodes": [
+								"p5:node.impulse",
+								"p5:node.shield"
+							],
+							"progress": 100,
+							"sources": [
+								{
+									"amount": 5,
+									"denominator": 2,
+									"name": "Резонанс",
+									"numerator": 1,
+									"source_value": 10
+								}
+							],
+							"spent": 200
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p1:stat.strength",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Мощь",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.intellect",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Интеллект",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.motorics",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Моторика",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.perception",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Восприятие",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.resilience",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Стойкость",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.resonance",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Резонанс",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.synchronization",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Синхронизация",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.will",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Воля",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 1,
+							"id": "p4s:skill.search",
+							"kind": "skill",
+							"level": 1,
+							"name": "Поиск",
+							"needed": 100,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						}
+					],
+					"world_id": "p4:43d094a204ba12e8b9c3ca664079bf8a:encounter:1"
+				},
+				"display_name": "Герой",
+				"effect_actions": [],
+				"effect_profile": {
+					"actions": [],
+					"id": "p4:loadout.actor.1",
+					"immunities": [],
+					"resistances": {}
+				},
+				"effects": [],
+				"fatigue": 0,
+				"fatigue_max": 73,
+				"hp_max": 60,
+				"hybrids": [],
+				"initiative": 88,
+				"loadout_id": "p4:loadout.actor.1",
+				"magic_profile": {
+					"arcane_resistance": 0,
+					"id": "p4:loadout.actor.1",
+					"mana_max": 12,
+					"mana_per_round": 3,
+					"spells": [
+						"p5:ability.impulse",
+						"p5:ability.shield"
+					]
+				},
+				"mana": 12,
+				"melee_stat": {
+					"base": 70,
+					"flat": 0,
+					"morale_percent": 100,
+					"sources": [],
+					"value": 70
+				},
+				"morale": "steady",
+				"on_field": true,
+				"owner": "player",
+				"psionic": true,
+				"q": 1,
+				"r": 1,
+				"reactions_left": 1,
+				"round_fatigue": 0,
+				"round_morale": "steady",
+				"side": "company",
+				"spells": [
+					{
+						"ap_cost": 4,
+						"channel": "psionic",
+						"damage": 12,
+						"fatigue_cost": 0,
+						"id": "p5:ability.impulse",
+						"mana_cost": 6,
+						"name": "Пси-импульс",
+						"operation": "direct_hp_damage",
+						"range_max": 4,
+						"range_min": 1,
+						"target_side": "enemy"
+					},
+					{
+						"ap_cost": 4,
+						"capacity": 18,
+						"channel": "psionic",
+						"fatigue_cost": 0,
+						"id": "p5:ability.shield",
+						"mana_cost": 6,
+						"name": "Псионический щит",
+						"operation": "self_barrier",
+						"range_max": 1,
+						"range_min": 1,
+						"target_side": "self"
+					}
+				],
+				"stats": {
+					"melee_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"melee_skill": {
+						"base": 70,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 70
+					},
+					"ranged_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"ranged_skill": {
+						"base": 30,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 30
+					}
+				},
+				"turn_done": false,
+				"upgrade_attack_fatigue": 0,
+				"wait_used": false
+			},
+			{
+				"abilities": [
+					"m2:ability.shieldwall",
+					"m2:ability.sword_strike",
+					"p4:ability.hand_strike",
+					"p4:ability.sever_left",
+					"p4:ability.sever_right",
+					"p4:ability.shield_hand_strike"
+				],
+				"activation_started": false,
+				"actor_id": 2,
+				"alive": true,
+				"anatomy": {
+					"blood": 5000,
+					"death": "",
+					"format": "sm2.anatomy.2",
+					"layers": {
+						"brain": {
+							"organ": 15
+						},
+						"head": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"heart": {
+							"organ": 20
+						},
+						"left_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"left_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"right_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"right_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"torso": {
+							"bone": 18,
+							"muscle": 30,
+							"skin": 12
+						}
+					},
+					"next_wound": 1,
+					"remainder": 0,
+					"tissues": {
+						"brain": 15,
+						"head": 30,
+						"heart": 20,
+						"left_hand": 30,
+						"left_leg": 40,
+						"right_hand": 30,
+						"right_leg": 40,
+						"torso": 60
+					},
+					"wounds": []
+				},
+				"ap": 9,
+				"ap_max": 9,
+				"bandage_ap": 4,
+				"barrier": {},
+				"body_functions": {
+					"format": "sm2.body_functions.2",
+					"parts": [
+						{
+							"id": "left_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						},
+						{
+							"id": "right_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						}
+					]
+				},
+				"combat": {
+					"hp": 60,
+					"items": [
+						{
+							"ammo": 0,
+							"current": 0,
+							"definition_id": "m2:equipment.sword",
+							"item_id": "5",
+							"slot": "weapon"
+						},
+						{
+							"ammo": 0,
+							"current": 24,
+							"definition_id": "m2:equipment.shield",
+							"item_id": "6",
+							"slot": "shield"
+						},
+						{
+							"ammo": 0,
+							"current": 50,
+							"definition_id": "m2:equipment.padded",
+							"item_id": "7",
+							"slot": "body"
+						},
+						{
+							"ammo": 0,
+							"current": 40,
+							"definition_id": "m2:equipment.helmet",
+							"item_id": "8",
+							"slot": "head"
+						}
+					],
+					"shieldwall_source": "0",
+					"shieldwall_until_round": "0",
+					"shieldwall_used": false
+				},
+				"controller": "player",
+				"creator": 0,
+				"development": {
+					"attacks": {
+						"m2:ability.sword_strike": 0,
+						"p4:ability.hand_strike": 0,
+						"p4:ability.punch": 0,
+						"p4:ability.sever_left": 0,
+						"p4:ability.sever_right": 0,
+						"p4:ability.shield_hand_strike": 0,
+						"p5:ability.impulse": 0,
+						"p5:ability.psionic_strike": 0,
+						"p5:ability.shield": 0
+					},
+					"body_id": 4,
+					"growth": {
+						"earned": 0,
+						"level": 1,
+						"needed": 100,
+						"progress": 0
+					},
+					"knowledge": [],
+					"melee_bonus": 0,
+					"nodes": [],
+					"role": "companion",
+					"tracks": [
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p1:stat.strength",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Мощь",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.motorics",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Моторика",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.resilience",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Стойкость",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.intellect",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Интеллект",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.perception",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Восприятие",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.will",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Воля",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.resonance",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Резонанс",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						},
+						{
+							"available": 0,
+							"earned": 0,
+							"effective": 10,
+							"id": "p4a:stat.synchronization",
+							"kind": "attribute",
+							"level": 10,
+							"name": "Синхронизация",
+							"needed": 1,
+							"node_bonus": 0,
+							"nodes": [],
+							"progress": 0,
+							"sources": [],
+							"spent": 0
+						}
+					],
+					"world_id": "p4:43d094a204ba12e8b9c3ca664079bf8a:encounter:1"
+				},
+				"display_name": "Спутник",
+				"effect_actions": [],
+				"effect_profile": {
+					"actions": [],
+					"id": "p4:loadout.actor.2",
+					"immunities": [],
+					"resistances": {}
+				},
+				"effects": [],
+				"fatigue": 0,
+				"fatigue_max": 73,
+				"hp_max": 60,
+				"hybrids": [],
+				"initiative": 88,
+				"loadout_id": "p4:loadout.actor.2",
+				"magic_profile": {
+					"arcane_resistance": 0,
+					"id": "p4:loadout.actor.2",
+					"mana_max": 0,
+					"mana_per_round": 0,
+					"spells": []
+				},
+				"mana": 0,
+				"melee_stat": {
+					"base": 70,
+					"flat": 0,
+					"morale_percent": 100,
+					"sources": [],
+					"value": 70
+				},
+				"morale": "steady",
+				"on_field": true,
+				"owner": "player",
+				"psionic": true,
+				"q": 1,
+				"r": 3,
+				"reactions_left": 1,
+				"round_fatigue": 0,
+				"round_morale": "steady",
+				"side": "company",
+				"spells": [],
+				"stats": {
+					"melee_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"melee_skill": {
+						"base": 70,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 70
+					},
+					"ranged_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"ranged_skill": {
+						"base": 30,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 30
+					}
+				},
+				"turn_done": false,
+				"upgrade_attack_fatigue": 0,
+				"wait_used": false
+			},
+			{
+				"abilities": [
+					"m2:ability.shieldwall",
+					"m2:ability.sword_strike",
+					"p4:ability.hand_strike",
+					"p4:ability.sever_left",
+					"p4:ability.sever_right",
+					"p4:ability.shield_hand_strike"
+				],
+				"activation_started": false,
+				"actor_id": 3,
+				"alive": true,
+				"anatomy": {
+					"blood": 5000,
+					"death": "",
+					"format": "sm2.anatomy.2",
+					"layers": {
+						"brain": {
+							"organ": 15
+						},
+						"head": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"heart": {
+							"organ": 20
+						},
+						"left_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"left_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"right_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"right_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"torso": {
+							"bone": 18,
+							"muscle": 30,
+							"skin": 12
+						}
+					},
+					"next_wound": 1,
+					"remainder": 0,
+					"tissues": {
+						"brain": 15,
+						"head": 30,
+						"heart": 20,
+						"left_hand": 30,
+						"left_leg": 40,
+						"right_hand": 30,
+						"right_leg": 40,
+						"torso": 60
+					},
+					"wounds": []
+				},
+				"ap": 9,
+				"ap_max": 9,
+				"bandage_ap": 4,
+				"barrier": {},
+				"body_functions": {
+					"format": "sm2.body_functions.2",
+					"parts": [
+						{
+							"id": "left_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						},
+						{
+							"id": "right_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						}
+					]
+				},
+				"combat": {
+					"hp": 60,
+					"items": [
+						{
+							"ammo": 0,
+							"current": 0,
+							"definition_id": "m2:equipment.sword",
+							"item_id": "9",
+							"slot": "weapon"
+						},
+						{
+							"ammo": 0,
+							"current": 24,
+							"definition_id": "m2:equipment.shield",
+							"item_id": "10",
+							"slot": "shield"
+						},
+						{
+							"ammo": 0,
+							"current": 50,
+							"definition_id": "m2:equipment.padded",
+							"item_id": "11",
+							"slot": "body"
+						},
+						{
+							"ammo": 0,
+							"current": 40,
+							"definition_id": "m2:equipment.helmet",
+							"item_id": "12",
+							"slot": "head"
+						}
+					],
+					"shieldwall_source": "0",
+					"shieldwall_until_round": "0",
+					"shieldwall_used": false
+				},
+				"controller": "ai",
+				"creator": 0,
+				"effect_actions": [],
+				"effect_profile": {
+					"actions": [],
+					"id": "p4:loadout.actor.3",
+					"immunities": [],
+					"resistances": {}
+				},
+				"effects": [],
+				"fatigue": 0,
+				"fatigue_max": 73,
+				"hp_max": 60,
+				"hybrids": [],
+				"initiative": 88,
+				"loadout_id": "p4:loadout.actor.3",
+				"magic_profile": {
+					"arcane_resistance": 0,
+					"id": "p4:loadout.actor.3",
+					"mana_max": 0,
+					"mana_per_round": 0,
+					"spells": []
+				},
+				"mana": 0,
+				"morale": "steady",
+				"on_field": true,
+				"owner": "enemy",
+				"psionic": true,
+				"q": 4,
+				"r": 1,
+				"reactions_left": 1,
+				"round_fatigue": 0,
+				"round_morale": "steady",
+				"side": "opposition",
+				"spells": [],
+				"stats": {
+					"melee_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"melee_skill": {
+						"base": 70,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 70
+					},
+					"ranged_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"ranged_skill": {
+						"base": 30,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 30
+					}
+				},
+				"turn_done": false,
+				"upgrade_attack_fatigue": 0,
+				"wait_used": false
+			},
+			{
+				"abilities": [
+					"m2:ability.shieldwall",
+					"m2:ability.sword_strike",
+					"p4:ability.hand_strike",
+					"p4:ability.sever_left",
+					"p4:ability.sever_right",
+					"p4:ability.shield_hand_strike"
+				],
+				"activation_started": false,
+				"actor_id": 4,
+				"alive": true,
+				"anatomy": {
+					"blood": 5000,
+					"death": "",
+					"format": "sm2.anatomy.2",
+					"layers": {
+						"brain": {
+							"organ": 15
+						},
+						"head": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"heart": {
+							"organ": 20
+						},
+						"left_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"left_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"right_hand": {
+							"bone": 9,
+							"muscle": 15,
+							"skin": 6
+						},
+						"right_leg": {
+							"bone": 12,
+							"muscle": 20,
+							"skin": 8
+						},
+						"torso": {
+							"bone": 18,
+							"muscle": 30,
+							"skin": 12
+						}
+					},
+					"next_wound": 1,
+					"remainder": 0,
+					"tissues": {
+						"brain": 15,
+						"head": 30,
+						"heart": 20,
+						"left_hand": 30,
+						"left_leg": 40,
+						"right_hand": 30,
+						"right_leg": 40,
+						"torso": 60
+					},
+					"wounds": []
+				},
+				"ap": 9,
+				"ap_max": 9,
+				"bandage_ap": 4,
+				"barrier": {},
+				"body_functions": {
+					"format": "sm2.body_functions.2",
+					"parts": [
+						{
+							"id": "left_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						},
+						{
+							"id": "right_hand",
+							"missing": false,
+							"prosthesis_id": "",
+							"working": true
+						}
+					]
+				},
+				"combat": {
+					"hp": 60,
+					"items": [
+						{
+							"ammo": 0,
+							"current": 0,
+							"definition_id": "m2:equipment.sword",
+							"item_id": "13",
+							"slot": "weapon"
+						},
+						{
+							"ammo": 0,
+							"current": 24,
+							"definition_id": "m2:equipment.shield",
+							"item_id": "14",
+							"slot": "shield"
+						},
+						{
+							"ammo": 0,
+							"current": 50,
+							"definition_id": "m2:equipment.padded",
+							"item_id": "15",
+							"slot": "body"
+						},
+						{
+							"ammo": 0,
+							"current": 40,
+							"definition_id": "m2:equipment.helmet",
+							"item_id": "16",
+							"slot": "head"
+						}
+					],
+					"shieldwall_source": "0",
+					"shieldwall_until_round": "0",
+					"shieldwall_used": false
+				},
+				"controller": "ai",
+				"creator": 0,
+				"effect_actions": [],
+				"effect_profile": {
+					"actions": [],
+					"id": "p4:loadout.actor.4",
+					"immunities": [],
+					"resistances": {}
+				},
+				"effects": [],
+				"fatigue": 0,
+				"fatigue_max": 73,
+				"hp_max": 60,
+				"hybrids": [],
+				"initiative": 88,
+				"loadout_id": "p4:loadout.actor.4",
+				"magic_profile": {
+					"arcane_resistance": 0,
+					"id": "p4:loadout.actor.4",
+					"mana_max": 0,
+					"mana_per_round": 0,
+					"spells": []
+				},
+				"mana": 0,
+				"morale": "steady",
+				"on_field": true,
+				"owner": "enemy",
+				"psionic": true,
+				"q": 4,
+				"r": 3,
+				"reactions_left": 1,
+				"round_fatigue": 0,
+				"round_morale": "steady",
+				"side": "opposition",
+				"spells": [],
+				"stats": {
+					"melee_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"melee_skill": {
+						"base": 70,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 70
+					},
+					"ranged_defense": {
+						"base": 5,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 5
+					},
+					"ranged_skill": {
+						"base": 30,
+						"flat": 0,
+						"morale_percent": 100,
+						"sources": [],
+						"value": 30
+					}
+				},
+				"turn_done": false,
+				"upgrade_attack_fatigue": 0,
+				"wait_used": false
+			}
+		],
+		"battle_id": "p4:43d094a204ba12e8b9c3ca664079bf8a:encounter:1",
+		"deferred_queue": [],
+		"field": {
+			"default_elevation": 0,
+			"default_surface_id": "p2:surface.ground",
+			"height": 5,
+			"id": "p2:field.clearing",
+			"surfaces": [
+				{
+					"ap_cost": 2,
+					"fatigue_cost": 4,
+					"id": "p2:surface.ground"
+				}
+			],
+			"tiles": [],
+			"version": "p2.1",
+			"width": 7
+		},
+		"finish_reason": "",
+		"finished": false,
+		"main_queue": [
+			1,
+			2,
+			3,
+			4
+		],
+		"phase": "main",
+		"revision": 0,
+		"round": 1,
+		"round_limit": 60,
+		"ruleset": "sm2.p5.hybrid_encounter.1",
+		"scenario_id": "p4:scenario.encounter.1",
+		"sides": [
+			"company",
+			"opposition"
+		],
+		"winner": null
+	}
+}

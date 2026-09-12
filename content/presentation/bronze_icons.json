@@ -1,0 +1,7 @@
+{
+  "texture":"res://assets/ui_bronze/action_atlas.png",
+  "columns":4,
+  "rows":4,
+  "regions":{"impulse":5,"spear":6,"shield":7,"bow":8,"wait":9,"move":10,"split_shield":11,"escape":15},
+  "accents":{"p5:ability.impulse":"psi","p5:ability.shield":"psi","p5:ability.psionic_strike":"psi"}
+}

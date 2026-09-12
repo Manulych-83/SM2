@@ -6,6 +6,11 @@ const MAX_COUNTER: int = 9223372036854775806
 static func extra_fatigue(state: Sm2TacticalState,actor_id: int) -> int:
 	return state.development.extra_attack_fatigue(actor_id) if state.development!=null else 0
 
+static func costs(state: Sm2TacticalState, ability: Sm2CombatAbility, actor_id: int, reaction: bool = false) -> Dictionary:
+	return {"ap_cost": 0 if reaction else ability.ap_cost,
+		"fatigue_cost": (5 if reaction else ability.fatigue_cost) + extra_fatigue(state,actor_id) if ability.mode != "self" else ability.fatigue_cost,
+		"ammo_cost": ability.ammo_cost}
+
 static func available_abilities(actor: Sm2TacticalActor, catalog: Sm2CombatCatalog, state: Sm2TacticalState=null) -> Array[String]:
 	var result: Array[String] = []
 	if actor.combat == null:
@@ -72,8 +77,9 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 		result["mana_cost"]=hybrid.mana_cost
 		result["cost_calculation"]=hybrid.cost_calculation
 		if not state.mana.has(command.actor_id) or state.mana[command.actor_id].current<int(hybrid.mana_cost): return _deny(result,"insufficient_concentration")
-	var ap_cost: int = 0 if reaction else ability.ap_cost
-	var fatigue_cost: int = (5 if reaction else ability.fatigue_cost)+extra_fatigue(state,command.actor_id) if ability.mode!="self" else ability.fatigue_cost
+	var price: Dictionary = costs(state,ability,command.actor_id,reaction)
+	var ap_cost: int = int(price.ap_cost)
+	var fatigue_cost: int = int(price.fatigue_cost)
 	if not position_only and source.spatial.ap < ap_cost:
 		return _deny(result, "insufficient_ap")
 	if not position_only and source.spatial.fatigue_max - source.spatial.fatigue < fatigue_cost:
@@ -241,7 +247,7 @@ static func resolve(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 				# Barrier is spent in channel order; psionic damage cannot create a cut.
 				var physical: int=Sm2BarrierRules.absorb(target,int(losses.hp_loss),events)
 				var psionic: int=Sm2BarrierRules.absorb(target,int(hybrid.get("psionic_damage",0)),events)
-				Sm2HpApplication.apply(state,target,command.actor_id,physical,events,hit_part,ability.mode in ["melee","ranged"] and not ability.id.contains("unarmed"))
+				Sm2HpApplication.apply(state,target,command.actor_id,physical,events,hit_part,ability.mode in ["melee","ranged"] and not ability.id.contains("unarmed"),target.body_catalog!=null and target.body_catalog.severs(ability.id))
 				if target.spatial.alive: Sm2HpApplication.apply(state,target,command.actor_id,psionic,events,hit_part,false)
 				losses.hp_loss=physical+psionic
 			else:

@@ -1,0 +1,333 @@
+﻿[2026-09-12T12:09:04.0397418+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\survival\workspace-final2\.local\ui-checks\20260912-120903-898
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T12:09:04.0877917+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2\.local\survival\workspace-final2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\survival\workspace-final2\.local\ui-checks\20260912-120903-898
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Регистрация глобальных классов… (294 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Sm2AbilityParameterText[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleReplay[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleRunner[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | Sm2HeroDevelopmentView[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | Sm2JourneySession[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | Sm2LifeSession[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | Sm2M1Scenario[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | Sm2OutcomeLedger[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressSession[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | Sm2Session[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalWorkspaceView[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalSession[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | Sm2AiContentLoader[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | Sm2AiManifest[39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatContentLoader[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatContentManifest[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectContentLoader[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectManifest[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | Sm2AreaContentLoader[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | Sm2MagicContentLoader[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | Sm2MagicManifest[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | Sm2DevelopmentContentLoader[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | Sm2DevelopmentManifest[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressContentLoader[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressManifest[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | Sm2CellOverrideContent[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | Sm2FieldContentLoader[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | Sm2FieldManifest[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | Sm2SpawnMarkerContent[39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | Sm2SurfaceContent[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnAssignmentContent[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnContentLoader[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnContentManifest[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnEquipmentContent[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnLoadoutContent[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnProfileContent[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnScenarioContent[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyContentLoader[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyUpgradeContentLoader[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | Sm2CareContentLoader[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | Sm2DiscoveryContentLoader[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | Sm2ExplorationContentLoader[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | Sm2HybridContentLoader[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | Sm2ImplantContentLoader[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | Sm2JourneyContentLoader[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | Sm2LifeContentLoader[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | Sm2LifeManifest[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | Sm2PartyContentLoader[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | Sm2ProsthesisContentLoader[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | Sm2PsionicContentLoader[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | Sm2PsionicGrowthContentLoader[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | Sm2PsionicShieldContentLoader[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | Sm2RegionContentLoader[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | Sm2SearchContentLoader[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalContentLoader[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | Sm2AbilityContent[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | Sm2ActorContent[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | Sm2ContentLoader[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | Sm2ContentManifest[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | Sm2StatusContent[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | Sm2WeaponContent[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | Sm2AbilityAi[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | Sm2AiEffectAssessment[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | Sm2AiProfile[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | Sm2AiQueries[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | Sm2AiWorkBudget[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalAi[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | Sm2AbilityHandler[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | Sm2DamageHandler[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | Sm2PoisonHandler[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | Sm2SummonHandler[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | Sm2ActorState[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleEngine[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleSnapshot[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleState[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | Sm2Command[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | Sm2CommandResult[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectState[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | Sm2ItemState[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | Sm2Anatomy[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyCapabilityQuery[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyFunctionCatalog[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyFunctionRules[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyFunctionState[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyUpgradeCatalog[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyUpgradeState[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | Sm2BodyUpgradeSupply[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | Sm2CareCatalog[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | Sm2CareState[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | Sm2PhysicalInventory[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | Sm2PhysicalSupplies[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | Sm2ProsthesisInventory[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalBattle[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalCatalog[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalDevices[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalState[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | Sm2TissueLayers[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | Sm2AttackResolver[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleDice[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleOutcome[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | Sm2Combatant[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatAbility[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatCatalog[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatGear[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatItem[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatProfile[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatSnapshot[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | Sm2ConsequenceContext[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | Sm2DepartureResolver[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | Sm2HpApplication[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | Sm2HybridQuery[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | Sm2MoraleResolver[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | Sm2RetreatPolicy[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | Sm2Canonical[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | Sm2DeterministicRng[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | Sm2Validate[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | Sm2AbilityDefinition[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | Sm2ActorDefinition[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | Sm2Catalog[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | Sm2StatusDefinition[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnCatalog[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnDefinition[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | Sm2WeaponDefinition[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatStatQuery[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectAction[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectCatalog[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectDefinition[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectInstance[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectOperation[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectResolver[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | Sm2EffectSnapshot[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | Sm2AreaGeometry[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | Sm2AreaSpellResolver[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | Sm2BarrierResolver[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | Sm2BarrierRules[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | Sm2BarrierState[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | Sm2MagicCatalog[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | Sm2MagicProfile[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | Sm2MagicSnapshot[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | Sm2ManaPool[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | Sm2ManaResolver[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | Sm2SpellDefinition[39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | Sm2SpellResolver[39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | Sm2FieldSession[39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | Sm2MovementResolver[39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | Sm2SpatialActor[39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | Sm2AbilityParameterQuery[39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleDevelopment[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | Sm2CompanionProgress[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | Sm2DevelopmentCatalog[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | Sm2DevelopmentSnapshot[39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | Sm2EncounterOrigin[39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | Sm2HybridCatalog[39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | Sm2IncarnationRecord[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | Sm2PracticeCapability[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | Sm2PracticeDefinition[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressBodyState[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressCatalog[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressCommand[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressLab[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressLabState[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressNodeDefinition[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressRules[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressSnapshot[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressTrackDefinition[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressTrackState[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | Sm2PsionicCatalog[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | Sm2PsionicCostQuery[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | Sm2SoulState[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | Sm2Battlefield[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | Sm2Hex[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | Sm2SpatialQueries[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalActor[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalBattle[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalSnapshot[39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalState[39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnScheduler[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | Sm2EncounterFactory[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | Sm2ExplorationCatalog[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | Sm2ExplorationState[39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | Sm2JourneyWorld[39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | Sm2LifeDefinition[39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | Sm2LifeWorld[39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | Sm2RegionCatalog[39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | Sm2RegionState[39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | Sm2WorldBody[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | Sm2WorldCommand[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | Sm2SaveStore[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | Sm2AttributeScreen[39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleProgressPanel[39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleScreen[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleText[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | Sm2HeroDevelopmentScreen[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | Sm2HexBoard[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | Sm2LifeScreen[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressScreen[39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalPanel[39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | Sm2SurvivalWorkspace[39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | Sm2CombatFixtures[39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | Sm2ErrorCapture[39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | Sm2SpatialFixtures[39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | Sm2TestFixtures[39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | Sm2TestHarness[39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | Sm2TurnTestFixtures[39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | Sm2TestDomain[39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | Sm2TestSpatial[39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | Sm2TestTurnScheduler[39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  99% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-12T12:09:09.1069403+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --path E:\GPT\SM2\.local\survival\workspace-final2 --script res://tests/survival_workspace_ui.gd -- --output E:\GPT\SM2\.local\survival\workspace-final2\outputs\ui
+RuntimeRoot: E:\GPT\SM2\.local\survival\workspace-final2\.local\ui-checks\20260912-120903-898
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5080
+
+SM2_M3_UI_REPORT {"checks":401,"failures":[],"passed":true,"rendered":true}
+
+
+ExitCode: 0

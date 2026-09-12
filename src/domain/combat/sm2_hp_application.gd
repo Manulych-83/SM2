@@ -1,9 +1,9 @@
 class_name Sm2HpApplication
 extends RefCounted
 ## Apply already resolved HP loss; damage calculation remains in its own resolver.
-static func apply(state: Sm2TacticalState, target: Sm2TacticalActor, source_id: int, loss: int, events: Array[Dictionary], part: String = "", cut: bool = false) -> void:
+static func apply(state: Sm2TacticalState, target: Sm2TacticalActor, source_id: int, loss: int, events: Array[Dictionary], part: String = "", cut: bool = false, sever: bool = false) -> void:
 	if state.survival!=null:
-		Sm2SurvivalBattle.damage(state,target,source_id,loss,part,cut,events); return
+		Sm2SurvivalBattle.damage(state,target,source_id,loss,part,cut,events,sever); return
 	loss = mini(target.combat.hp,maxi(0,loss))
 	target.combat.hp -= loss
 	events.append({"type":"hp_damaged","target_actor_id":str(target.spatial.actor_id),"loss":loss,"remaining":target.combat.hp})

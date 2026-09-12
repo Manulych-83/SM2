@@ -84,7 +84,7 @@ func _check_action(command: Sm2WorldCommand) -> String:
 	if survival!=null:
 		var extra_error: String=survival.check_world(command,self)
 		if not extra_error.is_empty(): return extra_error
-		if command.kind in ["bandage","store_item","wear_item","drop_item"]:
+		if command.kind in ["bandage","store_item","wear_item","drop_item"] or (survival.catalog.has_devices() and command.kind in Sm2SurvivalDevices.COMMANDS):
 			return "Сначала выберите новое тело." if hero_id()==0 else ""
 	if region!=null:
 		var local_error: String=region.check(command,self)
@@ -241,7 +241,7 @@ func capture() -> Dictionary:
 		data.format="sm2.world.p6.region.1"; data.location_id=region.location_id
 		data["region"]=region.to_data()
 	if survival!=null:
-		data.format="sm2.world.survival.1"; data["survival"]=survival.to_data()
+		data.format="sm2.world.survival.3" if survival.catalog.has_layers() else "sm2.world.survival.2" if survival.catalog.has_devices() else "sm2.world.survival.1"; data["survival"]=survival.to_data()
 	return data
 
 func view() -> Dictionary:
@@ -304,7 +304,15 @@ func validate() -> String:
 	if survival!=null:
 		var checked: Dictionary=Sm2SurvivalState.decode(survival.to_data(),survival)
 		if not checked.ok: return str(checked.errors[0])
+		if survival.catalog.has_layers():
+			var supply_error: String=Sm2PhysicalSupplies.validate(survival,self)
+			if not supply_error.is_empty(): return supply_error
 		if survival.seconds!=region.seconds: return "survival_world_time"
+		if survival.catalog.has_devices():
+			for id: String in survival.bodies:
+				var functions: Sm2BodyFunctionState=bodies[int(id)].functions.copy()
+				Sm2SurvivalDevices.project_functions(survival,id,functions)
+				if Sm2Canonical.hash(functions.to_data())!=Sm2Canonical.hash(bodies[int(id)].functions.to_data()): return "survival_functions_mismatch"
 		for id: String in survival.bodies:
 			if bodies[int(id)].alive!=survival.bodies[id].cause(survival.catalog.to_data()).is_empty() or bodies[int(id)].hp!=survival.bodies[id].summary(survival.catalog.to_data()): return "survival_world_body"
 	if (region_catalog!=null)!=(region!=null): return "region_profile_state"

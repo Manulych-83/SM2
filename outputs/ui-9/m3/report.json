@@ -1,0 +1,11 @@
+{
+	"checks": 326,
+	"failures": [
+		"menu-minimum.png: inside screen CloseModesButton",
+		"menu-minimum.png: inside screen @ScrollContainer@171",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: menu-minimum.png: inside screen CloseModesButton",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: menu-minimum.png: inside screen @ScrollContainer@171"
+	],
+	"passed": false,
+	"rendered": true
+}

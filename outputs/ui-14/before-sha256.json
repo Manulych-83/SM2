@@ -1,0 +1,1610 @@
+[
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ability_ai.gd",
+    "Hash": "59FA686F998501C30CE2B9AD6C0813B59E7F0ED0694891CAD286F937A3B2821C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ability_ai.gd.uid",
+    "Hash": "4E666DF9183E35BA79512BF29E703D16EB258E6DCB88CBA1EC8445FA598E7C07"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_effect_assessment.gd",
+    "Hash": "5AD81F9B74818FDF9FA5E52221969E0146B77B4FD092FDFE86C5562DE23DF171"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_effect_assessment.gd.uid",
+    "Hash": "5FC383F4EA7D3C50EFCBF56935FFC64815E03799B991B1F5C76A555A9E166AF8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_profile.gd",
+    "Hash": "4094EE47C2AB50394C0ED3B32662AED39B1664F42673EB783DA0E7C4C4E0D8AF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_profile.gd.uid",
+    "Hash": "92C2B3972D0D9F0EE9AF0916318B39A35C5B918E341E40EE7FF5492C3BA6663F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_queries.gd",
+    "Hash": "CF40C9D339216EBED6A0E3A023FF6D79DCB6F5A544D572D34CF2FD2D1D14ABBF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_queries.gd.uid",
+    "Hash": "46DC7F2BA8BFFCFD2A4E68888F0ED42CE9C89BD26A98027C7D43BF9F6613584B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_work_budget.gd",
+    "Hash": "D91A6E45D55F74558E8652CE7D3765830AA4CF5315B999F47F409B100F7DC168"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_ai_work_budget.gd.uid",
+    "Hash": "98F75A2CFB319B1E243EFBE51CF8319C93AFA3700DB77CF8D38001380381B6DE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_tactical_ai.gd",
+    "Hash": "997DC5CEEE218CF984421A8E0871E8A2E82D6E8BB958B21A20E15D5F1D6463C4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\ai\\sm2_tactical_ai.gd.uid",
+    "Hash": "9BB3BBAFF14B20552E9DE76DC3C6EA5E890D59297219A3A69E35D3BEC0851CB2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_actor_state.gd",
+    "Hash": "4B75B96995190546173158DEF824ED9E5E0422779401903BFBED9643A95C7998"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_actor_state.gd.uid",
+    "Hash": "F867EC645E7B51218DD9704B85CFBB915275F7827359EBC9A1519C8A45E5B6A1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_battle_engine.gd",
+    "Hash": "0EF43F9A5AE427504834903973DE0DAB748F20A60493A794734A6FBCC7CF0A6E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_battle_engine.gd.uid",
+    "Hash": "B442838B6748A52475284FC32A78B336A9CE1F9FA38B3E044C6957C806AED064"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_battle_snapshot.gd",
+    "Hash": "0C8E81B478ABC041FF3AEAAD1BF5E8CF26C668A759ADB13E7918C3BAF4FD6631"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_battle_snapshot.gd.uid",
+    "Hash": "1997C6BF44D956B3950E9FBDF97724FADDD5CF7A339674A8A328D65B5BA89980"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_battle_state.gd",
+    "Hash": "80BBDD78A145DC9BD7DC18B39198B4E3852111184A872D22391F5C9A24CFF39E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_battle_state.gd.uid",
+    "Hash": "121A2A92CDEFA1508927B397F8FD97E48046035BFD4DBA36926F77BC4699533B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_command_result.gd",
+    "Hash": "4921699398DE77617F5F0816E90D58518C239452159A81459360F7718E865DD8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_command_result.gd.uid",
+    "Hash": "00E218513995E36EC40E572E9C77E4176CD8C261435F4AD601C489D59CAB51FD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_command.gd",
+    "Hash": "EA62D17E52D7F1609AD661CE99D4F9054933D161A2EE0E0DDF013F819D59DC6D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_command.gd.uid",
+    "Hash": "147E7C43E19302C770D7BEFD5C6559FA22570BB97603D9D27D534FB7A648D6A3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_effect_state.gd",
+    "Hash": "BD5D0F70468672050A60FDD3D0855336D47DDC763792144E19427B6F9EC2C2FF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_effect_state.gd.uid",
+    "Hash": "5356DB331DAE7E25D4C065428829C28B98D5AAAAAA47EDE68598B7BC8CC56C64"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_item_state.gd",
+    "Hash": "AE066FAF45C47877D5D2B53E09031DFEB3844BB00C1A4E6FA89FB152600797B4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\sm2_item_state.gd.uid",
+    "Hash": "BB43689AC59077419A92B0E9C7EBA2DE801FD7C9B9820864DD4D5E324B445FD7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_ability_handler.gd",
+    "Hash": "F3867697BA4A076A03C6D151905EAF9F1EA6F22FCBDA4834575C751434CF1055"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_ability_handler.gd.uid",
+    "Hash": "9880C3EAA273E8224C002F58CE993B345CBE7753774C92E95707128A756D4094"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_damage_handler.gd",
+    "Hash": "AF1E8FD8CA3DE29D64FC1F745FB5E57B0E71BFF30D1D1B572F706E4835E687A1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_damage_handler.gd.uid",
+    "Hash": "68BEC9566658A45E731A429F63693FF3278DACA15B228AC2A74F9E68F92B967B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_poison_handler.gd",
+    "Hash": "0BD89096AC77B7FDB49B68E1E4DE2F54C251A0F0D23C50722666FBEB0F1608F7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_poison_handler.gd.uid",
+    "Hash": "A74B7737E758D9EB89D2471828895915929A5FABC63BF2CFC3016E586B82717F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_summon_handler.gd",
+    "Hash": "F3D8AAE45104ABFFF0DE835B0071E4C5860C028E921DEB0AD8964807D9255979"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\battle\\handlers\\sm2_summon_handler.gd.uid",
+    "Hash": "8F6DCA2E822C850B69D59B6DDE4FAED8AECD8B6DBC89FFD820E61EBE9BB026E8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_anatomy.gd",
+    "Hash": "F6C0D05ECFB707D36D2947823D992EF3CDED65BEE64418D4A5342522F2881A1B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_anatomy.gd.uid",
+    "Hash": "796B91BEEE728341E814B229D93728A2E2AA691F45EDB4F556AD74800F0AB6B2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_capability_query.gd",
+    "Hash": "693968D15F5B2F9148EBA26E37A82D06784253652C11F843E237734F021DBBCE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_capability_query.gd.uid",
+    "Hash": "092E2FD3FE4A4A3E85D8C8249C53EE23D670B2890F515705E02F988B73EF6404"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_function_catalog.gd",
+    "Hash": "A53885EA180FBD93D8BE2CC523C4807F01DA6E2B126CED28AC6E2341A0740CEC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_function_catalog.gd.uid",
+    "Hash": "45FEEA6ED37FEEB4EE70B16D8644D31047AF2DE07B4C12C26C2EDDFDD3286CE4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_function_rules.gd",
+    "Hash": "549C51A801B805EE86E0B9FE0F25D00253C91552DB540E7CEE35EE8154B5F042"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_function_rules.gd.uid",
+    "Hash": "B669279C530A44BB6D84D40FC8A52983D896B7960218D7749EE1B46F8F454D73"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_function_state.gd",
+    "Hash": "2813379CD26DA0AE9EDB6A758D0D288730C22A9CDA6A4AF7AE191AE50CE0F2EF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_function_state.gd.uid",
+    "Hash": "6C7F1696AE97746A17E3CE139D5FA5FE23175BA857B016BD2BC3048250F9D451"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_upgrade_catalog.gd",
+    "Hash": "D930E344A83056EFB1EA4C667712B1981C91B557E3232436BA06E024DF4CA455"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_upgrade_catalog.gd.uid",
+    "Hash": "058F54BA6F48F20BA1E6E20988E270145348720C89C1CA79BD38134459D549C5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_upgrade_state.gd",
+    "Hash": "6EC30B0F75453D778417DF1CBEFDFDC70E544C1A30985DB326070976D3CF0044"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_upgrade_state.gd.uid",
+    "Hash": "E40E2DDBF3275E5217EE2ADFADA54574AF465109735757336A59BEF38344ACA0"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_upgrade_supply.gd",
+    "Hash": "5D580795B7ACF2C51E8D7F8F024B59DBBCAEF459AA84A16A44928B3DC328510E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_body_upgrade_supply.gd.uid",
+    "Hash": "05761DA482362F1C51DBE9E925948D5AC0BD2DC1E68FBC3FCF5F87733E32EFF8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_care_catalog.gd",
+    "Hash": "B66D1D295C1EA8FACB7AF7B291613F1FBE5D7A753FFE109E7B522D99A598CD50"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_care_catalog.gd.uid",
+    "Hash": "9EF11D4E0BCA7E359FFF346FA18A466C4735C133785E2711330E5CF36E5D8D11"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_care_state.gd",
+    "Hash": "B72116575BE27B9B591B775741CA6BA281501D64CAC2AA26F48C5F302D688798"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_care_state.gd.uid",
+    "Hash": "5988554C8C600FDAC275F160AFF62728D00FD6357625D2EB12340ACE26803F95"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_physical_inventory.gd",
+    "Hash": "3269761C04EED1ED49A8EBABEB35605BCD6D32855F4B6A045DF207080B47DEAD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_physical_inventory.gd.uid",
+    "Hash": "B6479F94081273AA01168D8774E524A50198E4D28A136D6863603C1BE32F98C4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_physical_supplies.gd",
+    "Hash": "634A8972D61A84292A83A93573BC75DB3FB4BA0A807B58937F02BDE9F2F5012E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_physical_supplies.gd.uid",
+    "Hash": "A97FA08A9706FBFC1E237D7906AFA1E55A647F3F5C2B28EE493CDC5BA5CAAC4F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_prosthesis_inventory.gd",
+    "Hash": "56485D3580B49016A081791296CB5207A53DEB78AB2836017599892EE9744B90"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_prosthesis_inventory.gd.uid",
+    "Hash": "F2F039C466F9A35BB588B3595620FBAE3EC39DF09F4A84F8995DC776F8073479"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_battle.gd",
+    "Hash": "7FB64FF38CB23F5E07C52734FA41642625362C481FD9FE1BF73586190345C571"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_battle.gd.uid",
+    "Hash": "39D4F73AC5A05D6C12B4A94D0F6EF114B339A89F5FCB5D9A1B23A500A3773F42"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_catalog.gd",
+    "Hash": "3BECEC31E494ECCDAFE56DEDB5D3795F97E2FB4CDF268CD6515054575AF9E695"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_catalog.gd.uid",
+    "Hash": "168765C50FAD1CC40CDDFB0FE9CE9ED6551D0108F05BC508EC93B7EEE661B6AA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_devices.gd",
+    "Hash": "ADDDE5FBFF6A33344E65084BFE56E5050E5F237886F9CC4B7F0F6365414F59A0"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_devices.gd.uid",
+    "Hash": "F68D30BC829E45EEAF6B30DF72F07BE7FDCAE149968D8D39534071554859CF28"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_state.gd",
+    "Hash": "071FFEE7ED3A79603F8872CDCCCAB126C10A8D1DFA5AB74395208E5CFACD20CE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_survival_state.gd.uid",
+    "Hash": "99F78B348BDBC7B6487311300A6CE3ED068FCF14752FD4F085CB5820D894A520"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_tissue_layers.gd",
+    "Hash": "8787E7B5B32B7B432393D39B7EC09896F9A2A157DE9FCB254E68CA00F54285A4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\body\\sm2_tissue_layers.gd.uid",
+    "Hash": "F80D860CC38F80DB1A4A57F272F632F3B47F79315F7D5DE8B925986C686D74E0"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_attack_resolver.gd",
+    "Hash": "9C9F753D2FA05E4A49F7D05C62132658D41BFCF9B7A86C71AC36FA6405361E84"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_attack_resolver.gd.uid",
+    "Hash": "ECA3CE0648B0643DBF34A1406DA910172E2503CD0FC5FD63F2CE32A475D1207C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_battle_dice.gd",
+    "Hash": "7370C1FC253ABD98809BC4C9082AFC32DED550CBC1D7FFC3067508F9CBDFBAF8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_battle_dice.gd.uid",
+    "Hash": "1C096A25541127763266EE8483BE0834B25C49477E5E31EA3E95C1A30D41A031"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_battle_outcome.gd",
+    "Hash": "2EB815828B1B2D19C3FD10DB22B6C37EE617299EFB97512AD439A4E1ABBAB5D9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_battle_outcome.gd.uid",
+    "Hash": "AE55D3DEDEFAA69A96CB4EF35D84338C0A0B99B18826513DAA8ADAF670B0E1FC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_ability.gd",
+    "Hash": "A0E37F6BC75FCF1AFDC4BFFC54B753F2707E8683DF25BE3302B4635803D0CC4C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_ability.gd.uid",
+    "Hash": "84685633600A7D855B99AD4382147B4D7A3FECB04086D60A7CFA909E481463C1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_catalog.gd",
+    "Hash": "32C61A75A1CBB11E271EDC35A8DFCC033EE1E18C50A4CE8F18E01D3BB40E0FDE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_catalog.gd.uid",
+    "Hash": "8B58D800169A2D546FC8493E844B3F904D382F94B520342AD84534C8C5FEFD06"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_gear.gd",
+    "Hash": "1D4E11CB7BB43B6E85D44C59CA2DF4C5CAE652AF36CD3DFEF3111772CD645AB2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_gear.gd.uid",
+    "Hash": "A098B0571935FF686408F2012A6E29A229F90AEA096212D4DD5BB9AD2DAA5239"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_item.gd",
+    "Hash": "5C058D048C598759F852AE0AFA3778A870F33B28FFE869EB04B4643553FA8E1A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_item.gd.uid",
+    "Hash": "425CDAF62594D8C9A77A7A1FA8706DBC3F51E9ADFDCC03947777C6AAE1D93CFB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_profile.gd",
+    "Hash": "0C54C5C2ECFF9723D36C5D242475AFCF4DE928FC329DD7DCDBE8476867963CF2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_profile.gd.uid",
+    "Hash": "868E46593D88C625B061B55D227628AF465C583F137F6C5BEC4E8C2C7ECFC6DE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_snapshot.gd",
+    "Hash": "2082F66010666729C3E4752964B5F8636F1C70264DA06CECF0ABE2AA219ACEFA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combat_snapshot.gd.uid",
+    "Hash": "2C557CD100D0DCFEFE80D58C92FC47B9263D24DA73837962513E35763D70C5E1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combatant.gd",
+    "Hash": "5DB2CACD05EDE46DF5422721D934C7AEA4325DF75A5DD7EB7667A35B28176F9C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_combatant.gd.uid",
+    "Hash": "4D6C203D5EDC07DE348862C5758868DE214B53DAEA83AFA9FD56B386A5C55DC2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_consequence_context.gd",
+    "Hash": "B34D31087C77AF6D628F6044668FD25EB2201308B199938A82A48B7AD860D151"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_consequence_context.gd.uid",
+    "Hash": "8EAA4F299D1A62B98DEC685EF7D0DBDF3564EDD03D176579C4B4F53A783985B1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_departure_resolver.gd",
+    "Hash": "902151F589239392A8D9261E17ACAAB10E017019EBB6D82EF6A0497AA72B32C7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_departure_resolver.gd.uid",
+    "Hash": "A7273F59FC49BB6FD09B5D88CCACBE037EA6D6AE8F7B3BD5405E0F0D7AC6EA60"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_hp_application.gd",
+    "Hash": "3F24C80B738EC79794F48D97756E58E550CDD4E99C827C373DA915F807061049"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_hp_application.gd.uid",
+    "Hash": "AD634F9DF61E201103D818B6534A5D3A393A54CB5F1CCB08A281967FAE419F03"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_hybrid_query.gd",
+    "Hash": "CE18F864B0B4620FD73B10D088A6B32D50866B24996536C5FA17456EA4AC229D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_hybrid_query.gd.uid",
+    "Hash": "B7FC511DA019E952569884B6344EE361598C8A0F85CCCBB79FCE4346B0BADDCE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_morale_resolver.gd",
+    "Hash": "F9E60DBE62CF7C99220B2E09CE831D813800F439D416BBBCD3554D9A18707C14"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_morale_resolver.gd.uid",
+    "Hash": "87C8271D662090F81E354185B06BA4DC0474605967157145F80EF64912DB201F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_retreat_policy.gd",
+    "Hash": "BC1788AA5D174E034DF4208A8246C67B9E382884FC382013E337EE11B1CE5ACE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\combat\\sm2_retreat_policy.gd.uid",
+    "Hash": "A4ADE76BDE5D2EFC5F8B945448702F604978E35A962E8256CA669DCA10648FAD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\common\\sm2_canonical.gd",
+    "Hash": "EC930D3A9625870BA415B270EAF126FBAA007DBD9436DCE4184133A76E2D8749"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\common\\sm2_canonical.gd.uid",
+    "Hash": "E7E7909EA517042F551B3BF6582B5C19CCCF3ED23E2DD787AF893D1E08BF0AFF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\common\\sm2_deterministic_rng.gd",
+    "Hash": "896A1C45345E55D4E46E99BFA67381F00750032DC612AB2E6C983E2E52AEA7B0"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\common\\sm2_deterministic_rng.gd.uid",
+    "Hash": "AA83349683490C6B8F9CEC6986ED5760309B1E84EA16F4E252333B4B08187AAD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\common\\sm2_validate.gd",
+    "Hash": "CF5661B4E1DA5C70F962E5D1FD129594448FFD80A3F3CB5C8E2653611550053F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\common\\sm2_validate.gd.uid",
+    "Hash": "716FAEC1DCB2417595E0F7EC54A9D03B43107045E4F34636737B18E405F39E5B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_ability_definition.gd",
+    "Hash": "1D6D78BA9A69F04E2C9AE57CFE1EEACD28947D5C0C1C3B8DCB2AF5139A4503BE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_ability_definition.gd.uid",
+    "Hash": "D44A30F2C3F5C01885F85967F1ED77F530179EA467C26ABEDA53C3959CAC3629"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_actor_definition.gd",
+    "Hash": "830AAA98B6E85A5CC947B1D8A44F301F181D363E3D5E1B32F5F2D689EAC7F564"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_actor_definition.gd.uid",
+    "Hash": "86DA217E6AC1ACEA01EC441AF8FF8F75C583D71D7BF3000BC88ECA028CA00843"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_catalog.gd",
+    "Hash": "775A5910BBAF6CA047995E6C63CE128CD7ACCB1D0F2FE211FD0B4EBB4CE0511E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_catalog.gd.uid",
+    "Hash": "74F75BF76AA00106375C83D6E7CB5D83A5B1F8D1059C513CF62FAEC5BF0C7295"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_status_definition.gd",
+    "Hash": "E31DDCDCC05049E5B2DFB231AE7CCA5A33E5C8D7DA6B992DBD116A347101864E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_status_definition.gd.uid",
+    "Hash": "33F0BB0C2299E43AC725CFE191848BA6F1444427CB3BF00DAE9AF9269B86EBEA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_turn_catalog.gd",
+    "Hash": "7CF704A255FF1A2BE467262D60370DB6E506A6E1521E0E90F3B48CAFA147CC51"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_turn_catalog.gd.uid",
+    "Hash": "8E0F6B2C29482C7A6A533C08E2F4BDC8086B4F39B2F559BBAD55A1075639CD0A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_turn_definition.gd",
+    "Hash": "C01ADB976528E2D23D5C9762B652E9312061B981082F8CF5A4BAE2103EFFA4B4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_turn_definition.gd.uid",
+    "Hash": "238817D64F40B8170D2AFCDF44ECF5008E20858B6E10A26C19F75A3E87BB5F65"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_weapon_definition.gd",
+    "Hash": "A55D28113C16C0522EC75BA627330E0A1326C702F1841BCD3B8F67EF0413D267"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\content\\sm2_weapon_definition.gd.uid",
+    "Hash": "BD56600A0FDC62C994CABFDBEA1B86CB64D3F29660CEBC71F927D6A34912A365"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_combat_stat_query.gd",
+    "Hash": "6C34D70D854F2A906AA311C46C51A54952D7E1D982FE4D4CEB943F7BEE69DA5A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_combat_stat_query.gd.uid",
+    "Hash": "413494D2D444387BF1325E1C3848C79DF278C2680250E926078FE06A397BF3B3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_action.gd",
+    "Hash": "FA54C9F6C6B7A16ED8DD7DB7920163C35678CF2A4FFDF72CC066BDDBC416A887"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_action.gd.uid",
+    "Hash": "399CF731D9753927A1CA8CAEC89A257D905BD4C558213467C312C8787F685E6A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_catalog.gd",
+    "Hash": "C6111E6BE492F4A374D56D1C2633FB771E8C17D06923BB96F447891253C02B1A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_catalog.gd.uid",
+    "Hash": "21702769D0B38E21FEC171E4265B2F0CD3599E5E046FF08D2777C5A969A6CEB8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_definition.gd",
+    "Hash": "C602B99CED3A436A7607BB82EC67571571B8DCE8F7E7773569C5DF4ECA13700A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_definition.gd.uid",
+    "Hash": "D379E94FE77D14287D101F326DD791647B063414B6B6D4FD31764362DC88D085"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_instance.gd",
+    "Hash": "20594B8E9B6E4C37C5AFDF99AF6D40393C6062ACA38AC40B2E3469BE4F409BFE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_instance.gd.uid",
+    "Hash": "6143E4DDF9C8F8F61B51C73A033DC67006B44B458C2808AB0BDF9C508A77F0C7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_operation.gd",
+    "Hash": "AE5946866A43A8FC51606E4DE8E13CE7DD238FA8B61142F30A90F6BDBFB07DAC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_operation.gd.uid",
+    "Hash": "6FF869D829E0FFC84C6C971354594E8EA5C7A35CC4CD1F6934BA7400C48F9EAA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_resolver.gd",
+    "Hash": "AE8EE5C1326E1C5F6D3DF0AA5DBFC3E753EB7AAD31D09143CF49CAFF04305EDA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_resolver.gd.uid",
+    "Hash": "9CB427BEDE11648818BC15547563674858868ABA55463738544E8E2090C1D81A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_snapshot.gd",
+    "Hash": "91E572C242FC11890251551EE45BA0CA38EC940E954E97E114C12B8CAE584BA3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\effects\\sm2_effect_snapshot.gd.uid",
+    "Hash": "D79B90990A83C6B009B39F2C13D9F705FA460C70A99ED848F12A8C0149A53D35"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_area_geometry.gd",
+    "Hash": "50F8822CA62EF7143AECDC095760712799AE1EB72AD057378779BD3A916ED598"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_area_geometry.gd.uid",
+    "Hash": "BD594CC36B39E8DEDC0D055CF0345C0F7ADC3D695F1D8CF3A38192A0AD5B7068"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_area_spell_resolver.gd",
+    "Hash": "1BCC8B8EEDFD8551D768846657ED42077233BAE991E114F34F983F866AFC6115"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_area_spell_resolver.gd.uid",
+    "Hash": "1D004C8F7ED960EF1DCAA68B5A92B326E4AA34C3A70AFAB1B9EBF3F7DFE882DC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_barrier_resolver.gd",
+    "Hash": "2EBAEF2DBBDF4A8576A1B05954C307336F3048A1F7071F2736CD5A0071288BD9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_barrier_resolver.gd.uid",
+    "Hash": "C8C458C861E7E38FE838D65FBCBF2D3C3B36890B69A817C9D14B22C049869906"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_barrier_rules.gd",
+    "Hash": "43D47DB1EEB5ACB3C35511E9628774B8BF35722731070A3402B6233FD85FA8E4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_barrier_rules.gd.uid",
+    "Hash": "40F7988BA7466EE1D855123D1DA1291B5BCFB52E0AA7468E757C2B2F0E76B627"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_barrier_state.gd",
+    "Hash": "7A3BF80CCED8254F810D32A94355D9DA426FCDC62AF85E4B8F0A2C98057A1E7B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_barrier_state.gd.uid",
+    "Hash": "0276620D61F97BDB585338EE8E70C13ED25A1F80150AFEA43693431FEF8615FC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_magic_catalog.gd",
+    "Hash": "649689622B4B7DBD40BD6333EB169C3409200E3FF4A334123452F78D467EE398"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_magic_catalog.gd.uid",
+    "Hash": "D46F019536AB1DFAFF8E79FE4E00EFAB9377EA87E1787D96D8EEAC1E1591F5DF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_magic_profile.gd",
+    "Hash": "388CE6ADD64DB7D150761DF2765E71B45F1E1E4AAE68DEEEF3F17F749A2120BE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_magic_profile.gd.uid",
+    "Hash": "5E932CF75E4170E8829123800F4167945C0C0B3F4D19DC7E4A86B8ABF0264C27"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_magic_snapshot.gd",
+    "Hash": "62B98AADCB48AB53C01FD301C637FF719CD35880D4E03FC1159B57ACE06FAB93"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_magic_snapshot.gd.uid",
+    "Hash": "9694D7E4C72113A07EEC0DB0ED0E836FC10FF96F3228931DE9FE8914B3FBD7DA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_mana_pool.gd",
+    "Hash": "797325DCC8C2182F0AF37CA47727F344B051989FFAD58F4F6C72B96299E166D7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_mana_pool.gd.uid",
+    "Hash": "0A64E8ECB7171D562B4FDC8E5C9012E5B89FD887EB00F432AEA39BFF2037FC0D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_mana_resolver.gd",
+    "Hash": "0E7503138B7050493691A684A74C8AB19592FA01EE9D7111E376274F69152B47"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_mana_resolver.gd.uid",
+    "Hash": "404CB1C1479B0C7E122B83806CB9DB649DC714E69F8F486CE80396671FEEDC6E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_spell_definition.gd",
+    "Hash": "29753B29A026ED41060A87B8F2D9C1DA6A4810FE4D9EBBDA0D1FB7DCE14DB31F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_spell_definition.gd.uid",
+    "Hash": "82333E8B6907D14F53FD592DADC66F00CAD0861AB56AE9FCABD9C39BD361DC2A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_spell_resolver.gd",
+    "Hash": "0ECF71F8DF8391A4B58B27ABD9AA9B073CA54DF0FB6B47E99A1CB7D81EE39F58"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\magic\\sm2_spell_resolver.gd.uid",
+    "Hash": "55A13C135D7168F0577406057F427E20C03BC286B0E631BB68CBF2678A1631E0"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\movement\\sm2_field_session.gd",
+    "Hash": "A82B96EE9E02D8B585E368A5D329DFAE86C8145D4FA131626CCF54DE1D042B3F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\movement\\sm2_field_session.gd.uid",
+    "Hash": "89B4CC1F388DFA103B51FDAFD3352570F2B6E885DEA50FC0A13B2A0B083364E8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\movement\\sm2_movement_resolver.gd",
+    "Hash": "B684713679E2CC3D097BAB2FA6C599A32057095D6BA8BA92FAC68F07E35C675C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\movement\\sm2_movement_resolver.gd.uid",
+    "Hash": "1EC1C4D8A78C9955393AE89433B2E480689B22C5A8F5C34EB3519745F2EBCD4F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\movement\\sm2_spatial_actor.gd",
+    "Hash": "AEF656C8EAF2F346467C67C58602610D3BCC64032C35DBA569D6310C3FCC530B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\movement\\sm2_spatial_actor.gd.uid",
+    "Hash": "AA155EE4DB44DA96EF015A5F3F41465FB881F9223C5C5E1BD459625C9EF455F5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_ability_parameter_query.gd",
+    "Hash": "6C54BAECB8F11B0051F5D6C32E4A6DB7237AC057A38BFEA7D63CECC76368D4B5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_ability_parameter_query.gd.uid",
+    "Hash": "FAB05593408A069524644FFC625B41CE0E0933FF72D5C35E3C7D9AEA16B83F6D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_battle_development.gd",
+    "Hash": "F0DF84706B75F84E6926BA31F7CF7F230CA7FB124A7774BAF5B3DB31C7811D84"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_battle_development.gd.uid",
+    "Hash": "8E537C7919A48F5AFF92703CE1BA92FD5F0038C6E5FA270CF3D0D1EEAB00938E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_companion_progress.gd",
+    "Hash": "A4E9C1FB2EEF9F874D378934FE849F551D86683DE5E6BFD11FB9F79231B9F82B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_companion_progress.gd.uid",
+    "Hash": "CE1D6AEBBF5F86322BC490617AF61F3FB4B0F0C7FF96329D75C710616F1F15F6"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_development_catalog.gd",
+    "Hash": "7B1F193AA08A463AF1A08EE552897E0BBE90873B5E5A5614078BA756AA66088C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_development_catalog.gd.uid",
+    "Hash": "6892D038233947F66C34CA4246CCB2B980D89D93477AB921F92E5A4B3E6B42D3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_development_snapshot.gd",
+    "Hash": "75AD4FCD15F4D79A9BBA12D255A06563C656C1DB20ADE8F1D12A0BEF3E78C535"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_development_snapshot.gd.uid",
+    "Hash": "F20515A80C5D3B4E827900F45C4E94840B3BFAD9EA0138837888EECA0BEC2ACF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_encounter_origin.gd",
+    "Hash": "96D10B34B844D8ED36964D65ECF808DC65EBDEB4320506262CA3932415C2D6EB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_encounter_origin.gd.uid",
+    "Hash": "86196C1BCF14519E764563CF637CCA7F3378A39F35E45FCA46F2B61CBA23D4C5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_hybrid_catalog.gd",
+    "Hash": "F285F0FC26A74CFE62A15B248E48C57484CBE5BC4C58CB51037BF956E8A285FC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_hybrid_catalog.gd.uid",
+    "Hash": "2B78982CDD9953E3697C5A79B0D37CB1D76E151E361A784E76F6D820253066C8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_incarnation_record.gd",
+    "Hash": "FEEF937675D3B4B8907AD66284C6D9EAD1B18563257802E73FAC7C24A58CB967"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_incarnation_record.gd.uid",
+    "Hash": "B3D5BFE205E9518125E45D3F924B590E7F75C9B57CE886196363B3B1531C5FFD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_practice_capability.gd",
+    "Hash": "EF027B513BC33C303765D3546D705088245F17F5A26A7A8EC6C59C76CBB1AA50"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_practice_capability.gd.uid",
+    "Hash": "61BA5CE0ED9D8716342FE2B40648FB59F43A753B5AC1BA095110B94FDB31A868"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_practice_definition.gd",
+    "Hash": "8F90C564E9A79DCFFF18DC80E743EB61A9E548DAFE65A734E1D29ED4232F9C80"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_practice_definition.gd.uid",
+    "Hash": "A91312454C9D032F798B3D5CBD6097B54556C2922135D9D22FFF4F6ED404930F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_body_state.gd",
+    "Hash": "F929B73442B00E9659782FC0AC74541874CC973364C1DCC82A85694D27BCDFEB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_body_state.gd.uid",
+    "Hash": "AACC2A09863B571DD3BD81B4EA60A58927D2A666679A006C4A6DF25563CD7E68"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_catalog.gd",
+    "Hash": "2620AF195D260F047BD071917A85BA1850D9E4D715D5CFB64E043599044BEE3C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_catalog.gd.uid",
+    "Hash": "09A03B44F01098FBF601584F22F875531E35344E5F5257A04B5CD19FFC3A64DF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_command.gd",
+    "Hash": "5E0F58B6B8A8EF03FC37AD63F1F603B9480EBB25EF84FFF5BD0E0D9D1A57D437"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_command.gd.uid",
+    "Hash": "A586AEC4A66D11B35DE6C5A2AA960214ED9B9971DC42EE47E15B3E3F6FA0270A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_lab_state.gd",
+    "Hash": "88DD678E96418E7188B3629E787536292A4638C254767DBC59F87F7BC5A4393E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_lab_state.gd.uid",
+    "Hash": "E739E1052C75DE721F6CC7446AE11CFE6BC04D957F9BFBF745DA9FA0C6E12D12"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_lab.gd",
+    "Hash": "795BF0E2A2EAC2C717E9C49404E11DBCDF1CEDB86B5A1F5D556B8F75235B1F54"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_lab.gd.uid",
+    "Hash": "918A9D7D674FD93BD3E5D9D1945AB8970AAC5A4BB1274948FB4033E2C4B34725"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_node_definition.gd",
+    "Hash": "193F5816A6B47EEF8787B5017283AA247B13E11D2C9AFEEA4E57324B56CCE2F3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_node_definition.gd.uid",
+    "Hash": "CE3068236F367F8DD311921CEBA1638339E6160FB9A99F5EBC223B043D1366BB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_rules.gd",
+    "Hash": "E6D6A5A18D8D4270E1042AC61F91E5DAB903060F69C3501A3DD1AAC424425DEF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_rules.gd.uid",
+    "Hash": "0CBABAFF09EFCAC088230FD8E26E0ADBC6FD00C845549D4EA8D63FB043B89303"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_snapshot.gd",
+    "Hash": "96818C1D467FFD063424B92ED0ACEEBFF8F186829AFA58DC7422825179A2F110"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_snapshot.gd.uid",
+    "Hash": "C0A8D8EEBBCDECF5090437E8AF59529C35CE8605C3C24DE5EB6BBD20E4094089"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_track_definition.gd",
+    "Hash": "C0B4EF60D172CEAE5ABE46459279991B5E8E7041A84D141ACEA95A0483BD1AF8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_track_definition.gd.uid",
+    "Hash": "9F46E4E43B6C0DF46CCA017C21752A99B5DA46E051CCD29C5AFD68D986F17ED0"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_track_state.gd",
+    "Hash": "6D1D016A6416B531DAF9068FA1E663BBC2C899121CC774C0CF8E3341903F4D9E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_progress_track_state.gd.uid",
+    "Hash": "A1554698EAE4672704E37102ADC5893265FBD55B106BD299A4F067C93A4FBFE7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_psionic_catalog.gd",
+    "Hash": "B3838A5E55540152F20ED9A9AA3EB017AD9042A914AB8FC1380E70835D11F095"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_psionic_catalog.gd.uid",
+    "Hash": "742152F64760910022682BB6204E37688E384475E8DF919BF4FE18FED7D93FAF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_psionic_cost_query.gd",
+    "Hash": "79A235186F448D4E309E96D0EDE7BB7E17337358DBB387A36B3C30DFB508E7AA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_psionic_cost_query.gd.uid",
+    "Hash": "419D6269CE420CE6FFE542C1521FE4C5E142F6A48251EDB7F81B35F6C3837F40"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_soul_state.gd",
+    "Hash": "ACC89DD117BB344CCBC079422D55949D137A5EEDAF4ABC22333A9B9D225239ED"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\progression\\sm2_soul_state.gd.uid",
+    "Hash": "E4B19D3E4A079106E0742B59AD62EBBA9AED1184D9852EEA57B613A3E3824D65"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\spatial\\sm2_battlefield.gd",
+    "Hash": "F34B79EFEB14A0A8B7264B3CFE99DFE602741EA3D6C0F4B074EC676E1F8D00B5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\spatial\\sm2_battlefield.gd.uid",
+    "Hash": "FB171DB868079ECF94F65C1E379E1A850CF33C878BAD3FA15BF1A2F79C1E5943"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\spatial\\sm2_hex.gd",
+    "Hash": "26729ACE31409EC99EB1E027F58C180590B3EDF80E249238FB4939C82A0AEC65"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\spatial\\sm2_hex.gd.uid",
+    "Hash": "F5761C658E472BCA6711B7FDE742919F81ABE5F202B978AE2F30DE8D30B4C43D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\spatial\\sm2_spatial_queries.gd",
+    "Hash": "8637C07A5C2CCC6C279C34397C43B91C0CBCBC1DF0395CC58A90709C28B161BA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\spatial\\sm2_spatial_queries.gd.uid",
+    "Hash": "B9B4D6A91C9C5BA72AFE5B5BA9D3E0FC0717CB1E082FE8B7ECBE095E614DF8A2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_actor.gd",
+    "Hash": "881B7FD73DB252E0FB4D472FBF5070970335034E1EAF624E1285827E3B9CB79C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_actor.gd.uid",
+    "Hash": "BB9B105A25CAF7CEEE8ABED36BBF72F26CA3BD6E1AEAE22E8E9BAA4C0E21B4DC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_battle.gd",
+    "Hash": "E72B4DAF152F8427C63282779E6B38493CC062A7FB901A2D927C860CCB664E1A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_battle.gd.uid",
+    "Hash": "0C9B77F4A494EA10A396916BCE7E84A093195860E6238E4C757AFCBDBCBE81E6"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_snapshot.gd",
+    "Hash": "B34A62DC42D49BE5681DD553947C042AF4352B9C9050EFA0CA1090FAD2FC4B73"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_snapshot.gd.uid",
+    "Hash": "9417238089EAA968282C259F2DE78E290CA5B94D5BDBBF61BF11A2B95C1717A7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_state.gd",
+    "Hash": "AA3638DF8985128ED3A652F0C7ABB7F70521974350FF188E90C54E50EA5D31BB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_tactical_state.gd.uid",
+    "Hash": "7FA6BDB1721C93128FF2E1683749D2B84EAD52311F412B9EFFFD04FA604BB78D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_turn_scheduler.gd",
+    "Hash": "2A59D29414DE6E4C8C24C8ECF06FF8C1402D48368CD0AD10D6D8C7AC43062FC3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\tactical\\sm2_turn_scheduler.gd.uid",
+    "Hash": "3A2D688B18F528220ABAAE37B0541CF2B673FE0F0A1C7A3A37BA5B00B88A23EB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_encounter_factory.gd",
+    "Hash": "F2C77F4F79A68138B4F830C881ED7016477526D8B817E36F8F9F285EF0433394"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_encounter_factory.gd.uid",
+    "Hash": "35FBE20BBADF1D0236B69D8F085DDEFC93F3867C017BF40F6C2A28C88A8A4E0F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_exploration_catalog.gd",
+    "Hash": "9F0ACA644ED819ABB9DF8616E7C6BD4C559AC6DAFC649FF420FB8633387A9C34"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_exploration_catalog.gd.uid",
+    "Hash": "5C4570B8A8D25D4323D6FB0D22842789369F9218E535CFC74DEB0CE3FC38D553"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_exploration_state.gd",
+    "Hash": "E913F4D4EA694B12AAA580AE026B389C8634138DABA5D3B314B2FE2614D8590F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_exploration_state.gd.uid",
+    "Hash": "C7A1D2C4A7D96FD60346A84E269BF35AE2BBEC5723B02974BB011C32DF7FBF7B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_journey_world.gd",
+    "Hash": "F338DEE25CBC980C227CA539020550B8BAD53EFEDB9F385E9230907DA33919FD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_journey_world.gd.uid",
+    "Hash": "09CC38CDC935B4CB67EE5557E6980AD45018176A24AE9E3FC47E39E0804E141F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_life_definition.gd",
+    "Hash": "54615A2F31D22633C15D0F3542E62FA9F514756234E6964464F16435864D2849"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_life_definition.gd.uid",
+    "Hash": "E30631FDD7A96B9E2BEDAB39AA0B551834C7EC96811BB9754F06D8136A83B0E3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_life_world.gd",
+    "Hash": "7D2C3A90C6234F2BD3400AF56C7CBDBD488B4CDCCC955296442410C7D62BC25A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_life_world.gd.uid",
+    "Hash": "9365A308D643B36FFC819C5866C2B2594A85729DD26EAD7D112D73CFDAC8AF03"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_region_catalog.gd",
+    "Hash": "387574CA9ABFD283B0C3CC8199A98F6D627CC1F062CCC232C6E6F3342BF10C2D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_region_catalog.gd.uid",
+    "Hash": "CF622B9CCC55A504C717C627DB829076B91ACF586365F27D14493C258E4119FE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_region_state.gd",
+    "Hash": "138FCD060ABFD48455FCF267F7D459342040547EFE608907F67BB58197057CF9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_region_state.gd.uid",
+    "Hash": "67C4636B7725D3DB757D54888FB22C94D017F318FF79DA325A0F1299A13D3879"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_world_body.gd",
+    "Hash": "4C2D00F0EB5E940C488D1D954BBA25BA41AB1A864E5E466C15A52A8A89496A28"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_world_body.gd.uid",
+    "Hash": "849B28EC6527E5AF585B8E2748BFCA406F22E9F4ED4FB7FE63C8B5BC5B687607"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_world_command.gd",
+    "Hash": "06C96404DFB2D295200B003A21510947B27DD45EDC58F911AD6C0F37323542F5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\domain\\world\\sm2_world_command.gd.uid",
+    "Hash": "718B97F49CB9C63D5E022BD25D4E108BA9F96600FD36F179E24B321789F3ED31"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_ability_parameter_text.gd",
+    "Hash": "239B8F816D305A2AEDB43EBA0F637EC6649154C006D0F4F0526C9D09AD4AC93A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_ability_parameter_text.gd.uid",
+    "Hash": "2D72646871A4A3A8090B2DF2C3AD15CA13E1EAE1CCC9BC14C679F6B3FE2BD378"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_battle_replay.gd",
+    "Hash": "49F5403B76896B615254DED1965034DACAB666FEF583B72F24ADEE6B9326B7B9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_battle_replay.gd.uid",
+    "Hash": "C1EB43B8F3EB7F6B4BADE4B6100E5DB734F346D4850F4E4A3E4F47A2D537CD90"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_battle_results_view.gd",
+    "Hash": "101F78B33C9A7A591465CB76662093701F8D7E9EDB3E4988E214F6DB4B7784E8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_battle_results_view.gd.uid",
+    "Hash": "BF1998C2245FF1106C3756F1D6899BE01F37AA24A9A6AD2D0354FC5EFF79D5A9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_battle_runner.gd",
+    "Hash": "DB42395644E9E259558F5D7161108E341008A2257B1D54111C1B1199AC80DDBF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_battle_runner.gd.uid",
+    "Hash": "4547E79A803EF9BB47FD6F2C95DDC53C2649FF98A9D5D3BF1138F44E0028FAD2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_camp_view.gd",
+    "Hash": "C29A2ADA9564039F3ADCFAF65AB39AFAA8DF49E5A74206783BB4FC0D41E984AD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_camp_view.gd.uid",
+    "Hash": "E15958FBC806319FDAE76028E49D6A8F6350FD77537A550E7965C84A1651B64A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_campaigns.gd",
+    "Hash": "17558BC021EC1C1AAE5963D980C0C4271123572ED091246F0B3F2B8B46E79F38"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_campaigns.gd.uid",
+    "Hash": "E799E4D83D1A6C8754610A7794DE66A376FEF2D9B7B52175B84E63F35150C38A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_combat_hud_view.gd",
+    "Hash": "61EFC2726E4CF19D0332F177F0D64C2C76E1FDA5C83D38D57494B62EDA83A2E9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_combat_hud_view.gd.uid",
+    "Hash": "95C144D06CEEB07B44052E31CB3250D50CA1AE7D4921244CE2B6C9185992A575"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_development_sources.gd",
+    "Hash": "7ADF7139668DF48D2B1FBAEFC594F15654132F5ABDB11437EEC5F5C64C7C2B4D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_development_sources.gd.uid",
+    "Hash": "4AEFFA4EAD4E3D3A66F44DBB3FAB821419EB25F8C35C24AC0B898FAD166D86C9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_hero_development_view.gd",
+    "Hash": "838AFD8738A268D2079C725089CC8E884D4127A8D32D655F6289325D7F50E634"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_hero_development_view.gd.uid",
+    "Hash": "20E12A0BC35C93CA83B2EC443EE1A653CB37C9B49F622104DCE356299EF716BD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_inventory_cards.gd",
+    "Hash": "99081150EDDE04E4599E1F6D7A235653C8E1BCAD529A80DF14DC53868C7E1065"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_inventory_cards.gd.uid",
+    "Hash": "D6C066AE5A26FD7F78A3F4A85187F2A423DCAB83FB548C347DE5E47A825D9341"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_journal_view.gd",
+    "Hash": "8D49BCA7CC949403F21FA8498C168804D27ECB82934677D0A90106C86E159864"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_journal_view.gd.uid",
+    "Hash": "207D84304E1B324EAC90A64DA38A469FA0871F88271D2E7C08C0ABB5AD2DAC95"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_journey_guide_view.gd",
+    "Hash": "90E009B7FDF192A1C2226A220222C6EDCBBFC75B069E756FB8826132CA876118"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_journey_guide_view.gd.uid",
+    "Hash": "FFA716CA1ED56B9A321A3BE87840AB3F2EFF1E36B9B4AB16E2C6FAC951EBA2D6"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_journey_session.gd",
+    "Hash": "98BC1C7109EF521B5BAA151433A3CFA35EF9D7D9018DD827DE1FBD80EF45ED07"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_journey_session.gd.uid",
+    "Hash": "AB0044E574797DAB0AD648D4698681BF1E757DFC3C9385747F2B3F713B251B43"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_life_session.gd",
+    "Hash": "B74034AFEC5784B2ECF4790647C8133830533FD02AFCC5B331BEEB86965D7F29"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_life_session.gd.uid",
+    "Hash": "0D88808D5183D32843525B0E4BF078E26211E318C3656C1332AA2D1C7A8ADF9A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_m1_scenario.gd",
+    "Hash": "6074A577C3DA7F5A1C809610F1408A0672FFB2E27EB1D1EDBBA0B9A9D0EC1192"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_m1_scenario.gd.uid",
+    "Hash": "FC4CC4419C8D240FA5CC5B5914C36006637DB51BBA3309C0EB994778443A999F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_outcome_ledger.gd",
+    "Hash": "5BC4AB4E7338B0B7283D439B44921D15853F0808DCEE8250AC3DCB4CAA69D795"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_outcome_ledger.gd.uid",
+    "Hash": "AC3ACAA554D515EE949310004E79CC74AF1547D9942F63B8F2BBF1E48F758D10"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_progress_session.gd",
+    "Hash": "FF05030CF2AF30E1CAFB4CE57074D99B313024DC987DF18617E7B0C094831D0D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_progress_session.gd.uid",
+    "Hash": "5632F98797C1FCFFC64685F644A54AD8113AF43C18E97E2650F071810509D2C3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_session.gd",
+    "Hash": "B82E2B8191F40601B872F4ABDCF145932F7BFDC523276ABC577D33083180D751"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_session.gd.uid",
+    "Hash": "601015C67562C691144975F3ADA9B3D88D3747F0DC2819D7C28F456248F262E9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_soul_view.gd",
+    "Hash": "555EBEED25BA2753E57E60C0778AF85876C701E2D2069AE0DA0C3E2BB012C75B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_soul_view.gd.uid",
+    "Hash": "1EAA116465A2A8FA47E73595407353E1122690EE42E274385C9B58DCD3165E8E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_survival_workspace_view.gd",
+    "Hash": "03695A032547260CB015B438BD4307939FEE4CAF62F3529306D97A43013B0873"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_survival_workspace_view.gd.uid",
+    "Hash": "F8C74F82EDF3598312916CA66E50C5B41110A477EE587F72084888D1BDC0357C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_tactical_session.gd",
+    "Hash": "8075362A8E382419DE60BDEFAF2D5F70B0E200DDA04802A67C3D040DFF98E164"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\application\\sm2_tactical_session.gd.uid",
+    "Hash": "AA95FB28821465408DA17F433A4601B46C8A5A30419B7FD44B8E7961CAA36E5C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_ability_content.gd",
+    "Hash": "0267D7941988EA64FCF445B97BA86E478AE9FD4379E3675D3DE7EDF8248506ED"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_ability_content.gd.uid",
+    "Hash": "451126D880AE05534878FC245CE3EE50671BF85E76039C79DBCCE2F7A02CBC5D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_actor_content.gd",
+    "Hash": "C0AC7E1CFDEB76F12CCBE0EE2EE109190DDF8EC22861AC8542CEDBE297E86872"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_actor_content.gd.uid",
+    "Hash": "3E52BD249E80D6854EF782FE3F7B763B79825F94225ED2F2EC15465B882CAB0F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_content_loader.gd",
+    "Hash": "2F375E2B8E2E0DAE87E56DEEC29DC143CBF37C9F93047D6B19B5C79359510A01"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_content_loader.gd.uid",
+    "Hash": "93C77D6E500798E2AB16E5D913FB5829ED0133C28974B9C9B021476CFF7827EC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_content_manifest.gd",
+    "Hash": "6146AE79DDDCA9E7C1C071B1E0FB06A00022036D70E6EE49A43323945E25CCE5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_content_manifest.gd.uid",
+    "Hash": "85D0CB2D1A8AF229A5D72363B309A892486C1C08597D8E3E65C55FDFEAEAFC55"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_status_content.gd",
+    "Hash": "4C3ED0B242AA6E641C8E892B94844F8BDFD677BDD1FBCBB13480D26E1F133681"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_status_content.gd.uid",
+    "Hash": "7E8E742B6F7D3A722FC9A1583042A87BBEB8263C6EEC576D52EA783DC1A0FC85"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_weapon_content.gd",
+    "Hash": "73B994A01EFE253817FB2722AD4E7E6028D3B4C8800004DD036508919A6D7082"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\sm2_weapon_content.gd.uid",
+    "Hash": "1EF14479D59A36D3093782C020544BF17DE07B4B0F7E4F0FE00D26C79BDC1BFB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\ai\\sm2_ai_content_loader.gd",
+    "Hash": "CD94450CABB86A9872ED6134EE85E31BA9F3746277678F940CBC451205983831"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\ai\\sm2_ai_content_loader.gd.uid",
+    "Hash": "710EF6B21AB3EEB25E673A77EF5EE3F85B2E8548DAFB642544488D6C476000F1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\ai\\sm2_ai_manifest.gd",
+    "Hash": "E10BE064630E2F25C71996987493073F640E0532613C3CA28E22B5D977C88B2C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\ai\\sm2_ai_manifest.gd.uid",
+    "Hash": "39E907A1C597B2C4CFBC8F7D8EE534E0D133A06FF38AA7BDD4A77ED0FE7C77E9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\combat\\sm2_combat_content_loader.gd",
+    "Hash": "3EC07DD3B4B0F3C2C6B5E16FCA7C387B2569F87C15B00867D3109FE03710C839"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\combat\\sm2_combat_content_loader.gd.uid",
+    "Hash": "B3E29056B714A963E4003FB6B0C8DD46A6EBA8F7B51EE10C78E8C488F0624BAF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\combat\\sm2_combat_content_manifest.gd",
+    "Hash": "7FB8EE1E0A607F65DE70E39B3C4AC7684C3EB88043E88203447E674A01E51BA7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\combat\\sm2_combat_content_manifest.gd.uid",
+    "Hash": "96AA36AC0ECE4B9BC1A4826C254F4A8B681CF2F0E7353BDA43FB2505FFD9968B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\effects\\sm2_effect_content_loader.gd",
+    "Hash": "EB1D1C4CC5580D4760CE6D5851A11266C3C875E00F685C9C18D5B6258085DC01"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\effects\\sm2_effect_content_loader.gd.uid",
+    "Hash": "896FAC6EA7FA0A0DBEEC9B20D2434E358EBD120A9B4AAEE384F0EBACF9757E76"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\effects\\sm2_effect_manifest.gd",
+    "Hash": "E89CA69C5E87AD0A806B9398EDF44E06FD7073750923BF119271B60E691536CA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\effects\\sm2_effect_manifest.gd.uid",
+    "Hash": "087F378C7F5E2A269F5E8D0E9F5EF4CD5C1A8A52F5B1E11DE60D2939314F7F6F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\magic\\sm2_area_content_loader.gd",
+    "Hash": "F185769C8848F34431CC6D7694FE1BC84426AD96B27BCAF54526F3161244FD4F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\magic\\sm2_area_content_loader.gd.uid",
+    "Hash": "EA47FA78F2BE79E68960D21E0A84F0E829F2A2C59E21BAB45974D98E594D19E2"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\magic\\sm2_magic_content_loader.gd",
+    "Hash": "82F791F6479EF588EA12B145A8AE9F00356E54C451632527B779FFB4B88B05E9"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\magic\\sm2_magic_content_loader.gd.uid",
+    "Hash": "6EC3CFA0D1B2C745D113BB3F0BE7FED035803BCE595FD1E0CF2AB1DA0B193E56"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\magic\\sm2_magic_manifest.gd",
+    "Hash": "C542230A7B72844F82A52FB41C722533DA52D8B3F6FB798485DA893F87CF6434"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\magic\\sm2_magic_manifest.gd.uid",
+    "Hash": "B845278FCFE664060E01C64ED6169BA83271A35AF7E03C90512FE9DB8E94F179"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_development_content_loader.gd",
+    "Hash": "6F4083A7A2D6A67FF18A7CA08B050F9C385A1870CCEDC612B650E30B24A8D8DA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_development_content_loader.gd.uid",
+    "Hash": "B3514D340D5787E08BBBF3034BE69C697703185D47D5EFF26362ECB1069B93C1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_development_manifest.gd",
+    "Hash": "AD873B6916103AA35B3C9834017FF1367424A15B930BBDC6339E3F9C6B551C99"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_development_manifest.gd.uid",
+    "Hash": "92F33622301CB1DC09A3B049B5FFD84B2EB5BCD1C4A95C403C0A84BD6022AA97"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_progress_content_loader.gd",
+    "Hash": "7935D5C7CBBC5F7FB34E408B5DDF06C1EA9DC31B8BD03D39C46FBD1AB971051B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_progress_content_loader.gd.uid",
+    "Hash": "913946E71D588D9622B826BDAE3B7DB974D3FF274DB71DA7F7770085C964165B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_progress_manifest.gd",
+    "Hash": "65F95CA6ADEF3916BFE9017151CF8E09E07DFBF8FAEDB13DCAA5F83CAA7AA82A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\progression\\sm2_progress_manifest.gd.uid",
+    "Hash": "7AF03AB4D7D47CCEAB2E1437DE2C51668D28055E81E2F480BFD319D566F45A83"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_cell_override_content.gd",
+    "Hash": "1394962F586573CA1E432C795AD73632168B52D822C23EF8BDFBF61A6AB79693"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_cell_override_content.gd.uid",
+    "Hash": "68FC7DD49E5EFEDCD8CBEDAE7946786466B59FBA5676CAC45CE6668170AF118A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_field_content_loader.gd",
+    "Hash": "511660F8A1D1B5F811B0FA61FB11383B03FAB95FFE8BF474BA6BC222AFE6BCCD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_field_content_loader.gd.uid",
+    "Hash": "4E81AC2C94A1A825AA817FD78342FD07F46987CCECE86276F2CC4C9F3A5C6958"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_field_manifest.gd",
+    "Hash": "8071BB1A448921D97A3BF1C59A11286E90B51F7380E2A8FC563D685F21FD53D4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_field_manifest.gd.uid",
+    "Hash": "4C4683F3A991469AC77D1EB640E9BC2E7818C91F7CE276D88CE77F2907152A07"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_spawn_marker_content.gd",
+    "Hash": "D5B63746E142511E74595D1CC3403B39E0C6234B641121C6124FAC88962EF866"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_spawn_marker_content.gd.uid",
+    "Hash": "DE8970B29BF05045B7EB1569A22736372682369821F71951DC4ACD3BD2FD179A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_surface_content.gd",
+    "Hash": "502D27F5FFA0B0A835DD491AC6892162277658F385DA4E58C4FBFBBBCE11511F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\spatial\\sm2_surface_content.gd.uid",
+    "Hash": "8E05C729CCBB4C6C08F95A7D72D1A3E743E760317233347807F0BFF498B7ED7D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_assignment_content.gd",
+    "Hash": "EBECF9434FCCF524F89495C4315442179AEE4E7A301DF827EF844EB9E57E66FE"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_assignment_content.gd.uid",
+    "Hash": "AE0C3E06089DEC40A4A69A1BAFBEA30800302EE5C4F87B44BEC8E7AED1BC8F1B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_content_loader.gd",
+    "Hash": "F54669641E09226B7F2C28373352993A89C03F1684B59256D714D542F500671E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_content_loader.gd.uid",
+    "Hash": "791B128E04748785D626006CDABB7C084022BAAF243BD73DBD76F98CB20A2290"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_content_manifest.gd",
+    "Hash": "C307501060199178C3B00FB8497857099959D096AEA61962CB1F8DA99CE25EEC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_content_manifest.gd.uid",
+    "Hash": "3415AFC8F585ABEFE945837E6666128D150EB8136700D1E3EECB34BA3DDFFBC1"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_equipment_content.gd",
+    "Hash": "74983C38630738BC0C39BEAA22F4094A2D9D2FDABD183B80CEBE715AC98F7293"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_equipment_content.gd.uid",
+    "Hash": "C4F44B75C511619871B5CB44BFA745FAF982531275FD84CF7A627C06155E0ADD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_loadout_content.gd",
+    "Hash": "3BCA4E7E59A66D7E9A1F5E89930BBD17B7D952B57198EA741DBC3CC42AF5FDBF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_loadout_content.gd.uid",
+    "Hash": "96674E39C604F526A475A09D69C5FB0EF1C5501FFE87C8C21E4EA7351943BA20"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_profile_content.gd",
+    "Hash": "7B7957E1202006988B3DC87C7CA0014609C2102E7D2536E286C7F3C6015C03C8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_profile_content.gd.uid",
+    "Hash": "EB49118BDDD9B365B154CCDE74F74FF55725B438EAEF8AF1C6891211401EC0B3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_scenario_content.gd",
+    "Hash": "A1C1DF06C714116FEC1ACF99E669D0D049D81EE564A26262C4879EA79D3D6EDD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\turns\\sm2_turn_scenario_content.gd.uid",
+    "Hash": "5AF42CAD7FF8C2216DCDA7A736427C0F7AEE1961CCB1E2E08D46361F2E0D313F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_body_content_loader.gd",
+    "Hash": "5E1799D2C6277B4AF5C620EF19A0C39CB7F6B41D38C961F129F41B8565ED38A6"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_body_content_loader.gd.uid",
+    "Hash": "E1E49C60B0A09D6989DC6B71B1279447A973AC95BA99E99F21B60C9CB375EDD4"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_body_upgrade_content_loader.gd",
+    "Hash": "E111E9AF5456BC8F19238278F4C034A5F4E048A9336DE74F3B4F85DE80675BA8"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_body_upgrade_content_loader.gd.uid",
+    "Hash": "922F437EAE3DECCF553BB29894CB5B0FCFFE4493543951B31781A31410C272DC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_care_content_loader.gd",
+    "Hash": "757FED779098665565411D0C652902833174BB2AA273BC9E2174D147DEB3DCDD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_care_content_loader.gd.uid",
+    "Hash": "07F893409D9CEB08BB97755C9FEC86DA06C99F4A323572FB448028178D3737D7"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_discovery_content_loader.gd",
+    "Hash": "EB545FBF339DD0EA4507CAFB02A506402BE21F2EC32A31A90ACAEC228C3D0262"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_discovery_content_loader.gd.uid",
+    "Hash": "8721406A0DABB5EB3BBDDACA76081829A24B69A187298A4C2C760D8B424C366D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_exploration_content_loader.gd",
+    "Hash": "44C573846A59CD094AC9C726A728E9405CD1DAC06E3FD7F71E4379E6A70EC73A"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_exploration_content_loader.gd.uid",
+    "Hash": "DE53AEDD2C8222BAE665C52168E4BA7A822F6C786655D97A62E86D857008637E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_hybrid_content_loader.gd",
+    "Hash": "2ED6296D7F2AEC958A17CAD36B8024697AA58EEF826427116BC9A276AD0FA048"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_hybrid_content_loader.gd.uid",
+    "Hash": "C2923C04A04F162462DFB041654B9EBD920D17A5CFE5C6769ECC97DFE3AE7D0E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_implant_content_loader.gd",
+    "Hash": "7BBE8EE44172179D35A15B38B1AFD3FF116E9AF57739684871177C846AC23CF5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_implant_content_loader.gd.uid",
+    "Hash": "FF8BAE03372F77F6D0C04A41EE8CFD523C82B6CC3D8A207385E87458B2E87104"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_journey_content_loader.gd",
+    "Hash": "AA0C094816C4DA5796C243A7877873447A600984C0DC7DB83D7A03BC00AC3721"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_journey_content_loader.gd.uid",
+    "Hash": "916715CDB8BCC9AA2E42D5D30893B4DF589B3381B0D767497712DFD8DAD198A6"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_life_content_loader.gd",
+    "Hash": "27B28A50AEED05BB2F1E042E0DB00D8422F400A0444207120F34D7984BAF3956"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_life_content_loader.gd.uid",
+    "Hash": "59958AB55872399B9E16C92CAA37854ED9FF914E3E28C760420FDE97DE26696D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_life_manifest.gd",
+    "Hash": "59A186E1135C1D04B8B6F948AE798959FE09D713DBCDEBF9B3871D34591F12CB"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_life_manifest.gd.uid",
+    "Hash": "5B49E4857C9684A5DFF79F1A2AC8980304A91A275FE0B64B331ACF23BCE8320B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_party_content_loader.gd",
+    "Hash": "5875A5583BA6016F1B6BACFD8B13C82B76CDA5C103ECC37D767C67A6C6E6885F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_party_content_loader.gd.uid",
+    "Hash": "0A70D80F001F69E43B18F548D939FE3950359224F284C73E05C0A97112171B40"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_prosthesis_content_loader.gd",
+    "Hash": "E89DB4DFECA564CEEE57A9C30092767B16C33F6827C444FDFAC4161EC545F6EC"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_prosthesis_content_loader.gd.uid",
+    "Hash": "E34C2B71BFEA543313EDB1ABE0F02AD2653ACB5A8968C7FD3B3A175B409D7334"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_psionic_content_loader.gd",
+    "Hash": "16FCA6AB9AE526AD647EDF77AE226C3FB511A32B5694A6925638D66A0BAB05DF"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_psionic_content_loader.gd.uid",
+    "Hash": "D1145B41B176F889447D32136BB672D0EF3EA9FEF11CF379B214232FD23D4EFD"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_psionic_growth_content_loader.gd",
+    "Hash": "51645F5827861737483E671C119F86D4061D51DB05BECFDAAFEBE9D7EA13F3DA"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_psionic_growth_content_loader.gd.uid",
+    "Hash": "E778F108A1895BA72A1CD0FC4A8C4623C3839DA3B00A1419859D54CF2D041795"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_psionic_shield_content_loader.gd",
+    "Hash": "E4EA0C796106A3D05BC1BADCF17C9DDC08B99721AA20EE5485A89B89C4DBB470"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_psionic_shield_content_loader.gd.uid",
+    "Hash": "98985E4B73AFD358AD43C1AF92FA6013BEA0379B6E2F0F9AAB2775BB54328E1E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_region_content_loader.gd",
+    "Hash": "DBA41D21D001F6885F991C3322758D122E902FCFA5F56B151C24EC582854613C"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_region_content_loader.gd.uid",
+    "Hash": "9A31E9D25DBD59A8A2214F0197A54219E55749F946D686D0C622BBD0C66F130E"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_search_content_loader.gd",
+    "Hash": "0AC58A601AEF95E4DEAD82EC6DEA3FF56504F6CCCEC003CD416735624B9CBCC5"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_search_content_loader.gd.uid",
+    "Hash": "141A5EDCB051B6A807AB80844117518B1DE296649F5F4092B9EFDC1341E4702B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_survival_content_loader.gd",
+    "Hash": "A162B2545B37FBED0D036E8D74F0EBD95E39CEFFA15CD5DFD09800A5DD492F1B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\content\\world\\sm2_survival_content_loader.gd.uid",
+    "Hash": "CA843C75AF65C328D1F681786FBA4A96491C579C7BF3593CD202885ECEE991A3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\content\\survival\\devices.json",
+    "Hash": "49525F081ED9F2C2C9F445DD518DFB38AC1FDFB174CDA02A741020B0B164AFE6"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\content\\survival\\prostheses.json",
+    "Hash": "F5F9473A38CFD841387D239B8F222B55A05D47DE605C7D1F2E52127FE9EF25A3"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\content\\survival\\rules.json",
+    "Hash": "904FD713A75551866CBC54727ABC8E92EB1652DBFB8CAD8E8E62C285C8DA85E0"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\content\\survival\\tissues.json",
+    "Hash": "CACAD5FE58A541D33D12D57FC021652A74FC1902E768D66F55364592C25ED85B"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\infrastructure\\sm2_campaign_store.gd",
+    "Hash": "B1B5BE8F969C9B153462A48A951959B012093DFAEAA9A1C72E690EAB3E438310"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\infrastructure\\sm2_campaign_store.gd.uid",
+    "Hash": "9E200DECC61A1B189D3DC687C7A338EE4A549A8CB311087ADBEFEB6F272D58A6"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\infrastructure\\sm2_display_preferences.gd",
+    "Hash": "3D3092CBB068CED31731B3649B689D9100BFD03B7642A1AE10851A6E18474F1D"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\infrastructure\\sm2_display_preferences.gd.uid",
+    "Hash": "099B641F831EB4AA7A5C5EBDA72AB16CBD28DA0A6FB40616EA98CD49DD556685"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\infrastructure\\sm2_save_store.gd",
+    "Hash": "D9C070E02B7A951FC56A3DF04E6675ADD2AF5F8058B6BFEB211F1C80C98D3A6F"
+  },
+  {
+    "Path": "E:\\GPT\\SM2\\src\\infrastructure\\sm2_save_store.gd.uid",
+    "Hash": "1446459A324D35EF19AF61A2561B77F3194C7B69D7F14389DDD59A6A833DAA92"
+  }
+]

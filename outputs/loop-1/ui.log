@@ -1,0 +1,43 @@
+﻿[2026-09-12T13:37:41.1776198+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\loop1\ui-final
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T13:37:41.2299247+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\loop1\ui-final
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Регистрация глобальных классов… (4 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Sm2JourneyGuide[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | Sm2LifeScreen[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-12T13:37:44.6401052+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --path E:\GPT\SM2 --script res://tests/journey_guide_ui.gd -- --output E:\GPT\SM2\outputs\loop-1\ui-final
+RuntimeRoot: E:\GPT\SM2\.local\loop1\ui-final
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5080
+
+SM2_M3_UI_REPORT {"checks":174,"failures":[],"passed":true,"rendered":true}
+
+
+ExitCode: 0

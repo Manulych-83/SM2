@@ -46,4 +46,30 @@ static func run(t: Sm2TestHarness) -> void:
 	t.equal(v.context.body_id,8,"new read model targets new body")
 	t.equal(v.selected.earned,0,"new body shows zero practice")
 	t.expect(not v.nodes[0].owned and not v.nodes[0].allowed,"new body does not inherit learned node")
+	_sources(t)
 	t.complete_suite("p4_hero_screen")
+
+static func _sources(t: Sm2TestHarness) -> void:
+	var s: Sm2JourneySession=Sm2JourneySession.new(Sm2SurvivalContentLoader.load_scenario(true,true),Sm2AiContentLoader.load_profile().profile,Sm2SaveStore.new("user://development-sources"))
+	t.expect(s.new_game().ok,"production sources world starts")
+	var before: String=s.state_hash()
+	var data: Dictionary=Sm2DevelopmentSources.build(s,"p1:skill.psionics")
+	t.equal(data.companion.level,1,"companion starts at own level one")
+	t.equal(data.companion.attributes.size(),8,"eight automatic companion attributes")
+	var exercise: bool=false; var impulse: bool=false
+	for row: Dictionary in data.practice:
+		if row.id=="p5:activity.psionics": exercise=true; t.equal(row.xp,25,"authored exercise XP")
+		if row.id=="p5:ability.impulse": impulse=true; t.equal(row.xp,20,"authored impulse XP"); t.expect(row.reason.contains("Сначала изучите"),"unlearned ability not advertised as usable")
+	t.expect(exercise and impulse,"camp and combat sources indexed")
+	data.practice[0].xp=9999; data.companion.attributes[0].level=9999
+	t.equal(s.state_hash(),before,"source and companion data detached")
+	data=Sm2DevelopmentSources.build(s,"p4s:skill.search")
+	var sites: int=0
+	for row: Dictionary in data.practice:
+		if row.kind=="explore": sites+=1; t.equal(row.xp,50,"search XP comes from site definition")
+	t.expect(sites>0,"exploration sources included")
+	t.expect(s.act(s.command("travel",0,"ruins")).ok,"travel for busy query")
+	t.expect(s.act(s.command("start_battle")).ok,"start real encounter")
+	before=s.state_hash(); data=Sm2DevelopmentSources.build(s,"p1:skill.psionics")
+	t.expect(data.practice.is_empty() and data.companion.is_empty() and not data.message.is_empty(),"busy query does not publish stale camp values")
+	t.equal(s.state_hash(),before,"busy source query does not tick battle")

@@ -1,0 +1,29 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("_run")
+func _run() -> void:
+	if ProjectSettings.get_setting("application/config/version")!="0.8.14-ui.8": quit(1); return
+	var app: Control=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app)
+	await process_frame; await process_frame
+	if app.find_child("MenuIllustration",true,false)==null: quit(2); return
+	if (app.find_child("NewRegionButton",true,false) as Button).is_visible_in_tree(): quit(3); return
+	await RenderingServer.frame_post_draw
+	if root.get_texture().get_image().save_png("E:/GPT/SM2/outputs/ui-8/pack-menu.png")!=OK: quit(4); return
+	(app.find_child("NewSurvivalTissuesButton",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	var life: Sm2LifeScreen=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	if life==null: quit(5); return
+	var s: Sm2JourneySession=life.session as Sm2JourneySession
+	if not s.save_game().ok: quit(6); return
+	var saved: String=s.state_hash()
+	(app.find_child("PsiTrain",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	var unsaved: String=s.state_hash()
+	if saved==unsaved: quit(7); return
+	(app.find_child("WorldMenu",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	(app.find_child("ResumeMainButton",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	if life.session!=s or s.state_hash()!=unsaved: quit(8); return
+	(app.find_child("WorldMenu",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	(app.find_child("ContinueSurvivalTissuesButton",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	if life.session.state_hash()!=saved: quit(9); return
+	print("SM2_UI8_PACK_OK: main menu, current launch, live resume and exact disk continuation")
+	quit(0)

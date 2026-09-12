@@ -12,11 +12,27 @@ static func sync_actor(state: Sm2TacticalState,actor: Sm2TacticalActor) -> void:
 	actor.anatomy=body.copy()
 	actor.combat.hp=body.summary(state.survival.catalog.to_data())
 	for part: String in actor.body_functions.working: actor.body_functions.working[part]=body.working(part)
+	if state.survival.catalog.has_devices(): Sm2SurvivalDevices.project_functions(state.survival,body_id(state,actor.spatial.actor_id),actor.body_functions)
 	if not actor.body_functions.working.get("left_hand",true): actor.combat.clear_wall()
 
-static func damage(state: Sm2TacticalState,target: Sm2TacticalActor,source: int,amount: int,part: String,cut: bool,events: Array[Dictionary]) -> void:
+static func damage(state: Sm2TacticalState,target: Sm2TacticalActor,source: int,amount: int,part: String,cut: bool,events: Array[Dictionary],sever: bool=false) -> void:
 	var body: Sm2Anatomy=state.survival.bodies[body_id(state,target.spatial.actor_id)]
 	var location: String=part if not part.is_empty() else "torso"
+	if state.survival.catalog.has_devices() and amount>0:
+		var body_ref: String=body_id(state,target.spatial.actor_id)
+		var device: String=Sm2SurvivalDevices.installed(state.survival,body_ref,location)
+		if not device.is_empty():
+			var item: Dictionary=state.survival.inventory.items[device]
+			var loss: int=mini(amount,int(item.current)); item.current-=loss
+			sync_actor(state,target)
+			events.append({"type":"survival_device_damaged","target_actor_id":str(target.spatial.actor_id),"item_id":device,"name":state.survival.catalog.part_name(location),"loss":loss,"remaining":item.current})
+			return
+		if state.survival.missing[body_ref].has(location): return
+		if sever:
+			if not state.survival.catalog.devices().interfaces.has(location): state.survival_error="survival_sever_target"; return
+			state.survival.missing[body_ref].append(location); state.survival.missing[body_ref].sort()
+			amount=int(body.tissues[location]); cut=true
+			events.append({"type":"survival_part_lost","target_actor_id":str(target.spatial.actor_id),"name":state.survival.catalog.part_name(location)})
 	var available: int=int(body.tissues.get(location,0))
 	var reason: String=body.injure(location,amount,cut,state.survival.catalog.to_data())
 	if not reason.is_empty(): state.survival_error=reason; return
@@ -71,7 +87,7 @@ static func bandage(state: Sm2TacticalState,command: Sm2Command) -> Dictionary:
 
 static func decode(data: Dictionary,turns: Sm2TurnCatalog,combat: Sm2CombatCatalog,effects: Sm2EffectCatalog,magic: Sm2MagicCatalog,development: Sm2DevelopmentCatalog,origin: Dictionary,initial: Sm2SurvivalState) -> Dictionary:
 	var fail: Dictionary={"ok":false,"errors":PackedStringArray(["survival_battle_snapshot"])}
-	if data.get("schema_version")!=19 or data.get("ruleset")!=RULESET or data.get("survival_initial")!=Sm2Canonical.hash(initial.to_data()): return fail
+	if data.get("schema_version")!=initial.catalog.battle_schema() or data.get("ruleset")!=initial.catalog.battle_ruleset() or data.get("survival_initial")!=Sm2Canonical.hash(initial.to_data()): return fail
 	var decoded: Dictionary=Sm2SurvivalState.decode(data.get("survival"),initial)
 	if not decoded.ok: return decoded
 	var base: Dictionary=data.duplicate(true); base.erase("survival"); base.erase("survival_initial")
@@ -89,6 +105,13 @@ static func decode(data: Dictionary,turns: Sm2TurnCatalog,combat: Sm2CombatCatal
 		var raw: Dictionary=data.actors[state.sorted_ids().find(id)]
 		sync_actor(state,actor)
 		if Sm2Canonical.hash(actor.body_functions.to_data())!=Sm2Canonical.hash(raw.body_functions): return fail
+	var participants: Array[String]=[]
+	for row: Dictionary in origin.actors: participants.append(str(row.body_id))
+	if initial.catalog.has_devices():
+		for id: String in initial.bodies:
+			for part: String in initial.missing[id]:
+				if not state.survival.missing[id].has(part): return fail
+			if id not in participants and Sm2Canonical.hash(initial.missing[id])!=Sm2Canonical.hash(state.survival.missing[id]): return fail
 	var treated: int=0
 	for id: String in initial.bodies:
 		var old: Sm2Anatomy=initial.bodies[id]
@@ -97,6 +120,8 @@ static func decode(data: Dictionary,turns: Sm2TurnCatalog,combat: Sm2CombatCatal
 		if current.death=="prepared_carrier" and old.death!="prepared_carrier": return fail
 		for index: int in old.wounds.size():
 			var before: Dictionary=old.wounds[index]; var after: Dictionary=current.wounds[index]
+			if initial.catalog.has_layers():
+				if before.cut!=after.cut or Sm2Canonical.hash(before.layer_losses)!=Sm2Canonical.hash(after.layer_losses): return fail
 			for key: String in ["id","part","loss","initial_rate"]:
 				if before[key]!=after[key]: return fail
 			if int(after.rate)>int(before.rate): return fail
@@ -116,6 +141,8 @@ static func decode(data: Dictionary,turns: Sm2TurnCatalog,combat: Sm2CombatCatal
 				if int(row.body_id)==owner: present=true
 			if not present: return fail
 			consumed+=1
+		elif initial.catalog.has_devices():
+			if not Sm2SurvivalDevices.battle_item_valid(initial.inventory.items[id],state.survival.inventory.items[id],initial.catalog,participants): return fail
 		elif Sm2Canonical.hash(state.survival.inventory.items[id])!=Sm2Canonical.hash(initial.inventory.items[id]): return fail
 	for id: String in state.survival.inventory.items:
 		if not initial.inventory.items.has(id): return fail

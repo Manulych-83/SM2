@@ -1,0 +1,33 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("_run")
+func _run() -> void:
+	if ProjectSettings.get_setting("application/config/version")!="0.8.11-ui.5": quit(1); return
+	if root.content_scale_size!=Vector2i(2560,1440) or not is_equal_approx(root.content_scale_factor,1.6): quit(2); return
+	var app: Control=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app)
+	await process_frame; await process_frame
+	app.call("_start_survival_tissues",false); await process_frame; await process_frame
+	var life: Sm2LifeScreen=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	if life==null: quit(3); return
+	var s: Sm2JourneySession=life.session as Sm2JourneySession; var before: String=s.state_hash()
+	(app.find_child("Guide_inventory",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	var w: Sm2SurvivalWorkspace=app.find_child("SurvivalWorkspace",true,false) as Sm2SurvivalWorkspace
+	if w==null or w.cards.size()!=8 or w.artwork.icons.get("backpack")==null: quit(4); return
+	if w.composition.figure==null or not w.composition.center.visible: quit(5); return
+	w.select_instance("60"); w.ui.destination="68"; w._item(w.item_by_id("60"))
+	if s.state_hash()!=before: quit(6); return
+	(w.find_child("WorkspaceStore",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	if s.journey().survival.inventory.items["60"].holder!="68" or s.journey().survival.inventory.items["59"].holder!="58": quit(7); return
+	w.choose_person(4); w.change_tab(0); w.ui.part="right_hand"; w.refresh(); await process_frame; await process_frame
+	if not w.composition.figure.anatomy or w.composition.figure.selected!="right_hand": quit(8); return
+	w.open_development(); await process_frame; await process_frame
+	(w.find_child("HeroDevelopmentBack",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	if not w.layout.visible: quit(9); return
+	w.choose_person(2); w.change_tab(1); await process_frame; await process_frame
+	await RenderingServer.frame_post_draw
+	var picture: Image=root.get_texture().get_image()
+	if picture.is_empty() or picture.save_png("E:/GPT/SM2/outputs/ui-5/pack-inventory.png")!=OK: quit(10); return
+	if not s.save_game().ok: quit(11); return
+	before=s.state_hash()
+	if not s.load_game().ok or s.state_hash()!=before: quit(12); return
+	print("SM2_UI5_PACK_OK: packaged QHD workspace, assets, exact instance transfer, body/development navigation and save/load")
+	quit(0)

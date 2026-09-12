@@ -1,0 +1,74 @@
+﻿[2026-09-12T11:55:10.4478968+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\survival\tissues-final\.local\test-runtime
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T11:55:10.4962486+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2\.local\survival\tissues-final --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\survival\tissues-final\.local\test-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Сканирование действий… (9 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | battle-1.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | battle-2.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | damaged.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | healthy.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | installed.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | menu.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | new-life.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | repaired.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | stump.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started Импорт или повторный импорт ассетов (9 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  10% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  20% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  30% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  40% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  50% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  60% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  70% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[  80% ] [90m[1mreimport[22m | Подготовка файлов к повторному импорту…[39m[0m
+[   0% ] [90m[1mreimport[22m | Выполнение предимпортных операций…[39m[0m
+[   0% ] [90m[1mreimport[22m | battle-1.png[39m[0m
+[  10% ] [90m[1mreimport[22m | battle-2.png[39m[0m
+[  20% ] [90m[1mreimport[22m | damaged.png[39m[0m
+[  30% ] [90m[1mreimport[22m | healthy.png[39m[0m
+[  40% ] [90m[1mreimport[22m | installed.png[39m[0m
+[  50% ] [90m[1mreimport[22m | menu.png[39m[0m
+[  60% ] [90m[1mreimport[22m | new-life.png[39m[0m
+[  70% ] [90m[1mreimport[22m | repaired.png[39m[0m
+[  80% ] [90m[1mreimport[22m | stump.png[39m[0m
+[  90% ] [90m[1mreimport[22m | Завершение импорта активов…[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started Импорт или повторный импорт ассетов (9 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Выполнение операций после реимпорта…[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-12T11:55:13.7627163+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2\.local\survival\tissues-final --script res://tests/test_runner.gd -- --suite survival_tissues --report E:\GPT\SM2\.local\survival\tissues-final\.local\logs\checks-20260912-115510-309-59e49d02.json
+RuntimeRoot: E:\GPT\SM2\.local\survival\tissues-final\.local\test-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SM2_TEST_REPORT {"checks":113,"engine_version":"4.7.2-stable (official)","failures":[],"passed":true,"suites":["survival_tissues"]}
+
+
+ExitCode: 0

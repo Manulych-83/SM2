@@ -1,0 +1,46 @@
+{
+  "version": "sm2.survival.devices.1",
+  "interfaces": {
+    "left_hand": "human_arm.basic",
+    "right_hand": "human_arm.basic"
+  },
+  "definitions": [
+    {
+      "id": "p4:prosthesis.right",
+      "part": "right_hand",
+      "interface": "human_arm.basic",
+      "capacity": 30
+    },
+    {
+      "id": "p4:prosthesis.left",
+      "part": "left_hand",
+      "interface": "human_arm.basic",
+      "capacity": 30
+    },
+    {
+      "id": "p4:prosthesis.alien",
+      "part": "right_hand",
+      "interface": "human_arm.advanced",
+      "capacity": 30
+    }
+  ],
+  "procedures": {
+    "attach_device": {
+      "seconds": 30,
+      "parts": 1
+    },
+    "detach_device": {
+      "seconds": 10,
+      "parts": 0
+    },
+    "repair_device": {
+      "seconds": 20,
+      "parts": 1
+    }
+  },
+  "locations": [
+    "camp",
+    "enclave"
+  ],
+  "starter_parts": 8
+}

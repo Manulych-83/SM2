@@ -90,6 +90,9 @@ func preview(command: Sm2Command) -> Dictionary:
 		return {"allowed": false, "reason": "no_session", "ap_cost": 0, "fatigue_cost": 0}
 	return _battle.preview(command)
 
+func ability_cost(actor_id: int, ability_id: String) -> Dictionary:
+	return _battle.ability_cost(actor_id,ability_id) if _battle != null else {}
+
 func reachable(actor_id: int) -> Dictionary:
 	return _battle.reachable(actor_id) if _battle != null else {"ok": false, "reason": "no_session", "cells": []}
 

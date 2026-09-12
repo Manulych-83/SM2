@@ -1,0 +1,50 @@
+extends SceneTree
+
+func _initialize() -> void:
+	call_deferred("_run")
+
+func _run() -> void:
+	var app: Control = (load("res://scenes/main.tscn") as PackedScene).instantiate() as Control
+	root.add_child(app); await process_frame; await process_frame
+	app.call("_start_survival_tissues", false); await process_frame; await process_frame
+	var life: Sm2LifeScreen = app.find_child("LifeScreen", true, false) as Sm2LifeScreen
+	if life == null: quit(1); return
+	var guide: Label = app.find_child("GuideTitle",true,false) as Label
+	if guide == null or guide.text.is_empty(): quit(22); return
+	var s: Sm2JourneySession = life.session as Sm2JourneySession
+	for index: int in 8:
+		if not s.act(s.command("practice",s.world.hero_id(),"p5:activity.psionics")).ok: quit(2); return
+	for node: String in ["p5:node.impulse","p5:node.shield"]:
+		if not s.act(s.command("buy_node",s.world.hero_id(),node)).ok: quit(3); return
+	life.redraw(); await process_frame; await process_frame
+	(app.find_child("Guide_travel_0_ruins",true,false) as Button).pressed.emit()
+	if s.journey().region.location_id != "ruins": quit(4); return
+	life.redraw(); await process_frame; await process_frame
+	(app.find_child("Guide_start_battle_0_",true,false) as Button).pressed.emit(); await process_frame; await process_frame
+	var screen: Sm2BattleScreen = app.find_child("BattleScreen",true,false) as Sm2BattleScreen
+	if screen == null or screen.board.art == null or screen.hud == null: quit(5); return
+	screen.auto_advance = false
+	if screen.hud.painted_icons.size() != 8: quit(23); return
+	if screen.theme.get_stylebox("normal","Button").bg_color != Sm2BronzeTheme.BUTTON: quit(24); return
+	if screen.board.panel_style == null: quit(25); return
+	screen.hud.tabs.current_tab = 2
+	await process_frame; await process_frame
+	if screen.hud.resources.visible: quit(26); return
+	var paper: PanelContainer = app.find_child("ActorDetailsSurface",true,false) as PanelContainer
+	if not paper.get_theme_stylebox("panel") is StyleBoxTexture: quit(27); return
+	if screen._inspector.get_theme_font("normal_font") != Sm2BronzeTheme.SERIF: quit(28); return
+	screen.hud.tabs.current_tab = 0
+	if not screen.hud.resources.visible: quit(29); return
+	if screen.hud.action_rows.is_empty() or screen.hud.queue_row.get_child_count() != 4: quit(20); return
+	if screen.hud.icon("bandage") == null or screen.hud.icon("p5:ability.shield") == null: quit(21); return
+	if screen.board.art.sprites.size() != 17: quit(6); return
+	if not screen._execute(screen._command("move","",0,Vector2i(2,1))).accepted: quit(7); return
+	if screen.board.motion.cues.is_empty() or screen.board.motion.cues[0].kind != "moved": quit(8); return
+	var shield: Button = app.find_child("Ability_shield",true,false) as Button
+	if shield == null or shield.disabled: quit(9); return
+	shield.pressed.emit()
+	if screen._actor(1).barrier.remaining != 18: quit(10); return
+	screen._save(); var saved: String = s.state_hash(); screen._load()
+	if s.state_hash() != saved or not screen.board.motion.cues.is_empty(): quit(11); return
+	print("SM2_BRONZE_PACK_OK: standalone textures and fonts, bronze theme, eight icons, details toggle, real shield, exact save/load")
+	quit(0)

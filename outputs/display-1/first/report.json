@@ -1,0 +1,11 @@
+{
+	"checks": 416,
+	"failures": [
+		"readable design scale | actual=1.60000002384186 expected=1.6",
+		"capture is actual physical render size | actual=(1280, 720) expected=(1280, 800)",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: readable design scale | actual=1.60000002384186 expected=1.6",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: capture is actual physical render size | actual=(1280, 720) expected=(1280, 800)"
+	],
+	"passed": false,
+	"rendered": true
+}

@@ -1,0 +1,87 @@
+extends RefCounted
+
+static func run(t: Sm2TestHarness) -> void:
+	var base: String="user://campaign_checks_"+str(Time.get_ticks_usec())
+	var service: Sm2Campaigns=Sm2Campaigns.new(base)
+	t.equal(service.error,"","production campaign content")
+	var original_store: Sm2SaveStore=Sm2SaveStore.new(base)
+	var old: Sm2JourneySession=Sm2JourneySession.new(service.content,service.profile,original_store)
+	t.expect(old.new_game().ok and old.save_game().ok,"legacy single-slot fixture saved")
+	var path: String=original_store._slot_path("survival_tissues")
+	var original: PackedByteArray=FileAccess.get_file_as_bytes(path)
+	var rows: Array[Dictionary]=service.inspect()
+	t.equal(rows.size(),3,"three independent campaigns")
+	t.expect(rows[0].ok and not rows[1].occupied and not rows[2].occupied,"legacy save appears in first slot")
+	t.equal(FileAccess.get_file_as_bytes(path),original,"inspection cannot rewrite old save")
+	t.equal(rows[0].location,"Лагерь","location from validated world")
+	t.expect(not rows[0].date.is_empty(),"file modification date available for old format")
+	t.expect(not service.open(0,false).ok,"new campaign refuses occupied slot")
+	var loaded: Dictionary=service.open(0,true); t.expect(loaded.ok,"old save loads without migration")
+	var first: Sm2JourneySession=loaded.session; t.equal(first.state_hash(),old.state_hash(),"old capture exact")
+	var second: Sm2JourneySession=service.open(1,false).session
+	t.expect(not service.occupied(1),"new session is not saved automatically")
+	t.expect(second.world.world_id!=first.world.world_id,"independent world identities")
+	t.expect(second.act(second.command("travel",0,"ruins")).ok and second.save_game().ok,"second world saves in ruins")
+	var path2: String=second._store._slot_path(second.slot_name()); var bytes2: PackedByteArray=FileAccess.get_file_as_bytes(path2)
+	t.expect(path!=path2,"separate physical destinations")
+	t.expect(service.select(2),"selection preference stored")
+	t.equal(Sm2Campaigns.new(base).selected(),2,"selection survives service recreation")
+	t.expect(first.act(first.command("practice",2,"p5:activity.psionics")).ok,"first session actual practice")
+	t.expect(first.save_game().ok,"first session save after selecting another slot")
+	t.equal(FileAccess.get_file_as_bytes(path2),bytes2,"changing selection cannot redirect live save")
+	var saved: String=first.state_hash(); var latest_bytes: PackedByteArray=FileAccess.get_file_as_bytes(path)
+	t.equal(FileAccess.get_file_as_bytes(path+".bak"),original,"backup is previous valid save")
+	# Syntax damage: inspect/recovery must not write either candidate.
+	write(path,"{broken"); var token: String=service.token(0)
+	rows=service.inspect(); t.expect(rows[0].ok and rows[0].recovered,"validated backup advertised")
+	t.equal(service.token(0),token,"inspection leaves damaged primary and backup unchanged")
+	loaded=service.open(0,true); t.expect(loaded.ok and loaded.recovered,"backup loads")
+	var recovery: Sm2JourneySession=loaded.session
+	t.equal(recovery.state_hash(),old.state_hash(),"recovery uses backup state, not fabricated state")
+	t.expect(recovery.save_game().ok,"recovered session can restore primary")
+	t.equal(FileAccess.get_file_as_bytes(path+".bak"),original,"repair retains verified backup")
+	t.expect(not service.open(0,true).recovered,"repaired primary loads normally")
+	# Correct checksum but wrong session semantics must also fall back.
+	var bad: Dictionary=recovery.capture(); bad.format="wrong.profile"
+	write(path,Sm2Canonical.stringify({"format":Sm2SaveStore.FORMAT,"schema_version":2,"payload":bad,"checksum":Sm2Canonical.hash(bad)}))
+	t.expect(service.open(0,true).recovered,"full domain validation rejects wrong format despite valid checksum")
+	t.expect(not service.store(0).save_slot(bad).ok,"invalid payload cannot be published")
+	# Failed recovery writes keep the valid backup.
+	t.equal(DirAccess.make_dir_absolute(path+".tmp"),OK,"blocked temp fixture")
+	t.expect(not recovery.save_game().ok,"blocked temp rejects save")
+	t.equal(FileAccess.get_file_as_bytes(path+".bak"),original,"failed repair retains backup")
+	t.expect(not service.delete(0,service.token(0)).ok,"deletion refuses directory at known file path")
+	t.equal(DirAccess.remove_absolute(path+".tmp"),OK,"remove empty fixture directory")
+	t.expect(recovery.save_game().ok,"save works after storage failure removed")
+	# Missing primary also permits backup, without creating a new world.
+	t.equal(DirAccess.remove_absolute(path),OK,"missing-primary fixture")
+	t.expect(service.open(0,true).recovered,"missing primary loads backup")
+	t.expect(recovery.save_game().ok,"backup-only campaign can save a new primary")
+	write(path,"{broken"); write(path+".bak","{also broken")
+	var before: String=first.state_hash()
+	t.expect(not first.load_game().ok,"both invalid candidates reject loading")
+	t.equal(first.state_hash(),before,"failed load preserves entire live session")
+	t.expect(not service.inspect()[0].ok,"damaged slot cannot continue")
+	t.expect(not first.save_game().ok,"bad primary and backup cannot be silently overwritten")
+	# Stale delete cannot remove a replacement save.
+	var delete_token: String=service.token(1)
+	t.expect(second.act(second.command("travel",0,"camp")).ok and second.save_game().ok,"replace selected deletion candidate")
+	var new_bytes2: PackedByteArray=FileAccess.get_file_as_bytes(path2)
+	t.expect(not service.delete(1,delete_token).ok,"stale delete rejected")
+	t.equal(FileAccess.get_file_as_bytes(path2),new_bytes2,"stale delete retains new save")
+	t.expect(service.delete(0,service.token(0)).ok,"explicit delete removes damaged selected campaign")
+	t.expect(not service.occupied(0),"deleted primary and backup no longer occupy slot")
+	t.equal(FileAccess.get_file_as_bytes(path2),new_bytes2,"delete never touches sibling campaign")
+	t.expect(service.open(0,false).ok,"deleted slot available for a new world")
+	t.expect(not service.open(-1,false).ok and not service.open(3,true).ok,"out-of-range campaign rejected")
+	t.expect(not service.store(3).save_slot(first.capture()).ok,"out-of-range store refuses write")
+	t.expect(not service.delete(3,"").ok and not service.select(-1),"invalid preference and delete rejected")
+	var metadata: Array[Dictionary]=[{"index":0,"ok":true,"modified":10},{"index":1,"ok":true,"modified":20},{"index":2,"ok":false,"modified":30}]
+	t.equal(Sm2Campaigns.latest(metadata),1,"latest skips damaged newer candidate")
+	t.expect(saved!=old.state_hash() and latest_bytes!=original,"practice produces a distinct saved checkpoint")
+	metadata[0].modified=20
+	t.equal(Sm2Campaigns.latest(metadata,1),1,"selected campaign resolves equal timestamps")
+	t.completed_suites["campaigns"]=true
+
+static func write(path: String,text: String) -> void:
+	var file: FileAccess=FileAccess.open(path,FileAccess.WRITE); file.store_string(text); file.close()

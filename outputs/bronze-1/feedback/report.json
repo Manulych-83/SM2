@@ -1,0 +1,8 @@
+{
+	"checks": 191,
+	"failures": [
+		"core/object/object.cpp:1562 connect: Method/function failed. Returning: ERR_INVALID_PARAMETER | Signal 'resized' is already connected to given callable 'Control(Sm2HexBoard)::queue_redraw' in that object."
+	],
+	"passed": false,
+	"rendered": true
+}

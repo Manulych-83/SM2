@@ -6,6 +6,9 @@ var _screen: Control
 var _output: String = "user://tests/ui"
 
 func _initialize() -> void:
+	root.mode=Window.MODE_WINDOWED
+	root.content_scale_size=Vector2i.ZERO
+	root.content_scale_factor=1.0
 	call_deferred("_run")
 
 func _run() -> void:

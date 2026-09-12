@@ -1,0 +1,8 @@
+{
+  "changed_existing_domain_content_storage": [],
+  "unchanged": true,
+  "new_data_and_storage": [
+    "content/presentation/controls.json",
+    "src/infrastructure/sm2_display_preferences.gd"
+  ]
+}
