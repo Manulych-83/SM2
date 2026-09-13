@@ -1,0 +1,48 @@
+{
+  "version": "0.8.40-character.1",
+  "ui": [
+    {
+      "suite": "character",
+      "passed": true,
+      "checks": 290,
+      "report": "outputs/character-1/character.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "inventory_layout",
+      "passed": true,
+      "checks": 199,
+      "report": "outputs/character-1/inventory_layout.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "camp_layout",
+      "passed": true,
+      "checks": 236,
+      "report": "outputs/character-1/camp_layout.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "controls",
+      "passed": true,
+      "checks": 140,
+      "report": "outputs/character-1/controls.json",
+      "exit_code": 0
+    }
+  ],
+  "total_checks": 865.0,
+  "pack_passed": true,
+  "build": {
+    "path": "builds/SM2.exe",
+    "sha256": "666940EE5E22C2A1A1B3F28DF57A86FF73710EE701669B816C8A74B2EFE66676",
+    "bytes": 128614416
+  },
+  "limitations": [
+    "Existing layered artwork, approximate anatomy silhouette and provisional portrait.",
+    "No domain or save schema changes; no large combined campaign acceptance.",
+    "Full user manual review before roadmap stage 5 remains pending."
+  ],
+  "published": false,
+  "exe_exit_code": 0,
+  "export_log": ".local/logs/export-20260913-203740-488-26c6da41.log"
+}

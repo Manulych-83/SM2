@@ -3,6 +3,7 @@ const SHIELD=preload("res://tests/scenarios/test_p5_shield.gd")
 var display_report: Dictionary={}
 
 func _press(id: String) -> void:
+	if id=="ResumeMainButton" and _button(id)==null and app._page=="menu": await super._press("CampaignsButton")
 	# Follow the real camp navigation after splitting the former single long page.
 	var target: Button=_button(id)
 	var camp: Sm2LifeScreen=app.find_child("LifeScreen",true,false) as Sm2LifeScreen

@@ -1,0 +1,121 @@
+Snapshot: 2026-09-13; working version 0.8.41-inventory.1
+These files are existing work. Preserve them.
+
+HEAD:
+399066cc3009af3b47dcb88f0e3f388da84c9526 feat: add layered camp hub and integrate campaign creature templates
+
+STATUS:
+ M AGENTS.md
+ M README.md
+ M docs/CURRENT_STATE.md
+ M docs/TESTING_POLICY.md
+ M project.godot
+ M src/presentation/sm2_camp_home.gd
+ M src/presentation/sm2_life_screen.gd
+ M src/presentation/sm2_main.gd
+ M src/presentation/sm2_start_screen.gd
+ M src/presentation/sm2_survival_workspace.gd
+ M tests/campaigns_ui.gd
+ M tests/display_ui.gd
+ M tests/start_menu_ui.gd
+ M tools/run_ui_checks.ps1
+?? assets/start_screen/settings.svg
+?? assets/start_screen/settings.svg.import
+?? assets/start_screen/slots.svg
+?? assets/start_screen/slots.svg.import
+?? docs/HANDOFF.md
+?? docs/HANDOFF_WORKTREE.txt
+?? docs/IMPLEMENTATION_CHARACTER_1.md
+?? docs/IMPLEMENTATION_INVENTORY_1.md
+?? docs/IMPLEMENTATION_MENU_1.md
+?? docs/NEXT_ACCOUNT_TASK.md
+?? outputs/character-1/
+?? outputs/character-concept-1/
+?? outputs/inventory-1/
+?? outputs/inventory-concept-2/
+?? outputs/menu-1/
+?? src/application/sm2_character_view.gd
+?? src/application/sm2_character_view.gd.uid
+?? src/presentation/sm2_character_layout.gd
+?? src/presentation/sm2_character_layout.gd.uid
+?? src/presentation/sm2_inventory_layout.gd
+?? src/presentation/sm2_inventory_layout.gd.uid
+?? tests/character_ui.gd
+?? tests/character_ui.gd.uid
+?? tests/inventory_home_ui.gd
+?? tests/inventory_home_ui.gd.uid
+
+UNTRACKED FILES (excluding ignored):
+assets/start_screen/settings.svg
+assets/start_screen/settings.svg.import
+assets/start_screen/slots.svg
+assets/start_screen/slots.svg.import
+docs/HANDOFF.md
+docs/HANDOFF_WORKTREE.txt
+docs/IMPLEMENTATION_CHARACTER_1.md
+docs/IMPLEMENTATION_INVENTORY_1.md
+docs/IMPLEMENTATION_MENU_1.md
+docs/NEXT_ACCOUNT_TASK.md
+outputs/character-1/body-2560.png
+outputs/character-1/camp_layout.json
+outputs/character-1/character.json
+outputs/character-1/controls.json
+outputs/character-1/exe-start.log
+outputs/character-1/installed-2560.png
+outputs/character-1/inventory_layout.json
+outputs/character-1/no-body-2560.png
+outputs/character-1/overview-1280-720.png
+outputs/character-1/overview-2560.png
+outputs/character-1/pack-character.png
+outputs/character-1/pack.gd
+outputs/character-1/pack.log
+outputs/character-1/summary.json
+outputs/character-1/wounded-2560.png
+outputs/character-concept-1/character-v1.png
+outputs/character-concept-1/prompt.txt
+outputs/character-concept-1/proposal.md
+outputs/inventory-1/camp_layout.json
+outputs/inventory-1/character.json
+outputs/inventory-1/controls.json
+outputs/inventory-1/exe-start.log
+outputs/inventory-1/expedition.json
+outputs/inventory-1/inventory-1280-720.png
+outputs/inventory-1/inventory-1280-800.png
+outputs/inventory-1/inventory-2560.png
+outputs/inventory-1/inventory_home.json
+outputs/inventory-1/inventory_layout.json
+outputs/inventory-1/pack-inventory.png
+outputs/inventory-1/pack.gd
+outputs/inventory-1/pack.log
+outputs/inventory-1/summary.json
+outputs/inventory-concept-2/inventory-v1.png
+outputs/inventory-concept-2/prompt.txt
+outputs/inventory-concept-2/proposal.md
+outputs/menu-1/core-campaigns.json
+outputs/menu-1/delete-final-confirm.png
+outputs/menu-1/exe.log
+outputs/menu-1/export.log
+outputs/menu-1/new-1280.png
+outputs/menu-1/pack-continue-2560.png
+outputs/menu-1/pack-new-2560.png
+outputs/menu-1/pack.gd
+outputs/menu-1/pack.log
+outputs/menu-1/slots-2560.png
+outputs/menu-1/summary.json
+outputs/menu-1/ui-campaigns.json
+outputs/menu-1/ui-controls.json
+outputs/menu-1/ui-creatures.json
+outputs/menu-1/ui-expedition.json
+outputs/menu-1/ui-sequences.json
+outputs/menu-1/ui-settings.json
+outputs/menu-1/ui-start_menu.json
+src/application/sm2_character_view.gd
+src/application/sm2_character_view.gd.uid
+src/presentation/sm2_character_layout.gd
+src/presentation/sm2_character_layout.gd.uid
+src/presentation/sm2_inventory_layout.gd
+src/presentation/sm2_inventory_layout.gd.uid
+tests/character_ui.gd
+tests/character_ui.gd.uid
+tests/inventory_home_ui.gd
+tests/inventory_home_ui.gd.uid

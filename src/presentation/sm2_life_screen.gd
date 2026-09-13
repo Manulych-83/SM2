@@ -402,6 +402,16 @@ func _open_workspace() -> void:
 	_content.hide()
 	workspace.closed.connect(func(state: Dictionary,message: String) -> void:
 		_workspace_state=state; _notice=message; remove_child(workspace); workspace.queue_free(); redraw())
+	workspace.navigation_requested.connect(func(target: String) -> void:
+		_workspace_state=workspace.ui.duplicate(true); _notice=workspace.message
+		remove_child(workspace); workspace.queue_free(); _camp_page="home"; redraw()
+		match target:
+			"soul": _open_soul()
+			"journal": _open_journal()
+			"map", "activities": _camp_page=target; redraw()
+			"settings": settings_requested.emit()
+			"menu": menu_requested.emit()
+	)
 	add_child(workspace)
 
 func _expedition_completed() -> void:

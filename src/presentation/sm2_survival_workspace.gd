@@ -2,6 +2,7 @@ class_name Sm2SurvivalWorkspace
 extends Control
 var expedition: Sm2ExpeditionView=Sm2ExpeditionView.new()
 signal closed(state: Dictionary,message: String)
+signal navigation_requested(target: String)
 var session: Sm2JourneySession
 var ui: Dictionary={"body":0,"tab":0,"part":"","item":"","destination":"","scope":1,"query":""}
 var message: String=""
@@ -13,6 +14,7 @@ var filtered: Array[Dictionary]=[]
 var cards: Array[Dictionary]=[]
 var artwork: Sm2WorkspaceArt=Sm2WorkspaceArt.new()
 var composition: Sm2WorkspaceLayout
+var inventory_composition: Sm2InventoryLayout
 var container_bar: HBoxContainer
 var development_screen: Sm2HeroDevelopmentScreen
 
@@ -34,14 +36,20 @@ func refresh() -> void:
 	view=Sm2SurvivalWorkspaceView.build(session,int(ui.body))
 	if composition!=null and resized.is_connected(composition.relayout): resized.disconnect(composition.relayout)
 	if is_instance_valid(layout): remove_child(layout); layout.queue_free()
-	item_list=null; details=null; container_bar=null
+	item_list=null; details=null; container_bar=null; inventory_composition=null
 	layout=Control.new(); layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(layout)
+	if bool(ui.get("character",false)) and int(ui.tab)==0:
+		ui.merge({"character_page":"overview"},false)
+		if not view.body.is_empty() and int(ui.body)!=0: ui.body=int(view.body.id)
+		Sm2CharacterLayout.new().build(self); return
 	if not str(view.message).is_empty() or view.body.is_empty():
 		var panel: PanelContainer=PanelContainer.new(); panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); panel.add_theme_stylebox_override("panel",Sm2BronzeTheme.box()); layout.add_child(panel)
 		var column: VBoxContainer=VBoxContainer.new(); panel.add_child(column)
 		column.add_child(button("Вернуться","WorkspaceBack",func() -> void: closed.emit(ui.duplicate(true),message)))
 		column.add_child(label(view.message if not str(view.message).is_empty() else "Нет доступного тела в этом месте.")); return
 	ui.body=int(view.body.id)
+	if int(ui.tab)==1 and (bool(ui.get("inventory_home",false)) or bool(ui.get("character",false))):
+		ui.inventory_home=true; inventory_composition=Sm2InventoryLayout.new(); inventory_composition.build(self); return
 	var valid: bool=false
 	for part: Dictionary in view.parts:
 		if part.id==ui.part: valid=true
@@ -56,6 +64,7 @@ func refresh() -> void:
 	composition.relayout()
 
 func change_tab(index: int) -> void:
+	if index==0 and bool(ui.get("character",false)): ui.character_page="body"
 	ui.tab=index; refresh()
 
 func choose_person(id: int) -> void:
@@ -67,9 +76,11 @@ func select_equipment(id: String) -> void:
 func open_development() -> void:
 	if is_instance_valid(development_screen): return
 	development_screen=Sm2HeroDevelopmentScreen.new(); development_screen.session=session; development_screen.back_text="К инвентарю"
+	if bool(ui.get("character",false)):
+		development_screen.back_text="К персонажу"; development_screen.selected_id=str(ui.get("attribute","")); development_screen._companion=int(ui.body)==4
 	layout.hide(); add_child(development_screen)
 	var back: Button=development_screen.find_child("HeroDevelopmentBack",true,false) as Button
-	if back!=null: back.text="К телу и инвентарю"
+	if back!=null: back.text="К персонажу" if bool(ui.get("character",false)) else "К телу и инвентарю"
 	development_screen.camp_requested.connect(func() -> void:
 		remove_child(development_screen); development_screen.queue_free(); development_screen=null; refresh())
 
@@ -150,6 +161,7 @@ func _inventory(outer: VBoxContainer) -> void:
 	_items()
 
 func _items() -> void:
+	if inventory_composition!=null: inventory_composition.populate(); return
 	var result: Dictionary=Sm2InventoryCards.build(view,ui)
 	filtered.assign(result.rows); cards.assign(result.groups); item_list.clear()
 	var selected: int=-1
@@ -191,6 +203,9 @@ func _item(row: Dictionary) -> void:
 			if id==row.id: instance.select(instance.item_count-1)
 		instance.item_selected.connect(func(index: int) -> void: select_instance(str(instance.get_item_metadata(index))))
 	description.add_child(label(row.name,20,GOLD)); description.add_child(label(row.where,14))
+	if inventory_composition!=null:
+		var icon: TextureRect=TextureRect.new(); icon.texture=artwork.icon(row); icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED; icon.custom_minimum_size.y=32; description.add_child(icon)
+		description.add_theme_constant_override("separation",5); actions.add_theme_constant_override("separation",5)
 	if goal.get("ok",false) and str(row.id) in goal.ids: description.add_child(label("Находка из первого похода · доставка засчитана" if goal.complete else "Находка для первого похода · в лагерный сундук",14,GOLD))
 	description.add_child(label("Масса %.2f кг · объём %s · размер %s" % [int(row.mass)/1000.0,row.volume,row.size],13,MUTED))
 	if row.device: description.add_child(label("Прочность %s / %s" % [row.current,row.device_max],18))
@@ -207,18 +222,23 @@ func _item(row: Dictionary) -> void:
 		destination.select(selected)
 		var target: Dictionary=view.containers[selected]
 		actions.add_child(label("Объём: %s / %s · масса: %.2f / %.2f кг%s" % [target.volume,target.capacity,int(target.mass)/1000.0,int(target.max_mass)/1000.0," · быстрый доступ" if target.quick else ""],13,MUTED))
+		if inventory_composition!=null:
+			for amount: Array in [[target.volume,target.capacity],[target.mass,target.max_mass]]:
+				var meter: ProgressBar=ProgressBar.new(); meter.max_value=maxf(1,float(amount[1])); meter.value=float(amount[0]); meter.show_percentage=false; meter.custom_minimum_size.y=5; actions.add_child(meter)
 		destination.item_selected.connect(func(index: int) -> void: ui.destination=view.containers[index].id; _item(row))
-		add_action(actions,"Положить в контейнер","WorkspaceStore",session.command("store_item",int(ui.destination),row.id))
+		add_action(actions,"Переложить" if inventory_composition!=null else "Положить в контейнер","WorkspaceStore",session.command("store_item",int(ui.destination),row.id))
 	if not str(row.slot).is_empty(): add_action(actions,"Надеть выбранному участнику","WorkspaceWear",session.command("wear_item",int(ui.body),row.id))
 	if row.device:
 		for action: Array in [["attach_device","Установить","WorkspaceAttach",int(ui.body)],["detach_device","Снять на землю","WorkspaceDetach",0],["repair_device","Отремонтировать","WorkspaceRepair",0]]:
 			var price: Dictionary=session.journey().survival.catalog.devices().procedures[action[0]]
 			add_action(actions,"%s · %s сек · %s компл." % [action[1],int(price.seconds),int(price.parts)],action[2],session.command(action[0],action[3],row.id))
 	add_action(actions,"Оставить на земле здесь","WorkspaceDrop",session.command("drop_item",0,row.id))
-	description.add_child(label("Вещи на земле и в стационарном тайнике остаются здесь при переходе. Переносите находки в надетых контейнерах.",15,MUTED))
+	if inventory_composition==null: description.add_child(label("Вещи на земле и в стационарном тайнике остаются здесь при переходе. Переносите находки в надетых контейнерах.",15,MUTED))
+	else: description.add_child(button("К ранам и лечению","InventoryTreatment",func() -> void: ui.character=true; change_tab(0)))
 
 func select_instance(id: String) -> void:
 	ui.item=id
+	if inventory_composition!=null: inventory_composition.select_instance(id); return
 	# Focus returning from the popup must not restore the group's first object.
 	for index: int in cards.size():
 		if id in cards[index].ids: item_list.set_item_metadata(index,id); break

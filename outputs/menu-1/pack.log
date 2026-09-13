@@ -1,0 +1,16 @@
+﻿[2026-09-13T17:19:50.8905678+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\menu2\pack-runtime
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T17:19:50.9487946+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --path E:\GPT\SM2 --main-pack E:\GPT\SM2\builds\SM2.exe --script E:\GPT\SM2\outputs\menu-1\pack.gd --quit-after 600
+RuntimeRoot: E:\GPT\SM2\.local\menu2\pack-runtime
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5080
+
+SM2_MENU_1_PACK_OK: new incarnation, settings, three slots, save and exact restore
+SM2_MENU_1_QUIT_OK
+
+
+ExitCode: 0

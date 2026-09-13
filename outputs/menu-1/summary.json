@@ -1,0 +1,63 @@
+{
+  "version": "0.8.39-menu.1",
+  "ui": [
+    {
+      "suite": "start_menu",
+      "passed": true,
+      "checks": 127,
+      "report": "ui-start_menu.json"
+    },
+    {
+      "suite": "campaigns",
+      "passed": true,
+      "checks": 202,
+      "report": "ui-campaigns.json"
+    },
+    {
+      "suite": "settings",
+      "passed": true,
+      "checks": 118,
+      "report": "ui-settings.json"
+    },
+    {
+      "suite": "controls",
+      "passed": true,
+      "checks": 151,
+      "report": "ui-controls.json"
+    },
+    {
+      "suite": "expedition",
+      "passed": true,
+      "checks": 146,
+      "report": "ui-expedition.json"
+    },
+    {
+      "suite": "creatures",
+      "passed": true,
+      "checks": 86,
+      "report": "ui-creatures.json"
+    },
+    {
+      "suite": "sequences",
+      "passed": true,
+      "checks": 95,
+      "report": "ui-sequences.json"
+    }
+  ],
+  "ui_checks": 925,
+  "core_checks": 58,
+  "total_checks": 983,
+  "packed_acceptance": true,
+  "close_button_exit": 0,
+  "exe_launch_exit": 0,
+  "build": "builds/SM2.exe",
+  "build_sha256": "8479EE8FA56B3811CCE78AEB42A16B4E5B82B5B749E21502B223798E2EE1E0F2",
+  "build_bytes": 128601792,
+  "captures": [
+    "pack-new-2560.png",
+    "pack-continue-2560.png",
+    "new-1280.png",
+    "slots-2560.png",
+    "delete-final-confirm.png"
+  ]
+}

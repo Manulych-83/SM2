@@ -11,6 +11,7 @@ var _modes_expanded: bool=false
 var _campaign_service: Sm2Campaigns
 var _campaigns_open: bool=false
 var _campaign_delete: int=-1
+var _campaign_delete_step: int=0
 var _campaign_token: String=""
 var _start_resize_pending: bool=false
 var _settings_return: String="menu"
@@ -216,7 +217,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if _page=="menu" and not _modes_expanded and not _campaigns_open and _campaign_delete<0 and not Sm2Controls.text_focused(self) and Sm2Controls.action(event)=="settings":
 		get_viewport().set_input_as_handled(); _open_settings(); return
 	if _page!="menu" or not event is InputEventKey or not event.pressed or event.echo or event.physical_keycode!=KEY_ESCAPE: return
-	if _campaign_delete>=0: _campaign_delete=-1
+	if _campaign_delete>=0: _campaign_delete=-1; _campaign_delete_step=0
 	elif _campaigns_open: _campaigns_open=false
 	elif _modes_expanded: _modes_expanded=false
 	else: return
@@ -224,7 +225,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func _resume_main() -> void:
 	if _life == null: return
-	_page="life"; _notice=""; _is_error=false; _redraw_page()
+	_page="life"; _campaigns_open=false; _notice=""; _is_error=false; _redraw_page()
 
 func _toggle_modes() -> void:
 	_modes_expanded=not _modes_expanded
@@ -249,14 +250,21 @@ func _open_campaign(index: int,from_save: bool) -> void:
 	_redraw_page()
 
 func _request_campaign_delete(index: int,token: String) -> void:
-	_campaign_delete=index; _campaign_token=token; _redraw_page()
+	_campaign_delete=index; _campaign_token=token; _campaign_delete_step=1; _redraw_page()
 
-func _confirm_campaign_delete() -> void:
-	var index: int=_campaign_delete
-	var result: Dictionary=_campaigns().delete(index,_campaign_token)
+func _advance_campaign_delete(index: int,token: String) -> void:
+	if _campaign_delete_step!=1 or index!=_campaign_delete or token!=_campaign_token: return
+	if _campaigns().token(index)!=token:
+		_campaign_delete=-1; _campaign_delete_step=0; _notice="Сохранение изменилось. Выберите его заново."; _is_error=true
+	else: _campaign_delete_step=2
+	_redraw_page()
+
+func _confirm_campaign_delete(index: int,token: String) -> void:
+	if _campaign_delete_step!=2 or index!=_campaign_delete or token!=_campaign_token: return
+	var result: Dictionary=_campaigns().delete(index,token)
 	if _handle_result(result,"Кампания удалена.") and _life!=null and _life._store is Sm2CampaignStore:
 		if (_life._store as Sm2CampaignStore).campaign_index==index: _life=null
-	_campaign_delete=-1; _redraw_page()
+	_campaign_delete=-1; _campaign_delete_step=0; _redraw_page()
 
 func _update_modes_button() -> void:
 	var button: Button=_body.find_child("OtherModesButton",true,false) as Button

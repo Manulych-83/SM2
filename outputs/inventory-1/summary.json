@@ -1,0 +1,62 @@
+{
+  "version": "0.8.41-inventory.1",
+  "ui": [
+    {
+      "suite": "inventory_home",
+      "passed": true,
+      "checks": 296,
+      "report": "outputs/inventory-1/inventory_home.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "inventory_layout",
+      "passed": true,
+      "checks": 199,
+      "report": "outputs/inventory-1/inventory_layout.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "character",
+      "passed": true,
+      "checks": 288,
+      "report": "outputs/inventory-1/character.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "camp_layout",
+      "passed": true,
+      "checks": 236,
+      "report": "outputs/inventory-1/camp_layout.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "controls",
+      "passed": true,
+      "checks": 140,
+      "report": "outputs/inventory-1/controls.json",
+      "exit_code": 0
+    },
+    {
+      "suite": "expedition",
+      "passed": true,
+      "checks": 146,
+      "report": "outputs/inventory-1/expedition.json",
+      "exit_code": 0
+    }
+  ],
+  "total_checks": 1305.0,
+  "pack_passed": true,
+  "exe_exit_code": 0,
+  "export_log": ".local/logs/export-20260913-205844-893-5b2b7629.log",
+  "build": {
+    "path": "builds/SM2.exe",
+    "sha256": "DEF4000F5ED457EC92EF6ABD87D3CF464548AE5EA8C3D5A3BDA789B31D242251",
+    "bytes": 128625728
+  },
+  "limitations": [
+    "Existing layered art and provisional portrait/icons.",
+    "Filtering and grouping still scan the current item projection; dropdowns are not virtualized.",
+    "Full manual review before roadmap stage 5 is still pending."
+  ],
+  "published": false
+}

@@ -67,7 +67,7 @@ func build(controller: Sm2CampScreen) -> void:
 	var dock_row: HBoxContainer=HBoxContainer.new(); dock_row.add_theme_constant_override("separation",12); dock.add_child(dock_row)
 	for entry: Array in [["Отдых","CampRest","","res://assets/hud/wait.svg"],["Лечение","CampTreatment","body","res://assets/hud/bandage.svg"],["Ремесло","CampCraft","","res://assets/hud/hand.svg"],["Припасы","CampSupplies","inventory","res://assets/inventory/backpack.svg"]]:
 		var route: String=entry[2]
-		var value: Button=ui.button(entry[0],entry[1],func() -> void: navigate(route))
+		var value: Button=ui.button(entry[0],entry[1],func() -> void: navigate("treatment" if route=="body" else route))
 		value.icon=load(entry[3]); value.expand_icon=true; value.add_theme_constant_override("icon_max_width",34); value.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		value.disabled=route.is_empty() or bool(ui.model.busy); value.tooltip_text="Занятие пока недоступно." if route.is_empty() else "Доступно вне боя" if ui.model.busy else ""
 		dock_row.add_child(value)
@@ -77,8 +77,12 @@ func build(controller: Sm2CampScreen) -> void:
 
 func navigate(target: String) -> void:
 	match target:
-		"body": ui.open_body(int(ui.model.hero),0)
-		"inventory": ui.open_body(int(ui.model.hero),1)
+		"body", "treatment":
+			ui.owner._workspace_state={"body":int(ui.model.hero),"tab":0,"part":"","item":"","destination":"","scope":1,"query":"","character":true,"character_page":"body" if target=="treatment" else "overview"}
+			ui.owner._open_workspace()
+		"inventory":
+			ui.owner._workspace_state={"body":int(ui.model.hero),"tab":1,"part":"","item":"","destination":"","scope":1,"query":"","inventory_home":true}
+			ui.owner._open_workspace()
 		"development": ui.owner.development_requested.emit()
 		"soul": ui.owner._open_soul()
 		"journal": ui.owner._open_journal()

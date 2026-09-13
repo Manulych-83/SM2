@@ -3,6 +3,57 @@ extends RefCounted
 const B: GDScript=preload("res://src/presentation/sm2_bronze_theme.gd")
 
 static func build(owner: Control) -> void:
+	if OS.get_environment("SM2_LEGACY_DEMOS")=="1": build_legacy(owner); return
+	var host: Control=owner._body; host.theme=B.create(); host.theme.default_font=B.SERIF
+	var background: TextureRect=TextureRect.new(); background.name="MenuIllustration"
+	background.texture=preload("res://assets/start_screen/valley.png")
+	background.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; background.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	background.mouse_filter=Control.MOUSE_FILTER_IGNORE; host.add_child(background); background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var corner: HBoxContainer=HBoxContainer.new(); corner.name="MenuCornerButtons"; corner.add_theme_constant_override("separation",12)
+	host.add_child(corner); corner.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT); corner.offset_left=-122; corner.offset_top=22; corner.offset_right=-22; corner.offset_bottom=66
+	var settings: Button=menu_button("","SettingsButton",owner._open_settings.bind("menu"),18)
+	settings.icon=preload("res://assets/start_screen/settings.svg"); settings.expand_icon=true; settings.add_theme_constant_override("icon_max_width",22); settings.tooltip_text=Sm2Controls.caption("settings","Настройки"); settings.custom_minimum_size=Vector2(44,44); corner.add_child(settings)
+	var close: Button=menu_button("×","QuitButton",owner._quit_game,25); close.tooltip_text="Закрыть игру"; close.custom_minimum_size=Vector2(44,44); corner.add_child(close)
+	var block: VBoxContainer=VBoxContainer.new(); block.name="MainStartPanel"; block.add_theme_constant_override("separation",16)
+	host.add_child(block); block.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	block.offset_left=-430; block.offset_right=-44; block.offset_top=-242; block.offset_bottom=-76
+	var rows: Array[Dictionary]=owner._campaigns().inspect()
+	var latest: int=Sm2Campaigns.latest(rows,owner._campaigns().selected())
+	var occupied: bool=false
+	for row: Dictionary in rows: occupied=occupied or bool(row.occupied)
+	var actions: HBoxContainer=HBoxContainer.new(); actions.add_theme_constant_override("separation",12); block.add_child(actions)
+	var slots: Button=menu_button("","CampaignsButton",owner._show_campaigns,18)
+	slots.icon=preload("res://assets/start_screen/slots.svg"); slots.expand_icon=true; slots.add_theme_constant_override("icon_max_width",54); slots.tooltip_text="Воплощения · три слота сохранения"; slots.custom_minimum_size=Vector2(72,72); actions.add_child(slots)
+	var primary: Button=menu_button("Продолжить" if occupied else "Новое воплощение","ContinueSurvivalTissuesButton" if occupied else "NewSurvivalTissuesButton",owner._start_survival_tissues.bind(occupied),25)
+	primary.size_flags_horizontal=Control.SIZE_EXPAND_FILL; primary.custom_minimum_size.y=72; actions.add_child(primary)
+	primary.tooltip_text="Загрузить последнее доступное сохранение" if occupied else "Начать новую игру в пустом слоте"
+	var text: String="Начните историю новой Души" if not occupied else "Нет доступного сохранения\nОткройте слоты для подробностей"
+	if latest>=0:
+		var saved: Dictionary=rows[latest]
+		text="Кампания %s · %s\n%s · %s" % [latest+1,saved.location,"Резервная копия" if saved.recovered else "Сохранено",saved_date(int(saved.modified))]
+	var info: Label=label(text,15,B.TEXT); info.name="MenuSaveHint"; info.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT; block.add_child(info)
+	var status: Label=label(owner._notice,14,Color("f0a491") if owner._is_error else B.GOLD); status.name="StatusLabel"; status.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT; status.visible=not owner._notice.is_empty(); block.add_child(status)
+	if owner._campaigns_open or owner._campaign_delete>=0:
+		for control: Button in [primary,slots,settings,close]: control.disabled=true
+	if owner._campaigns_open: campaigns(owner,rows)
+	if owner._campaign_delete>=0: deletion(owner)
+
+static func saved_date(seconds: int) -> String:
+	var zone: Dictionary=Time.get_time_zone_from_system(); var bias: int=int(zone.bias)
+	var date: Dictionary=Time.get_datetime_dict_from_unix_time(seconds+bias*60)
+	@warning_ignore("integer_division")
+	return "%02d.%02d.%04d · %02d:%02d UTC%s%02d:%02d" % [date.day,date.month,date.year,date.hour,date.minute,"+" if bias>=0 else "-",absi(bias)/60,absi(bias)%60]
+
+static func menu_button(text: String,id: String,callback: Callable,font_size: int) -> Button:
+	var value: Button=Button.new(); value.name=id; value.text=text; value.pressed.connect(callback)
+	value.add_theme_font_override("font",B.SERIF_BOLD); value.add_theme_font_size_override("font_size",font_size)
+	value.add_theme_color_override("font_color",Color("e9b352"))
+	for state: String in ["normal","hover","pressed","focus"]:
+		var style: StyleBoxFlat=B.box(Color("140e06"),Color("ab742d") if state=="normal" else Color("e9b352"),8)
+		style.set_border_width_all(2); style.set_corner_radius_all(3); value.add_theme_stylebox_override(state,style)
+	return value
+
+static func build_legacy(owner: Control) -> void:
 	var host: Control=owner._body; host.theme=B.create()
 	var background: TextureRect=TextureRect.new(); background.name="MenuIllustration"
 	background.texture=preload("res://assets/start_screen/valley.png")
@@ -52,8 +103,9 @@ static func dialog(host: Control,id: String,dimensions: Vector2) -> VBoxContaine
 	var column: VBoxContainer=VBoxContainer.new(); column.add_theme_constant_override("separation",12); panel.add_child(column); return column
 
 static func campaigns(owner: Control,rows: Array[Dictionary]) -> void:
-	var column: VBoxContainer=dialog(owner._body,"CampaignChooser",Vector2(820,720))
-	column.add_child(label("КАМПАНИИ",26,B.GOLD))
+	var outer: VBoxContainer=dialog(owner._body,"CampaignChooser",Vector2(820,770))
+	var column: VBoxContainer=Sm2SurvivalWorkspace.scroll_column(outer,1)
+	column.add_child(label("ВОПЛОЩЕНИЯ · СОХРАНЕНИЯ",26,B.GOLD))
 	column.add_child(label("Каждый слот — отдельный мир со всеми воплощениями Души.",16,B.MUTED))
 	var selected: int=owner._campaigns().selected()
 	for row: Dictionary in rows:
@@ -66,16 +118,24 @@ static func campaigns(owner: Control,rows: Array[Dictionary]) -> void:
 		var text: String="Пустой слот" if not row.occupied else "Сохранение повреждено или несовместимо"
 		if row.ok: text=("Резервная копия · " if row.recovered else "Сохранено · ")+row.date+"\n"+row.location+" · "+row.state+"\nПолная проверка — при загрузке."
 		var info: Label=label(text,15,B.PSI if row.recovered else B.MUTED); info.name="CampaignInfo_"+str(row.index); body.add_child(info)
-		body.add_child(owner._button("Восстановить резервную копию" if row.recovered else "Загрузить" if row.occupied else "Начать кампанию","CampaignOpen_"+str(row.index),owner._open_campaign.bind(row.index,row.occupied),row.occupied and not row.ok))
+		body.add_child(owner._button("Восстановить резервную копию" if row.recovered else "Загрузить" if row.occupied else "Новое воплощение","CampaignOpen_"+str(row.index),owner._open_campaign.bind(row.index,row.occupied),row.occupied and not row.ok))
 	if not owner._notice.is_empty(): column.add_child(label(owner._notice,14,Color("f0a491")))
-	column.add_child(owner._button("Закрыть","CampaignClose",func() -> void: owner._campaigns_open=false; owner._redraw_page()))
+	if owner._life!=null: column.add_child(owner._button("Вернуться в текущую игру без загрузки","ResumeMainButton",owner._resume_main))
+	outer.add_child(owner._button("Закрыть","CampaignClose",func() -> void: owner._campaigns_open=false; owner._redraw_page()))
 
 static func deletion(owner: Control) -> void:
-	var column: VBoxContainer=dialog(owner._body,"CampaignDeleteDialog",Vector2(610,300))
-	column.add_child(label("Удалить кампанию "+str(owner._campaign_delete+1)+"?",25,B.GOLD))
-	column.add_child(label("Будут удалены сохранение этого мира и его резервная копия. Начатая игра этой кампании тоже закроется. Отменить удаление нельзя.",17,B.TEXT))
-	column.add_child(owner._button("Отмена","CampaignCancelDelete",func() -> void: owner._campaign_delete=-1; owner._redraw_page()))
-	column.add_child(owner._button("Удалить кампанию","CampaignConfirmDelete",owner._confirm_campaign_delete))
+	var chooser: Control=owner._body.find_child("CampaignChooser",true,false) as Control
+	if chooser!=null:
+		for control: Node in chooser.find_children("*","BaseButton",true,false): (control as BaseButton).disabled=true
+	var index: int=owner._campaign_delete; var token: String=owner._campaign_token
+	var final_step: bool=owner._campaign_delete_step==2
+	var column: VBoxContainer=dialog(owner._body,"CampaignDeleteDialog",Vector2(640,360 if final_step else 300))
+	column.add_child(label("Удалить навсегда?" if final_step else "Удалить кампанию "+str(index+1)+"?",25,B.GOLD))
+	column.add_child(label("Подтверждение 2 из 2 · Кампания "+str(index+1) if final_step else "Подтверждение 1 из 2",16,B.PSI))
+	column.add_child(label("Сохранение этой кампании и резервная копия будут удалены. Текущая игра этого слота закроется. Восстановить их после удаления нельзя." if final_step else "Вы выбрали удаление всего мира этого слота, включая историю воплощений. На следующем шаге потребуется окончательное подтверждение.",17,B.TEXT))
+	if not final_step: column.add_child(owner._button("Да, перейти к удалению","CampaignConfirmDelete",owner._advance_campaign_delete.bind(index,token)))
+	column.add_child(owner._button("Отмена","CampaignCancelDelete",func() -> void: owner._campaign_delete=-1; owner._campaign_delete_step=0; owner._redraw_page()))
+	if final_step: column.add_child(owner._button("Удалить навсегда","CampaignFinalDelete",owner._confirm_campaign_delete.bind(index,token)))
 
 static func current_text(session: Sm2LifeSession) -> String:
 	if session==null: return "Сейчас нет начатой игры."

@@ -1,0 +1,24 @@
+Use case: ui-mockup. Create ONE elegant readable Russian RPG CHARACTER OVERVIEW interface concept for SM2. Landscape 16:9 for a 2560x1440 fullscreen design. This is a proposal mockup, not real game data. Preserve the established dark charcoal translucent panels, thin bronze rectangular outlines, ivory PT Serif-like typography, restrained amber selection and very subtle blue highlights. No triangular ornaments, no ornate gold fantasy frame, no neon, no gratuitous text. Use comfortably large typography.
+
+Composition: full-height left navigation rail taking 17% width. Large protagonist portrait at top left: rugged brown-haired bearded adult human male. Label "Герой", small blood bar labelled "Кровь 5000 / 5000 мл". Below, stacked menu: "Лагерь", "Персонаж" highlighted, "Инвентарь", "Навыки", "Душа", "Журнал", "Карта мира". Bottom-left "Настройки" and "Главное меню". No numerical hero level or class.
+
+Main area header across top after rail: "ПЕРСОНАЖ". Top right button "В лагерь". Directly below header a slim 3-tab bar: "Обзор" selected, "Тело", "Улучшения". These are internal character tabs, not full-world navigation.
+
+Center-left from x19% to x51%: full-height illustration of the SAME man as portrait, full figure shown to boots with breathing room. Modest rough leather and coarse cloth adventurer outfit, relaxed standing pose, simple sword sheathed at hip. Not bulky royal armor, no magic. A dark softly blurred woodland camp backdrop with faint distant warm firelight. Figure visual is separated from panels. Above figure small label "Герой · Воплощение 1". No equipment slots around body; inventory is a separate screen.
+Below figure compact condition strip: "Состояние тела", then "Раны отсутствуют" and "Кровотечения нет", and a clear small button "Осмотреть тело".
+
+Right area from x53% to x97%, top under tabs to y65%: clean wide attributes panel titled "ХАРАКТЕРИСТИКИ". Table headers "Характеристика", "Своё", "Итог". Exactly EIGHT readable rows with subtle small engraved glyphs and neatly aligned numerical columns:
+"Мощь" | "10" | "10"
+"Моторика" | "10" | "10"
+"Стойкость" | "10" | "10"
+"Интеллект" | "10" | "10"
+"Восприятие" | "10" | "10"
+"Воля" | "10" | "10"
+"Резонанс" | "10" | "10"
+"Синхронизация" | "10" | "10"
+Highlight only first row in subdued amber; no plus/minus stat allocation controls, no separate global skill points.
+
+Below attributes table, right area y69% to y94%: separate detail panel titled "МОЩЬ". Clearly spaced three values "Собственное развитие   10", "Прибавки   0", "Итоговое значение   10". Small explanatory sentence "Выберите характеристику, чтобы увидеть её развитие и источники прибавок." Small button "Открыть развитие". No invented combat percentages or formulas.
+
+At very bottom right outside panel, tiny unobtrusive label "Макет · пример значений".
+Overall: visually cohesive illustrated dark adventure RPG character sheet. Main figure and attributes should be balanced, no crowded dashboard, no inventory grid, no huge skill tree, no duplicate body schematic, no magic spell list, no STR/DEX labels, no extra attributes beyond exact eight. Russian exact spelling. All elements fully inside frame.

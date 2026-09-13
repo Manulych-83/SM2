@@ -1,11 +1,11 @@
 ﻿[CmdletBinding()]
-param([string]$GodotPath = '', [string]$RuntimeRoot = '', [string]$OutputDirectory = '', [ValidateSet('world_creatures','creatures','sequences','rules','skill_scale','development_scale','expedition','controls','settings','journal','soul','battle_results','campaigns','start_menu','camp_layout','development_layout','inventory_layout','display','journey_guide','combat_hud','battle_feedback','battle_art','survival_workspace','survival_tissues','survival_devices','survival','p6_region','p5_hybrids','p5_cross_nodes','p5_menu','p5_implants','p5_upgrades','p5_shield','p5_growth','p5_psionics','p4_hero_screen','p4_discovery','p4_search','p4_exploration','p4_care','p4_prosthesis','p4_body','p4_party','p4_attributes','p4','p3','p2','p1','m4_areas','m4_ai','m4_magic','m4','m3','m1')][string]$Suite = 'm3', [switch]$Headless, [switch]$LegacyDemos)
+param([string]$GodotPath = '', [string]$RuntimeRoot = '', [string]$OutputDirectory = '', [ValidateSet('inventory_home','character','world_creatures','creatures','sequences','rules','skill_scale','development_scale','expedition','controls','settings','journal','soul','battle_results','campaigns','start_menu','camp_layout','development_layout','inventory_layout','display','journey_guide','combat_hud','battle_feedback','battle_art','survival_workspace','survival_tissues','survival_devices','survival','p6_region','p5_hybrids','p5_cross_nodes','p5_menu','p5_implants','p5_upgrades','p5_shield','p5_growth','p5_psionics','p4_hero_screen','p4_discovery','p4_search','p4_exploration','p4_care','p4_prosthesis','p4_body','p4_party','p4_attributes','p4','p3','p2','p1','m4_areas','m4_ai','m4_magic','m4','m3','m1')][string]$Suite = 'm3', [switch]$Headless, [switch]$LegacyDemos)
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'find_godot.ps1')
 $projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 # Historical suites keep their original entry points; current menu acceptance uses the default menu.
-$legacySuite = $Suite -match '^(m[134]|p[1-6])' -or $Suite -in @('survival','survival_devices','display','battle_feedback')
+$legacySuite = $Suite -match '^(m[134]|p[1-6])' -or $Suite -in @('survival','survival_devices','display','battle_feedback','creatures','sequences')
 $env:SM2_LEGACY_DEMOS = if ($LegacyDemos -or $legacySuite) { '1' } else { '0' }
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss-fff'
 try {
@@ -30,6 +30,8 @@ try {
     if ($Suite -eq 'battle_results') { $scriptPath = 'res://tests/battle_results_ui.gd' }
     if ($Suite -eq 'campaigns') { $scriptPath = 'res://tests/campaigns_ui.gd' }
     if ($Suite -eq 'start_menu') { $scriptPath = 'res://tests/start_menu_ui.gd' }
+    if ($Suite -eq 'inventory_home') { $scriptPath = 'res://tests/inventory_home_ui.gd' }
+    if ($Suite -eq 'character') { $scriptPath = 'res://tests/character_ui.gd' }
     if ($Suite -eq 'camp_layout') { $scriptPath = 'res://tests/camp_layout_ui.gd' }
     if ($Suite -eq 'world_creatures') { $scriptPath = 'res://tests/world_creatures_ui.gd' }
     if ($Suite -eq 'creatures') { $scriptPath = 'res://tests/creatures_ui.gd' }
