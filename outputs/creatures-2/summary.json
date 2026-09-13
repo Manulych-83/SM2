@@ -1,0 +1,99 @@
+{
+  "version": "0.8.37-creatures.2",
+  "passed": true,
+  "core_checks": 2252.0,
+  "ui_checks": 435.0,
+  "core": [
+    {
+      "suite": "campaigns",
+      "checks": 58,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-campaigns.json"
+    },
+    {
+      "suite": "checkpoint",
+      "checks": 490,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-checkpoint.json"
+    },
+    {
+      "suite": "creatures",
+      "checks": 105,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-creatures.json"
+    },
+    {
+      "suite": "sequences",
+      "checks": 174,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-sequences.json"
+    },
+    {
+      "suite": "m4_effects",
+      "checks": 218,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-m4_effects.json"
+    },
+    {
+      "suite": "unit",
+      "checks": 539,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-unit.json"
+    },
+    {
+      "suite": "after_battle",
+      "checks": 429,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-after_battle.json"
+    },
+    {
+      "suite": "world_creatures",
+      "checks": 239,
+      "passed": true,
+      "exit_code": 0,
+      "report": "core-world_creatures.json"
+    }
+  ],
+  "ui": [
+    {
+      "suite": "world_creatures",
+      "checks": 60,
+      "passed": true,
+      "exit_code": 0,
+      "report": "ui-world_creatures.json"
+    },
+    {
+      "suite": "start_menu",
+      "checks": 156,
+      "passed": true,
+      "exit_code": 0,
+      "report": "ui-start_menu.json"
+    },
+    {
+      "suite": "campaigns",
+      "checks": 219,
+      "passed": true,
+      "exit_code": 0,
+      "report": "ui-campaigns.json"
+    }
+  ],
+  "export_exit_code": 0,
+  "pack_acceptance_exit_code": 0,
+  "exe_launch_exit_code": 0,
+  "build_sha256": "3F174027EFC02F4AC01E77E531A06496EEA9DC7E17C4765C37A8CA70DEADB81E",
+  "build_bytes": 121169648,
+  "limits": [
+    "human anatomy, HP projection 60",
+    "three authored 2x2 encounters with fixed persistent body IDs",
+    "strict old/new content profiles, no automatic migration",
+    "no joint large-campaign load acceptance",
+    "prior Workflow 1 changes remain uncommitted"
+  ]
+}

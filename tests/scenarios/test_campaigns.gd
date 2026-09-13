@@ -5,7 +5,7 @@ static func run(t: Sm2TestHarness) -> void:
 	var service: Sm2Campaigns=Sm2Campaigns.new(base)
 	t.equal(service.error,"","production campaign content")
 	var original_store: Sm2SaveStore=Sm2SaveStore.new(base)
-	var old: Sm2JourneySession=Sm2JourneySession.new(service.content,service.profile,original_store)
+	var old: Sm2JourneySession=Sm2JourneySession.new(service.legacy_content,service.legacy_profile,original_store)
 	t.expect(old.new_game().ok and old.save_game().ok,"legacy single-slot fixture saved")
 	var path: String=original_store._slot_path("survival_tissues")
 	var original: PackedByteArray=FileAccess.get_file_as_bytes(path)

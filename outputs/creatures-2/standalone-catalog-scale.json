@@ -1,0 +1,8 @@
+{
+	"active_types": 4,
+	"actors": 5,
+	"scope": "one local sample; validation includes loading small base content, not full world acceptance",
+	"selected_compile_ms": 2.02,
+	"types": 3000,
+	"validation_ms": 504.026
+}

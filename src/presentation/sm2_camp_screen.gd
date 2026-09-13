@@ -7,12 +7,18 @@ var session: Sm2JourneySession
 
 func build(screen: Sm2LifeScreen) -> void:
 	owner=screen; session=owner.session as Sm2JourneySession; model=Sm2CampView.build(session)
+	if owner._camp_page=="home":
+		Sm2CampHome.new().build(self); return
+	build_details()
+
+func build_details() -> void:
 	var surface: Panel=Panel.new(); owner._content=surface; surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); surface.add_theme_stylebox_override("panel",Sm2BronzeTheme.box(Sm2BronzeTheme.BACKGROUND,Sm2BronzeTheme.BACKGROUND,0)); owner.add_child(surface)
 	surface.theme=Sm2BronzeTheme.create(); surface.theme.set_stylebox("panel","PanelContainer",Sm2BronzeTheme.box())
 	var margin: MarginContainer=MarginContainer.new(); surface.add_child(margin); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side: String in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,16)
 	var page: VBoxContainer=VBoxContainer.new(); page.add_theme_constant_override("separation",12); margin.add_child(page)
 	var header: HBoxContainer=HBoxContainer.new(); frame(page).add_child(header)
+	header.add_child(button("← В лагерь","CampHomeBack",func() -> void: owner._camp_page="home"; owner.redraw()))
 	var title: Label=label("КАРТА И ЛАГЕРЬ",24,Sm2BronzeTheme.GOLD); title.add_theme_font_override("font",Sm2BronzeTheme.SERIF); title.size_flags_horizontal=Control.SIZE_EXPAND_FILL; header.add_child(title)
 	var development: Button=button(Sm2Controls.caption("development","Развитие"),"WorldDevelopment",func() -> void: owner.development_requested.emit()); development.custom_minimum_size.x=145; header.add_child(development)
 	if not session.journey().busy() and not session.journey().receipt.is_empty():
@@ -23,9 +29,10 @@ func build(screen: Sm2LifeScreen) -> void:
 	var clock_text: String="День %s · %02d:%02d:%02d" % [1+seconds/86400,(seconds/3600)%24,(seconds/60)%60,seconds%60]
 	var clock_label: Label=label(clock_text+" · Безопасные переходы · Завершено встреч %s/%s" % [model.completed,model.total],14,Sm2BronzeTheme.MUTED); clock_label.name="RegionClock"; page.add_child(clock_label)
 	var columns: HBoxContainer=HBoxContainer.new(); columns.add_theme_constant_override("separation",12); columns.size_flags_vertical=Control.SIZE_EXPAND_FILL; page.add_child(columns)
-	if owner.size.x>=1200:
+	if owner.size.x>=1200 and owner._camp_page=="activities":
 		var panel: PanelContainer=frame(columns); panel.custom_minimum_size.x=210; party(scroll(panel))
 	var map_panel: PanelContainer=frame(columns); map_panel.size_flags_horizontal=Control.SIZE_EXPAND_FILL; map_panel.size_flags_stretch_ratio=1.15
+	map_panel.visible=owner._camp_page=="map"
 	var map_column: VBoxContainer=scroll(map_panel)
 	Sm2ExpeditionScreen.card(owner,map_column)
 	var valid: bool=false
@@ -45,6 +52,7 @@ func build(screen: Sm2LifeScreen) -> void:
 		route.tooltip_text=place.reason if not str(place.reason).is_empty() else "Перейти в выбранное место. Переносимые вещи и живой спутник идут с героем."
 	Sm2JourneyGuide.build(owner,map_column)
 	var actions_panel: PanelContainer=frame(columns); actions_panel.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	actions_panel.visible=owner._camp_page=="activities"
 	var actions: VBoxContainer=scroll(actions_panel)
 	if owner.size.x<1200: party(actions)
 	var here: String=session.journey().region_catalog.location(model.location).name

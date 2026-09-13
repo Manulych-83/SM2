@@ -263,6 +263,39 @@ func _update_modes_button() -> void:
 	if button!=null: button.text="Скрыть дополнительные режимы" if _modes_expanded else "Дополнительные режимы"
 
 func _build_other_modes(left: VBoxContainer, right: VBoxContainer) -> void:
+	if OS.get_environment("SM2_LEGACY_DEMOS") == "1":
+		_build_legacy_modes(left,right)
+		return
+	left.add_child(_label("ДОПОЛНИТЕЛЬНЫЕ РЕЖИМЫ",12,GOLD))
+	left.add_child(_label("Отдельные сражения",23,INK))
+	var description: Label = _label("Здесь можно попробовать новые боевые возможности. У каждой встречи своё сохранение.",16,MUTED)
+	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	left.add_child(description)
+	if _battle != null:
+		left.add_child(_button("Вернуться на поле","ResumeBattleButton",_resume_battle))
+	_build_current_modes(right)
+
+func _build_current_modes(right: VBoxContainer) -> void:
+	var row_sequences: HBoxContainer = HBoxContainer.new()
+	right.add_child(row_sequences)
+	row_sequences.add_child(_button("Составные воздействия", "NewSequencesButton", _start_effects.bind(false,true)))
+	row_sequences.add_child(_button("Продолжить", "ContinueSequencesButton", _start_effects.bind(true,true),not _sequence_store.has_slot(Sm2BattleRunner.EFFECT_SLOT)))
+	if _creature_content.is_empty(): _creature_content = Sm2CreatureContentLoader.load_catalog()
+	if _creature_content.ok:
+		right.add_child(_label("ВСТРЕЧИ ИЗ ШАБЛОНОВ",12,GOLD))
+		var creature_ids: Array[String] = _creature_content.catalog.encounters()
+		for index: int in range(_creature_page*12,mini((_creature_page+1)*12,creature_ids.size())):
+			var id: String = creature_ids[index]
+			var row: HBoxContainer = HBoxContainer.new(); right.add_child(row)
+			row.add_child(_button(_creature_content.catalog.encounter(id).name,"NewCreature_%s" % index,_start_creatures.bind(id,false)))
+			row.add_child(_button("Продолжить","ContinueCreature_%s" % index,_start_creatures.bind(id,true),not _creature_store(id).has_slot(Sm2BattleRunner.EFFECT_SLOT)))
+		if creature_ids.size() > 12:
+			var pages: HBoxContainer = HBoxContainer.new(); right.add_child(pages)
+			pages.add_child(_button("Предыдущие","CreaturePrevious",_show_creature_page.bind(_creature_page-1),_creature_page == 0))
+			pages.add_child(_button("Следующие","CreatureNext",_show_creature_page.bind(_creature_page+1),(_creature_page+1)*12 >= creature_ids.size()))
+
+
+func _build_legacy_modes(left: VBoxContainer, right: VBoxContainer) -> void:
 	left.add_child(_button("Тело и протезы","NewSurvivalDevicesButton",_start_survival_devices.bind(false),false,true))
 	left.add_child(_button("Продолжить с протезами","ContinueSurvivalDevicesButton",_start_survival_devices.bind(true),not _survival_devices_store.has_slot("survival_devices")))
 	left.add_child(_button("Тело и инвентарь · новый пример","NewSurvivalButton",_start_survival.bind(false),false,true))
@@ -343,24 +376,7 @@ func _build_other_modes(left: VBoxContainer, right: VBoxContainer) -> void:
 	var row_Effects: HBoxContainer=HBoxContainer.new(); right.add_child(row_Effects)
 	row_Effects.add_child(_button("Бой с эффектами", "NewEffectsButton", _start_effects.bind(false)))
 	row_Effects.add_child(_button("Продолжить", "ContinueEffectsButton", _start_effects.bind(true),not _effects_store.has_slot(Sm2BattleRunner.EFFECT_SLOT)))
-	var row_sequences: HBoxContainer = HBoxContainer.new()
-	row_Effects.get_parent().add_child(row_sequences)
-	row_sequences.add_child(_button("Составные воздействия", "NewSequencesButton", _start_effects.bind(false,true)))
-	row_sequences.add_child(_button("Продолжить", "ContinueSequencesButton", _start_effects.bind(true,true),not _sequence_store.has_slot(Sm2BattleRunner.EFFECT_SLOT)))
-	if _creature_content.is_empty(): _creature_content = Sm2CreatureContentLoader.load_catalog()
-	if _creature_content.ok:
-		right.add_child(_label("ВСТРЕЧИ ИЗ ШАБЛОНОВ",12,GOLD))
-		var creature_ids: Array[String] = _creature_content.catalog.encounters()
-		for index: int in range(_creature_page*12,mini((_creature_page+1)*12,creature_ids.size())):
-			var id: String = creature_ids[index]
-			var row: HBoxContainer = HBoxContainer.new(); right.add_child(row)
-			row.add_child(_button(_creature_content.catalog.encounter(id).name,"NewCreature_%s" % index,_start_creatures.bind(id,false)))
-			row.add_child(_button("Продолжить","ContinueCreature_%s" % index,_start_creatures.bind(id,true),not _creature_store(id).has_slot(Sm2BattleRunner.EFFECT_SLOT)))
-		if creature_ids.size() > 12:
-			var pages: HBoxContainer = HBoxContainer.new(); right.add_child(pages)
-			pages.add_child(_button("Предыдущие","CreaturePrevious",_show_creature_page.bind(_creature_page-1),_creature_page == 0))
-			pages.add_child(_button("Следующие","CreatureNext",_show_creature_page.bind(_creature_page+1),(_creature_page+1)*12 >= creature_ids.size()))
-
+	_build_current_modes(right)
 	var row_Magic: HBoxContainer=HBoxContainer.new(); right.add_child(row_Magic)
 	row_Magic.add_child(_button("Бой с магией", "NewMagicButton", _start_magic.bind(false)))
 	row_Magic.add_child(_button("Продолжить", "ContinueMagicButton", _start_magic.bind(true),not _magic_store.has_slot(Sm2BattleRunner.MAGIC_SLOT)))

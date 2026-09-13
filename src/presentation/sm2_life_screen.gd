@@ -13,6 +13,7 @@ var _notice: String=""
 var _selected: int=0
 var _exercise: String=""
 var _map_selection: String=""
+var _camp_page: String="home"
 var _camp_resize_pending: bool=false
 const INK: Color=Color("e9e8de")
 const GOLD: Color=Color("d1b478")
@@ -418,6 +419,8 @@ func _open_expedition() -> void:
 	_content.hide(); page.closed.connect(func() -> void: remove_child(page); page.queue_free(); redraw()); add_child(page)
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if Sm2Controls.back(event) and _camp_page!="home" and is_instance_valid(_content) and _content.is_visible_in_tree():
+		get_viewport().set_input_as_handled(); _camp_page="home"; redraw(); return
 	if not is_instance_valid(_content) or not _content.is_visible_in_tree() or Sm2Controls.text_focused(self): return
 	if find_child("WorldDeathDialog",true,false)!=null: return
 	if not session is Sm2JourneySession: return
@@ -426,4 +429,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	var targets: Dictionary={"inventory":"CampInventory","body":"WorldBodyInventory","development":"WorldDevelopment","journal":"CampJournal","soul":"CampSoul","settings":"CampSettings"}
 	var id: String=Sm2Controls.action(event)
 	if targets.has(id):
-		get_viewport().set_input_as_handled(); Sm2Controls.press(_content,targets[id])
+		get_viewport().set_input_as_handled()
+		if not Sm2Controls.press(_content,targets[id]) and _camp_page!="home":
+			_camp_page="home"; redraw(); Sm2Controls.press(_content,targets[id])

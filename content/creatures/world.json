@@ -1,0 +1,160 @@
+{
+  "profiles": [
+    {
+      "id": "campaign:profile.guard",
+      "turn": {
+        "ap_max": 9,
+        "fatigue_base": 100,
+        "initiative_base": 115
+      },
+      "combat": {
+        "body_id": "m2:body.human",
+        "hp_max": 60,
+        "melee_skill": 70,
+        "ranged_skill": 30,
+        "melee_defense": 5,
+        "ranged_defense": 5,
+        "resolve": 45,
+        "morale_immune": false
+      }
+    },
+    {
+      "id": "campaign:profile.raider",
+      "turn": {
+        "ap_max": 9,
+        "fatigue_base": 100,
+        "initiative_base": 110
+      },
+      "combat": {
+        "body_id": "m2:body.human",
+        "hp_max": 60,
+        "melee_skill": 65,
+        "ranged_skill": 30,
+        "melee_defense": 5,
+        "ranged_defense": 3,
+        "resolve": 45,
+        "morale_immune": false
+      }
+    },
+    {
+      "id": "campaign:profile.archer",
+      "turn": {
+        "ap_max": 9,
+        "fatigue_base": 90,
+        "initiative_base": 140
+      },
+      "combat": {
+        "body_id": "m2:body.human",
+        "hp_max": 60,
+        "melee_skill": 35,
+        "ranged_skill": 70,
+        "melee_defense": 2,
+        "ranged_defense": 4,
+        "resolve": 50,
+        "morale_immune": false
+      }
+    }
+  ],
+  "templates": [
+    {
+      "id": "campaign:type.guard",
+      "name": "Страж руин",
+      "profile_id": "campaign:profile.guard",
+      "equipment_ids": [
+        "m2:equipment.sword",
+        "m2:equipment.shield",
+        "m2:equipment.padded",
+        "m2:equipment.helmet"
+      ],
+      "actions": [],
+      "immunities": [],
+      "resistances": {},
+      "appearance_id": "guard",
+      "behavior_id": "sm2.ai.abilities.1"
+    },
+    {
+      "id": "campaign:type.raider",
+      "name": "Налётчик",
+      "profile_id": "campaign:profile.raider",
+      "equipment_ids": [
+        "m2:equipment.axe",
+        "m2:equipment.padded"
+      ],
+      "actions": [],
+      "immunities": [],
+      "resistances": {
+        "poison": 0
+      },
+      "appearance_id": "raider",
+      "behavior_id": "sm2.ai.abilities.1"
+    },
+    {
+      "id": "campaign:type.archer",
+      "name": "Следопыт",
+      "profile_id": "campaign:profile.archer",
+      "equipment_ids": [
+        "m2:equipment.bow",
+        "m2:equipment.padded"
+      ],
+      "actions": [],
+      "immunities": [],
+      "resistances": {
+        "poison": 0
+      },
+      "appearance_id": "archer",
+      "behavior_id": "sm2.ai.abilities.1"
+    },
+    {
+      "id": "campaign:type.poisoner",
+      "name": "Отравитель",
+      "profile_id": "campaign:profile.raider",
+      "equipment_ids": [
+        "m2:equipment.sword",
+        "m2:equipment.padded"
+      ],
+      "actions": [
+        "sequences:ability.exhaustion"
+      ],
+      "immunities": [
+        "status.poison"
+      ],
+      "resistances": {
+        "poison": 0
+      },
+      "appearance_id": "poisoner",
+      "behavior_id": "sm2.ai.abilities.1"
+    }
+  ],
+  "bindings": [
+    {
+      "id": "10",
+      "template_id": "campaign:type.guard",
+      "anatomy_id": "m2:body.human"
+    },
+    {
+      "id": "11",
+      "template_id": "campaign:type.guard",
+      "anatomy_id": "m2:body.human"
+    },
+    {
+      "id": "14",
+      "template_id": "campaign:type.raider",
+      "anatomy_id": "m2:body.human"
+    },
+    {
+      "id": "15",
+      "template_id": "campaign:type.archer",
+      "anatomy_id": "m2:body.human"
+    },
+    {
+      "id": "16",
+      "template_id": "campaign:type.guard",
+      "anatomy_id": "m2:body.human"
+    },
+    {
+      "id": "17",
+      "template_id": "campaign:type.poisoner",
+      "anatomy_id": "m2:body.human"
+    }
+  ]
+}

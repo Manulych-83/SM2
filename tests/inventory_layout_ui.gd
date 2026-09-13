@@ -10,35 +10,45 @@ func _run() -> void:
 	app=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await _frames()
 	await _press("NewSurvivalTissuesButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
 	var s: Sm2JourneySession=life.session as Sm2JourneySession; var before: String=s.state_hash()
+	# Physical IDs are allocated after enemy equipment; query the current campaign.
+	var inv: Sm2PhysicalInventory=s.journey().survival.inventory
+	var bandages: Array[String]=[]
+	for id: String in inv.ids():
+		if inv.items[id].definition_id=="bandage" and inv.owner(id)==s.world.hero_id(): bandages.append(id)
+	t.equal(bandages.size(),3,"hero begins with three separate bandages")
+	var first_bandage: String=bandages[0]; var second_bandage: String=bandages[1]; var third_bandage: String=bandages[2]
+	var hero_belt: String=inventory_id(inv,"belt",s.world.hero_id())
+	var hero_pack: String=inventory_id(inv,"backpack",s.world.hero_id())
+	var companion_pack: String=inventory_id(inv,"backpack",4)
 	await _press("Guide_inventory")
 	t.equal(workspace().ui.scope,1,"guide opens selected participant inventory")
 	t.equal(workspace().cards.size(),8,"ten physical items shown as eight cards")
-	await _card("59"); t.equal(workspace().ui.item,"59","physical click selects correct scaled card")
+	await _card(first_bandage); t.equal(workspace().ui.item,first_bandage,"physical click selects correct scaled card")
 	await _capture("inventory-2560.png")
 	# Mouse opens the real native popup; item activation exercises its signal gateway.
 	await _press("WorkspaceInstance")
 	var popup: PopupMenu=(app.find_child("WorkspaceInstance",true,false) as OptionButton).get_popup()
 	t.expect(popup.visible,"instance popup is actually open")
 	popup.index_pressed.emit(1); popup.hide(); await _frames()
-	t.equal(workspace().ui.item,"60","popup chooses second physical bandage")
-	await _card("60"); t.equal(workspace().ui.item,"60","revisiting the group keeps its chosen instance")
-	_select("WorkspaceDestination","68"); await _frames()
+	t.equal(workspace().ui.item,second_bandage,"popup chooses second physical bandage")
+	await _card(second_bandage); t.equal(workspace().ui.item,second_bandage,"revisiting the group keeps its chosen instance")
+	_select("WorkspaceDestination",companion_pack); await _frames()
 	t.equal(s.state_hash(),before,"selection and destination do not move objects")
 	await _press("WorkspaceStore")
-	t.equal(s.journey().survival.inventory.items["60"].holder,"68","only selected instance moves to companion backpack")
-	t.equal(s.journey().survival.inventory.items["59"].holder,"58","first instance stays in hero belt")
-	t.equal(s.journey().survival.inventory.items["61"].holder,"58","third instance stays in hero belt")
+	t.equal(s.journey().survival.inventory.items[second_bandage].holder,companion_pack,"only selected instance moves to companion backpack")
+	t.equal(s.journey().survival.inventory.items[first_bandage].holder,hero_belt,"first instance stays in hero belt")
+	t.equal(s.journey().survival.inventory.items[third_bandage].holder,hero_belt,"third instance stays in hero belt")
 	before=s.state_hash()
-	await _press("WorkspaceContainer_58")
+	await _press("WorkspaceContainer_"+hero_belt)
 	t.equal(workspace().filtered.size(),2,"container filter reflects remaining exact items")
-	t.equal(workspace().cards[0].ids,["59","61"],"remaining card has correct two IDs")
-	await _press("WorkspaceContainer_62"); t.expect(workspace().cards.is_empty(),"empty backpack gives empty result")
+	t.equal(workspace().cards[0].ids,[first_bandage,third_bandage],"remaining card has correct two IDs")
+	await _press("WorkspaceContainer_"+hero_pack); t.expect(workspace().cards.is_empty(),"empty backpack gives empty result")
 	await _press("WorkspaceEquipment_weapon")
 	t.equal(workspace().ui.item,"20","equipment slot selects actual sword and clears filters")
 	t.equal(workspace().ui.storage,"","equipment remains reachable from empty container")
 	await _press("WorkspacePerson_4")
 	t.equal(workspace().view.body.id,4,"portrait selects companion")
-	await _press("WorkspaceContainer_68"); t.equal(workspace().cards[0].ids,["60"],"companion backpack contains transferred instance")
+	await _press("WorkspaceContainer_"+companion_pack); t.equal(workspace().cards[0].ids,[second_bandage],"companion backpack contains transferred instance")
 	await _press("WorkspacePerson_2"); await _press("WorkspaceBodyTab"); await _press("WorkspacePart_right_hand")
 	t.equal(workspace().composition.figure.selected,"right_hand","anatomy marker follows actual selected part")
 	t.expect(workspace().composition.figure.anatomy,"body view does not draw equipment over anatomy")
@@ -61,6 +71,11 @@ func _run() -> void:
 
 func workspace() -> Sm2SurvivalWorkspace:
 	return app.find_child("SurvivalWorkspace",true,false) as Sm2SurvivalWorkspace
+
+func inventory_id(inv: Sm2PhysicalInventory,definition: String,owner: int) -> String:
+	for id: String in inv.ids():
+		if inv.items[id].definition_id==definition and inv.owner(id)==owner: return id
+	t.expect(false,"required initial item "+definition); return ""
 
 func _card(id: String) -> void:
 	var list: ItemList=workspace().item_list

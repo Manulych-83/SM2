@@ -1,0 +1,61 @@
+{
+  "version": "0.8.38-camp.1",
+  "ui": [
+    {
+      "suite": "camp_layout",
+      "passed": true,
+      "checks": 236,
+      "report": "ui-camp_layout.json"
+    },
+    {
+      "suite": "inventory_layout",
+      "passed": true,
+      "checks": 199,
+      "report": "ui-inventory_layout.json"
+    },
+    {
+      "suite": "controls",
+      "passed": true,
+      "checks": 140,
+      "report": "ui-controls.json"
+    },
+    {
+      "suite": "start_menu",
+      "passed": true,
+      "checks": 159,
+      "report": "ui-start_menu.json"
+    },
+    {
+      "suite": "world_creatures",
+      "passed": true,
+      "checks": 62,
+      "report": "ui-world_creatures.json"
+    },
+    {
+      "suite": "expedition",
+      "passed": true,
+      "checks": 145,
+      "report": "ui-expedition.json"
+    }
+  ],
+  "ui_checks": 941,
+  "core_unit_checks": 539,
+  "total_checks": 1480,
+  "packed_scene_acceptance": true,
+  "exe_launch_exit": 0,
+  "build": "builds/SM2.exe",
+  "build_sha256": "78F6E363B7898BABA424801C18A363B00E8D320ED57559B95E1458E425310ECC",
+  "build_bytes": 128594112,
+  "captures": [
+    "pack-camp-2560.png",
+    "pack-camp-1280.png",
+    "ruins-2560.png",
+    "enclave-2560.png"
+  ],
+  "limitations": [
+    "Existing standing equipment atlas and common portrait; seated pose not authored",
+    "Rest, craft and construction not implemented",
+    "No world-time lighting or animation",
+    "Old map and activity layouts retained as subpages"
+  ]
+}

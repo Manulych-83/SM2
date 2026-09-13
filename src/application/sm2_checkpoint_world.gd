@@ -9,7 +9,8 @@ static func decode(raw: Variant, fresh: Sm2JourneyWorld) -> Dictionary:
 	if not Sm2Validate.fields(raw,fields): return bad
 	for key: String in ["format","stash_id","progress_fingerprint","world_fingerprint"]:
 		if raw[key]!=baseline[key]: return bad
-	if raw.format!="sm2.world.survival.3" or not Sm2Validate.decimal(raw.revision,0,1000000) or not Sm2Validate.decimal(raw.next_id,fresh.next_id,1000000): return bad
+	if baseline.format not in ["sm2.world.survival.3",Sm2WorldCreatureCatalog.WORLD_FORMAT] or not Sm2Validate.decimal(raw.revision,0,1000000) or not Sm2Validate.decimal(raw.next_id,fresh.next_id,1000000): return bad
+	if fresh.world_creatures!=null and Sm2Canonical.hash(raw.creatures)!=Sm2Canonical.hash(baseline.creatures): return bad
 	if not raw.battle_started is bool or not raw.receipt is String or (not raw.receipt.is_empty() and not digest(raw.receipt)): return bad
 	if not Sm2Validate.integer(raw.completed,0,fresh.encounters.size()): return bad
 	fresh.revision=int(raw.revision); fresh.next_id=int(raw.next_id); fresh.battle_started=raw.battle_started; fresh.receipt=raw.receipt; fresh.completed=int(raw.completed)

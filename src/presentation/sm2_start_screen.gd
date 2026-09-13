@@ -31,7 +31,7 @@ static func build(owner: Control) -> void:
 	actions.add_child(owner._button("Выйти из игры","QuitButton",owner._quit_game))
 	var status: Label=label(owner._notice,14,Color("f0a491") if owner._is_error else B.GOLD); status.name="StatusLabel"; status.visible=not owner._notice.is_empty(); actions.add_child(status)
 	actions.add_child(label("Ранняя версия · "+str(ProjectSettings.get_setting("application/config/version")),12,B.MUTED))
-	# Keep legacy IDs instantiated for existing navigation helpers, but behind a modal.
+	# Current demos by default; historical controls require the explicit compatibility launch.
 	var extra: VBoxContainer=dialog(host,"OtherModesOverlay",Vector2(1050,730)); extra.get_parent().get_parent().visible=owner._modes_expanded
 	extra.add_child(owner._button("Закрыть дополнительные режимы","CloseModesButton",owner._toggle_modes))
 	var modes_scroll: ScrollContainer=ScrollContainer.new(); modes_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; modes_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; extra.add_child(modes_scroll)

@@ -70,7 +70,12 @@ func new_battle(setup: Dictionary) -> Dictionary:
 	return result
 
 func view() -> Dictionary:
-	return _session.view()
+	var result: Dictionary = _session.view()
+	for actor: Dictionary in result.get("actors",[]):
+		if actor_labels.has(int(actor.actor_id)): actor.display_name=actor_labels[int(actor.actor_id)]
+	return result
+
+var actor_labels: Dictionary = {}
 
 func status() -> Dictionary:
 	return _session.status()
@@ -80,6 +85,7 @@ func state_copy() -> Sm2TacticalState:
 
 func copy() -> Sm2BattleRunner:
 	var result: Sm2BattleRunner=Sm2BattleRunner.new(_turns,_combat,_profile,_store,_self_play,_effects,_magic,_development,_origin,_survival,true)
+	result.actor_labels=actor_labels.duplicate()
 	result._session=_session.copy(); result._key=_key; result._attempts=_attempts; result._error=_error
 	return result
 

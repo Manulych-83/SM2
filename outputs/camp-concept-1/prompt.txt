@@ -1,0 +1,22 @@
+Use case: ui-mockup.
+Create ONE polished game interface concept screenshot for the Russian single-player RPG SM2, a mobile wilderness camp hub. Landscape 16:9, intended resolution 2560 x 1440. This is a proposed UI visual, not a collage, not a monitor photo. All readable text in Russian, exact labels below. Make typography comfortably large, clear and restrained. Full-screen composition with generous breathing room and beautiful central illustration occupying over half the image.
+
+Art style: atmospheric hand-painted realistic dark adventure RPG illustration, weathered materials, warm charcoal translucent panels, very thin understated bronze rectangular borders, warm ivory serif typography. Muted moss greens, earthy brown, fire amber, subtle cyan only for active selection. Absolutely no ornamental triangular corners, no excessive gold filigree. No medieval castle, no plate armor, no magical fantasy glow.
+
+World/scene: a primitive starting human protagonist in a post-catastrophe world, bearded adult man in rough hide and coarse cloth, bare forearms, simple stone axe leaning nearby, seated FULL BODY at a small campfire. A modest lean-to shelter, bedroll, primitive cooking pot, bundles of supplies, quiet wooded rocky clearing at dusk; distant overgrown remnants of an ancient wall suggest a lost civilization subtly. Camp feels mobile and small, not a permanent town. Center focal point is the man and fire, large readable silhouette with legs visible. Match his face in the top-left portrait.
+
+Layout:
+LEFT rail, about 17% screen width, full height, solid dark translucent backing. Top-left large square stylized portrait of protagonist, then label "Герой", and only three small summary rows "Здоровье", "Усталость", "Концентрация" with restrained horizontal gauges. No overall hero level, no class, no STR/DEX list. Below portrait, evenly spaced icon-and-text menu buttons in this exact order: "Лагерь" (selected), "Персонаж", "Инвентарь", "Навыки", "Душа", "Журнал", "Карта мира". Use simple readable engraved pictogram icons, slim dividers. Bottom-left tiny settings gear with "Меню".
+
+MAIN title at upper center-left, outside left rail: "ЛАГЕРЬ", small subtitle "Походная стоянка". A discreet top-right strip says "День 1 · Вечер". No minimap and no top-wide clutter.
+
+CENTER about 60% width: the spacious camp illustration extends naturally behind panels. Leave camp, full seated hero and fire unobstructed. No giant status tables across scene.
+
+RIGHT rail about 21% width, inset margin. Two separate compact panels in upper half only, leaving lower scene exposed:
+Panel one title "Место стоянки", text "Лесная опушка", smaller line "Окрестности руин".
+Panel two title "План похода", text "Найти медикаменты", secondary lines "Осмотреть руины" and "Вернуть припасы в лагерь". A small schematic parchment route illustration (not a full map) with camp symbol, dotted route and ruins symbol. Bottom of panel a clear button "Выбрать маршрут".
+Do not duplicate a huge map, extra resource systems, alerts or stat numbers.
+
+BOTTOM center under illustration, from just after left rail to before right edge, an elegant low horizontal activity dock with four moderately sized icon-and-label buttons: "Отдых", "Лечение", "Ремесло", "Припасы". Distinct simple pictograms: bedroll, bandage, stone tools, bag. Dock should feel integrated into illustration, not a modern dashboard. Under right side a tiny unobtrusive "Концепт интерфейса" label.
+
+Maintain rational hierarchy, practical hit targets, mostly illustration rather than panel clutter. Exact clean Cyrillic. No unrelated extra text, watermarks, grid inventory, skill trees, skill XP totals, bright neon, ornate spikes, triangle decorations, numbered callouts or developer jargon.

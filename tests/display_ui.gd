@@ -2,6 +2,20 @@ extends "res://tests/p3_world_ui.gd"
 const SHIELD=preload("res://tests/scenarios/test_p5_shield.gd")
 var display_report: Dictionary={}
 
+func _press(id: String) -> void:
+	# Follow the real camp navigation after splitting the former single long page.
+	var target: Button=_button(id)
+	var camp: Sm2LifeScreen=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	if (target==null or not target.is_visible_in_tree()) and camp!=null and is_instance_valid(camp._content) and camp._content.is_visible_in_tree():
+		var destination: String=""
+		if id.begins_with("Travel_") or id.begins_with("MapLocation_") or id.begins_with("Guide_"): destination="CampMap"
+		elif id=="PsiTrain" or id.begins_with("Explore_") or id.begins_with("Upgrade") or id.begins_with("WorldIncarnate") or id in ["WorldEndLife","WorldDeposit","WorldTake"]: destination="CampActivities"
+		elif id in ["CampInventory","WorldBodyInventory","CampSoul","CampJournal","CampSettings","CampMap","CampActivities","WorldBattle"]: destination="home"
+		if not destination.is_empty():
+			if camp._camp_page!="home": await super._press("CampHomeBack")
+			if destination!="home": await super._press(destination)
+	await super._press(id)
+
 func _initialize() -> void:
 	# Keep project startup settings, unlike the historical pixel layout suites.
 	call_deferred("_run")

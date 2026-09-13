@@ -180,6 +180,7 @@ func load_game() -> Dictionary:
 	var loaded: Dictionary=_store.load_slot(slot_name())
 	if not loaded.ok: return loaded
 	if loaded.get("validated_session") is Sm2CheckpointSession:
+		if loaded.validated_session._content.journey_fingerprint!=_content.journey_fingerprint: return _error("В этом слоте сохранена другая версия кампании. Откройте её через главное меню.")
 		return _publish(loaded.validated_session)
 	return restore(loaded.payload)
 

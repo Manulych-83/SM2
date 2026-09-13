@@ -3,6 +3,8 @@ extends RefCounted
 ## Three independent worlds; incarnation remains a lifecycle inside each world.
 var directory: String
 var content: Dictionary
+var legacy_content: Dictionary
+var legacy_profile: Sm2AiProfile
 var profile: Sm2AiProfile
 var error: String=""
 var history_repository: Sm2HistoryRepository
@@ -10,10 +12,21 @@ var history_repository: Sm2HistoryRepository
 func _init(base_directory: String="user://survival_tissues") -> void:
 	directory=ProjectSettings.globalize_path(base_directory)
 	history_repository=Sm2HistoryRepository.new(directory)
-	content=Sm2SurvivalContentLoader.load_scenario(true,true)
+	legacy_content=Sm2SurvivalContentLoader.load_scenario(true,true)
+	content=Sm2WorldCreatureContentLoader.load_scenario(legacy_content)
 	var ai: Dictionary=Sm2AiContentLoader.load_profile()
-	if not content.ok or not ai.ok: error="Не удалось подготовить кампании."; return
-	profile=ai.profile
+	var ability_ai: Dictionary=Sm2AiContentLoader.load_profile(Sm2AiContentLoader.ABILITY_PATH)
+	if not content.ok or not ai.ok or not ability_ai.ok: error="Не удалось подготовить кампании."; return
+	legacy_profile=ai.profile
+	profile=ability_ai.profile
+
+func _content_for(payload: Dictionary) -> Dictionary:
+	if payload.get("fingerprint")==content.journey_fingerprint: return content
+	if payload.get("fingerprint")==legacy_content.journey_fingerprint: return legacy_content
+	return {}
+
+func _profile_for(definitions: Dictionary) -> Sm2AiProfile:
+	return profile if definitions.has("world_creatures") else legacy_profile
 
 func store(index: int) -> Sm2CampaignStore:
 	var result: Sm2CampaignStore=Sm2CampaignStore.new(directory,index,_validate)
@@ -23,7 +36,9 @@ func store(index: int) -> Sm2CampaignStore:
 
 func _validate(payload: Dictionary) -> Dictionary:
 	if not error.is_empty(): return {"ok":false,"errors":PackedStringArray([error])}
-	var session: Sm2CheckpointSession=Sm2CheckpointSession.new(content,profile,null,history_repository)
+	var definitions: Dictionary=_content_for(payload)
+	if definitions.is_empty(): return {"ok":false,"errors":PackedStringArray(["campaign_content_version"])}
+	var session: Sm2CheckpointSession=Sm2CheckpointSession.new(definitions,_profile_for(definitions),null,history_repository)
 	var result: Dictionary=session.restore(payload)
 	if result.ok: result["validated_session"]=session
 	return result
@@ -32,8 +47,16 @@ func open(index: int,from_save: bool) -> Dictionary:
 	if not error.is_empty() or index<0 or index>2: return {"ok":false,"errors":PackedStringArray([error if not error.is_empty() else "Неизвестная кампания."])}
 	var destination: Sm2CampaignStore=store(index)
 	if not from_save and occupied(index): return {"ok":false,"errors":PackedStringArray(["Выберите пустую кампанию. Старое сохранение не изменено."])}
-	var session: Sm2JourneySession=Sm2CheckpointSession.new(content,profile,destination,history_repository)
-	var result: Dictionary=session.load_game() if from_save else session.new_game()
+	var session: Sm2CheckpointSession
+	var result: Dictionary
+	if from_save:
+		result=destination.load_slot("survival_tissues")
+		if not result.ok: return result
+		session=result.validated_session
+		session._store=destination
+	else:
+		session=Sm2CheckpointSession.new(content,_profile_for(content),destination,history_repository)
+		result=session.new_game()
 	if result.ok: result["session"]=session; result["recovered"]=destination.recovered
 	return result
 
@@ -69,8 +92,9 @@ func _preview(path: String) -> Dictionary:
 	var read: Dictionary=Sm2SaveStore._read_envelope(path,content.development._shared_progression().is_large())
 	if not read.ok: return read
 	var raw: Dictionary=read.payload
-	if raw.get("format") not in [Sm2CheckpointSession.CHECKPOINT_FORMAT,"sm2.survival_journey_session.3"] or raw.get("fingerprint")!=content.journey_fingerprint: return {"ok":false}
-	var fresh: Sm2CheckpointSession=Sm2CheckpointSession.new(content,profile)
+	var definitions: Dictionary=_content_for(raw)
+	if raw.get("format") not in [Sm2CheckpointSession.CHECKPOINT_FORMAT,"sm2.survival_journey_session.3"] or definitions.is_empty(): return {"ok":false}
+	var fresh: Sm2CheckpointSession=Sm2CheckpointSession.new(definitions,_profile_for(definitions))
 	return Sm2CheckpointWorld.decode(raw.get("world"),fresh.journey())
 
 static func latest(rows: Array[Dictionary],preferred: int=-1) -> int:

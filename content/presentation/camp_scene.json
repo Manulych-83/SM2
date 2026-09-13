@@ -1,0 +1,20 @@
+{
+  "version": "sm2.camp_scene.1",
+  "backgrounds": {
+    "camp": {"path":"res://assets/camp1/forest.png"},
+    "ruins": {"path":"res://assets/camp1/places.png", "region":[0.0,0.0,0.5,1.0]},
+    "enclave": {"path":"res://assets/camp1/places.png", "region":[0.5,0.0,0.5,1.0]}
+  },
+  "hero": {"foot":[0.44,0.84],"height":0.62},
+  "fire": {"path":"res://assets/camp1/fire.png","rect":[0.54,0.59,0.25,0.30]},
+  "objects": {"stash":{"path":"res://assets/camp1/stash.png","rect":[0.24,0.73,0.15,0.13]}},
+  "navigation": [
+    {"title":"Персонаж","id":"WorldBodyInventory","action":"body","icon":"res://assets/hud/hand.svg"},
+    {"title":"Инвентарь","id":"CampInventory","action":"inventory","icon":"res://assets/inventory/backpack.svg"},
+    {"title":"Навыки","id":"WorldDevelopment","action":"development","icon":"res://assets/hud/psi.svg"},
+    {"title":"Душа","id":"CampSoul","action":"soul","icon":"res://assets/hud/barrier.svg"},
+    {"title":"Журнал","id":"CampJournal","action":"journal","icon":"res://assets/inventory/pockets.svg"},
+    {"title":"Карта мира","id":"CampMap","action":"map","icon":"res://assets/inventory/pockets.svg"},
+    {"title":"Местные занятия","id":"CampActivities","action":"activities","icon":"res://assets/hud/hand.svg"}
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "version": "0.8.36-workflow.1",
+  "passed": true,
+  "ui_checks": 495,
+  "runs": [
+    {
+      "suite": "start-menu",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 156,
+      "report": "start-menu.json"
+    },
+    {
+      "suite": "creatures",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 86,
+      "report": "creatures.json"
+    },
+    {
+      "suite": "sequences",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 95,
+      "report": "sequences.json"
+    },
+    {
+      "suite": "legacy-effects",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 158,
+      "report": "legacy-effects.json"
+    }
+  ],
+  "export_exit_code": 0,
+  "exe_launch_exit_code": 0,
+  "legacy_launcher_exit_code": 0,
+  "archive_matches_previous_git_blobs": true,
+  "powershell_utf8_bom": true,
+  "agent_bytes_before": 111193,
+  "agent_bytes_after": 7466,
+  "build_sha256": "D2E17678DBCC516B5F382210BD5ED71E77F47C9067BD6D4BF9F726A2C33B171C",
+  "limits": [
+    "No full domain regression: domain/content/store unchanged",
+    "No measured total token reduction",
+    "No user slots used; isolated test save/load",
+    "Visual review does not replace user approval before stage 5"
+  ]
+}

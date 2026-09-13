@@ -4,6 +4,7 @@ param(
     [string]$RuntimeRoot = '',
     [switch]$PrepareOnly,
     [switch]$NoDialogs,
+    [switch]$LegacyDemos,
     [string[]]$ExtraArguments = @()
 )
 Set-StrictMode -Version Latest
@@ -11,6 +12,7 @@ $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'find_godot.ps1')
 $projectRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $logPath = ''
+$env:SM2_LEGACY_DEMOS = if ($LegacyDemos) { '1' } else { '0' }
 try {
     $logPath = New-Sm2LogPath $projectRoot 'launch'
     $RuntimeRoot = Initialize-Sm2Runtime -ProjectRoot $projectRoot -RuntimeRoot $RuntimeRoot

@@ -8,8 +8,8 @@ func _run() -> void:
 	app=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await _frames()
 	t.expect(_button("ContinueSurvivalTissuesButton").disabled,"fresh application has no saved outing")
 	t.expect(_button("ResumeMainButton").disabled,"no live world to resume")
-	t.expect(not _button("NewRegionButton").is_visible_in_tree(),"previous map is secondary")
-	t.expect(not _button("NewSurvivalDevicesButton").is_visible_in_tree(),"previous anatomy example is secondary")
+	t.expect(app.find_child("NewRegionButton",true,false)==null,"previous map is secondary")
+	t.expect(app.find_child("NewSurvivalDevicesButton",true,false)==null,"previous anatomy example is secondary")
 	t.equal(app.find_children("QuitButton","Button",true,false).size(),1,"one quit control")
 	for dimensions: Vector2i in [Vector2i(2560,1440),Vector2i(1920,1080),Vector2i(1280,720),Vector2i(1280,800)]:
 		await set_resolution(dimensions)
@@ -18,6 +18,14 @@ func _run() -> void:
 			t.expect(viewport.encloses(_button(id).get_global_rect()),"primary action without scrolling "+id+str(dimensions))
 		await _capture("menu-%s.png" % dimensions.x)
 	await _press("OtherModesButton")
+	for id: String in ["NewRegionButton","NewMagicButton","NewEffectsButton","NewSurvivalDevicesButton","ProgressButton","AttributesButton"]:
+		t.expect(app.find_child(id,true,false)==null,"historical entry absent from normal menu "+id)
+	for id: String in ["NewSequencesButton","NewCreature_0","NewCreature_1"]:
+		t.expect(_button(id).is_visible_in_tree(),"current example available "+id)
+	await _capture("current-examples-1280.png")
+	await set_resolution(Vector2i(2560,1440)); await _capture("current-examples-2560.png")
+	# Explicit compatibility launch restores original navigation, never migrates old saves.
+	OS.set_environment("SM2_LEGACY_DEMOS","1"); app._redraw_page(); await _frames()
 	t.expect(_button("NewRegionButton").is_visible_in_tree() and _button("NewMagicButton").is_visible_in_tree(),"both legacy groups open")
 	await _press("NewRegionButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
 	var legacy: Sm2JourneySession=life.session as Sm2JourneySession
@@ -25,6 +33,12 @@ func _run() -> void:
 	await _press("WorldSave")
 	var legacy_path: String=legacy._store._slot_path(legacy.slot_name()); var legacy_bytes: PackedByteArray=FileAccess.get_file_as_bytes(legacy_path)
 	await _press("WorldMenu")
+	await _press("ContinueRegionButton")
+	life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
+	t.equal(life.session.state_hash(),legacy.state_hash(),"archived slot restores exactly")
+	legacy=life.session as Sm2JourneySession
+	await _press("WorldMenu")
+	OS.set_environment("SM2_LEGACY_DEMOS","0"); app._redraw_page(); await _frames()
 	if app._modes_expanded: await _press("CloseModesButton")
 	t.expect(_button("ContinueSurvivalTissuesButton").disabled,"legacy save cannot become current Continue")
 	await _press("ResumeMainButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
@@ -82,7 +96,7 @@ func _run() -> void:
 	app=(load("res://scenes/main.tscn") as PackedScene).instantiate() as Control; root.add_child(app); await _frames()
 	t.expect(_button("ResumeMainButton").disabled,"new application has no live world")
 	t.expect(not _button("ContinueSurvivalTissuesButton").disabled,"new application discovers existing save")
-	t.expect(not _button("NewRegionButton").is_visible_in_tree(),"new application starts collapsed")
+	t.expect(app.find_child("NewRegionButton",true,false)==null,"new application starts collapsed")
 	await _press("ContinueSurvivalTissuesButton"); life=app.find_child("LifeScreen",true,false) as Sm2LifeScreen
 	t.equal(life.session.state_hash(),saved,"restart restores actual campaign")
 	t.equal(FileAccess.get_file_as_bytes(legacy_path),legacy_bytes,"current routing preserves legacy bytes")

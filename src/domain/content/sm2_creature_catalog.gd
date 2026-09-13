@@ -2,6 +2,7 @@ class_name Sm2CreatureCatalog
 extends RefCounted
 ## Definitions are indexed once. A battle compiles only the selected template set.
 const VERSION: String = "sm2.creatures.1"
+const TYPES_VERSION: String = "sm2.creature_types.1"
 const MAX_TYPES: int = 3000
 const MAX_ACTORS: int = 64
 var _raw: Dictionary = {}
@@ -14,11 +15,12 @@ var _hash: String = ""
 
 func build(raw: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog, fields: Dictionary, appearances: Array[String]) -> PackedStringArray:
 	if turns == null or combat == null or effects == null or not combat.matches(turns): return _error("creature_dependencies")
-	if not Sm2Validate.fields(raw,["version","profiles","templates","encounters"]) or raw.version != VERSION: return _error("creature_catalog_shape")
-	var normalized: Dictionary = {"version":VERSION}
+	if not Sm2Validate.fields(raw,["version","profiles","templates","encounters"]) or raw.version not in [VERSION,TYPES_VERSION]: return _error("creature_catalog_shape")
+	var normalized: Dictionary = {"version":raw.version}
 	var indices: Dictionary = {}
 	for group: String in ["profiles","templates","encounters"]:
-		if not raw[group] is Array or raw[group].is_empty() or raw[group].size() > (1000 if group == "encounters" else MAX_TYPES): return _error("creature_group:"+group)
+		var types_only: bool = group=="encounters" and raw.version==TYPES_VERSION
+		if not raw[group] is Array or (raw[group].is_empty() and not types_only) or (types_only and not raw[group].is_empty()) or raw[group].size() > (1000 if group == "encounters" else MAX_TYPES): return _error("creature_group:"+group)
 		indices[group] = {}
 		var rows: Array[Dictionary] = []
 		for row: Variant in raw[group]:
@@ -67,6 +69,11 @@ func build(raw: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, eff
 func fingerprint() -> String: return _hash
 func to_data() -> Dictionary: return _raw.duplicate(true)
 func definition(id: String) -> Dictionary: return _templates.get(id,{}).duplicate(true)
+func profile(id: String) -> Dictionary: return _profiles.get(id,{}).duplicate(true)
+func effect_definitions() -> Dictionary:
+	var result: Dictionary = _base.effects.duplicate(true)
+	result.profiles = []
+	return result
 func encounter(id: String) -> Dictionary: return _encounters.get(id,{}).duplicate(true)
 func count() -> int: return _templates.size()
 func encounters() -> Array[String]:

@@ -1,6 +1,7 @@
 class_name Sm2JourneyWorld
 extends Sm2LifeWorld
 var survival: Sm2SurvivalState = null
+var world_creatures: Sm2WorldCreatureCatalog = null
 ## Persistent ownership; equipped items are projected into the common battle engine.
 var hybrid_catalog: Sm2HybridCatalog=null
 var region_catalog: Sm2RegionCatalog=null
@@ -46,8 +47,13 @@ func start(id: String) -> void:
 	for body_id: int in _definition.ids():
 		if body_catalog!=null: bodies[body_id].functions=body_catalog.initial()
 		if not bodies[body_id].alive: continue
+		var slots: Dictionary = _gear.slots(_initial_loadout)
+		var template: Dictionary = world_creatures.actor(body_id) if world_creatures!=null else {}
+		if not template.is_empty():
+			slots={}
+			for gear_id: String in template.definition.equipment_ids: slots[_gear.gear(gear_id).slot]=gear_id
 		for slot: String in Sm2CombatCatalog.SLOTS:
-			var definition_id: String=_gear.slots(_initial_loadout).get(slot,"")
+			var definition_id: String=slots.get(slot,"")
 			if definition_id.is_empty(): continue
 			var gear: Sm2CombatGear=_gear.gear(definition_id)
 			items.append({"id":str(next_id),"definition_id":definition_id,"owner_id":str(body_id),"equipped":true,"slot":slot,"current":gear.capacity,"ammo":gear.ammo})
@@ -242,6 +248,8 @@ func capture() -> Dictionary:
 		data["region"]=region.to_data()
 	if survival!=null:
 		data.format="sm2.world.survival.3" if survival.catalog.has_layers() else "sm2.world.survival.2" if survival.catalog.has_devices() else "sm2.world.survival.1"; data["survival"]=survival.to_data()
+	if world_creatures!=null:
+		data.format=Sm2WorldCreatureCatalog.WORLD_FORMAT; data["creatures"]=world_creatures.snapshot()
 	return data
 
 func view() -> Dictionary:
@@ -269,6 +277,7 @@ func view() -> Dictionary:
 
 func copy_world() -> Sm2JourneyWorld:
 	var value: Sm2JourneyWorld=Sm2JourneyWorld.new(_progress,_definition,_gear,encounters,_initial_loadout,body_catalog,care_catalog,exploration_catalog,psionic_catalog,upgrade_catalog,hybrid_catalog,true)
+	value.world_creatures=world_creatures
 	value.survival=survival.copy() if survival!=null else null
 	value.region_catalog=region_catalog
 	if region!=null: value.region=region.copy()

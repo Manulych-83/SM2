@@ -54,6 +54,9 @@ func _init(content: Dictionary, profile: Sm2AiProfile, store: Sm2SaveStore=null,
 	if content.has("survival"):
 		_content["survival"]=content.survival
 		journey().survival=Sm2SurvivalState.new(); journey().survival.catalog=content.survival
+	if content.has("world_creatures"):
+		_content["world_creatures"]=content.world_creatures if shared_content else content.world_creatures.copy()
+		journey().world_creatures=_content.world_creatures
 	runner=null
 
 func has_search_practice() -> bool: return _content.has("exploration") and _content.exploration.has_practice()
@@ -113,6 +116,10 @@ func _prepare() -> Dictionary:
 	if not _encounter.ok: return _encounter
 	if journey().survival!=null: _encounter["survival"]=journey().survival.copy()
 	runner=Sm2BattleRunner.new(_encounter.catalog,_encounter.combat,_profile,null,false,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin,_encounter.get("survival"),true)
+	if journey().world_creatures!=null:
+		for entry: Dictionary in _encounter.origin.actors:
+			var template: Dictionary=journey().world_creatures.actor(int(entry.body_id))
+			if not template.is_empty(): runner.actor_labels[int(entry.actor_id)]=template.definition.name
 	return {"ok":true}
 
 func attack(value: Sm2Command) -> Sm2CommandResult:
