@@ -2,6 +2,9 @@ class_name Sm2CompanionProgress
 extends Sm2ProgressBodyState
 ## One personal XP pool; attributes are derived, never independently trained.
 var earned: int = 0
+func copy() -> Sm2ProgressBodyState:
+	var result: Sm2CompanionProgress=Sm2CompanionProgress.new(); result.id=id; result.earned=earned
+	return result
 
 func to_data() -> Dictionary:
 	return {"id":str(id),"template_id":"p1:body.human","growth":{"format":"sm2.companion_growth.1","earned_total":earned}}

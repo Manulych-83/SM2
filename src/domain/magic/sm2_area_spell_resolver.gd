@@ -31,8 +31,8 @@ static func preview(state: Sm2TacticalState, command: Sm2Command) -> Dictionary:
 		result.hp_loss += loss
 		result.kills += int(lethal)
 	if result.targets.is_empty(): return _deny(result,"area_no_enemies")
-	if source.spatial.ap < spell.ap_cost: return _deny(result,"insufficient_ap")
-	if source.spatial.fatigue_max-source.spatial.fatigue < spell.fatigue_cost: return _deny(result,"fatigue_limit")
+	var requirements: Dictionary = Sm2ActionRequirements.resources(source,spell.ap_cost,spell.fatigue_cost)
+	if not requirements.matches: return _deny(result,requirements.reason)
 	if state.mana[command.actor_id].current < int(cost.total): return _deny(result,"insufficient_mana")
 	result.allowed = true
 	return result

@@ -8,7 +8,12 @@ var _content: Dictionary
 var _profile: Sm2AiProfile
 var _store: Sm2SaveStore
 
-func _init(content: Dictionary, profile: Sm2AiProfile, store: Sm2SaveStore=null) -> void:
+func _init(content: Dictionary, profile: Sm2AiProfile, store: Sm2SaveStore=null, shared_content: bool=false) -> void:
+	# Internal candidates share their owning session's already-built catalogs.
+	# External entry points retain defensive construction by default.
+	if shared_content:
+		_content=content.duplicate(); _profile=profile; _store=store
+		return
 	_content={"setup":content.setup.duplicate(true)}; _store=store
 	_content.catalog=Sm2TurnCatalog.new(); _content.catalog.build(content.catalog.to_data())
 	_content.combat=Sm2CombatCatalog.new(); _content.combat.build(content.combat.to_data(),_content.catalog)

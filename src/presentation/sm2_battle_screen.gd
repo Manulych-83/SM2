@@ -144,6 +144,7 @@ func _refresh() -> void:
 	if state.ruleset in [Sm2DevelopmentSnapshot.RULESET,Sm2EncounterOrigin.RULESET,Sm2EncounterOrigin.PARTY_RULESET,Sm2EncounterOrigin.BODY_RULESET,Sm2EncounterOrigin.PROSTHESIS_RULESET,Sm2EncounterOrigin.PSIONIC_RULESET,Sm2EncounterOrigin.PSIONIC_GROWTH_RULESET,Sm2EncounterOrigin.PSIONIC_SHIELD_RULESET,Sm2EncounterOrigin.UPGRADE_RULESET,Sm2EncounterOrigin.IMPLANT_RULESET,Sm2EncounterOrigin.HYBRID_RULESET]: _title.text = "Развитие · Раунд %s" % state.round
 	var ids: Array[String] = []
 	if board.art != null: _title.text = "Руины · Раунд %s" % state.round
+	if state.has("encounter_name"): _title.text = "%s · Раунд %s" % [state.encounter_name,state.round]
 	for id: int in state.main_queue: ids.append("№%s" % id)
 	var deferred: Array[String] = []
 	for id: int in state.deferred_queue: deferred.append("№%s" % id)
@@ -281,8 +282,6 @@ func _inspect(id: int) -> void:
 		if profile.get("immunities",[]).has("status.poison"): _inspector.text += "Иммунитет к отравлению\n"
 		_inspector.text += "Сопротивление яду: %s%%\n" % profile.get("resistances",{}).get("poison",0)
 		_inspector.text += details+"\n"
-		for stat: String in actor.stats:
-			_inspector.text += "%s: %s (эффекты %+d)\n" % [Sm2BattleText.STATS.get(stat,stat),actor.stats[stat].value,actor.stats[stat].flat]
 
 	if actor.has("mana") and not actor.get("psionic",false):
 		_inspector.text = "Мана: %s / %s · +%s за раунд\nСопротивление магии: %s%%\n" % [actor.mana,actor.magic_profile.mana_max,actor.magic_profile.mana_per_round,actor.magic_profile.arcane_resistance] + _inspector.text
@@ -320,6 +319,10 @@ func _inspect(id: int) -> void:
 				_inspector.text+="\n"+str(names.get(part,part))+": "+", ".join(values)
 		for wound: Dictionary in actor.anatomy.wounds:
 			_inspector.text+="\nРана %s: %s · %s мл/мин" % [wound.id,wound.part,wound.rate]
+	if actor.has("stats"):
+		_inspector.text += "\n\nРасчёт боевых параметров\n"
+		for stat: String in Sm2BattleText.STATS:
+			if actor.stats.has(stat): _inspector.text += Sm2BattleText.stat_calculation(stat,actor.stats[stat])+"\n"
 
 func actor_upgrade_cost() -> int:
 	return int(_actor(_active).get("upgrade_attack_fatigue",0))
@@ -412,7 +415,8 @@ func _hovered(cell: Vector2i) -> void:
 			if target.has("anatomy"): _preview.text=_preview.text.replace("цель потеряет", "повреждение тканей:").replace("Урон здоровью:","Повреждение тканей:").replace(" HP", "")
 			if check.lethal: _preview.text += "\nСмертельный урон."
 		elif check.get("kind","") == "effect":
-			_preview.text += "Наложение без броска попадания.\n" if check.operation == "apply_effect" else "Снять эффекты:\n"
+			if check.operation == "effect_sequence": _preview.text += Sm2BattleText.sequence_description(check.sequence)
+			else: _preview.text += "Наложение без броска попадания.\n" if check.operation == "apply_effect" else "Снять эффекты:\n"
 			for effect: Dictionary in check.effects:
 				_preview.text += Sm2BattleText.effect_description(effect)+"\n"
 		elif id.ends_with("split_shield"):

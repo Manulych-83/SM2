@@ -15,6 +15,11 @@ var _kind: String=""
 var _companion: bool=false
 var _node_filter: int=0
 var _node_list: VBoxContainer
+var _node_page: int=0
+var _node_query: String=""
+var _track_page: int=0
+var _link_page: int=0
+var _link_offsets: Dictionary={}
 var back_text: String="В лагерь"
 const INK: Color=Sm2BronzeTheme.TEXT
 const GOLD: Color=Sm2BronzeTheme.GOLD
@@ -39,7 +44,8 @@ func _resize_layout() -> void:
 
 func redraw() -> void:
 	if is_instance_valid(_content): remove_child(_content); _content.queue_free()
-	_model=Sm2HeroDevelopmentView.build(session,selected_id)
+	_model=Sm2HeroDevelopmentView.build(session,selected_id,{"compact_tracks":true,"page":_node_page,"filter":_node_filter,"query":_node_query,"focus":_focused,"link_offsets":_link_offsets,"link_page":_link_page})
+	_node_page=_model.node_page
 	if not _model.selected.is_empty(): selected_id=_model.selected.id
 	_sources=Sm2DevelopmentSources.build(session,selected_id)
 	var surface: Panel=Panel.new(); _content=surface; surface.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); surface.add_theme_stylebox_override("panel",Sm2BronzeTheme.box(Sm2BronzeTheme.BACKGROUND,Sm2BronzeTheme.BACKGROUND,0)); add_child(surface)
@@ -63,10 +69,10 @@ func redraw() -> void:
 	var left: VBoxContainer=VBoxContainer.new(); left.custom_minimum_size.x=224; _frame(panes).add_child(left)
 	left.add_child(_label("НАПРАВЛЕНИЯ",15,GOLD))
 	var filter: LineEdit=LineEdit.new(); filter.name="HeroTrackFilter"; filter.placeholder_text="Найти направление"; filter.text=_query; left.add_child(filter)
-	filter.text_changed.connect(func(value: String) -> void: _query=value; _populate_tracks())
+	filter.text_changed.connect(func(value: String) -> void: _query=value; _track_page=0; _populate_tracks())
 	var kinds: HBoxContainer=HBoxContainer.new(); left.add_child(kinds)
 	for entry: Array in [["Все",""],["Хар-ки","attribute"],["Навыки","skill"]]:
-		var button: Button=_button(entry[0],"HeroKind_"+entry[1],func() -> void: _kind=entry[1]; _populate_tracks()); button.toggle_mode=true; button.custom_minimum_size.x=66; button.add_theme_font_size_override("font_size",12); kinds.add_child(button)
+		var button: Button=_button(entry[0],"HeroKind_"+entry[1],func() -> void: _kind=entry[1]; _track_page=0; _populate_tracks()); button.toggle_mode=true; button.custom_minimum_size.x=66; button.add_theme_font_size_override("font_size",12); kinds.add_child(button)
 	var scroll: ScrollContainer=ScrollContainer.new(); scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; left.add_child(scroll)
 	_track_list=VBoxContainer.new(); _track_list.size_flags_horizontal=Control.SIZE_EXPAND_FILL; scroll.add_child(_track_list); _populate_tracks()
 	var center: VBoxContainer
@@ -81,7 +87,11 @@ func redraw() -> void:
 	var node_title: Label=_label("УЗЛЫ НАПРАВЛЕНИЯ",17,GOLD); node_title.size_flags_horizontal=Control.SIZE_EXPAND_FILL; node_header.add_child(node_title)
 	var state_filter: OptionButton=OptionButton.new(); state_filter.name="HeroNodeFilter"; state_filter.fit_to_longest_item=false; state_filter.custom_minimum_size.x=145; node_header.add_child(state_filter)
 	for title_text: String in ["Все узлы","Доступные","Изученные"]: state_filter.add_item(title_text)
-	state_filter.select(_node_filter); state_filter.item_selected.connect(func(index: int) -> void: _node_filter=index; _populate_nodes())
+	state_filter.select(_node_filter); state_filter.item_selected.connect(func(index: int) -> void: _node_filter=index; _node_page=0; _focused=""; redraw())
+	var search: LineEdit=LineEdit.new(); search.name="HeroNodeSearch"; search.placeholder_text="Название узла · Enter для поиска"; search.text=_node_query; right.add_child(search)
+	search.text_submitted.connect(func(value: String) -> void: _node_query=value; _node_page=0; _focused=""; redraw())
+	if int(_model.node_pages)>1:
+		_pager(right,"HeroNodes",_node_page,int(_model.node_pages),int(_model.node_count),func(page: int) -> void: _node_page=page; _focused=""; redraw())
 	_node_list=VBoxContainer.new(); _node_list.add_theme_constant_override("separation",12); right.add_child(_node_list); _populate_nodes()
 
 func _summary(right: VBoxContainer) -> void:
@@ -97,6 +107,8 @@ func _summary(right: VBoxContainer) -> void:
 	for link: Dictionary in _model.links:
 		var destination: String=link.target if selected_id==link.source else link.source
 		right.add_child(_button("%s → %s (%s/%s)" % [link.source_name,link.target_name,link.numerator,link.denominator],control_id("HeroContribution",destination),_select.bind(destination,"")))
+	if int(_model.link_pages)>1:
+		_pager(right,"HeroContributions",int(_model.link_page),int(_model.link_pages),int(_model.link_count),func(page: int) -> void: _link_page=page; redraw())
 	right.add_child(_label("КАК ПОЛУЧАТЬ ОПЫТ",16,GOLD))
 	if _sources.practice.is_empty(): right.add_child(_label("Для этого направления в текущем примере ещё нет источников практики.",14,MUTED))
 	for source: Dictionary in _sources.practice:
@@ -112,7 +124,7 @@ func _populate_nodes() -> void:
 		if _node_filter==1 and not node.allowed: continue
 		if _node_filter==2 and not node.owned: continue
 		_node(_node_list,node); count+=1
-	if count==0: _node_list.add_child(_label("Нет узлов для этого фильтра." if _node_filter>0 else "Для этого направления узлы пока не добавлены.",16,MUTED))
+	if count==0: _node_list.add_child(_label("Нет узлов для этого фильтра." if _node_filter>0 or not _node_query.strip_edges().is_empty() else "Для этого направления узлы пока не добавлены.",16,MUTED))
 
 func _frame(parent: Node) -> PanelContainer:
 	var panel: PanelContainer=PanelContainer.new(); panel.add_theme_stylebox_override("panel",Sm2BronzeTheme.box(Sm2BronzeTheme.PANEL,Sm2BronzeTheme.BORDER,14)); parent.add_child(panel); return panel
@@ -144,10 +156,19 @@ func _populate_tracks() -> void:
 	for child: Node in _track_list.get_children(): _track_list.remove_child(child); child.queue_free()
 	var count: int=0
 	var query: String=_query.strip_edges().to_lower()
+	var matches: Array[Dictionary]=[]
 	for kind: String in ["attribute","skill"]:
-		var shown: bool=false
 		for track: Dictionary in _model.tracks:
 			if track.kind!=kind or (not _kind.is_empty() and track.kind!=_kind) or (not query.is_empty() and not str(track.name).to_lower().contains(query)): continue
+			matches.append(track)
+	var pages: int=maxi(1,ceili(float(matches.size())/Sm2HeroDevelopmentView.PAGE_SIZE))
+	_track_page=clampi(_track_page,0,pages-1)
+	if pages>1: _pager(_track_list,"HeroTracks",_track_page,pages,matches.size(),func(page: int) -> void: _track_page=page; _populate_tracks())
+	for kind: String in ["attribute","skill"]:
+		var shown: bool=false
+		for track: Dictionary in matches.slice(_track_page*Sm2HeroDevelopmentView.PAGE_SIZE,(_track_page+1)*Sm2HeroDevelopmentView.PAGE_SIZE):
+			if track.kind!=kind: continue
+			track=Sm2HeroDevelopmentView.track_details(session,track.id)
 			if not shown: _track_list.add_child(_label("Характеристики" if kind=="attribute" else "Навыки",16,GOLD)); shown=true
 			var button: Button=_button("%s · %s" % [track.name,track.level],control_id("HeroTrack",track.id),_select.bind(track.id,"")); button.alignment=HORIZONTAL_ALIGNMENT_LEFT; button.tooltip_text="Свой уровень: %s · итоговое значение: %s · доступно %s XP" % [track.level,track.effective,track.available]
 			button.toggle_mode=true; button.button_pressed=track.id==selected_id; _track_list.add_child(button); count+=1
@@ -173,15 +194,26 @@ func _node(parent: VBoxContainer,node: Dictionary) -> void:
 		box.add_child(_button("← Требуется: "+needed.name+(" · изучено" if needed.owned else " · не изучено"),control_id("HeroRequires",node.id+needed.id),_select.bind(needed.track_id,needed.id)))
 	for next: Dictionary in node.unlocks:
 		box.add_child(_button("→ Следующий узел: "+next.name,control_id("HeroNext",node.id+next.id),_select.bind(next.track_id,next.id)))
+	for kind: String in ["requires","unlocks"]:
+		if int(node[kind+"_pages"])>1:
+			box.add_child(_label("Предпосылки" if kind=="requires" else "Следующие узлы",14,MUTED))
+			_pager(box,control_id("HeroLinks",node.id+kind),int(node[kind+"_page"]),int(node[kind+"_pages"]),int(node[kind+"_count"]),func(page: int) -> void: _link_offsets[node.id+"/"+kind]=page; redraw(); _focus_node.call_deferred(node.id))
 	var state: Label=_label("Изучено этим телом" if node.owned else "Можно изучить" if node.allowed else node.reason,14,GOLD if node.allowed or node.owned else MUTED)
 	state.name=control_id("HeroNodeStatus",node.id); box.add_child(state)
 	box.add_child(_button("Изучено" if node.owned else "Изучить",control_id("HeroBuy",node.id),_buy.bind(node.id,_model.context.duplicate(true)),not node.allowed))
 
 func _select(id: String,node: String) -> void:
 	selected_id=id; _focused=node
-	if not node.is_empty(): _node_filter=0
+	_node_page=0; _link_page=0; _link_offsets.clear()
+	if not node.is_empty(): _node_filter=0; _node_query=""
 	redraw()
 	if not node.is_empty(): _focus_node.call_deferred(node)
+
+func _pager(parent: Node,prefix: String,page: int,pages: int,count: int,action: Callable) -> void:
+	var row: HBoxContainer=HBoxContainer.new(); parent.add_child(row)
+	var previous: Button=_button("‹",prefix+"Previous",action.bind(page-1),page==0); previous.custom_minimum_size.x=32; row.add_child(previous)
+	var label: Label=_label("%s / %s · %s" % [page+1,pages,count],12,MUTED); label.name=prefix+"Page"; label.size_flags_horizontal=Control.SIZE_EXPAND_FILL; label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER; label.tooltip_text="Страница %s из %s. Всего: %s." % [page+1,pages,count]; row.add_child(label)
+	var next: Button=_button("›",prefix+"Next",action.bind(page+1),page>=pages-1); next.custom_minimum_size.x=32; row.add_child(next)
 
 func _focus_node(id: String) -> void:
 	await get_tree().process_frame

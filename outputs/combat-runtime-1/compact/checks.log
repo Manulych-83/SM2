@@ -1,0 +1,56 @@
+﻿[2026-09-13T10:59:12.9989699+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\compact
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T10:59:13.0496710+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\compact
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Регистрация глобальных классов… (6 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Sm2BattleRunner[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | Sm2CheckpointSession[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | Sm2JourneySession[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalSession[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressDecodeCache[39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | Sm2TacticalBattle[39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T10:59:17.0385089+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_combat_runtime.gd -- --output E:\GPT\SM2\outputs\combat-runtime-1\compact
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\compact
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COMBAT_RUNTIME start_battle 4373.232 ms
+COMBAT_RUNTIME runner_view 13.707 ms
+COMBAT_RUNTIME world_copy 8.827 ms
+COMBAT_RUNTIME world_validate 207.847 ms
+COMBAT_RUNTIME session_copy 25.093 ms
+COMBAT_RUNTIME publish_unchanged 1023.754 ms
+COMBAT_RUNTIME battle_copy 2.136 ms
+COMBAT_RUNTIME battle_decode 96.223 ms
+COMBAT_RUNTIME runner_restore 261.860 ms
+COMBAT_RUNTIME action_0_move 205.152 ms
+COMBAT_RUNTIME action_1_escape 209.018 ms
+COMBAT_RUNTIME action_2_move 207.423 ms
+COMBAT_RUNTIME action_3_escape 3609.689 ms
+
+
+ExitCode: 0

@@ -1,0 +1,15 @@
+﻿[2026-09-13T14:28:54.7352248+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\rules-1\pack-release
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T14:28:54.7800257+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --path E:\GPT\SM2 --main-pack E:\GPT\SM2\builds\SM2.exe --script E:\GPT\SM2\outputs\rules-1\export_smoke.gd
+RuntimeRoot: E:\GPT\SM2\.local\rules-1\pack-release
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 591.86 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5080
+
+SM2_RULES_PACK_OK: legacy backup and archived outcomes; new battle defers growth; pending XP survives save/load; packed UI renders rule trace
+
+
+ExitCode: 0

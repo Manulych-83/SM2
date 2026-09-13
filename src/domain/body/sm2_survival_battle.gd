@@ -3,7 +3,7 @@ extends RefCounted
 const RULESET: String="sm2.survival_encounter.1"
 
 static func body_id(state: Sm2TacticalState,actor_id: int) -> String:
-	for row: Dictionary in state.development.origin.actors:
+	for row: Dictionary in state.development.origin_actors():
 		if int(row.actor_id)==actor_id: return str(row.body_id)
 	return ""
 
@@ -85,14 +85,14 @@ static func bandage(state: Sm2TacticalState,command: Sm2Command) -> Dictionary:
 	sync_actor(state,state.actor(command.target_actor_id))
 	return {"accepted":true,"code":"accepted","events":[{"type":"wound_bandaged","actor_id":str(command.actor_id),"target_actor_id":str(command.target_actor_id),"wound_id":command.ability_id,"item_id":check.item}]}
 
-static func decode(data: Dictionary,turns: Sm2TurnCatalog,combat: Sm2CombatCatalog,effects: Sm2EffectCatalog,magic: Sm2MagicCatalog,development: Sm2DevelopmentCatalog,origin: Dictionary,initial: Sm2SurvivalState) -> Dictionary:
+static func decode(data: Dictionary,turns: Sm2TurnCatalog,combat: Sm2CombatCatalog,effects: Sm2EffectCatalog,magic: Sm2MagicCatalog,development: Sm2DevelopmentCatalog,origin: Dictionary,initial: Sm2SurvivalState, cache: Sm2ProgressDecodeCache=null,proof: Sm2CombatGrowthProfile=null) -> Dictionary:
 	var fail: Dictionary={"ok":false,"errors":PackedStringArray(["survival_battle_snapshot"])}
 	if data.get("schema_version")!=initial.catalog.battle_schema() or data.get("ruleset")!=initial.catalog.battle_ruleset() or data.get("survival_initial")!=Sm2Canonical.hash(initial.to_data()): return fail
 	var decoded: Dictionary=Sm2SurvivalState.decode(data.get("survival"),initial)
 	if not decoded.ok: return decoded
 	var base: Dictionary=data.duplicate(true); base.erase("survival"); base.erase("survival_initial")
 	base.schema_version=Sm2EncounterOrigin.schema(development,origin); base.ruleset=origin.version
-	var result: Dictionary=Sm2DevelopmentSnapshot.decode(base,turns,combat,effects,magic,development,origin,true)
+	var result: Dictionary=Sm2DevelopmentSnapshot.decode(base,turns,combat,effects,magic,development,origin,true,cache,proof)
 	if not result.ok: return result
 	var state: Sm2TacticalState=result.state
 	state.survival=decoded.state; state.survival_initial=Sm2Canonical.hash(initial.to_data())

@@ -1,0 +1,13 @@
+{
+	"attributes": 8,
+	"catalog_pipeline_ms": 709.155,
+	"dense_world_bytes": 4552898,
+	"note": "One generated fixture, all hero tracks practiced. World JSON size only, not whole save. No battle timing claim.",
+	"passed": true,
+	"query_1000_ms": 32.962,
+	"search_rows": 5008,
+	"skills": 5000,
+	"sources_ms": 0.476,
+	"sparse_world_bytes": 446660,
+	"view_ms": 6.024
+}

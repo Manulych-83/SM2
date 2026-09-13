@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "exe_log": "E:\\GPT\\SM2\\outputs\\combat-runtime-1\\exe.log",
+  "version": "0.8.26-combat-runtime.1",
+  "bytes": 121088960,
+  "sha256": "BA2DB6077F43A3B813BB0C1E4636EC5220AD3B17981F94CE6457195A41CA1744",
+  "export_log": "E:/GPT/SM2/.local/logs/export-20260913-110904-998-947e4304.log",
+  "exe": "E:\\GPT\\SM2\\builds\\SM2.exe",
+  "pack_log": "outputs/combat-runtime-1/pack.log"
+}

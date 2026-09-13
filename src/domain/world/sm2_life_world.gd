@@ -16,7 +16,9 @@ var receipt: String = ""
 var _progress: Sm2ProgressCatalog
 var _definition: Sm2LifeDefinition
 
-func _init(progress: Sm2ProgressCatalog, definition: Sm2LifeDefinition) -> void:
+func _init(progress: Sm2ProgressCatalog, definition: Sm2LifeDefinition, shared_content: bool=false) -> void:
+	if shared_content:
+		_progress=progress; _definition=definition; return
 	_progress=Sm2ProgressCatalog.new(); _progress.build(progress.to_data())
 	_definition=Sm2LifeDefinition.new(); _definition.build(definition.to_data())
 

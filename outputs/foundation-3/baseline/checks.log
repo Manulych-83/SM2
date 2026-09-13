@@ -1,0 +1,69 @@
+﻿[2026-09-12T23:37:47.4839519+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\foundation-3\baseline
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T23:37:47.5426355+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\foundation-3\baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Регистрация глобальных классов… (4 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Sm2ProgressContentAudit[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | Sm2DependencyGraph[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-12T23:37:51.7118592+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_foundation.gd -- --report E:\GPT\SM2\outputs\foundation-3\baseline\report.json
+RuntimeRoot: E:\GPT\SM2\.local\foundation-3\baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FOUNDATION catalog_build 100: 2.980 ms
+FOUNDATION fingerprint_100_reads 100: 107.365 ms
+FOUNDATION catalog_build 1000: 829.456 ms
+FOUNDATION fingerprint_100_reads 1000: 1107.354 ms
+FOUNDATION graph 1000: 1.453 ms
+FOUNDATION graph 10000: 17.605 ms
+FOUNDATION generated 100 real transitions in 6745.760 ms
+FOUNDATION restore 100: 1509.652 ms
+FOUNDATION journal 100: 1610.318 ms
+FOUNDATION objective 100: 1691.437 ms
+FOUNDATION objective_cached 100: 14.161 ms
+FOUNDATION save 100: 3177.601 ms
+FOUNDATION load 100: 3315.352 ms
+FOUNDATION generated 1000 real transitions in 62748.060 ms
+FOUNDATION restore 1000: 15468.318 ms
+FOUNDATION journal 1000: 15579.486 ms
+FOUNDATION objective 1000: 16188.786 ms
+FOUNDATION objective_cached 1000: 45.598 ms
+FOUNDATION save 1000: 31715.169 ms
+FOUNDATION load 1000: 30384.192 ms
+FOUNDATION generated 4096 real transitions in 210452.687 ms
+FOUNDATION restore 4096: 60215.150 ms
+FOUNDATION journal 4096: 61165.636 ms
+FOUNDATION objective 4096: 40282.636 ms
+FOUNDATION objective_cached 4096: 72.898 ms
+FOUNDATION save 4096: 99496.350 ms
+FOUNDATION load 4096: 122355.048 ms
+FOUNDATION_AUDIT_OK
+
+
+ExitCode: 0

@@ -1,0 +1,6 @@
+{
+  "guard":{"tunic_color":"#5c7688"},
+  "raider":{"tunic_color":"#855f43"},
+  "archer":{"tunic_color":"#51724e"},
+  "poisoner":{"tunic_color":"#6e527f"}
+}

@@ -1,0 +1,25 @@
+{
+	"samples": [
+		{
+			"legacy_1000_ms": 13.889,
+			"rules_1000_ms": 45.571
+		},
+		{
+			"legacy_1000_ms": 14.021,
+			"rules_1000_ms": 46.36
+		},
+		{
+			"legacy_1000_ms": 14.288,
+			"rules_1000_ms": 46.717
+		},
+		{
+			"legacy_1000_ms": 14.047,
+			"rules_1000_ms": 45.996
+		},
+		{
+			"legacy_1000_ms": 14.183,
+			"rules_1000_ms": 46.962
+		}
+	],
+	"scope": "1000 actual stat queries, one active weakness; legacy formula below versus complete new trace; not full command timing"
+}

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "version": "0.8.28-validation.1",
+  "sha256": "9C89A2F335A6C372695ACCE1FC9759899D830D15EC6C521EF56A5CC5C5EB99D3",
+  "pack_exit": 0,
+  "export_log": ".local/logs/export-20260913-114640-771-adeaf0b8.log",
+  "exe_exit": 0,
+  "bytes": 121091440
+}

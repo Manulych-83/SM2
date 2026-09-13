@@ -1,6 +1,7 @@
 class_name Sm2TacticalBattle
 extends RefCounted
 ## Transaction boundary: all rules resolve on a detached candidate before publication.
+var _compact_development: bool=true
 var _catalog: Sm2TurnCatalog
 var _state: Sm2TacticalState = null
 var _combat: Sm2CombatCatalog = null
@@ -10,8 +11,14 @@ var _magic: Sm2MagicCatalog = null
 var _development: Sm2DevelopmentCatalog = null
 var _origin: Dictionary = {}
 var _survival: Sm2SurvivalState = null
+var _progress_decode_cache: Sm2ProgressDecodeCache=Sm2ProgressDecodeCache.new()
 
-func _init(catalog: Sm2TurnCatalog, combat: Sm2CombatCatalog = null, consequences: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}, survival: Sm2SurvivalState = null) -> void:
+func _init(catalog: Sm2TurnCatalog, combat: Sm2CombatCatalog = null, consequences: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}, survival: Sm2SurvivalState = null, shared_content: bool=false) -> void:
+	if shared_content:
+		_catalog=catalog; _combat=combat; _consequences=consequences
+		_effects=effects; _magic=magic; _development=development
+		_origin=origin.duplicate(true); _survival=survival.copy() if survival!=null else null
+		return
 	_survival=survival.copy() if survival!=null else null
 	_consequences = consequences
 	_catalog = Sm2TurnCatalog.new()
@@ -43,7 +50,11 @@ func start(setup: Dictionary) -> Dictionary:
 	if _effects != null and (not _consequences or _effects.fingerprint().is_empty()): return _failure("effects_require_valid_consequences")
 	if (_consequences and _combat == null) or (_combat != null and not _combat.matches(_catalog)):
 		return _failure("incompatible_combat_catalog")
-	if not Sm2Validate.fields(setup, ["battle_id", "scenario_id", "seed", "field", "round_limit", "actors"]):
+	var setup_fields: Array[String]=["battle_id", "scenario_id", "seed", "field", "round_limit", "actors"]
+	if setup.has("growth_timing"):
+		if _development==null or _origin.is_empty() or not setup.growth_timing is String or setup.growth_timing!=Sm2BattleDevelopment.AFTER_BATTLE: return _failure("growth_timing")
+		setup_fields.append("growth_timing")
+	if not Sm2Validate.fields(setup, setup_fields):
 		return _failure("setup_fields")
 	if not Sm2Validate.text(setup.battle_id) or not Sm2Validate.text(setup.scenario_id) or typeof(setup.seed) != TYPE_INT:
 		return _failure("setup_identity")
@@ -126,6 +137,7 @@ func start(setup: Dictionary) -> Dictionary:
 		if not _origin.is_empty():
 			var origin_error: String = Sm2EncounterOrigin.initialize(candidate,_development,_combat,_origin,true)
 			if not origin_error.is_empty(): return _failure(origin_error)
+	if candidate.development!=null: candidate.development.deferred_growth=setup.has("growth_timing")
 	if _development!=null and _development.has_psionic_shields():
 		for id: int in candidate.sorted_ids(): candidate.actor(id).barrier=Sm2BarrierState.new()
 	if candidate.survival!=null:
@@ -162,7 +174,7 @@ func execute(command: Sm2Command) -> Sm2CommandResult:
 	if not check.allowed:
 		result.code = check.reason
 		return result
-	var candidate: Sm2TacticalState = _state.copy()
+	var candidate: Sm2TacticalState = _state.copy(true)
 	var events: Array[Dictionary] = []
 	if command.kind == "buy_node":
 		candidate.development.purchase(command,events)
@@ -239,8 +251,10 @@ func execute(command: Sm2Command) -> Sm2CommandResult:
 	if not candidate.survival_error.is_empty():
 		result.code=candidate.survival_error; return result
 	if _effects != null: Sm2EffectResolver.cleanup(candidate,events)
+	if candidate.finished and candidate.development!=null: candidate.development.settle_practice(events)
 	candidate.revision += 1
-	var checked: Dictionary = _decode(candidate.to_data(_catalog.fingerprint()))
+	var proof: Sm2CombatGrowthProfile=candidate.development._profile if candidate.development!=null and not candidate.finished else null
+	var checked: Dictionary = _decode_compact(candidate,proof) if proof!=null and _compact_development else _decode(candidate.to_data(_catalog.fingerprint()),true)
 	if not checked.ok:
 		result.code = "candidate_invalid"
 		return result
@@ -251,8 +265,21 @@ func execute(command: Sm2Command) -> Sm2CommandResult:
 	result.events = _tag(events, _state)
 	return result
 
-func capture() -> Dictionary:
-	return _state.to_data(_catalog.fingerprint()) if _state != null else {}
+func capture(compact: bool=false) -> Dictionary:
+	return _state.to_data(_catalog.fingerprint(),compact) if _state != null else {}
+
+## Detached projection of the state admitted by start/execute/restore.
+## Callers never gain mutable access to the kernel's live state.
+func state_copy() -> Sm2TacticalState:
+	return _state.copy() if _state!=null else null
+
+## Internal transaction copy. No snapshot is admitted through this path.
+func copy() -> Sm2TacticalBattle:
+	var result: Sm2TacticalBattle=Sm2TacticalBattle.new(_catalog,_combat,_consequences,_effects,_magic,_development,_origin,_survival,true)
+	result._state=_state.copy(true) if _state!=null else null
+	result._compact_development=_compact_development
+	result._progress_decode_cache=_progress_decode_cache
+	return result
 
 func restore(snapshot: Dictionary) -> Dictionary:
 	var decoded: Dictionary = _decode(snapshot)
@@ -261,6 +288,15 @@ func restore(snapshot: Dictionary) -> Dictionary:
 	_state = decoded.state
 	return {"ok": true, "errors": PackedStringArray()}
 
+## Small detached control-flow projection; no ability/development/UI queries.
+func status() -> Dictionary:
+	if _state==null: return {}
+	var actors: Array[Dictionary]=[]
+	for id: int in _state.sorted_ids():
+		var actor: Sm2TacticalActor=_state.actor(id)
+		actors.append({"actor_id":id,"controller":actor.spatial.controller,"morale":actor.morale})
+	return {"battle_id":_state.battle_id,"revision":_state.revision,"round":_state.round,"phase":_state.phase,"active_actor_id":_state.active_id(),"finished":_state.finished,"actors":actors}
+
 func view() -> Dictionary:
 	if _state == null:
 		return {}
@@ -268,7 +304,7 @@ func view() -> Dictionary:
 	for id: int in _state.sorted_ids():
 		var actor_view: Dictionary = _state.actor(id).view()
 		if _development!=null and _development.has_upgrades(): actor_view["upgrade_attack_fatigue"]=_state.development.extra_attack_fatigue(id)
-		if _state.development != null and _state.development.bodies.has(id):
+		if _state.development != null and _state.development.has_actor(id):
 			actor_view["development"] = _state.development.view(_state,id)
 			actor_view["display_name"] = "Герой" if id == _development.hero() else "Спутник"
 			actor_view["melee_stat"] = Sm2CombatStatQuery.explain(_state,_state.actor(id),_combat,"melee_skill")
@@ -394,11 +430,31 @@ func _validate(command: Sm2Command) -> String:
 			return "no_ap"
 	return ""
 
-func _decode(snapshot: Dictionary) -> Dictionary:
-	if _survival!=null: return Sm2SurvivalBattle.decode(snapshot,_catalog,_combat,_effects,_magic,_development,_origin,_survival)
+func _decode(snapshot: Dictionary,live_command: bool=false) -> Dictionary:
+	var cache: Sm2ProgressDecodeCache=_progress_decode_cache.growth_copy() if live_command else _progress_decode_cache
+	var result: Dictionary=_decode_with_cache(snapshot,cache)
+	if result.ok:
+		if live_command: _progress_decode_cache.adopt_certificates(cache)
+		_pack_development(result.state)
+	return result
+
+func _pack_development(state: Sm2TacticalState) -> void:
+	var dev: Sm2BattleDevelopment=state.development
+	if not _compact_development or state.finished or dev==null or not dev.deferred_growth or dev.origin_version().is_empty() or dev._profile!=null: return
+	var profile: Sm2CombatGrowthProfile=Sm2CombatGrowthProfile.build(state)
+	var compact: Sm2BattleDevelopment=profile.instance()
+	compact.counts.assign(dev.counts.duplicate(true)); compact.pending.assign(dev.pending.duplicate(true)); compact.sequence=dev.sequence
+	state.development=compact
+
+func _decode_compact(candidate: Sm2TacticalState,proof: Sm2CombatGrowthProfile) -> Dictionary:
+	if _state==null or _state.development==null or _state.development._profile!=proof or candidate.finished: return _failure("compact_profile_binding")
+	return _decode_with_cache(candidate.to_data(_catalog.fingerprint(),true),_progress_decode_cache,proof)
+
+func _decode_with_cache(snapshot: Dictionary,cache: Sm2ProgressDecodeCache,proof: Sm2CombatGrowthProfile=null) -> Dictionary:
+	if _survival!=null: return Sm2SurvivalBattle.decode(snapshot,_catalog,_combat,_effects,_magic,_development,_origin,_survival,cache,proof)
 	if _development != null:
 		if not _consequences or _combat == null: return _failure("development_requires_combat")
-		return Sm2DevelopmentSnapshot.decode(snapshot,_catalog,_combat,_effects,_magic,_development,_origin)
+		return Sm2DevelopmentSnapshot.decode(snapshot,_catalog,_combat,_effects,_magic,_development,_origin,false,cache,proof)
 	if _magic != null:
 		if not _consequences or _effects == null: return _failure("magic_requires_effects")
 		return Sm2MagicSnapshot.decode(snapshot,_catalog,_combat,_effects,_magic)

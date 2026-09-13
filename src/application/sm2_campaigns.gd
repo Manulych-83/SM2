@@ -5,26 +5,34 @@ var directory: String
 var content: Dictionary
 var profile: Sm2AiProfile
 var error: String=""
+var history_repository: Sm2HistoryRepository
 
 func _init(base_directory: String="user://survival_tissues") -> void:
 	directory=ProjectSettings.globalize_path(base_directory)
+	history_repository=Sm2HistoryRepository.new(directory)
 	content=Sm2SurvivalContentLoader.load_scenario(true,true)
 	var ai: Dictionary=Sm2AiContentLoader.load_profile()
 	if not content.ok or not ai.ok: error="Не удалось подготовить кампании."; return
 	profile=ai.profile
 
 func store(index: int) -> Sm2CampaignStore:
-	return Sm2CampaignStore.new(directory,index,_validate)
+	var result: Sm2CampaignStore=Sm2CampaignStore.new(directory,index,_validate)
+	result.large_profile=content.ok and content.development._shared_progression().is_large()
+	history_repository.store.large_profile=result.large_profile
+	return result
 
 func _validate(payload: Dictionary) -> Dictionary:
 	if not error.is_empty(): return {"ok":false,"errors":PackedStringArray([error])}
-	return Sm2JourneySession.new(content,profile).restore(payload)
+	var session: Sm2CheckpointSession=Sm2CheckpointSession.new(content,profile,null,history_repository)
+	var result: Dictionary=session.restore(payload)
+	if result.ok: result["validated_session"]=session
+	return result
 
 func open(index: int,from_save: bool) -> Dictionary:
 	if not error.is_empty() or index<0 or index>2: return {"ok":false,"errors":PackedStringArray([error if not error.is_empty() else "Неизвестная кампания."])}
 	var destination: Sm2CampaignStore=store(index)
 	if not from_save and occupied(index): return {"ok":false,"errors":PackedStringArray(["Выберите пустую кампанию. Старое сохранение не изменено."])}
-	var session: Sm2JourneySession=Sm2JourneySession.new(content,profile,destination)
+	var session: Sm2JourneySession=Sm2CheckpointSession.new(content,profile,destination,history_repository)
 	var result: Dictionary=session.load_game() if from_save else session.new_game()
 	if result.ok: result["session"]=session; result["recovered"]=destination.recovered
 	return result
@@ -40,18 +48,30 @@ func inspect() -> Array[Dictionary]:
 	for index: int in 3:
 		var row: Dictionary={"index":index,"title":"Кампания "+str(index+1),"occupied":occupied(index),"ok":false,"recovered":false,"date":"","location":"","state":"","modified":0,"token":token(index)}
 		if row.occupied:
-			var result: Dictionary=open(index,true)
+			var path: String=store(index)._slot_path("survival_tissues")
+			var result: Dictionary=_preview(path)
+			var recovered: bool=false
+			if not result.ok:
+				result=_preview(path+".bak"); recovered=result.ok
 			if result.ok:
-				row.ok=true; row.recovered=result.recovered
-				var session: Sm2JourneySession=result.session
-				var region: Sm2RegionState=session.journey().region
-				row.location=session.journey().region_catalog.location(region.location_id).name
-				row.state="В сражении" if session.journey().busy() else ("Душа без тела" if session.world.hero_id()==0 else "Герой жив")
-				var path: String=store(index)._slot_path("survival_tissues")+(".bak" if row.recovered else "")
-				row.modified=FileAccess.get_modified_time(path)
+				row.ok=true; row.recovered=recovered
+				var world: Sm2JourneyWorld=result.world
+				row.location=world.region_catalog.location(world.region.location_id).name
+				row.state="В сражении" if world.busy() else ("Душа без тела" if world.hero_id()==0 else "Герой жив")
+				row.modified=FileAccess.get_modified_time(path+(".bak" if recovered else ""))
 				row.date=Time.get_datetime_string_from_unix_time(row.modified).replace("T"," ")+" UTC"
 		rows.append(row)
 	return rows
+
+func _preview(path: String) -> Dictionary:
+	# A slot card verifies the envelope and current world, without opening its archive.
+	# Full archive/battle validation and backup selection happen on actual loading.
+	var read: Dictionary=Sm2SaveStore._read_envelope(path,content.development._shared_progression().is_large())
+	if not read.ok: return read
+	var raw: Dictionary=read.payload
+	if raw.get("format") not in [Sm2CheckpointSession.CHECKPOINT_FORMAT,"sm2.survival_journey_session.3"] or raw.get("fingerprint")!=content.journey_fingerprint: return {"ok":false}
+	var fresh: Sm2CheckpointSession=Sm2CheckpointSession.new(content,profile)
+	return Sm2CheckpointWorld.decode(raw.get("world"),fresh.journey())
 
 static func latest(rows: Array[Dictionary],preferred: int=-1) -> int:
 	var found: int=-1; var modified: int=-1

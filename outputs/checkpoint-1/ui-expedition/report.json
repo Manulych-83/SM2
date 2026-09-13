@@ -1,0 +1,16 @@
+{
+	"checks": 124,
+	"failures": [
+		"result can save same campaign | actual=Не удалось сохранить игру: [\"checkpoint_world_invalid\"] expected=Игра сохранена.",
+		"usable button ContinueSurvivalTissuesButton",
+		"fresh startup reconstructs completed episode from saved history",
+		"expedition UI timeout",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: result can save same campaign | actual=Не удалось сохранить игру: [\"checkpoint_world_invalid\"] expected=Игра сохранена.",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: usable button ContinueSurvivalTissuesButton",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: fresh startup reconstructs completed episode from saved history",
+		"res://tests/expedition_ui.gd:67 _run: Invalid call. Nonexistent function 'state_hash' in base 'Nil'.",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: expedition UI timeout"
+	],
+	"passed": false,
+	"rendered": true
+}

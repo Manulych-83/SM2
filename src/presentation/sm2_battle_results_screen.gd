@@ -25,8 +25,15 @@ func _ready() -> void:
 		body.add_child(label("Неработающие части: "+(", ".join(row.lost) if not row.lost.is_empty() else "нет"),16,B.MUTED))
 		body.add_child(label("Практика за сражение" if row.name=="Герой" else "Опыт за сражение",20,B.GOLD))
 		if row.practice.is_empty(): body.add_child(label("Опыт не получен.",17,B.MUTED))
-		for practice: Dictionary in row.practice:
-			body.add_child(label("%s: +%s XP · уровень %s%s" % [practice.title,practice.xp,practice.before," → "+str(practice.after) if practice.after!=practice.before else ""],17,B.PSI))
+		if not row.practice.is_empty():
+			var table: GridContainer=GridContainer.new(); table.name="GrowthTable"+str(row.body_id); table.columns=4
+			table.add_theme_constant_override("h_separation",16); table.add_theme_constant_override("v_separation",10); body.add_child(table)
+			for heading: String in ["Направление","Опыт","До боя","После боя"]: table.add_child(cell(heading,15,B.MUTED))
+			for practice: Dictionary in row.practice:
+				var title: Label=label(practice.title,17,B.TEXT); title.size_flags_horizontal=Control.SIZE_EXPAND_FILL; title.custom_minimum_size.x=170; table.add_child(title)
+				table.add_child(cell("+%s" % practice.xp,17,B.PSI))
+				table.add_child(cell(str(practice.before),17,B.MUTED))
+				table.add_child(cell(str(practice.after)+(" ↑" if practice.after>practice.before else ""),17,B.GOLD if practice.after>practice.before else B.TEXT))
 		if not row.alive: body.add_child(label("Практика принадлежит этому телу. Она не переносится в новое воплощение." if row.name=="Герой" else "Погибший спутник не возвращается в отряд.",16,Color("ef9a83")))
 	var counts: Dictionary=view.counts.opposition
 	column.add_child(label("Противник: на поле %s · погибло %s · ушло %s" % [counts.on_field,counts.dead,counts.escaped],16,B.MUTED))
@@ -46,3 +53,8 @@ func navigate(tab: int) -> void:
 static func label(text: String,size: int,color: Color) -> Label:
 	var result: Label=Label.new(); result.text=text; result.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	result.add_theme_font_size_override("font_size",size); result.add_theme_color_override("font_color",color); return result
+
+static func cell(text: String,size: int,color: Color) -> Label:
+	var result: Label=label(text,size,color)
+	result.autowrap_mode=TextServer.AUTOWRAP_OFF
+	return result

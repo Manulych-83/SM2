@@ -5,6 +5,7 @@ const UI: GDScript=preload("res://src/presentation/sm2_camp_screen.gd")
 const B: GDScript=preload("res://src/presentation/sm2_bronze_theme.gd")
 const PAGE_SIZE: int=30
 var session: Sm2JourneySession
+var reader: Sm2JournalQuery
 var model: Dictionary
 var definitions: Dictionary
 var filtered: Array[Dictionary]=[]
@@ -19,7 +20,7 @@ var next: Button
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); theme=B.create()
 	definitions=JSON.parse_string(FileAccess.get_file_as_string("res://content/presentation/journal.json"))
-	model=Sm2JournalView.build(session)
+	reader=Sm2JournalQuery.new(session,definitions)
 	var panel: Panel=Panel.new(); panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); panel.add_theme_stylebox_override("panel",B.box(B.BACKGROUND,B.BACKGROUND,0)); add_child(panel)
 	var margin: MarginContainer=MarginContainer.new(); margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); panel.add_child(margin)
 	for side: String in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,24)
@@ -46,18 +47,11 @@ func _ready() -> void:
 
 func refresh() -> void:
 	for child: Node in list.get_children(): list.remove_child(child); child.queue_free()
-	filtered.clear()
-	for row: Dictionary in model.rows:
+	model=reader.page(query,group,page_index,PAGE_SIZE)
+	page_index=int(model.page); filtered.assign(model.rows)
+	var start: int=page_index*PAGE_SIZE; var end: int=mini(start+PAGE_SIZE,int(model.count))
+	for row: Dictionary in filtered:
 		var definition: Dictionary=definitions.get(row.kind,{"title":"Действие мира","group":"Прочее"})
-		if group!="Все" and group!=definition.group: continue
-		var text: String=definition.title+" "+row.subject+" "+row.location+" "+row.from+" "+row.outcome
-		if not query.strip_edges().is_empty() and not text.to_lower().contains(query.strip_edges().to_lower()): continue
-		filtered.append(row)
-	filtered.reverse()
-	page_index=clampi(page_index,0,maxi(0,(filtered.size()-1)/PAGE_SIZE))
-	var start: int=page_index*PAGE_SIZE; var end: int=mini(start+PAGE_SIZE,filtered.size())
-	for index: int in range(start,end):
-		var row: Dictionary=filtered[index]; var definition: Dictionary=definitions.get(row.kind,{"title":"Действие мира","group":"Прочее"})
 		var card: VBoxContainer=VBoxContainer.new(); UI.frame(list).add_child(card)
 		var title: String=row.outcome if not row.outcome.is_empty() else definition.title+(": "+row.subject if not row.subject.is_empty() else "")
 		if row.interrupted: title="Действие прервано: "+title
@@ -68,9 +62,9 @@ func refresh() -> void:
 		if row.life_ended: card.add_child(UI.label("Жизнь тела завершена. Душа остаётся в мире.",15,B.PSI))
 		if row.new_items>0: card.add_child(UI.label("Появилось предметов: %s. Это не означает, что они уже собраны в инвентарь." % row.new_items,15,B.PSI))
 	if not model.ok: list.add_child(UI.label("Не удалось восстановить журнал. Мир не изменён.",18,B.TEXT))
-	elif filtered.is_empty(): list.add_child(UI.label("Записей по этому запросу нет." if not model.rows.is_empty() else "История начнётся с первого действия в мире.",18,B.MUTED))
-	counter.text="%s–%s из %s · Всего событий: %s%s" % [start+1 if not filtered.is_empty() else 0,end,filtered.size(),model.rows.size()," · Сражение продолжается" if model.get("busy",false) else ""]
-	previous.disabled=page_index==0; next.disabled=end>=filtered.size()
+	elif filtered.is_empty(): list.add_child(UI.label("Записей по этому запросу нет." if int(model.total)>0 else "История начнётся с первого действия в мире.",18,B.MUTED))
+	counter.text="%s–%s из %s · Всего событий: %s%s" % [start+1 if not filtered.is_empty() else 0,end,model.count,model.total," · Сражение продолжается" if model.get("busy",false) else ""]
+	previous.disabled=page_index==0; next.disabled=end>=int(model.count)
 	(list.get_parent() as ScrollContainer).scroll_vertical=0
 
 func _unhandled_input(event: InputEvent) -> void:

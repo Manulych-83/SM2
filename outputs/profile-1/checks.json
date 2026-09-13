@@ -1,0 +1,171 @@
+{
+  "passed": true,
+  "core_checks": 4110,
+  "ui_checks": 886,
+  "core": [
+    {
+      "passed": true,
+      "suite": "after_battle",
+      "report": "core/checks-20260913-123912-296-ae8dda88.json",
+      "checks": 429,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "validation",
+      "report": "core/checks-20260913-123929-508-7f1e5c1b.json",
+      "checks": 68,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "combat_runtime",
+      "report": "core/checks-20260913-123935-697-93caca1d.json",
+      "checks": 506,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "combat_io",
+      "report": "core/checks-20260913-123954-330-a6be4972.json",
+      "checks": 38,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "checkpoint",
+      "report": "core/checks-20260913-124000-662-77c4d47d.json",
+      "checks": 490,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "development_scale",
+      "report": "core/checks-20260913-124035-410-0e1a6c65.json",
+      "checks": 94,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "p2_development",
+      "report": "core/checks-20260913-124104-152-7c6180d7.json",
+      "checks": 349,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "p5_hybrids",
+      "report": "core/checks-20260913-124110-347-14ddefce.json",
+      "checks": 446,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "p5_shield",
+      "report": "core/checks-20260913-124126-143-6b715da9.json",
+      "checks": 208,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "p5_growth",
+      "report": "core/checks-20260913-124133-517-0af9576b.json",
+      "checks": 148,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "p5_cross_nodes",
+      "report": "core/checks-20260913-124140-395-e9b046b8.json",
+      "checks": 150,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "m2_ai",
+      "report": "core/checks-20260913-124146-488-496f3937.json",
+      "checks": 183,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "survival_tissues",
+      "report": "core/checks-20260913-124154-958-09e2a1b4.json",
+      "checks": 113,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "campaigns",
+      "report": "core/checks-20260913-124204-463-33bb241d.json",
+      "checks": 58,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "expedition",
+      "report": "core/checks-20260913-124211-519-823fc0e8.json",
+      "checks": 155,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "battle_results",
+      "report": "core/checks-20260913-124237-927-c330c0de.json",
+      "checks": 158,
+      "exit_code": 0
+    },
+    {
+      "passed": true,
+      "suite": "integration",
+      "report": "core/checks-20260913-124300-651-ff2817de.json",
+      "checks": 114,
+      "exit_code": 0
+    },
+    {
+      "suite": "combat_profile",
+      "report": "core/checks-20260913-123616-915-fb1eb8ed.json",
+      "checks": 403,
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "ui": [
+    {
+      "output": "outputs/profile-1/ui-combat_hud",
+      "suite": "combat_hud",
+      "exit_code": 0,
+      "checks": 235,
+      "failures": [],
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "output": "outputs/profile-1/ui-battle_results",
+      "suite": "battle_results",
+      "exit_code": 0,
+      "checks": 301,
+      "failures": [],
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "output": "outputs/profile-1/ui-campaigns",
+      "suite": "campaigns",
+      "exit_code": 0,
+      "checks": 219,
+      "failures": [],
+      "passed": true,
+      "rendered": true
+    },
+    {
+      "output": "outputs/profile-1/ui-expedition",
+      "suite": "expedition",
+      "exit_code": 0,
+      "checks": 131,
+      "failures": [],
+      "passed": true,
+      "rendered": true
+    }
+  ]
+}

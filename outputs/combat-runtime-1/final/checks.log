@@ -1,0 +1,51 @@
+﻿[2026-09-13T11:03:36.8226560+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\final
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T11:03:36.8737463+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\final
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T11:03:40.7549513+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_combat_runtime.gd -- --output E:\GPT\SM2\outputs\combat-runtime-1\final
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\final
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COMBAT_RUNTIME start_battle 4451.182 ms
+COMBAT_RUNTIME runner_view 14.252 ms
+COMBAT_RUNTIME world_copy 9.462 ms
+COMBAT_RUNTIME world_validate 208.487 ms
+COMBAT_RUNTIME session_copy 19.760 ms
+COMBAT_RUNTIME publish_unchanged 1023.415 ms
+COMBAT_RUNTIME battle_copy 2.257 ms
+COMBAT_RUNTIME battle_decode 94.743 ms
+COMBAT_RUNTIME runner_restore 252.019 ms
+COMBAT_RUNTIME kernel_command 102.533 ms
+COMBAT_RUNTIME capacity_check 98.524 ms
+COMBAT_RUNTIME active_save 5718.412 ms
+COMBAT_RUNTIME active_load 5276.002 ms
+COMBAT_RUNTIME action_0_move 210.273 ms
+COMBAT_RUNTIME action_1_escape 228.986 ms
+COMBAT_RUNTIME action_2_move 201.282 ms
+COMBAT_RUNTIME action_3_escape 3619.121 ms
+
+
+ExitCode: 0

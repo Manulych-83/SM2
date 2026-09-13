@@ -1,0 +1,1137 @@
+[
+	{
+		"hash": "2ff1728f00161c0e1d9bb3b0a340493bb255156138c8b5b7daec0b5ae037d01a",
+		"journey": "f03035df025ff6af6fb7a31bdbb0b059ac1687a0f32a5914230c9287a1c4e1dc",
+		"raw": {
+			"bandage_ap": 4.0,
+			"bandage_seconds": 6.0,
+			"bleeding_per_damage": 30.0,
+			"blood_fatal": 1500.0,
+			"blood_max": 5000.0,
+			"items": [
+				{
+					"capacity": 0.0,
+					"id": "bandage",
+					"mass": 50.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Перевязочный материал",
+					"quick": false,
+					"size": 1.0,
+					"slot": "",
+					"volume": 1.0
+				},
+				{
+					"capacity": 4.0,
+					"id": "pockets",
+					"mass": 700.0,
+					"max_mass": 1000.0,
+					"max_size": 1.0,
+					"name": "Одежда с карманами",
+					"quick": true,
+					"size": 2.0,
+					"slot": "clothes",
+					"volume": 3.0
+				},
+				{
+					"capacity": 6.0,
+					"id": "belt",
+					"mass": 300.0,
+					"max_mass": 2000.0,
+					"max_size": 2.0,
+					"name": "Поясная сумка",
+					"quick": true,
+					"size": 2.0,
+					"slot": "belt",
+					"volume": 3.0
+				},
+				{
+					"capacity": 40.0,
+					"id": "backpack",
+					"mass": 1000.0,
+					"max_mass": 25000.0,
+					"max_size": 4.0,
+					"name": "Рюкзак",
+					"quick": false,
+					"size": 4.0,
+					"slot": "backpack",
+					"volume": 12.0
+				},
+				{
+					"capacity": 200.0,
+					"id": "stash",
+					"mass": 12000.0,
+					"max_mass": 100000.0,
+					"max_size": 6.0,
+					"name": "Лагерный сундук",
+					"quick": false,
+					"size": 6.0,
+					"slot": "",
+					"volume": 60.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.sword",
+					"mass": 1200.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Меч",
+					"quick": false,
+					"size": 4.0,
+					"slot": "weapon",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.spear",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Копьё",
+					"quick": false,
+					"size": 5.0,
+					"slot": "weapon",
+					"volume": 12.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.axe",
+					"mass": 1800.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Топор",
+					"quick": false,
+					"size": 4.0,
+					"slot": "weapon",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.bow",
+					"mass": 1000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Лук",
+					"quick": false,
+					"size": 5.0,
+					"slot": "weapon",
+					"volume": 10.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.shield",
+					"mass": 3000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Щит",
+					"quick": false,
+					"size": 4.0,
+					"slot": "shield",
+					"volume": 18.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.padded",
+					"mass": 4000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Стёганая броня",
+					"quick": false,
+					"size": 3.0,
+					"slot": "body",
+					"volume": 12.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.mail",
+					"mass": 9000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Кольчуга",
+					"quick": false,
+					"size": 3.0,
+					"slot": "body",
+					"volume": 15.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.helmet",
+					"mass": 1500.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Шлем",
+					"quick": false,
+					"size": 2.0,
+					"slot": "head",
+					"volume": 5.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.right",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Простой протез правой руки",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.left",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Простой протез левой руки",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.alien",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Протез с другим креплением",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				}
+			],
+			"parts": [
+				{
+					"capacity": 60.0,
+					"critical": false,
+					"id": "torso",
+					"name": "Туловище",
+					"parent": ""
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "head",
+					"name": "Голова",
+					"parent": "torso"
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "left_hand",
+					"name": "Левая рука",
+					"parent": "torso"
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "right_hand",
+					"name": "Правая рука",
+					"parent": "torso"
+				},
+				{
+					"capacity": 40.0,
+					"critical": false,
+					"id": "left_leg",
+					"name": "Левая нога",
+					"parent": "torso"
+				},
+				{
+					"capacity": 40.0,
+					"critical": false,
+					"id": "right_leg",
+					"name": "Правая нога",
+					"parent": "torso"
+				},
+				{
+					"capacity": 15.0,
+					"critical": true,
+					"id": "brain",
+					"name": "Мозг",
+					"parent": "head"
+				},
+				{
+					"capacity": 20.0,
+					"critical": true,
+					"id": "heart",
+					"name": "Сердце",
+					"parent": "torso"
+				}
+			],
+			"round_seconds": 6.0,
+			"version": "sm2.survival.content.1"
+		}
+	},
+	{
+		"hash": "11d221f844d6ffc63eca8ebf2de2b844226b8edc739b859a55afaac334e5e97c",
+		"journey": "e2e59337cfd8e8bab33ce99568fc04f8b4440247ba150a9dc2cd30b3548a7e48",
+		"raw": {
+			"bandage_ap": 4.0,
+			"bandage_seconds": 6.0,
+			"bleeding_per_damage": 30.0,
+			"blood_fatal": 1500.0,
+			"blood_max": 5000.0,
+			"devices": {
+				"definitions": [
+					{
+						"capacity": 30.0,
+						"id": "p4:prosthesis.right",
+						"interface": "human_arm.basic",
+						"part": "right_hand"
+					},
+					{
+						"capacity": 30.0,
+						"id": "p4:prosthesis.left",
+						"interface": "human_arm.basic",
+						"part": "left_hand"
+					},
+					{
+						"capacity": 30.0,
+						"id": "p4:prosthesis.alien",
+						"interface": "human_arm.advanced",
+						"part": "right_hand"
+					}
+				],
+				"interfaces": {
+					"left_hand": "human_arm.basic",
+					"right_hand": "human_arm.basic"
+				},
+				"locations": [
+					"camp",
+					"enclave"
+				],
+				"procedures": {
+					"attach_device": {
+						"parts": 1.0,
+						"seconds": 30.0
+					},
+					"detach_device": {
+						"parts": 0.0,
+						"seconds": 10.0
+					},
+					"repair_device": {
+						"parts": 1.0,
+						"seconds": 20.0
+					}
+				},
+				"starter_parts": 8.0,
+				"version": "sm2.survival.devices.1"
+			},
+			"items": [
+				{
+					"capacity": 0.0,
+					"id": "bandage",
+					"mass": 50.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Перевязочный материал",
+					"quick": false,
+					"size": 1.0,
+					"slot": "",
+					"volume": 1.0
+				},
+				{
+					"capacity": 4.0,
+					"id": "pockets",
+					"mass": 700.0,
+					"max_mass": 1000.0,
+					"max_size": 1.0,
+					"name": "Одежда с карманами",
+					"quick": true,
+					"size": 2.0,
+					"slot": "clothes",
+					"volume": 3.0
+				},
+				{
+					"capacity": 6.0,
+					"id": "belt",
+					"mass": 300.0,
+					"max_mass": 2000.0,
+					"max_size": 2.0,
+					"name": "Поясная сумка",
+					"quick": true,
+					"size": 2.0,
+					"slot": "belt",
+					"volume": 3.0
+				},
+				{
+					"capacity": 40.0,
+					"id": "backpack",
+					"mass": 1000.0,
+					"max_mass": 25000.0,
+					"max_size": 4.0,
+					"name": "Рюкзак",
+					"quick": false,
+					"size": 4.0,
+					"slot": "backpack",
+					"volume": 12.0
+				},
+				{
+					"capacity": 200.0,
+					"id": "stash",
+					"mass": 12000.0,
+					"max_mass": 100000.0,
+					"max_size": 6.0,
+					"name": "Лагерный сундук",
+					"quick": false,
+					"size": 6.0,
+					"slot": "",
+					"volume": 60.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.sword",
+					"mass": 1200.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Меч",
+					"quick": false,
+					"size": 4.0,
+					"slot": "weapon",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.spear",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Копьё",
+					"quick": false,
+					"size": 5.0,
+					"slot": "weapon",
+					"volume": 12.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.axe",
+					"mass": 1800.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Топор",
+					"quick": false,
+					"size": 4.0,
+					"slot": "weapon",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.bow",
+					"mass": 1000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Лук",
+					"quick": false,
+					"size": 5.0,
+					"slot": "weapon",
+					"volume": 10.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.shield",
+					"mass": 3000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Щит",
+					"quick": false,
+					"size": 4.0,
+					"slot": "shield",
+					"volume": 18.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.padded",
+					"mass": 4000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Стёганая броня",
+					"quick": false,
+					"size": 3.0,
+					"slot": "body",
+					"volume": 12.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.mail",
+					"mass": 9000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Кольчуга",
+					"quick": false,
+					"size": 3.0,
+					"slot": "body",
+					"volume": 15.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.helmet",
+					"mass": 1500.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Шлем",
+					"quick": false,
+					"size": 2.0,
+					"slot": "head",
+					"volume": 5.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.right",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Простой протез правой руки",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.left",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Простой протез левой руки",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.alien",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Протез с другим креплением",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0,
+					"id": "repair_parts",
+					"mass": 100,
+					"max_mass": 0,
+					"max_size": 0,
+					"name": "Комплект деталей",
+					"quick": false,
+					"size": 1,
+					"slot": "",
+					"volume": 1
+				}
+			],
+			"parts": [
+				{
+					"capacity": 60.0,
+					"critical": false,
+					"id": "torso",
+					"name": "Туловище",
+					"parent": ""
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "head",
+					"name": "Голова",
+					"parent": "torso"
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "left_hand",
+					"name": "Левая рука",
+					"parent": "torso"
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "right_hand",
+					"name": "Правая рука",
+					"parent": "torso"
+				},
+				{
+					"capacity": 40.0,
+					"critical": false,
+					"id": "left_leg",
+					"name": "Левая нога",
+					"parent": "torso"
+				},
+				{
+					"capacity": 40.0,
+					"critical": false,
+					"id": "right_leg",
+					"name": "Правая нога",
+					"parent": "torso"
+				},
+				{
+					"capacity": 15.0,
+					"critical": true,
+					"id": "brain",
+					"name": "Мозг",
+					"parent": "head"
+				},
+				{
+					"capacity": 20.0,
+					"critical": true,
+					"id": "heart",
+					"name": "Сердце",
+					"parent": "torso"
+				}
+			],
+			"round_seconds": 6.0,
+			"version": "sm2.survival.content.2"
+		}
+	},
+	{
+		"hash": "607074b35e65425682e2b559bbc90b66de55b1bb51e6b5d5e18606f07d33b8de",
+		"journey": "13c3c73aff757015a3df227e29dfc46913b26a4bdd577dbef19b587cc7d54951",
+		"raw": {
+			"bandage_ap": 4.0,
+			"bandage_seconds": 6.0,
+			"bleeding_per_damage": 30.0,
+			"blood_fatal": 1500.0,
+			"blood_max": 5000.0,
+			"devices": {
+				"definitions": [
+					{
+						"capacity": 30.0,
+						"id": "p4:prosthesis.right",
+						"interface": "human_arm.basic",
+						"part": "right_hand"
+					},
+					{
+						"capacity": 30.0,
+						"id": "p4:prosthesis.left",
+						"interface": "human_arm.basic",
+						"part": "left_hand"
+					},
+					{
+						"capacity": 30.0,
+						"id": "p4:prosthesis.alien",
+						"interface": "human_arm.advanced",
+						"part": "right_hand"
+					}
+				],
+				"interfaces": {
+					"left_hand": "human_arm.basic",
+					"right_hand": "human_arm.basic"
+				},
+				"locations": [
+					"camp",
+					"enclave"
+				],
+				"procedures": {
+					"attach_device": {
+						"parts": 1.0,
+						"seconds": 30.0
+					},
+					"detach_device": {
+						"parts": 0.0,
+						"seconds": 10.0
+					},
+					"repair_device": {
+						"parts": 1.0,
+						"seconds": 20.0
+					}
+				},
+				"starter_parts": 8.0,
+				"version": "sm2.survival.devices.1"
+			},
+			"items": [
+				{
+					"capacity": 0.0,
+					"id": "bandage",
+					"mass": 50.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Перевязочный материал",
+					"quick": false,
+					"size": 1.0,
+					"slot": "",
+					"volume": 1.0
+				},
+				{
+					"capacity": 4.0,
+					"id": "pockets",
+					"mass": 700.0,
+					"max_mass": 1000.0,
+					"max_size": 1.0,
+					"name": "Одежда с карманами",
+					"quick": true,
+					"size": 2.0,
+					"slot": "clothes",
+					"volume": 3.0
+				},
+				{
+					"capacity": 6.0,
+					"id": "belt",
+					"mass": 300.0,
+					"max_mass": 2000.0,
+					"max_size": 2.0,
+					"name": "Поясная сумка",
+					"quick": true,
+					"size": 2.0,
+					"slot": "belt",
+					"volume": 3.0
+				},
+				{
+					"capacity": 40.0,
+					"id": "backpack",
+					"mass": 1000.0,
+					"max_mass": 25000.0,
+					"max_size": 4.0,
+					"name": "Рюкзак",
+					"quick": false,
+					"size": 4.0,
+					"slot": "backpack",
+					"volume": 12.0
+				},
+				{
+					"capacity": 200.0,
+					"id": "stash",
+					"mass": 12000.0,
+					"max_mass": 100000.0,
+					"max_size": 6.0,
+					"name": "Лагерный сундук",
+					"quick": false,
+					"size": 6.0,
+					"slot": "",
+					"volume": 60.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.sword",
+					"mass": 1200.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Меч",
+					"quick": false,
+					"size": 4.0,
+					"slot": "weapon",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.spear",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Копьё",
+					"quick": false,
+					"size": 5.0,
+					"slot": "weapon",
+					"volume": 12.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.axe",
+					"mass": 1800.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Топор",
+					"quick": false,
+					"size": 4.0,
+					"slot": "weapon",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.bow",
+					"mass": 1000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Лук",
+					"quick": false,
+					"size": 5.0,
+					"slot": "weapon",
+					"volume": 10.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.shield",
+					"mass": 3000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Щит",
+					"quick": false,
+					"size": 4.0,
+					"slot": "shield",
+					"volume": 18.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.padded",
+					"mass": 4000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Стёганая броня",
+					"quick": false,
+					"size": 3.0,
+					"slot": "body",
+					"volume": 12.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.mail",
+					"mass": 9000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Кольчуга",
+					"quick": false,
+					"size": 3.0,
+					"slot": "body",
+					"volume": 15.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "m2:equipment.helmet",
+					"mass": 1500.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Шлем",
+					"quick": false,
+					"size": 2.0,
+					"slot": "head",
+					"volume": 5.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.right",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Простой протез правой руки",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.left",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Простой протез левой руки",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "p4:prosthesis.alien",
+					"mass": 2000.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Протез с другим креплением",
+					"quick": false,
+					"size": 3.0,
+					"slot": "",
+					"volume": 8.0
+				},
+				{
+					"capacity": 0,
+					"id": "repair_parts",
+					"mass": 100,
+					"max_mass": 0,
+					"max_size": 0,
+					"name": "Комплект деталей",
+					"quick": false,
+					"size": 1,
+					"slot": "",
+					"volume": 1
+				},
+				{
+					"capacity": 0.0,
+					"id": "medical_kit",
+					"mass": 100.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Медикаменты",
+					"quick": false,
+					"size": 1.0,
+					"slot": "",
+					"volume": 1.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "genetic_dose",
+					"mass": 100.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Препарат «Усиленные мышцы»",
+					"quick": false,
+					"size": 1.0,
+					"slot": "",
+					"volume": 1.0
+				},
+				{
+					"capacity": 0.0,
+					"id": "psi_implant_kit",
+					"mass": 500.0,
+					"max_mass": 0.0,
+					"max_size": 0.0,
+					"name": "Комплект пси-усилителя",
+					"quick": false,
+					"size": 1.0,
+					"slot": "",
+					"volume": 1.0
+				}
+			],
+			"parts": [
+				{
+					"capacity": 60.0,
+					"critical": false,
+					"id": "torso",
+					"name": "Туловище",
+					"parent": ""
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "head",
+					"name": "Голова",
+					"parent": "torso"
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "left_hand",
+					"name": "Левая рука",
+					"parent": "torso"
+				},
+				{
+					"capacity": 30.0,
+					"critical": false,
+					"id": "right_hand",
+					"name": "Правая рука",
+					"parent": "torso"
+				},
+				{
+					"capacity": 40.0,
+					"critical": false,
+					"id": "left_leg",
+					"name": "Левая нога",
+					"parent": "torso"
+				},
+				{
+					"capacity": 40.0,
+					"critical": false,
+					"id": "right_leg",
+					"name": "Правая нога",
+					"parent": "torso"
+				},
+				{
+					"capacity": 15.0,
+					"critical": true,
+					"id": "brain",
+					"name": "Мозг",
+					"parent": "head"
+				},
+				{
+					"capacity": 20.0,
+					"critical": true,
+					"id": "heart",
+					"name": "Сердце",
+					"parent": "torso"
+				}
+			],
+			"round_seconds": 6.0,
+			"supplies": {
+				"care": {
+					"medicine": "medical_kit",
+					"parts": "repair_parts"
+				},
+				"upgrades": {
+					"p5:upgrade.muscles": "genetic_dose",
+					"p5:upgrade.psi_amplifier": "psi_implant_kit"
+				}
+			},
+			"tissue_layers": {
+				"brain": [
+					{
+						"bleeding": 40.0,
+						"blunt_order": 0.0,
+						"capacity": 15.0,
+						"function_min": 1.0,
+						"id": "organ",
+						"name": "Ткань органа"
+					}
+				],
+				"head": [
+					{
+						"bleeding": 15.0,
+						"blunt_order": 2.0,
+						"capacity": 6.0,
+						"function_min": 0.0,
+						"id": "skin",
+						"name": "Кожа"
+					},
+					{
+						"bleeding": 30.0,
+						"blunt_order": 0.0,
+						"capacity": 15.0,
+						"function_min": 3.0,
+						"id": "muscle",
+						"name": "Мышцы"
+					},
+					{
+						"bleeding": 5.0,
+						"blunt_order": 1.0,
+						"capacity": 9.0,
+						"function_min": 2.0,
+						"id": "bone",
+						"name": "Кость"
+					}
+				],
+				"heart": [
+					{
+						"bleeding": 40.0,
+						"blunt_order": 0.0,
+						"capacity": 20.0,
+						"function_min": 1.0,
+						"id": "organ",
+						"name": "Ткань органа"
+					}
+				],
+				"left_hand": [
+					{
+						"bleeding": 15.0,
+						"blunt_order": 2.0,
+						"capacity": 6.0,
+						"function_min": 0.0,
+						"id": "skin",
+						"name": "Кожа"
+					},
+					{
+						"bleeding": 30.0,
+						"blunt_order": 0.0,
+						"capacity": 15.0,
+						"function_min": 3.0,
+						"id": "muscle",
+						"name": "Мышцы"
+					},
+					{
+						"bleeding": 5.0,
+						"blunt_order": 1.0,
+						"capacity": 9.0,
+						"function_min": 2.0,
+						"id": "bone",
+						"name": "Кость"
+					}
+				],
+				"left_leg": [
+					{
+						"bleeding": 15.0,
+						"blunt_order": 2.0,
+						"capacity": 8.0,
+						"function_min": 0.0,
+						"id": "skin",
+						"name": "Кожа"
+					},
+					{
+						"bleeding": 30.0,
+						"blunt_order": 0.0,
+						"capacity": 20.0,
+						"function_min": 5.0,
+						"id": "muscle",
+						"name": "Мышцы"
+					},
+					{
+						"bleeding": 5.0,
+						"blunt_order": 1.0,
+						"capacity": 12.0,
+						"function_min": 3.0,
+						"id": "bone",
+						"name": "Кость"
+					}
+				],
+				"right_hand": [
+					{
+						"bleeding": 15.0,
+						"blunt_order": 2.0,
+						"capacity": 6.0,
+						"function_min": 0.0,
+						"id": "skin",
+						"name": "Кожа"
+					},
+					{
+						"bleeding": 30.0,
+						"blunt_order": 0.0,
+						"capacity": 15.0,
+						"function_min": 3.0,
+						"id": "muscle",
+						"name": "Мышцы"
+					},
+					{
+						"bleeding": 5.0,
+						"blunt_order": 1.0,
+						"capacity": 9.0,
+						"function_min": 2.0,
+						"id": "bone",
+						"name": "Кость"
+					}
+				],
+				"right_leg": [
+					{
+						"bleeding": 15.0,
+						"blunt_order": 2.0,
+						"capacity": 8.0,
+						"function_min": 0.0,
+						"id": "skin",
+						"name": "Кожа"
+					},
+					{
+						"bleeding": 30.0,
+						"blunt_order": 0.0,
+						"capacity": 20.0,
+						"function_min": 5.0,
+						"id": "muscle",
+						"name": "Мышцы"
+					},
+					{
+						"bleeding": 5.0,
+						"blunt_order": 1.0,
+						"capacity": 12.0,
+						"function_min": 3.0,
+						"id": "bone",
+						"name": "Кость"
+					}
+				],
+				"torso": [
+					{
+						"bleeding": 15.0,
+						"blunt_order": 2.0,
+						"capacity": 12.0,
+						"function_min": 0.0,
+						"id": "skin",
+						"name": "Кожа"
+					},
+					{
+						"bleeding": 30.0,
+						"blunt_order": 0.0,
+						"capacity": 30.0,
+						"function_min": 7.0,
+						"id": "muscle",
+						"name": "Мышцы"
+					},
+					{
+						"bleeding": 5.0,
+						"blunt_order": 1.0,
+						"capacity": 18.0,
+						"function_min": 4.0,
+						"id": "bone",
+						"name": "Кость"
+					}
+				]
+			},
+			"version": "sm2.survival.content.3"
+		}
+	}
+]

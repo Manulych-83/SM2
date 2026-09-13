@@ -1,31 +1,30 @@
 class_name Sm2HeroDevelopmentView
 extends RefCounted
 ## Detached presentation data. Availability comes from the same world command check.
-static func build(session: Sm2LifeSession, selected_id: String="") -> Dictionary:
+const PAGE_SIZE: int=24
+const LINK_SIZE: int=12
+
+static func build(session: Sm2LifeSession, selected_id: String="", options: Dictionary={}) -> Dictionary:
 	var world: Sm2LifeWorld=session.world
 	var hero: int=world.hero_id()
 	var result: Dictionary={"hero_id":hero,"tracks":[],"selected":{},"nodes":[],"links":[],"context":{"world_id":world.world_id,"revision":world.revision,"incarnation_id":world.soul.incarnation_id,"body_id":hero},"message":""}
+	result.merge({"node_count":0,"node_page":0,"node_pages":1,"link_count":0,"link_page":0,"link_pages":1})
 	if hero==0:
 		result.message="Душа без тела. Вернитесь в лагерь и выберите новое воплощение."; return result
 	if world.busy():
 		result.message="Идёт сражение. Вернитесь к развитию героя после его завершения."; return result
-	var progress: Sm2ProgressCatalog=session._content.development.progression()
+	var progress: Sm2ProgressCatalog=session.world._progress
 	var body: Sm2ProgressBodyState=world.bodies[hero].progress
 	var modifiers: Array[Dictionary]=(world as Sm2JourneyWorld).upgrade_modifiers(hero) if world is Sm2JourneyWorld else []
-	result.tracks=Sm2ProgressRules.tracks(body,progress,modifiers)
+	result.tracks=progress.track_summaries() if options.get("compact_tracks",false) else Sm2ProgressRules.tracks(body,progress,modifiers)
 	if progress.track(selected_id)==null: selected_id=progress.track_ids()[0]
-	for row: Dictionary in result.tracks:
-		if row.id==selected_id: result.selected=row.duplicate(true)
-	for contribution: Dictionary in progress.contributions():
-		if selected_id not in [contribution.source,contribution.target]: continue
+	result.selected=Sm2ProgressRules.track(body,progress,selected_id,modifiers)
+	var relations: Array=progress.related_contributions(selected_id)
+	result.link_count=relations.size(); result.link_pages=maxi(1,ceili(float(relations.size())/LINK_SIZE))
+	result.link_page=clampi(int(options.get("link_page",0)),0,result.link_pages-1)
+	for contribution: Dictionary in relations.slice(result.link_page*LINK_SIZE,(result.link_page+1)*LINK_SIZE):
 		result.links.append({"source":contribution.source,"source_name":progress.track(contribution.source).title,"target":contribution.target,"target_name":progress.track(contribution.target).title,"numerator":contribution.numerator,"denominator":contribution.denominator})
-	var definitions: Dictionary[String,Sm2ProgressNodeDefinition]={}
-	var dependents: Dictionary={}; var places: Dictionary={}
-	for id: String in progress.node_ids():
-		var definition: Sm2ProgressNodeDefinition=progress.node(id); definitions[id]=definition
-		for prerequisite: String in definition.requires:
-			if not dependents.has(prerequisite): dependents[prerequisite]=[]
-			dependents[prerequisite].append({"id":id,"name":definition.title,"track_id":definition.track_id})
+	var places: Dictionary={}
 	if world is Sm2JourneyWorld:
 		var journey: Sm2JourneyWorld=world as Sm2JourneyWorld
 		if journey.exploration_catalog!=null:
@@ -34,21 +33,38 @@ static func build(session: Sm2LifeSession, selected_id: String="") -> Dictionary
 				for node_id: String in site.get("required_nodes",[]):
 					if not places.has(node_id): places[node_id]=[]
 					places[node_id].append("Условие доступа к месту: "+str(site.name)+". Остальные условия осмотра сохраняются.")
-	for id: String in definitions:
-		var node: Sm2ProgressNodeDefinition=definitions[id]
-		if node.track_id!=selected_id: continue
-		var owned: bool=id in body.tracks[selected_id].nodes
-		var reason: String=world.check(session.command("buy_node",hero,id))
+	var ids: Array=[]; var reasons: Dictionary={}
+	var filter: int=int(options.get("filter",0))
+	var query: String=str(options.get("query","")).strip_edges().to_lower()
+	for id: String in progress.nodes_for_track(selected_id):
+		if filter==2 and not body.tracks[selected_id].owns(id): continue
+		if not query.is_empty() and not progress.node(id).title.to_lower().contains(query): continue
+		if filter==1:
+			reasons[id]=world.check(session.command("buy_node",hero,id))
+			if not str(reasons[id]).is_empty(): continue
+		ids.append(id)
+	result.node_count=ids.size(); result.node_pages=maxi(1,ceili(float(ids.size())/PAGE_SIZE))
+	result.node_page=clampi(int(options.get("page",0)),0,result.node_pages-1)
+	var focus: int=ids.find(str(options.get("focus","")))
+	if focus>=0: result.node_page=floori(float(focus)/PAGE_SIZE)
+	for id: String in ids.slice(result.node_page*PAGE_SIZE,(result.node_page+1)*PAGE_SIZE):
+		var node: Sm2ProgressNodeDefinition=progress.node(id)
+		var owned: bool=body.tracks[selected_id].owns(id)
+		var reason: String=str(reasons[id]) if reasons.has(id) else world.check(session.command("buy_node",hero,id))
 		var row: Dictionary={"id":id,"name":node.title,"track_id":node.track_id,"cost":node.cost,"min_level":node.min_level,"owned":owned,"allowed":reason.is_empty(),"reason":reason_text(reason),"requires":[],"unlocks":[],"effects":[]}
 		row["extra_requirements"]=[]; row["extra_costs"]=[]
 		for requirement: Dictionary in node.extra_requirements:
 			row.extra_requirements.append({"track_id":requirement.track_id,"name":progress.track(requirement.track_id).title,"level":progress.track(requirement.track_id).describe(body.tracks[requirement.track_id].earned).level,"min_level":requirement.min_level})
 		for price: Dictionary in node.extra_costs:
 			row.extra_costs.append({"track_id":price.track_id,"name":progress.track(price.track_id).title,"cost":price.amount,"available":body.tracks[price.track_id].earned-body.tracks[price.track_id].spent})
-		for prerequisite: String in node.requires:
-			var needed: Sm2ProgressNodeDefinition=definitions[prerequisite]
-			row.requires.append({"id":needed.id,"name":needed.title,"track_id":needed.track_id,"owned":needed.id in body.tracks[needed.track_id].nodes})
-		row.unlocks=dependents.get(id,[]).duplicate(true)
+		for kind: String in ["requires","unlocks"]:
+			var related: Array=node.requires if kind=="requires" else progress.dependents(id)
+			var pages: int=maxi(1,ceili(float(related.size())/LINK_SIZE))
+			var page: int=clampi(int(options.get("link_offsets",{}).get(id+"/"+kind,0)),0,pages-1)
+			row[kind+"_count"]=related.size(); row[kind+"_page"]=page; row[kind+"_pages"]=pages
+			for related_id: String in related.slice(page*LINK_SIZE,(page+1)*LINK_SIZE):
+				var needed: Sm2ProgressNodeDefinition=progress.node(related_id)
+				row[kind].append({"id":needed.id,"name":needed.title,"track_id":needed.track_id,"owned":body.tracks[needed.track_id].owns(needed.id)})
 		if node.bonus>0: row.effects.append("+%s к значению направления «%s». Это прибавка узла, не заработанный опыт." % [node.bonus,progress.track(node.track_id).title])
 		row.effects.append_array(places.get(id,[]))
 		if session._content.development.has_psionics():
@@ -91,3 +107,9 @@ static func build(session: Sm2LifeSession, selected_id: String="") -> Dictionary
 
 static func reason_text(reason: String) -> String:
 	return {"node_owned":"Уже изучено этим телом.","level_required":"Недостаточно собственного уровня.","prerequisite_required":"Сначала изучите требуемые узлы.","experience_required":"Недостаточно доступного опыта для оплаты узла.","node_missing":"Узел не найден.","companion_automatic_growth":"Спутник развивается автоматически."}.get(reason,reason)
+
+static func track_details(session: Sm2LifeSession,id: String) -> Dictionary:
+	var world: Sm2LifeWorld=session.world
+	if world.busy() or world.hero_id()==0 or world._progress.track(id)==null: return {}
+	var modifiers: Array[Dictionary]=(world as Sm2JourneyWorld).upgrade_modifiers(world.hero_id()) if world is Sm2JourneyWorld else []
+	return Sm2ProgressRules.track(world.bodies[world.hero_id()].progress,world._progress,id,modifiers)

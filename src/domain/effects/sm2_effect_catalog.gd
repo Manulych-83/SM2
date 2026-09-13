@@ -1,6 +1,7 @@
 class_name Sm2EffectCatalog
 extends RefCounted
 const EMPTY_VERSION: String="sm2.p5.empty_effects.1"
+const SEQUENCE_VERSION: String="sm2.effects.sequences.1"
 const STATS: Array[String] = ["melee_skill","ranged_skill","melee_defense","ranged_defense"]
 var _raw: Dictionary = {}
 var _hash: String = ""
@@ -40,9 +41,16 @@ func build(raw: Dictionary, combat: Sm2CombatCatalog) -> PackedStringArray:
 		data.tags.sort()
 		effects[data.id] = Sm2EffectDefinition.from_data(data)
 	for data: Dictionary in normalized.actions:
-		if not Sm2Validate.fields(data,["id","name","operation","effect_id","target_side","ap_cost","fatigue_cost","range_min","range_max"]) or not Sm2Validate.text(data.name) or combat.ability(data.id) != null: return _error("effect_action_fields")
-		if data.operation not in ["apply_effect","dispel_effects"] or data.target_side not in ["enemy","ally"] or not data.effect_id is String: return _error("effect_action_operation")
+		var fields: Array[String] = ["id","name","operation","effect_id","target_side","ap_cost","fatigue_cost","range_min","range_max"]
+		var sequence: bool = raw.version == SEQUENCE_VERSION and data.get("operation") == "effect_sequence"
+		if sequence: fields.append("steps")
+		if not Sm2Validate.fields(data,fields) or not Sm2Validate.text(data.name) or combat.ability(data.id) != null: return _error("effect_action_fields")
+		if (not sequence and data.operation not in ["apply_effect","dispel_effects"]) or data.target_side not in ["enemy","ally"] or not data.effect_id is String: return _error("effect_action_operation")
 		if (data.operation == "apply_effect" and not effects.has(data.effect_id)) or (data.operation == "dispel_effects" and data.effect_id != ""): return _error("effect_action_reference")
+		if sequence:
+			if data.effect_id != "": return _error("effect_sequence_reference")
+			var error: String = Sm2EffectSequence.validate(data.steps,effects)
+			if not error.is_empty(): return _error(error)
 		for key: String in ["ap_cost","fatigue_cost","range_min","range_max"]:
 			if not Sm2Validate.integer(data[key],1 if key == "ap_cost" else 0,64 if key.begins_with("range") else 1000): return _error("effect_action_range")
 			data[key] = int(data[key])

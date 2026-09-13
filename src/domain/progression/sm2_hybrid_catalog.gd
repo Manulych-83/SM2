@@ -6,7 +6,7 @@ var _raw: Dictionary={}
 var _abilities: Dictionary[String,Dictionary]={}
 
 func build(raw: Dictionary,progress: Sm2ProgressCatalog,combat: Sm2CombatCatalog) -> PackedStringArray:
-	if progress==null or progress.to_data().get("version")!=Sm2ProgressCatalog.CROSS_VERSION or combat==null: return PackedStringArray(["hybrid_dependencies"])
+	if progress==null or progress.to_data().get("version") not in [Sm2ProgressCatalog.CROSS_VERSION,Sm2ProgressCatalog.LARGE_VERSION] or combat==null: return PackedStringArray(["hybrid_dependencies"])
 	if not Sm2Validate.fields(raw,["version","abilities"]) or raw.version!=VERSION or not raw.abilities is Array or raw.abilities.is_empty() or raw.abilities.size()>1000: return PackedStringArray(["hybrid_shape"])
 	var rows: Dictionary[String,Dictionary]={}
 	var physical: Dictionary={}

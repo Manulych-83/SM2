@@ -1,0 +1,115 @@
+{
+	"failures": [
+		"inventory load 100",
+		"inventory load 1000",
+		"inventory load 10000"
+	],
+	"metrics": [
+		{
+			"ms": 37.867,
+			"name": "content_service"
+		},
+		{
+			"ms": 17.208,
+			"name": "envelope_read"
+		},
+		{
+			"ms": 32.333,
+			"name": "world_decode"
+		},
+		{
+			"ms": 992.336,
+			"name": "archive_restore_cold"
+		},
+		{
+			"ms": 624.975,
+			"name": "campaign_open_cold"
+		},
+		{
+			"ms": 1.901,
+			"name": "world_copy"
+		},
+		{
+			"ms": 2.825,
+			"name": "session_copy"
+		},
+		{
+			"ms": 11.247,
+			"name": "world_validate"
+		},
+		{
+			"ms": 1.524,
+			"name": "session_capture"
+		},
+		{
+			"ms": 15.755,
+			"name": "candidate_publish"
+		},
+		{
+			"ms": 30.245,
+			"name": "journal_full"
+		},
+		{
+			"ms": 0.434,
+			"name": "journal_page_30"
+		},
+		{
+			"ms": 53.45,
+			"name": "menu_inspect"
+		},
+		{
+			"ms": 275.719,
+			"name": "save_existing"
+		},
+		{
+			"ms": 189.262,
+			"name": "load_warm"
+		},
+		{
+			"ms": 63.3525,
+			"name": "travel_mean_10"
+		},
+		{
+			"ms": 0.417,
+			"name": "inventory_decode_100"
+		},
+		{
+			"ms": 0.112,
+			"name": "inventory_copy_100"
+		},
+		{
+			"ms": 4.22,
+			"name": "inventory_decode_1000"
+		},
+		{
+			"ms": 1.207,
+			"name": "inventory_copy_1000"
+		},
+		{
+			"ms": 52.919,
+			"name": "inventory_decode_10000"
+		},
+		{
+			"ms": 15.352,
+			"name": "inventory_copy_10000"
+		},
+		{
+			"ms": 4.386,
+			"name": "developed_body_decode_100"
+		},
+		{
+			"ms": 0.567,
+			"name": "developed_body_projection_100"
+		},
+		{
+			"ms": 51.459,
+			"name": "developed_body_decode_1000"
+		},
+		{
+			"ms": 6.206,
+			"name": "developed_body_projection_1000"
+		}
+	],
+	"passed": false,
+	"version": "0.8.23-checkpoint.1"
+}

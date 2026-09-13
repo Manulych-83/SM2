@@ -1,0 +1,89 @@
+﻿[2026-09-13T11:35:03.2614083+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\final-large
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T11:35:03.3082496+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\final-large
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T11:35:07.0244729+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_combat_io.gd -- --output E:\GPT\SM2\outputs\validation-1\final-large
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\final-large
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COMBAT_RUNTIME start_battle 1857.241 ms
+COMBAT_RUNTIME prepare 71.474 ms
+COMBAT_RUNTIME check_battle 278.056 ms
+COMBAT_RUNTIME action_0_move 212.480 ms
+COMBAT_RUNTIME action_1_move 221.796 ms
+COMBAT_RUNTIME action_2_use_ability 226.803 ms
+COMBAT_RUNTIME action_3_end_turn 165.968 ms
+COMBAT_RUNTIME action_4_move 217.290 ms
+COMBAT_RUNTIME action_5_move 205.849 ms
+COMBAT_RUNTIME action_6_use_ability 240.548 ms
+COMBAT_RUNTIME active_save 2432.706 ms
+COMBAT_RUNTIME active_resave 4558.540 ms
+COMBAT_RUNTIME active_load 2600.468 ms
+COMBAT_RUNTIME action_7_end_turn 217.980 ms
+COMBAT_RUNTIME action_8_ai 231.135 ms
+COMBAT_RUNTIME action_9_ai 230.226 ms
+COMBAT_RUNTIME action_10_ai 251.092 ms
+COMBAT_RUNTIME action_11_ai 263.460 ms
+COMBAT_RUNTIME action_12_ai 236.722 ms
+COMBAT_RUNTIME action_13_ai 244.828 ms
+COMBAT_RUNTIME action_14_use_ability 205.620 ms
+COMBAT_RUNTIME action_15_use_ability 215.036 ms
+COMBAT_RUNTIME action_16_end_turn 206.559 ms
+COMBAT_RUNTIME action_17_use_ability 206.387 ms
+COMBAT_RUNTIME action_18_use_ability 232.631 ms
+COMBAT_RUNTIME action_19_end_turn 214.256 ms
+COMBAT_RUNTIME action_20_ai 221.194 ms
+COMBAT_RUNTIME action_21_ai 233.445 ms
+COMBAT_RUNTIME action_22_ai 230.473 ms
+COMBAT_RUNTIME action_23_move 218.251 ms
+COMBAT_RUNTIME action_24_move 215.583 ms
+COMBAT_RUNTIME action_25_use_ability 219.556 ms
+COMBAT_RUNTIME action_26_end_turn 405.336 ms
+COMBAT_RUNTIME action_27_use_ability 217.569 ms
+COMBAT_RUNTIME action_28_use_ability 217.127 ms
+COMBAT_RUNTIME action_29_end_turn 220.622 ms
+COMBAT_RUNTIME action_30_ai 218.393 ms
+COMBAT_RUNTIME action_31_ai 248.939 ms
+COMBAT_RUNTIME action_32_ai 246.311 ms
+COMBAT_RUNTIME action_33_use_ability 228.786 ms
+COMBAT_RUNTIME action_34_use_ability 228.802 ms
+COMBAT_RUNTIME action_35_end_turn 217.743 ms
+COMBAT_RUNTIME action_36_ai 242.044 ms
+COMBAT_RUNTIME action_37_ai 248.100 ms
+COMBAT_RUNTIME action_38_ai 218.528 ms
+COMBAT_RUNTIME action_39_use_ability 218.233 ms
+COMBAT_RUNTIME action_40_use_ability 228.454 ms
+COMBAT_RUNTIME action_41_end_turn 225.122 ms
+COMBAT_RUNTIME action_42_ai 239.027 ms
+COMBAT_RUNTIME action_43_ai 221.504 ms
+COMBAT_RUNTIME action_44_ai 251.471 ms
+COMBAT_RUNTIME action_45_use_ability 1885.084 ms
+COMBAT_RUNTIME results_view 482.437 ms
+COMBAT_RUNTIME finished_save 5938.410 ms
+COMBAT_RUNTIME finished_load 3028.587 ms
+
+
+ExitCode: 0

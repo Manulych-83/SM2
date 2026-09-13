@@ -1,0 +1,10 @@
+{
+  "exe": "E:\\GPT\\SM2\\builds\\SM2.exe",
+  "exe_log": "E:\\GPT\\SM2\\outputs\\combat-io-1\\exe.log",
+  "pack_log": "outputs/combat-io-1/pack.log",
+  "bytes": 121089520,
+  "exit_code": 0,
+  "version": "0.8.27-combat-io.1",
+  "sha256": "F1A1D7A6B169C70DA6D26D23916D14C15702DF43BC567150DB92368BE5B5EC80",
+  "export_log": "E:/GPT/SM2/.local/logs/export-20260913-112349-921-aec492a0.log"
+}

@@ -22,7 +22,7 @@ static func build(content: Dictionary, world: Sm2JourneyWorld) -> Dictionary:
 	errors=combat.build(content.combat.to_data(),turns)
 	if not errors.is_empty(): return {"ok":false,"errors":errors}
 	var development: Sm2DevelopmentCatalog=Sm2DevelopmentCatalog.new()
-	errors=development.build(content.development.to_data(),content.development.progression(),combat)
+	errors=development.build(content.development.to_data(),content.development._shared_progression(),combat,true)
 	if not errors.is_empty(): return {"ok":false,"errors":errors}
 	var result: Dictionary={"ok":true,"catalog":turns,"combat":combat,"development":development,"origin":origin,"setup":setup}
 	if development.has_psionics():

@@ -1,0 +1,159 @@
+{
+  "passed": true,
+  "core_checks": 3454,
+  "ui_checks": 716,
+  "core": [
+    {
+      "suite": "combat_io",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 38,
+      "report": "E:/GPT/SM2/.local/logs/checks-20260913-112147-106-5b0de46b.json",
+      "artifact": "outputs/combat-io-1/core/combat_io.json"
+    },
+    {
+      "passed": true,
+      "suite": "combat_runtime",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112247-924-7c0c4ed7.json",
+      "checks": 506,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/combat_runtime.json"
+    },
+    {
+      "passed": true,
+      "suite": "checkpoint",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112305-862-708f2446.json",
+      "checks": 490,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/checkpoint.json"
+    },
+    {
+      "passed": true,
+      "suite": "development_scale",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112326-099-59761dcc.json",
+      "checks": 94,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/development_scale.json"
+    },
+    {
+      "passed": true,
+      "suite": "p2_development",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112354-425-a8e675f7.json",
+      "checks": 349,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/p2_development.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_hybrids",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112400-584-363737e1.json",
+      "checks": 446,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/p5_hybrids.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_shield",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112415-952-d36794bd.json",
+      "checks": 208,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/p5_shield.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_growth",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112423-247-8b64de36.json",
+      "checks": 148,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/p5_growth.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_cross_nodes",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112430-023-ec8d3aad.json",
+      "checks": 150,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/p5_cross_nodes.json"
+    },
+    {
+      "passed": true,
+      "suite": "m2_ai",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112436-074-25abaf62.json",
+      "checks": 183,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/m2_ai.json"
+    },
+    {
+      "passed": true,
+      "suite": "m4_magic",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112444-287-18221094.json",
+      "checks": 244,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/m4_magic.json"
+    },
+    {
+      "passed": true,
+      "suite": "survival_tissues",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112451-548-cf1261a6.json",
+      "checks": 113,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/survival_tissues.json"
+    },
+    {
+      "passed": true,
+      "suite": "campaigns",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112500-607-9103b21f.json",
+      "checks": 58,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/campaigns.json"
+    },
+    {
+      "passed": true,
+      "suite": "expedition",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112507-570-9fddef31.json",
+      "checks": 155,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/expedition.json"
+    },
+    {
+      "passed": true,
+      "suite": "battle_results",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112533-612-b36a1115.json",
+      "checks": 158,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/battle_results.json"
+    },
+    {
+      "passed": true,
+      "suite": "integration",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-112556-086-761ff6a2.json",
+      "checks": 114,
+      "exit_code": 0,
+      "artifact": "outputs/combat-io-1/core/integration.json"
+    }
+  ],
+  "ui": [
+    {
+      "output": "outputs/combat-io-1/ui-combat_hud",
+      "suite": "combat_hud",
+      "exit_code": 0,
+      "checks": 235,
+      "passed": true
+    },
+    {
+      "output": "outputs/combat-io-1/ui-battle_results",
+      "suite": "battle_results",
+      "exit_code": 0,
+      "checks": 262,
+      "passed": true
+    },
+    {
+      "output": "outputs/combat-io-1/ui-campaigns",
+      "suite": "campaigns",
+      "exit_code": 0,
+      "checks": 219,
+      "passed": true
+    }
+  ],
+  "total_checks": 4170
+}

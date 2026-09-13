@@ -1,0 +1,13 @@
+{
+	"errors": [],
+	"format": "sm2.content.audit.1",
+	"ok": true,
+	"progression": {
+		"diagnostics": [],
+		"fingerprint": "58fdb6797e7cf1f4629a1e623b9994f43b262425d791750b113ad2b438ee43fc",
+		"nodes": 1,
+		"ok": true,
+		"validation": []
+	},
+	"source": "E:\\GPT\\SM2\\.local\\foundation-3\\author\\valid.json"
+}

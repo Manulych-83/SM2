@@ -1,0 +1,22 @@
+{
+	"errors": [],
+	"format": "sm2.content.audit.1",
+	"ok": false,
+	"progression": {
+		"diagnostics": [
+			{
+				"code": "missing_reference",
+				"id": "author:node",
+				"path": "nodes[0].requires",
+				"requires": "author:missing"
+			}
+		],
+		"fingerprint": "",
+		"nodes": 1,
+		"ok": false,
+		"validation": [
+			"progress_node_missing_requirement"
+		]
+	},
+	"source": "E:\\GPT\\SM2\\.local\\foundation-3\\author\\invalid.json"
+}

@@ -1,0 +1,8 @@
+{
+	"checks": 131,
+	"failures": [
+		"res://src/presentation/sm2_expedition_screen.gd:29 Sm2ExpeditionScreen._ready: Invalid call to function 'button' in base 'GDScript'. Expected 3 argument(s)."
+	],
+	"passed": false,
+	"rendered": true
+}

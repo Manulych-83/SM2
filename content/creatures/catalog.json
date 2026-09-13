@@ -1,0 +1,25 @@
+{
+  "profiles": [
+    {"id":"creatures:profile.guard","turn":{"ap_max":9,"fatigue_base":105,"initiative_base":115},"combat":{"body_id":"m2:body.human","hp_max":80,"melee_skill":68,"ranged_skill":35,"melee_defense":10,"ranged_defense":8,"resolve":65,"morale_immune":false}},
+    {"id":"creatures:profile.raider","turn":{"ap_max":9,"fatigue_base":100,"initiative_base":110},"combat":{"body_id":"m2:body.human","hp_max":55,"melee_skill":65,"ranged_skill":30,"melee_defense":5,"ranged_defense":3,"resolve":45,"morale_immune":false}},
+    {"id":"creatures:profile.archer","turn":{"ap_max":9,"fatigue_base":90,"initiative_base":140},"combat":{"body_id":"m2:body.human","hp_max":45,"melee_skill":35,"ranged_skill":70,"melee_defense":2,"ranged_defense":4,"resolve":50,"morale_immune":false}}
+  ],
+  "templates": [
+    {"id":"creatures:type.guard","name":"Страж","profile_id":"creatures:profile.guard","equipment_ids":["m2:equipment.sword","m2:equipment.shield","m2:equipment.mail","m2:equipment.helmet"],"actions":["sequences:ability.protection"],"immunities":[],"resistances":{"poison":20},"appearance_id":"guard","behavior_id":"sm2.ai.abilities.1"},
+    {"id":"creatures:type.raider","name":"Налётчик","profile_id":"creatures:profile.raider","equipment_ids":["m2:equipment.axe","m2:equipment.padded"],"actions":[],"immunities":[],"resistances":{"poison":0},"appearance_id":"raider","behavior_id":"sm2.ai.abilities.1"},
+    {"id":"creatures:type.archer","name":"Следопыт","profile_id":"creatures:profile.archer","equipment_ids":["m2:equipment.bow","m2:equipment.padded"],"actions":[],"immunities":[],"resistances":{"poison":0},"appearance_id":"archer","behavior_id":"sm2.ai.abilities.1"},
+    {"id":"creatures:type.poisoner","name":"Отравитель","profile_id":"creatures:profile.raider","equipment_ids":["m2:equipment.sword","m2:equipment.padded"],"actions":["sequences:ability.exhaustion"],"immunities":["status.poison"],"resistances":{"poison":0},"appearance_id":"poisoner","behavior_id":"sm2.ai.abilities.1"}
+  ],
+  "encounters": [
+    {"id":"creatures:encounter.patrol","name":"Патруль: двое против троих","field_id":"ruins","seed":1231,"round_limit":100,"actors":[
+      {"actor_id":1,"template_id":"creatures:type.archer","side":"company","controller":"player","q":3,"r":4},
+      {"actor_id":2,"template_id":"creatures:type.guard","side":"company","controller":"player","q":3,"r":3},
+      {"actor_id":3,"template_id":"creatures:type.raider","side":"opposition","controller":"ai","q":5,"r":3},
+      {"actor_id":4,"template_id":"creatures:type.raider","side":"opposition","controller":"ai","q":5,"r":4},
+      {"actor_id":5,"template_id":"creatures:type.poisoner","side":"opposition","controller":"ai","q":7,"r":4}]},
+    {"id":"creatures:encounter.sentry","name":"Дозор: двое против одного","field_id":"ruins","seed":76,"round_limit":100,"actors":[
+      {"actor_id":1,"template_id":"creatures:type.archer","side":"company","controller":"player","q":3,"r":4},
+      {"actor_id":2,"template_id":"creatures:type.guard","side":"company","controller":"player","q":3,"r":3},
+      {"actor_id":3,"template_id":"creatures:type.poisoner","side":"opposition","controller":"ai","q":5,"r":4}]}
+  ]
+}

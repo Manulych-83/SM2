@@ -20,8 +20,8 @@ var completed: int=0
 var _gear: Sm2CombatCatalog
 var _initial_loadout: String
 
-func _init(progress: Sm2ProgressCatalog, definition: Sm2LifeDefinition, combat: Sm2CombatCatalog, meetings: Array, initial_loadout: String, functions: Sm2BodyFunctionCatalog=null, services: Sm2CareCatalog=null, places: Sm2ExplorationCatalog=null, psionics: Sm2PsionicCatalog=null, upgrades: Sm2BodyUpgradeCatalog=null, hybrids: Sm2HybridCatalog=null) -> void:
-	super(progress,definition)
+func _init(progress: Sm2ProgressCatalog, definition: Sm2LifeDefinition, combat: Sm2CombatCatalog, meetings: Array, initial_loadout: String, functions: Sm2BodyFunctionCatalog=null, services: Sm2CareCatalog=null, places: Sm2ExplorationCatalog=null, psionics: Sm2PsionicCatalog=null, upgrades: Sm2BodyUpgradeCatalog=null, hybrids: Sm2HybridCatalog=null, shared_content: bool=false) -> void:
+	super(progress,definition,shared_content)
 	hybrid_catalog=hybrids
 	upgrade_catalog=upgrades
 	if upgrades!=null: upgrade_supply=Sm2BodyUpgradeSupply.new()
@@ -268,7 +268,7 @@ func view() -> Dictionary:
 	return data
 
 func copy_world() -> Sm2JourneyWorld:
-	var value: Sm2JourneyWorld=Sm2JourneyWorld.new(_progress,_definition,_gear,encounters,_initial_loadout,body_catalog,care_catalog,exploration_catalog,psionic_catalog,upgrade_catalog,hybrid_catalog)
+	var value: Sm2JourneyWorld=Sm2JourneyWorld.new(_progress,_definition,_gear,encounters,_initial_loadout,body_catalog,care_catalog,exploration_catalog,psionic_catalog,upgrade_catalog,hybrid_catalog,true)
 	value.survival=survival.copy() if survival!=null else null
 	value.region_catalog=region_catalog
 	if region!=null: value.region=region.copy()
@@ -284,7 +284,7 @@ func copy_world() -> Sm2JourneyWorld:
 	for id: int in bodies:
 		var body: Sm2WorldBody=Sm2WorldBody.new()
 		body.id=id; body.hp=bodies[id].hp; body.alive=bodies[id].alive; body.death_cause=bodies[id].death_cause; body.drills=bodies[id].drills
-		body.progress=Sm2ProgressRules.decode_body(bodies[id].progress.to_data(),_progress).body
+		body.progress=bodies[id].progress.copy()
 		body.upgrades=bodies[id].upgrades.copy() if bodies[id].upgrades!=null else null
 		body.functions=bodies[id].functions.copy() if bodies[id].functions!=null else null
 		value.bodies[id]=body

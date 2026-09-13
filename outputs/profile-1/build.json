@@ -1,0 +1,9 @@
+{
+  "version": "0.8.30-profile.1",
+  "sha256": "FCFC94662BDA209562B5531269072AA7A144CA31C50BD59D36FE76FD26F14E32",
+  "exe_exit": 0,
+  "passed": true,
+  "export_log": ".local/logs/export-20260913-124019-688-7b12f2ef.log",
+  "bytes": 121105200,
+  "pack_exit": 0
+}

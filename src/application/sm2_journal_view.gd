@@ -2,6 +2,8 @@ class_name Sm2JournalView
 extends RefCounted
 ## Replay into a disposable world without a store; never apply to the live session.
 static func build(session: Sm2JourneySession) -> Dictionary:
+	var projected: Variant=session.checkpoint_projection("journal")
+	if projected!=null: return projected
 	var shadow: Sm2JourneySession=Sm2JourneySession.new(session._content,session._profile,null)
 	shadow.world.start(session.world.world_id)
 	var rows: Array[Dictionary]=[]

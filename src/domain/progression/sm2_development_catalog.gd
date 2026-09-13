@@ -15,9 +15,10 @@ var _body: Sm2BodyFunctionCatalog=null
 const PARTY_VERSION: String = "sm2.p4.party.development.1"
 const VERSION: String = "sm2.p2.content.1"
 var _raw: Dictionary = {}
+var _fingerprint: String=""
 var _progress: Sm2ProgressCatalog
 
-func build(raw: Dictionary, progress: Sm2ProgressCatalog, combat: Sm2CombatCatalog) -> PackedStringArray:
+func build(raw: Dictionary, progress: Sm2ProgressCatalog, combat: Sm2CombatCatalog, shared_progression: bool=false) -> PackedStringArray:
 	if progress == null or not progress.is_ready() or combat == null: return PackedStringArray(["development_dependencies"])
 	var fields: Array[String]=["version","hero_actor_id","companion_actor_id","awards","mappings"]
 	if raw.get("version")==HYBRID_VERSION: fields.append("hybrids")
@@ -71,9 +72,11 @@ func build(raw: Dictionary, progress: Sm2ProgressCatalog, combat: Sm2CombatCatal
 	_upgrades=upgrades
 	_psionics=psi
 	_body=functions
-	var copy: Sm2ProgressCatalog = Sm2ProgressCatalog.new()
-	copy.build(progress.to_data())
-	_progress = copy; _raw = raw.duplicate(true)
+	# Internal encounter compilation may share an already built immutable catalog.
+	# All mappings and dependencies above still validate against the new combat.
+	var copy: Sm2ProgressCatalog = progress if shared_progression else Sm2ProgressCatalog.new()
+	if not shared_progression: copy.build(progress.to_data())
+	_progress = copy; _raw = raw.duplicate(true); _fingerprint=""
 	return PackedStringArray()
 
 func has_hybrids() -> bool: return _hybrids!=null
@@ -83,11 +86,17 @@ func has_upgrades() -> bool: return _upgrades!=null
 func upgrades() -> Sm2BodyUpgradeCatalog: return _upgrades
 func ready() -> bool: return not _raw.is_empty()
 func to_data() -> Dictionary: return _raw.duplicate(true)
-func fingerprint() -> String: return Sm2Canonical.hash([_raw,_progress.to_data()]) if ready() else ""
+func fingerprint() -> String:
+	if not ready(): return ""
+	if _fingerprint.is_empty(): _fingerprint=Sm2Canonical.hash([_raw,_progress.to_data()])
+	return _fingerprint
 func progression() -> Sm2ProgressCatalog:
 	var copy: Sm2ProgressCatalog = Sm2ProgressCatalog.new()
 	if _progress != null: copy.build(_progress.to_data())
 	return copy
+## Internal session composition only. Treat the built catalog as immutable.
+## Public progression() retains its defensive-copy contract.
+func _shared_progression() -> Sm2ProgressCatalog: return _progress
 func hero() -> int: return int(_raw.hero_actor_id)
 func companion() -> int: return int(_raw.companion_actor_id)
 func awards(ability_id: String) -> Dictionary:

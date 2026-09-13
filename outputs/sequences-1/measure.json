@@ -1,0 +1,29 @@
+{
+	"rows": [
+		{
+			"definitions": 3,
+			"median_ms": 595.51,
+			"previews": 1000,
+			"samples_ms": [
+				433.369,
+				432.517,
+				595.51,
+				916.02,
+				893.104
+			]
+		},
+		{
+			"definitions": 2000,
+			"median_ms": 903.61,
+			"previews": 1000,
+			"samples_ms": [
+				435.141,
+				434.842,
+				929.368,
+				903.61,
+				981.562
+			]
+		}
+	],
+	"scope": "Two-step tactical preview; 2 actors, zero initial active effects. Both catalogs resident, warmed, alternating order. Construction excluded. Not full battle/save/UI or simultaneous-catalog acceptance."
+}

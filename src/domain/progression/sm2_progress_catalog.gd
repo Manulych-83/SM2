@@ -3,36 +3,48 @@ extends RefCounted
 const VERSION: String = "sm2.p1.content.1"
 const ATTRIBUTE_VERSION: String = "sm2.p4.attributes.content.1"
 const PARTY_VERSION: String = "sm2.p4.party.content.1"
+const LARGE_VERSION: String="sm2.progression.large.1"
 const CROSS_VERSION: String="sm2.p5.cross_progression.1"
 const UNLOCK_VERSION: String = "sm2.p4.party.content.2"
 const XP_LIMIT: int = 1000000
 var _raw: Dictionary = {}
+var _fingerprint: String = ""
 var _tracks: Dictionary[String,Sm2ProgressTrackDefinition] = {}
 var _nodes: Dictionary[String,Sm2ProgressNodeDefinition] = {}
 var _activities: Dictionary[String,Sm2PracticeDefinition] = {}
 var _knowledge: Dictionary[String,String] = {}
 var _contributions: Array[Dictionary] = []
 var _order: Array[String] = []
+var _node_tracks: Dictionary={}
+var _next_nodes: Dictionary={}
+var _incoming: Dictionary={}
+var _related: Dictionary={}
+var _sorted_tracks: Array[String]=[]
+var _sorted_nodes: Array[String]=[]
+var _practice_tracks: Dictionary={}
+var _summaries: Array[Dictionary]=[]
 
 func build(raw: Dictionary) -> PackedStringArray:
 	var candidate: Sm2ProgressCatalog = Sm2ProgressCatalog.new()
 	var error: String = candidate._parse(raw)
 	if not error.is_empty(): return PackedStringArray([error])
-	if raw.get("version") in [PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION]:
+	if raw.get("version") in [PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION,LARGE_VERSION]:
 		var growth_error: String=Sm2CompanionProgress.validate_definition(raw.companion_growth,candidate)
 		if not growth_error.is_empty(): return PackedStringArray([growth_error])
 	_raw=raw.duplicate(true); _tracks=candidate._tracks; _nodes=candidate._nodes
 	_activities=candidate._activities; _knowledge=candidate._knowledge
 	_contributions=candidate._contributions; _order=candidate._order
+	_fingerprint=""
+	_index()
 	return PackedStringArray()
 
 func _parse(raw: Dictionary) -> String:
 	var fields: Array[String]=["version","tracks","nodes","activities","contributions","knowledge"]
-	if raw.get("version") in [PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION]: fields.append("companion_growth")
-	if not Sm2Validate.fields(raw,fields) or raw.version not in [VERSION,ATTRIBUTE_VERSION,PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION]: return "progress_content_version"
-	var attributes: bool = raw.version in [ATTRIBUTE_VERSION,PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION]
+	if raw.get("version") in [PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION,LARGE_VERSION]: fields.append("companion_growth")
+	if not Sm2Validate.fields(raw,fields) or raw.version not in [VERSION,ATTRIBUTE_VERSION,PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION,LARGE_VERSION]: return "progress_content_version"
+	var attributes: bool = raw.version in [ATTRIBUTE_VERSION,PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION,LARGE_VERSION]
 	for group: String in ["tracks","nodes","activities","contributions","knowledge"]:
-		if not raw[group] is Array or raw[group].size() > 1000: return "progress_content_group"
+		if not raw[group] is Array or raw[group].size() > (10000 if raw.version==LARGE_VERSION and group!="knowledge" else 1000): return "progress_content_group"
 		for row: Variant in raw[group]:
 			if not row is Dictionary: return "progress_content_entry"
 	if raw.tracks.is_empty() or raw.activities.is_empty(): return "progress_content_empty"
@@ -47,14 +59,14 @@ func _parse(raw: Dictionary) -> String:
 		_tracks[track_value.id]=track_value
 	for row: Dictionary in raw.nodes:
 		var node_fields: Array[String]=["id","name","track_id","min_level","cost","bonus","requires"]
-		if raw.version==CROSS_VERSION: node_fields.append_array(["extra_requirements","extra_costs"])
+		if raw.version in [CROSS_VERSION,LARGE_VERSION]: node_fields.append_array(["extra_requirements","extra_costs"])
 		if not Sm2Validate.fields(row,node_fields) or not _identity(row,all_ids): return "progress_node_fields"
 		if not row.track_id is String or not _tracks.has(row.track_id) or not Sm2Validate.string_list(row.requires): return "progress_node_reference"
-		if not Sm2Validate.integer(row.min_level,0,1010000) or not Sm2Validate.integer(row.cost,1,XP_LIMIT) or not Sm2Validate.integer(row.bonus,0 if raw.version in [UNLOCK_VERSION,CROSS_VERSION] else 1,10000): return "progress_node_numbers"
+		if not Sm2Validate.integer(row.min_level,0,1010000) or not Sm2Validate.integer(row.cost,1,XP_LIMIT) or not Sm2Validate.integer(row.bonus,0 if raw.version in [UNLOCK_VERSION,CROSS_VERSION,LARGE_VERSION] else 1,10000): return "progress_node_numbers"
 		var node: Sm2ProgressNodeDefinition = Sm2ProgressNodeDefinition.new()
 		node.id=row.id; node.title=row.name; node.track_id=row.track_id
 		node.min_level=int(row.min_level); node.cost=int(row.cost); node.bonus=int(row.bonus); node.requires.assign(row.requires)
-		if raw.version==CROSS_VERSION:
+		if raw.version in [CROSS_VERSION,LARGE_VERSION]:
 			for field: String in ["extra_requirements","extra_costs"]:
 				if not row[field] is Array or row[field].size()>64: return "cross_node_shape"
 				var used: Array[String]=[node.track_id]
@@ -126,27 +138,20 @@ static func _identity(row: Dictionary, seen: Dictionary) -> bool:
 	return true
 
 static func _topology(ids: Array[String], dependencies: Dictionary) -> Array[String]:
-	var order: Array[String] = []
-	var remaining: Array[String] = ids.duplicate()
-	while not remaining.is_empty():
-		var progressed: bool = false
-		for id: String in remaining.duplicate():
-			var ready: bool = true
-			for needed: String in dependencies.get(id,[]):
-				if needed not in order: ready=false; break
-			if ready:
-				order.append(id); remaining.erase(id); progressed=true
-		if not progressed: break
-	return order
+	return Sm2DependencyGraph.inspect(ids,dependencies).order
 
-func fingerprint() -> String: return Sm2Canonical.hash(_raw)
+func fingerprint() -> String:
+	if _fingerprint.is_empty(): _fingerprint=Sm2Canonical.hash(_raw)
+	return _fingerprint
 func snapshot_format() -> String: return "sm2.attributes_lab" if _raw.get("version","") == ATTRIBUTE_VERSION else "sm2.progression_lab"
 func ruleset() -> String: return "sm2.p4.attributes.1" if _raw.get("version","") == ATTRIBUTE_VERSION else "sm2.p1.practice.1"
 func is_ready() -> bool: return not _raw.is_empty()
 func to_data() -> Dictionary: return _raw.duplicate(true)
 func track_ids() -> Array[String]:
+	if not _sorted_tracks.is_empty(): return _sorted_tracks.duplicate()
 	var result: Array[String] = []; result.assign(_tracks.keys()); result.sort(); return result
 func node_ids() -> Array[String]:
+	if not _sorted_nodes.is_empty(): return _sorted_nodes.duplicate()
 	var result: Array[String] = []; result.assign(_nodes.keys()); result.sort(); return result
 func activity_ids() -> Array[String]:
 	var result: Array[String] = []; result.assign(_activities.keys()); result.sort(); return result
@@ -158,5 +163,45 @@ func activity(id: String) -> Sm2PracticeDefinition: return _activities[id].copy(
 func knowledge_name(id: String) -> String: return _knowledge.get(id,"")
 func contributions() -> Array[Dictionary]: return _contributions.duplicate(true)
 
-func is_party() -> bool: return _raw.get("version") in [PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION]
+func is_party() -> bool: return _raw.get("version") in [PARTY_VERSION,UNLOCK_VERSION,CROSS_VERSION,LARGE_VERSION]
+func is_large() -> bool: return _raw.get("version")==LARGE_VERSION
 func companion_growth() -> Dictionary: return _raw.get("companion_growth",{}).duplicate(true)
+
+func _index() -> void:
+	_node_tracks.clear(); _next_nodes.clear(); _incoming.clear(); _related.clear()
+	_practice_tracks.clear(); _summaries.clear()
+	_sorted_tracks.assign(_tracks.keys()); _sorted_tracks.sort()
+	_sorted_nodes.assign(_nodes.keys()); _sorted_nodes.sort()
+	for id: String in _sorted_tracks:
+		_node_tracks[id]=[]; _incoming[id]=[]; _related[id]=[]
+		_practice_tracks[id]=[]
+		_summaries.append({"id":id,"name":_tracks[id].title,"kind":_tracks[id].kind})
+	for id: String in activity_ids():
+		for track_id: String in _activities[id].awards: _practice_tracks[track_id].append(id)
+	for id: String in _sorted_nodes:
+		var definition: Sm2ProgressNodeDefinition=_nodes[id]
+		_node_tracks[definition.track_id].append(id)
+		for prerequisite: String in definition.requires:
+			if not _next_nodes.has(prerequisite): _next_nodes[prerequisite]=[]
+			_next_nodes[prerequisite].append(id)
+	for entry: Dictionary in _contributions:
+		_incoming[entry.target].append(entry)
+		_related[entry.target].append(entry); _related[entry.source].append(entry)
+
+func nodes_for_track(id: String) -> Array:
+	return _node_tracks.get(id,[]).duplicate()
+func dependents(id: String) -> Array: return _next_nodes.get(id,[]).duplicate()
+func contributions_to(id: String) -> Array: return _incoming.get(id,[]).duplicate(true)
+func related_contributions(id: String) -> Array: return _related.get(id,[]).duplicate(true)
+func node_bonus(id: String) -> int: return _nodes[id].bonus if _nodes.has(id) else 0
+func track_summaries() -> Array[Dictionary]: return _summaries.duplicate(true)
+func activities_for_track(id: String) -> Array: return _practice_tracks.get(id,[]).duplicate()
+func uses_sparse_bodies() -> bool: return is_large() and _tracks.size()>1000
+func owned_list_valid(value: Variant) -> bool:
+	if _raw.get("version")!=LARGE_VERSION: return Sm2Validate.string_list(value)
+	if not value is Array or value.size()>10000: return false
+	var seen: Dictionary={}
+	for id: Variant in value:
+		if not Sm2Validate.text(id) or seen.has(id): return false
+		seen[id]=true
+	return true

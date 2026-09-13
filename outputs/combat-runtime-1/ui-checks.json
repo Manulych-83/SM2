@@ -1,0 +1,22 @@
+﻿[
+    {
+        "output":  "outputs/combat-runtime-1/ui-combat_hud",
+        "suite":  "combat_hud",
+        "exit_code":  0
+    },
+    {
+        "output":  "outputs/combat-runtime-1/ui-battle_results",
+        "suite":  "battle_results",
+        "exit_code":  0
+    },
+    {
+        "output":  "outputs/combat-runtime-1/ui-campaigns",
+        "suite":  "campaigns",
+        "exit_code":  0
+    },
+    {
+        "output":  "outputs/combat-runtime-1/ui-development_scale",
+        "suite":  "development_scale",
+        "exit_code":  0
+    }
+]

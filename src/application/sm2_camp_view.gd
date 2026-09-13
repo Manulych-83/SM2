@@ -23,7 +23,7 @@ static func build(session: Sm2JourneySession) -> Dictionary:
 			if w.bodies[id].alive or w.region.bodies[str(id)]!=w.region.location_id: continue
 			result.carriers.append(action(session,"incarnate",id,"",str(w._definition.body(id).name),"Душа","Новое тело начинает с собственной чистой практикой."))
 		return result
-	var progress: Sm2ProgressCatalog=session._content.development.progression()
+	var progress: Sm2ProgressCatalog=session.world._progress
 	if w.region_catalog.at("services","practice")==w.region.location_id:
 		for id: String in progress.activity_ids():
 			var activity: Sm2PracticeDefinition=progress.activity(id); var awards: Array[String]=[]

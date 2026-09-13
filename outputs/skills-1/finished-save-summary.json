@@ -1,0 +1,53 @@
+{
+  "bodies": [
+    {
+      "id": "2",
+      "stored_tracks": 5008
+    },
+    {
+      "id": "4",
+      "stored_tracks": 0
+    },
+    {
+      "id": "8",
+      "stored_tracks": 0
+    },
+    {
+      "id": "9",
+      "stored_tracks": 0
+    },
+    {
+      "id": "10",
+      "stored_tracks": 0
+    },
+    {
+      "id": "11",
+      "stored_tracks": 0
+    },
+    {
+      "id": "14",
+      "stored_tracks": 0
+    },
+    {
+      "id": "15",
+      "stored_tracks": 0
+    },
+    {
+      "id": "16",
+      "stored_tracks": 0
+    },
+    {
+      "id": "17",
+      "stored_tracks": 0
+    },
+    {
+      "id": "18",
+      "stored_tracks": 0
+    },
+    {
+      "id": "19",
+      "stored_tracks": 0
+    }
+  ],
+  "bytes": 1880666
+}

@@ -1,0 +1,11 @@
+{
+	"checks": 89,
+	"failures": [
+		"real practiced hero shows growth source",
+		"real practiced hero shows growth source",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: real practiced hero shows growth source",
+		"core/variant/variant_utility.cpp:1023 push_error: FAIL: real practiced hero shows growth source"
+	],
+	"passed": false,
+	"rendered": true
+}

@@ -40,6 +40,7 @@ func _run() -> void:
 	var selector: OptionButton=app.find_child("HeroNodeFilter",true,false) as OptionButton
 	selector.select(2); selector.item_selected.emit(2); await _frames()
 	t.equal(hero().find_children("HeroBuy_*","Button",true,false).size(),1,"owned filter shows only purchased node")
+	selector=app.find_child("HeroNodeFilter",true,false) as OptionButton
 	selector.select(0); selector.item_selected.emit(0); await _frames()
 	await _capture("psionics-2560.png")
 	await _press("HeroDevelopmentSave"); before=s.state_hash(); await _press("HeroDevelopmentLoad")

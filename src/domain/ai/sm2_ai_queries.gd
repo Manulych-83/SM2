@@ -11,10 +11,11 @@ func _init(state: Sm2TacticalState, catalog: Sm2CombatCatalog) -> void:
 	_state.round = state.round
 	_state.effect_catalog = state.effect_catalog
 	_state.magic_catalog = state.magic_catalog
-	if state.development != null: _state.development = state.development.copy()
+	if state.development != null: _state.development = state.development.copy(true)
 	for id: int in state.mana: _state.mana[id] = state.mana[id].copy()
 	# Retain only availability, never the real allocator value or RNG.
-	if state.next_effect_id >= 9223372036854775806: _state.next_effect_id = 9223372036854775806
+	var available: int = mini(Sm2EffectSequence.MAX_STEPS,Sm2EffectSequence.MAX_ID-state.next_effect_id)
+	_state.next_effect_id = Sm2EffectSequence.MAX_ID-available
 	for id: int in state.sorted_effect_ids(): _state.effects[id] = state.effects[id].copy()
 	_state.field = Sm2Battlefield.new()
 	_state.field.build(state.field.to_data())
@@ -101,9 +102,10 @@ func has_future_offense(id: int, infos: Array[Dictionary]) -> bool:
 			if profile.mana_max >= int(info.mana_cost) and (_state.mana[id].current >= int(info.mana_cost) or profile.mana_per_round > 0): return true
 		elif info.kind == "weapon" and info.operation == "damage":
 			if int(info.ammo_cost) == 0 or source.combat.item("weapon").ammo >= int(info.ammo_cost): return true
-		elif info.kind == "effect" and info.operation == "apply_effect":
-			for op: Sm2EffectOperation in _state.effect_catalog.definition(info.effect_id).operations:
-				if op.kind == "periodic_hp_damage": return true
+		elif info.kind == "effect":
+			for effect_id: String in _state.effect_catalog.action(info.id).applied_effects():
+				for op: Sm2EffectOperation in _state.effect_catalog.definition(effect_id).operations:
+					if op.kind == "periodic_hp_damage": return true
 	return false
 
 func attack(command: Sm2Command, position: Vector2i, positional: bool = false) -> Dictionary:

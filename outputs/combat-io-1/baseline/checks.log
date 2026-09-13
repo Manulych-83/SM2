@@ -1,0 +1,93 @@
+﻿[2026-09-13T11:16:05.4762974+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\combat-io-1\baseline
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T11:16:05.5267336+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\combat-io-1\baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T11:16:09.3928280+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_combat_io.gd -- --output E:\GPT\SM2\outputs\combat-io-1\baseline
+RuntimeRoot: E:\GPT\SM2\.local\combat-io-1\baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COMBAT_RUNTIME start_battle 4460.853 ms
+COMBAT_RUNTIME prepare 1648.124 ms
+COMBAT_RUNTIME check_battle 710.375 ms
+COMBAT_RUNTIME action_0_move 203.416 ms
+COMBAT_RUNTIME action_1_move 210.066 ms
+COMBAT_RUNTIME action_2_use_ability 356.963 ms
+COMBAT_RUNTIME action_3_end_turn 204.190 ms
+COMBAT_RUNTIME action_4_move 216.490 ms
+COMBAT_RUNTIME action_5_move 217.541 ms
+COMBAT_RUNTIME action_6_use_ability 215.284 ms
+COMBAT_RUNTIME active_save 6069.139 ms
+COMBAT_RUNTIME active_resave 11996.912 ms
+COMBAT_RUNTIME active_load 6713.097 ms
+COMBAT_RUNTIME action_7_end_turn 212.800 ms
+COMBAT_RUNTIME action_8_ai 243.289 ms
+COMBAT_RUNTIME action_9_ai 230.509 ms
+COMBAT_RUNTIME action_10_ai 239.445 ms
+COMBAT_RUNTIME action_11_ai 277.906 ms
+COMBAT_RUNTIME action_12_ai 239.486 ms
+COMBAT_RUNTIME action_13_ai 240.875 ms
+COMBAT_RUNTIME action_14_use_ability 362.345 ms
+COMBAT_RUNTIME action_15_use_ability 375.114 ms
+COMBAT_RUNTIME action_16_end_turn 207.140 ms
+COMBAT_RUNTIME action_17_use_ability 220.129 ms
+COMBAT_RUNTIME action_18_use_ability 212.665 ms
+COMBAT_RUNTIME action_19_end_turn 213.650 ms
+COMBAT_RUNTIME action_20_ai 248.818 ms
+COMBAT_RUNTIME action_21_ai 243.196 ms
+COMBAT_RUNTIME action_22_ai 238.849 ms
+COMBAT_RUNTIME action_23_move 204.849 ms
+COMBAT_RUNTIME action_24_move 217.698 ms
+COMBAT_RUNTIME action_25_use_ability 363.636 ms
+COMBAT_RUNTIME action_26_end_turn 362.019 ms
+COMBAT_RUNTIME action_27_use_ability 216.254 ms
+COMBAT_RUNTIME action_28_use_ability 209.389 ms
+COMBAT_RUNTIME action_29_end_turn 229.646 ms
+COMBAT_RUNTIME action_30_ai 233.711 ms
+COMBAT_RUNTIME action_31_ai 228.852 ms
+COMBAT_RUNTIME action_32_ai 241.875 ms
+COMBAT_RUNTIME action_33_use_ability 356.427 ms
+COMBAT_RUNTIME action_34_use_ability 382.950 ms
+COMBAT_RUNTIME action_35_end_turn 198.052 ms
+COMBAT_RUNTIME action_36_ai 243.094 ms
+COMBAT_RUNTIME action_37_ai 233.806 ms
+COMBAT_RUNTIME action_38_ai 236.815 ms
+COMBAT_RUNTIME action_39_use_ability 364.507 ms
+COMBAT_RUNTIME action_40_use_ability 354.622 ms
+COMBAT_RUNTIME action_41_end_turn 213.570 ms
+COMBAT_RUNTIME action_42_ai 228.747 ms
+COMBAT_RUNTIME action_43_ai 245.616 ms
+COMBAT_RUNTIME action_44_ai 246.202 ms
+COMBAT_RUNTIME action_45_use_ability 3964.623 ms
+COMBAT_RUNTIME results_view 1008.522 ms
+COMBAT_RUNTIME finished_save 12461.863 ms
+COMBAT_RUNTIME finished_load 5861.292 ms
+
+WARNING: 33854 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 69 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+
+ExitCode: 0

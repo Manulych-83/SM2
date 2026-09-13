@@ -1,0 +1,8 @@
+{
+  "format":"sm2.content_packages.1",
+  "packages":[{"id":"creatures.core","requires":[],"sources":[
+    {"group":"profiles","path":"res://content/creatures/catalog.json","field":"profiles"},
+    {"group":"templates","path":"res://content/creatures/catalog.json","field":"templates"},
+    {"group":"encounters","path":"res://content/creatures/catalog.json","field":"encounters"}
+  ]}]
+}

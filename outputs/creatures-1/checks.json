@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "core_checks": 919.0,
+  "ui_checks": 259.0,
+  "core": [
+    {
+      "suite": "creatures",
+      "passed": true,
+      "report": "core/creatures.json",
+      "checks": 105
+    },
+    {
+      "suite": "m4_effects",
+      "passed": true,
+      "report": "core/m4_effects.json",
+      "checks": 218
+    },
+    {
+      "suite": "unit",
+      "passed": true,
+      "report": "core/unit.json",
+      "checks": 538
+    },
+    {
+      "suite": "campaigns",
+      "passed": true,
+      "report": "core/campaigns.json",
+      "checks": 58
+    }
+  ],
+  "ui": [
+    {
+      "suite": "ui",
+      "passed": true,
+      "report": "ui/report.json",
+      "rendered": true,
+      "checks": 86
+    },
+    {
+      "suite": "ui-sequences",
+      "passed": true,
+      "report": "ui-sequences/report.json",
+      "rendered": true,
+      "checks": 95
+    },
+    {
+      "suite": "ui-main",
+      "passed": true,
+      "report": "ui-main/report.json",
+      "rendered": true,
+      "checks": 78
+    }
+  ]
+}

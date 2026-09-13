@@ -7,11 +7,19 @@ static func build(screen: Sm2LifeScreen,parent: VBoxContainer) -> void:
 	if v.is_empty(): return
 	var texts: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://content/presentation/journey_guide.json"))
 	var copy: Dictionary=texts.get(v.stage,{}) if texts is Dictionary else {}
+	var expedition: Dictionary=screen.expedition.build(session)
+	var heading: String="СВОБОДНОЕ ИССЛЕДОВАНИЕ" if expedition.get("complete",false) else "МАРШРУТ"
+	if expedition.get("ok",false) and not expedition.complete:
+		var instructions: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://content/presentation/expedition.json"))
+		copy={"title":"Следующий шаг первого похода","text":instructions.get(expedition.stage,"")}
+		v.actions=expedition.actions.duplicate(true); v.facts=expedition.facts.duplicate(true)
+		if expedition.stage not in ["battle","soul","bleeding"]: v.actions.append(Sm2JourneyGuideView.link("development","Развитие героя"))
+		heading="ПЕРВЫЙ ПОХОД"
 	var panel: PanelContainer=PanelContainer.new(); panel.name="JourneyGuide"; parent.add_child(panel)
 	var margin: MarginContainer=MarginContainer.new(); panel.add_child(margin)
 	for side: String in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,14)
 	var column: VBoxContainer=VBoxContainer.new(); margin.add_child(column)
-	column.add_child(screen._label("МАРШРУТ · %s · завершено встреч %s/%s" % [v.location,v.completed,v.total],14,screen.MUTED))
+	column.add_child(screen._label("%s · %s · завершено встреч %s/%s" % [heading,v.location,v.completed,v.total],14,screen.MUTED))
 	var title: Label=screen._label(str(copy.get("title","Продолжение путешествия")),21,screen.GOLD); title.name="GuideTitle"; column.add_child(title)
 	column.add_child(screen._label(str(copy.get("text","Выберите доступное занятие.")),15,screen.INK))
 	for fact: String in v.facts: column.add_child(screen._label(fact,14,screen.GOLD))

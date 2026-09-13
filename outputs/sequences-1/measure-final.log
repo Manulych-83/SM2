@@ -1,0 +1,14 @@
+﻿[2026-09-13T14:53:05.3815896+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\sequences-1\measure-final
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T14:53:05.4349743+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://outputs/sequences-1/measure.gd
+RuntimeRoot: E:\GPT\SM2\.local\sequences-1\measure-final
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"rows":[{"definitions":3,"median_ms":595.51,"previews":1000,"samples_ms":[433.369,432.517,595.51,916.02,893.104]},{"definitions":2000,"median_ms":903.61,"previews":1000,"samples_ms":[435.141,434.842,929.368,903.61,981.562]}],"scope":"Two-step tactical preview; 2 actors, zero initial active effects. Both catalogs resident, warmed, alternating order. Construction excluded. Not full battle/save/UI or simultaneous-catalog acceptance."}
+
+
+ExitCode: 0

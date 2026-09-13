@@ -1,0 +1,9 @@
+{
+  "format": "sm2.content_packages.1",
+  "packages": [
+    {"id":"survival.base","requires":[],"sources":[{"group":"items","path":"res://content/survival/rules.json","field":"items"}]},
+    {"id":"survival.devices","requires":["survival.base"],"sources":[{"group":"items","path":"res://content/survival/devices.json","field":""}]},
+    {"id":"survival.repair","requires":["survival.devices"],"sources":[{"group":"items","path":"res://content/survival/repair_items.json","field":"","integer_fields":["mass","volume","size","capacity","max_mass","max_size"]}]},
+    {"id":"survival.tissues","requires":["survival.repair"],"sources":[{"group":"items","path":"res://content/survival/tissues.json","field":"items"}]}
+  ]
+}

@@ -9,12 +9,12 @@ static func preview(state: Sm2TacticalState, command: Sm2Command) -> Dictionary:
 	if command.target_actor_id!=command.actor_id: return _deny(result,"self_target_required")
 	if source.morale=="fleeing": return _deny(result,"fleeing_cannot_attack")
 	var dev: Sm2BattleDevelopment=state.development
-	if source.spatial.actor_id!=dev.catalog.hero() or not state.magic_catalog.profile(source.loadout_id).spells.has(spell.id) or not dev.catalog.psionics().available(dev.bodies[command.actor_id],spell.id): return _deny(result,"ability_unavailable")
+	if source.spatial.actor_id!=dev.catalog.hero() or not state.magic_catalog.profile(source.loadout_id).spells.has(spell.id) or not dev.psionic_available(command.actor_id,spell.id): return _deny(result,"ability_unavailable")
 	if source.spatial.ap<spell.ap_cost: return _deny(result,"insufficient_ap")
 	var cost: Dictionary=Sm2ManaResolver.cost(state,command.actor_id,spell)
 	if state.development!=null and state.development.catalog.has_implants(): result["cost_calculation"]=cost
 	if state.mana[command.actor_id].current<int(cost.total): return _deny(result,"insufficient_concentration")
-	var calculation: Dictionary=dev.catalog.psionics().capacity(spell.id,dev.bodies[command.actor_id],dev.progress,dev.track_modifiers(command.actor_id))
+	var calculation: Dictionary=dev.psionic_parameter(command.actor_id,spell.id,true)
 	result.merge({"allowed":true,"ap_cost":spell.ap_cost,"mana_cost":cost.total,"capacity":calculation.total,"capacity_calculation":calculation,"previous":source.barrier.remaining,"name":spell.name},true)
 	return result
 

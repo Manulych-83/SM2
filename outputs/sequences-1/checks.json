@@ -1,0 +1,66 @@
+{
+  "ui": [
+    {
+      "report": "ui-final/report.json",
+      "suite": "ui-final",
+      "rendered": true,
+      "passed": true,
+      "checks": 95
+    },
+    {
+      "report": "ui-m4/report.json",
+      "suite": "ui-m4",
+      "rendered": true,
+      "passed": true,
+      "checks": 158
+    },
+    {
+      "report": "ui-rules/report.json",
+      "suite": "ui-rules",
+      "rendered": true,
+      "passed": true,
+      "checks": 78
+    }
+  ],
+  "ui_checks": 331.0,
+  "core_checks": 1364.0,
+  "passed": true,
+  "core": [
+    {
+      "report": "core/sequences.json",
+      "suite": "sequences",
+      "passed": true,
+      "checks": 174
+    },
+    {
+      "report": "core/m4_effects.json",
+      "suite": "m4_effects",
+      "passed": true,
+      "checks": 218
+    },
+    {
+      "report": "core/m4_ability_ai.json",
+      "suite": "m4_ability_ai",
+      "passed": true,
+      "checks": 296
+    },
+    {
+      "report": "core/combat_hud.json",
+      "suite": "combat_hud",
+      "passed": true,
+      "checks": 81
+    },
+    {
+      "report": "core/unit.json",
+      "suite": "unit",
+      "passed": true,
+      "checks": 537
+    },
+    {
+      "report": "core/campaigns.json",
+      "suite": "campaigns",
+      "passed": true,
+      "checks": 58
+    }
+  ]
+}

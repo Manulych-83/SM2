@@ -20,5 +20,5 @@ static func recover_round(state: Sm2TacticalState, id: int, events: Array[Dictio
 
 static func cost(state: Sm2TacticalState,actor_id: int,spell: Sm2SpellDefinition) -> Dictionary:
 	if spell.channel=="psionic" and state.development!=null:
-		return Sm2PsionicCostQuery.resolve(spell.mana_cost,state.development.catalog.upgrades(),state.development.upgrades.get(actor_id))
+		return state.development.concentration_cost(actor_id,spell.mana_cost,spell.id)
 	return Sm2PsionicCostQuery.resolve(spell.mana_cost)

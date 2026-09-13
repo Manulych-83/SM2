@@ -1,5 +1,6 @@
 class_name Sm2SurvivalWorkspace
 extends Control
+var expedition: Sm2ExpeditionView=Sm2ExpeditionView.new()
 signal closed(state: Dictionary,message: String)
 var session: Sm2JourneySession
 var ui: Dictionary={"body":0,"tab":0,"part":"","item":"","destination":"","scope":1,"query":""}
@@ -177,6 +178,7 @@ func item_by_id(id: String) -> Dictionary:
 func _item(row: Dictionary) -> void:
 	clear(details)
 	if row.is_empty(): return
+	var goal: Dictionary=expedition.build(session) if row.definition_id=="medical_kit" else {}
 	var columns: HBoxContainer=HBoxContainer.new(); columns.add_theme_constant_override("separation",14); details.add_child(columns)
 	var description: VBoxContainer=VBoxContainer.new(); description.size_flags_horizontal=Control.SIZE_EXPAND_FILL; description.size_flags_stretch_ratio=1.2; columns.add_child(description)
 	var actions: VBoxContainer=VBoxContainer.new(); actions.size_flags_horizontal=Control.SIZE_EXPAND_FILL; columns.add_child(actions)
@@ -185,10 +187,11 @@ func _item(row: Dictionary) -> void:
 		description.add_child(label("%s отдельных предметов · действие с одним" % group.ids.size(),13,MUTED))
 		var instance: OptionButton=OptionButton.new(); instance.name="WorkspaceInstance"; instance.fit_to_longest_item=false; description.add_child(instance)
 		for id: String in group.ids:
-			instance.add_item("Экземпляр №"+id); instance.set_item_metadata(instance.item_count-1,id)
+			instance.add_item("Экземпляр №"+id+(" · из руин" if goal.get("ok",false) and id in goal.ids else "")); instance.set_item_metadata(instance.item_count-1,id)
 			if id==row.id: instance.select(instance.item_count-1)
 		instance.item_selected.connect(func(index: int) -> void: select_instance(str(instance.get_item_metadata(index))))
 	description.add_child(label(row.name,20,GOLD)); description.add_child(label(row.where,14))
+	if goal.get("ok",false) and str(row.id) in goal.ids: description.add_child(label("Находка из первого похода · доставка засчитана" if goal.complete else "Находка для первого похода · в лагерный сундук",14,GOLD))
 	description.add_child(label("Масса %.2f кг · объём %s · размер %s" % [int(row.mass)/1000.0,row.volume,row.size],13,MUTED))
 	if row.device: description.add_child(label("Прочность %s / %s" % [row.current,row.device_max],18))
 	if not view.containers.is_empty():

@@ -1,0 +1,19 @@
+{
+	"checks": 43,
+	"failures": [
+		"new game opens actual party screen",
+		"party displays catalog actor name",
+		"SaveButton is usable",
+		"save succeeds through UI",
+		"MenuButton is usable",
+		"save enables Continue",
+		"ContinueButton is usable",
+		"fresh application restores party from disk",
+		"continue reports success",
+		"restored actor visible",
+		"04_minimum.png: visible control inside screen: MenuScroll",
+		"MenuButton is usable",
+		"05_minimum_menu.png: visible control inside screen: MenuScroll"
+	],
+	"passed": false
+}

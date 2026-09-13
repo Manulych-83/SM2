@@ -16,8 +16,11 @@ static func run(t: Sm2TestHarness) -> void:
 	t.equal(rows[0].location,"Лагерь","location from validated world")
 	t.expect(not rows[0].date.is_empty(),"file modification date available for old format")
 	t.expect(not service.open(0,false).ok,"new campaign refuses occupied slot")
-	var loaded: Dictionary=service.open(0,true); t.expect(loaded.ok,"old save loads without migration")
-	var first: Sm2JourneySession=loaded.session; t.equal(first.state_hash(),old.state_hash(),"old capture exact")
+	var loaded: Dictionary=service.open(0,true); t.expect(loaded.ok,"old save converts in memory without rewriting disk")
+	var first: Sm2JourneySession=loaded.session
+	t.equal(first.world.capture(),old.world.capture(),"converted old world exact")
+	t.equal((first as Sm2CheckpointSession).archive.all_entries(),old.history,"converted old history exact")
+	t.equal(FileAccess.get_file_as_bytes(path),original,"conversion leaves source bytes unchanged until save")
 	var second: Sm2JourneySession=service.open(1,false).session
 	t.expect(not service.occupied(1),"new session is not saved automatically")
 	t.expect(second.world.world_id!=first.world.world_id,"independent world identities")
@@ -37,7 +40,8 @@ static func run(t: Sm2TestHarness) -> void:
 	t.equal(service.token(0),token,"inspection leaves damaged primary and backup unchanged")
 	loaded=service.open(0,true); t.expect(loaded.ok and loaded.recovered,"backup loads")
 	var recovery: Sm2JourneySession=loaded.session
-	t.equal(recovery.state_hash(),old.state_hash(),"recovery uses backup state, not fabricated state")
+	t.equal(recovery.world.capture(),old.world.capture(),"recovery uses exact backup world")
+	t.equal((recovery as Sm2CheckpointSession).archive.all_entries(),old.history,"recovery uses exact backup history")
 	t.expect(recovery.save_game().ok,"recovered session can restore primary")
 	t.equal(FileAccess.get_file_as_bytes(path+".bak"),original,"repair retains verified backup")
 	t.expect(not service.open(0,true).recovered,"repaired primary loads normally")

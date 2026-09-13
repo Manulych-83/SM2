@@ -2,6 +2,8 @@ class_name Sm2BattleResultsView
 extends RefCounted
 ## Frozen battle facts plus explicitly labelled current-location navigation.
 static func build(session: Sm2JourneySession) -> Dictionary:
+	var projected: Variant=session.checkpoint_projection("battle")
+	if projected!=null: return projected
 	var world: Sm2JourneyWorld=session.journey()
 	if world.busy() or world.survival==null or not world.survival.catalog.has_layers() or world.receipt.is_empty(): return {}
 	var raw: Dictionary={}
@@ -9,14 +11,19 @@ static func build(session: Sm2JourneySession) -> Dictionary:
 		if session.history[index].kind=="outcome": raw=session.history[index].battle; break
 	if raw.is_empty() or Sm2Canonical.hash(raw)!=world.receipt: return {}
 	var encounter: Dictionary=session._encounter
-	var decoded: Dictionary=Sm2SurvivalBattle.decode(raw.session.battle,encounter.catalog,encounter.combat,encounter.get("effects"),encounter.get("magic"),encounter.development,encounter.origin,encounter.survival)
+	return from_entry(session,raw,encounter)
+
+static func from_entry(session: Sm2JourneySession,raw: Dictionary,encounter: Dictionary) -> Dictionary:
+	var world: Sm2JourneyWorld=session.journey()
+	if world.busy() or raw.is_empty() or encounter.is_empty() or Sm2Canonical.hash(raw)!=world.receipt: return {}
+	var cache: Sm2ProgressDecodeCache=Sm2ProgressDecodeCache.new()
+	var decoded: Dictionary=Sm2SurvivalBattle.decode(raw.session.battle,encounter.catalog,encounter.combat,encounter.get("effects"),encounter.get("magic"),encounter.development,encounter.origin,encounter.survival,cache)
 	if not decoded.ok or not decoded.state.finished: return {}
 	var state: Sm2TacticalState=decoded.state
 	var outcome: Dictionary=Sm2BattleOutcome.view(state)
-	var title: String="Победа отряда" if outcome.winner=="company" else "Ничья"
-	if outcome.winner=="opposition": title="Отряд отступил" if int(outcome.counts.company.escaped)>0 else "Отряд разбит"
+	var title: String=title_for(outcome)
 	var result: Dictionary={"title":title,"battle_id":state.battle_id,"round":state.round,"counts":outcome.counts.duplicate(true),"party":[],"location":world.region_catalog.location(world.region.location_id).name,"ground":0,"body":world.hero_id(),"world_id":world.world_id,"revision":world.revision}
-	var catalog: Sm2ProgressCatalog=encounter.development.progression()
+	var catalog: Sm2ProgressCatalog=encounter.development._shared_progression()
 	for actor_id: int in [1,2]:
 		var actor: Sm2TacticalActor=state.actor(actor_id)
 		var body_id: String=Sm2SurvivalBattle.body_id(state,actor_id)
@@ -29,7 +36,7 @@ static func build(session: Sm2JourneySession) -> Dictionary:
 		var initial: Dictionary={}
 		for member: Dictionary in state.development.origin.members:
 			if int(member.actor_id)==actor_id: initial=member.body
-		var before: Sm2ProgressBodyState=Sm2ProgressRules.decode_body(initial,catalog).body
+		var before: Sm2ProgressBodyState=Sm2ProgressRules.decode_body(initial,catalog,cache).body
 		var after: Sm2ProgressBodyState=state.development.bodies[actor_id]
 		if after is Sm2CompanionProgress:
 			row.practice.append({"title":"Общий опыт","xp":(after as Sm2CompanionProgress).earned-(before as Sm2CompanionProgress).earned,"before":int((before as Sm2CompanionProgress).describe(catalog).level),"after":int((after as Sm2CompanionProgress).describe(catalog).level)})
@@ -44,3 +51,9 @@ static func build(session: Sm2JourneySession) -> Dictionary:
 		if item.place=="ground": result.ground+=1
 	if result.body==0: result.body=4 if world.bodies[4].alive else int(result.party[0].body_id)
 	return result
+
+static func title_for(outcome: Dictionary) -> String:
+	if outcome.is_empty(): return ""
+	if outcome.winner=="company": return "Победа отряда"
+	if outcome.winner=="opposition": return "Отряд отступил" if int(outcome.counts.company.escaped)>0 else "Отряд разбит"
+	return "Ничья"

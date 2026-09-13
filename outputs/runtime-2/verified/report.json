@@ -1,0 +1,111 @@
+{
+	"failures": [],
+	"metrics": [
+		{
+			"ms": 38.628,
+			"name": "content_service"
+		},
+		{
+			"ms": 16.924,
+			"name": "envelope_read"
+		},
+		{
+			"ms": 31.117,
+			"name": "world_decode"
+		},
+		{
+			"ms": 999.261,
+			"name": "archive_restore_cold"
+		},
+		{
+			"ms": 630.695,
+			"name": "campaign_open_cold"
+		},
+		{
+			"ms": 1.887,
+			"name": "world_copy"
+		},
+		{
+			"ms": 2.712,
+			"name": "session_copy"
+		},
+		{
+			"ms": 10.318,
+			"name": "world_validate"
+		},
+		{
+			"ms": 1.541,
+			"name": "session_capture"
+		},
+		{
+			"ms": 15.095,
+			"name": "candidate_publish"
+		},
+		{
+			"ms": 33.243,
+			"name": "journal_full"
+		},
+		{
+			"ms": 0.479,
+			"name": "journal_page_30"
+		},
+		{
+			"ms": 51.17,
+			"name": "menu_inspect"
+		},
+		{
+			"ms": 272.38,
+			"name": "save_existing"
+		},
+		{
+			"ms": 190.824,
+			"name": "load_warm"
+		},
+		{
+			"ms": 56.2962,
+			"name": "travel_mean_10"
+		},
+		{
+			"ms": 2.007,
+			"name": "inventory_decode_100"
+		},
+		{
+			"ms": 0.145,
+			"name": "inventory_copy_100"
+		},
+		{
+			"ms": 19.568,
+			"name": "inventory_decode_1000"
+		},
+		{
+			"ms": 1.601,
+			"name": "inventory_copy_1000"
+		},
+		{
+			"ms": 226.443,
+			"name": "inventory_decode_10000"
+		},
+		{
+			"ms": 17.931,
+			"name": "inventory_copy_10000"
+		},
+		{
+			"ms": 5.122,
+			"name": "developed_body_decode_100"
+		},
+		{
+			"ms": 0.631,
+			"name": "developed_body_projection_100"
+		},
+		{
+			"ms": 53.245,
+			"name": "developed_body_decode_1000"
+		},
+		{
+			"ms": 6.189,
+			"name": "developed_body_projection_1000"
+		}
+	],
+	"passed": true,
+	"version": "0.8.24-runtime.2"
+}

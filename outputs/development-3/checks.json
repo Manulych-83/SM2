@@ -1,0 +1,101 @@
+{
+  "ui_reports": [
+    "outputs/development-3/ui-current2/report.json",
+    "outputs/development-3/ui-scale2/report.json"
+  ],
+  "ui_checks": 266,
+  "suites": [
+    {
+      "suite": "p1_progression",
+      "checks": 197,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-012436-569-ff2ae340.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-012436-569-ff2ae340.log"
+    },
+    {
+      "suite": "foundation",
+      "checks": 1036,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013654-987-ad34a92f.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013654-987-ad34a92f.log"
+    },
+    {
+      "suite": "p4_hero_screen",
+      "checks": 69,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013930-669-ecf6fe12.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013930-669-ecf6fe12.log"
+    },
+    {
+      "suite": "p5_cross_nodes",
+      "checks": 150,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013700-203-ebb7cad5.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013700-203-ebb7cad5.log"
+    },
+    {
+      "suite": "p5_growth",
+      "checks": 148,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013707-183-09983b58.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-013707-183-09983b58.log"
+    },
+    {
+      "suite": "p5_shield",
+      "checks": 208,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014750-920-c8cc4460.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014750-920-c8cc4460.log"
+    },
+    {
+      "suite": "p5_hybrids",
+      "checks": 446,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014728-751-29aa9706.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014728-751-29aa9706.log"
+    },
+    {
+      "suite": "p2_development",
+      "checks": 349,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014932-311-aa47d538.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014932-311-aa47d538.log"
+    },
+    {
+      "suite": "integration",
+      "checks": 114,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014716-403-8bfa11a1.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014716-403-8bfa11a1.log"
+    },
+    {
+      "suite": "checkpoint",
+      "checks": 490,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-015247-949-06eecfcc.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-015247-949-06eecfcc.log"
+    },
+    {
+      "suite": "campaigns",
+      "checks": 58,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-015313-007-f5fdd1aa.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-015313-007-f5fdd1aa.log"
+    },
+    {
+      "suite": "m2_ai",
+      "checks": 183,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014939-280-d0394e67.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014939-280-d0394e67.log"
+    },
+    {
+      "suite": "m4_areas",
+      "checks": 176,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014948-526-f1e78fd5.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014948-526-f1e78fd5.log"
+    },
+    {
+      "suite": "survival_tissues",
+      "checks": 113,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-015238-933-14903108.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-015238-933-14903108.log"
+    },
+    {
+      "suite": "development_scale",
+      "checks": 94,
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014840-019-2bf01fe6.json",
+      "log": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-014840-019-2bf01fe6.log"
+    }
+  ],
+  "passed": true,
+  "core_checks": 3831.0
+}

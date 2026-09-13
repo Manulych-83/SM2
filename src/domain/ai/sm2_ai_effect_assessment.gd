@@ -6,7 +6,22 @@ static func assess(state: Sm2TacticalState, combat: Sm2CombatCatalog, command: S
 	var candidate: Sm2TacticalState = state.copy()
 	var definition: Sm2EffectDefinition = null
 	var flat: bool = false
-	if check.operation == "apply_effect":
+	if check.operation == "effect_sequence":
+		for id: int in candidate.sorted_effect_ids():
+			var old: Sm2EffectInstance = candidate.effects[id]
+			if old.target_actor_id != command.target_actor_id: continue
+			for op: Sm2EffectOperation in state.effect_catalog.definition(old.definition_id).operations: flat = flat or op.kind == "flat_stat_modifier"
+			candidate.effects.erase(id)
+		for id: String in check.projected_effects:
+			var projected: Dictionary = check.projected_effects[id]
+			var instance: Sm2EffectInstance = Sm2EffectInstance.new()
+			instance.effect_id = int(projected.id)
+			instance.definition_id = id
+			instance.target_actor_id = command.target_actor_id
+			instance.remaining = int(projected.remaining)
+			candidate.effects[instance.effect_id] = instance
+			for op: Sm2EffectOperation in state.effect_catalog.definition(id).operations: flat = flat or op.kind == "flat_stat_modifier"
+	elif check.operation == "apply_effect":
 		definition = state.effect_catalog.definition(state.effect_catalog.action(command.ability_id).effect_id)
 		var previous: Sm2EffectInstance = Sm2EffectResolver.find(candidate,command.target_actor_id,definition.id)
 		if previous == null:
@@ -28,7 +43,7 @@ static func assess(state: Sm2TacticalState, combat: Sm2CombatCatalog, command: S
 	var after_poison: Dictionary = _periodic(candidate,candidate.actor(command.target_actor_id),tuning,budget)
 	var poison_gain: int = int(before_poison.value)-int(after_poison.value) if allied else int(after_poison.value)-int(before_poison.value)
 	var value: int = poison_gain*int(tuning.hp_weight)
-	var urgent: bool = allied and check.operation == "dispel_effects" and int(before_poison.next) >= target.combat.hp and int(after_poison.next) < target.combat.hp
+	var urgent: bool = allied and int(before_poison.next) >= target.combat.hp and int(after_poison.next) < target.combat.hp
 	if flat and not budget.exhausted:
 		var baseline: Sm2TacticalState = state.copy()
 		# Flat changes that expire at this very end of activation cannot protect later attacks.

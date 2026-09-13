@@ -16,10 +16,11 @@ func _problem(slot: String) -> String:
 	return _location_error(slot)
 
 func checked(path: String) -> Dictionary:
-	var result: Dictionary=_read_envelope(path)
+	var result: Dictionary=_read_envelope(path,large_profile)
 	if result.ok:
 		var check: Dictionary=validate_payload.call(result.payload)
 		if not check.ok: return check
+		if check.has("validated_session"): result["validated_session"]=check.validated_session
 	return result
 
 func load_slot(slot: String="survival_tissues") -> Dictionary:
@@ -34,7 +35,7 @@ func load_slot(slot: String="survival_tissues") -> Dictionary:
 
 func save_slot(payload: Dictionary,slot: String="survival_tissues") -> Dictionary:
 	if not _problem(slot).is_empty(): return _failure(_problem(slot))
-	var budget: Array[int]=[MAX_NODES]
+	var budget: Array[int]=[node_budget()]
 	var structure_error: String=_validate_value(payload,0,budget)
 	if not structure_error.is_empty(): return _failure("Некорректные данные сохранения: "+structure_error)
 	var validation: Dictionary=validate_payload.call(payload)

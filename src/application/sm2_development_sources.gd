@@ -6,7 +6,7 @@ static func build(session: Sm2LifeSession,track_id: String) -> Dictionary:
 	var world: Sm2LifeWorld=session.world
 	if world.busy(): result.message="Развитие доступно после завершения боя."; return result
 	var development: Sm2DevelopmentCatalog=session._content.development
-	var catalog: Sm2ProgressCatalog=development.progression()
+	var catalog: Sm2ProgressCatalog=world._progress
 	for body_id: int in world.bodies:
 		var state: Sm2ProgressBodyState=world.bodies[body_id].progress
 		if not state is Sm2CompanionProgress: continue
@@ -18,7 +18,7 @@ static func build(session: Sm2LifeSession,track_id: String) -> Dictionary:
 				if row.id==rule.track_id: row["per_level"]=rule.per_level
 		result.companion=data; break
 	if world.hero_id()==0 or catalog.track(track_id)==null: return result
-	for id: String in catalog.activity_ids():
+	for id: String in catalog.activities_for_track(track_id):
 		var activity: Sm2PracticeDefinition=catalog.activity(id)
 		if not activity.awards.has(track_id): continue
 		var reason: String=world.check(session.command("practice",world.hero_id(),id))

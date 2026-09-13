@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "oracle": {
+    "initial_bytes_equal": true,
+    "final_bytes_equal": true,
+    "steps_equal": true
+  },
+  "baseline": {
+    "start_battle": 5675.285,
+    "runner_view": 13.808,
+    "world_copy": 504.653,
+    "world_validate": 224.904,
+    "session_copy": 1344.916,
+    "publish_unchanged": 1573.459,
+    "battle_copy": 2.433,
+    "battle_decode": 393.459,
+    "runner_restore": 434.544,
+    "action_0_move": 3352.264,
+    "action_1_escape": 3342.685,
+    "action_2_move": 3345.343,
+    "action_3_escape": 5881.367
+  },
+  "final": {
+    "start_battle": 4451.182,
+    "runner_view": 14.252,
+    "world_copy": 9.462,
+    "world_validate": 208.487,
+    "session_copy": 19.76,
+    "publish_unchanged": 1023.415,
+    "battle_copy": 2.257,
+    "battle_decode": 94.743,
+    "runner_restore": 252.019,
+    "kernel_command": 102.533,
+    "capacity_check": 98.524,
+    "active_save": 5718.412,
+    "active_load": 5276.002,
+    "action_0_move": 210.273,
+    "action_1_escape": 228.986,
+    "action_2_move": 201.282,
+    "action_3_escape": 3619.121
+  },
+  "ordinary_speedup": [
+    15.942436737003801,
+    14.597770169355332,
+    16.620179648453412
+  ],
+  "final_snapshot_sha256": "0cb6f2a10f9e7dfa57d8969a506fb9c40ed7e6f57c9521f9b54d09d17f73829d"
+}

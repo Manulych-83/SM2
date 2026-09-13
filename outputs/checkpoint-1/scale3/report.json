@@ -1,0 +1,49 @@
+{
+	"blocks": 65,
+	"engine": "4.7.2-stable (official)",
+	"failures": [],
+	"legacy_payload_bytes": 696149,
+	"metrics": [
+		{
+			"budget_ms": 0.0,
+			"ms": 56531.07,
+			"name": "legacy_import_4096"
+		},
+		{
+			"budget_ms": 0.0,
+			"ms": 5361.473,
+			"name": "extend_to_4160"
+		},
+		{
+			"budget_ms": 3000.0,
+			"ms": 1697.328,
+			"name": "save_4160"
+		},
+		{
+			"budget_ms": 3000.0,
+			"ms": 510.956,
+			"name": "load_4160"
+		},
+		{
+			"budget_ms": 100.0,
+			"ms": 14.593,
+			"name": "journal_4160"
+		},
+		{
+			"budget_ms": 100.0,
+			"ms": 1.049,
+			"name": "objective_4160"
+		},
+		{
+			"budget_ms": 3000.0,
+			"ms": 1698.392,
+			"name": "cold_campaign_open_4160"
+		}
+	],
+	"passed": true,
+	"performance_passed": true,
+	"records": 4160,
+	"snapshot_format": "sm2.checkpoint_journey.1",
+	"snapshot_payload_bytes": 44941,
+	"version": "0.8.22-foundation.3"
+}

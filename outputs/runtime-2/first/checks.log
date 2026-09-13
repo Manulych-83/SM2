@@ -1,0 +1,59 @@
+﻿[2026-09-13T00:56:33.0673265+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\first
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T00:56:33.1183789+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\first
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Регистрация глобальных классов… (8 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Sm2Campaigns[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | Sm2CheckpointArchive[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | Sm2CheckpointSession[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | Sm2JournalQuery[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | Sm2CampaignStore[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | Sm2JournalScreen[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | Sm2StartScreen[39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T00:56:37.1297760+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_runtime.gd -- --report E:\GPT\SM2\outputs\runtime-2\first\report.json
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\first
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RUNTIME content_service 37.996 ms
+RUNTIME envelope_read 14.539 ms
+RUNTIME world_decode 32.169 ms
+RUNTIME archive_restore_cold 938.181 ms
+RUNTIME campaign_open_cold 657.671 ms
+RUNTIME world_copy 1.938 ms
+RUNTIME session_copy 12.204 ms
+RUNTIME world_validate 11.342 ms
+RUNTIME session_capture 1.580 ms
+RUNTIME candidate_publish 16.331 ms
+RUNTIME journal_full 31.082 ms
+RUNTIME menu_inspect 53.963 ms
+RUNTIME save_existing 288.131 ms
+RUNTIME load_warm 262.095 ms
+
+
+ExitCode: 0

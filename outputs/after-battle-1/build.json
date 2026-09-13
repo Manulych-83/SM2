@@ -1,0 +1,9 @@
+{
+  "pack_exit": 0,
+  "version": "0.8.29-after-battle.1",
+  "sha256": "0976BC60983D9BDBF319C8041FB29D351CC26AA450710B2A6F359D9D1FB55D8E",
+  "bytes": 121095280,
+  "export_log": ".local/logs/export-20260913-120828-085-fdb834df.log",
+  "exe_exit": 0,
+  "passed": true
+}

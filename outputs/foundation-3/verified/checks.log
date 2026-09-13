@@ -1,0 +1,62 @@
+﻿[2026-09-12T23:43:46.0829702+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\foundation-3\verified
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-12T23:43:46.1337043+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\foundation-3\verified
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-12T23:43:50.0305409+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_foundation.gd -- --report E:\GPT\SM2\outputs\foundation-3\verified\report.json
+RuntimeRoot: E:\GPT\SM2\.local\foundation-3\verified
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FOUNDATION catalog_build 100: 0.917 ms
+FOUNDATION fingerprint_100_reads 100: 0.026 ms
+FOUNDATION catalog_build 1000: 9.973 ms
+FOUNDATION fingerprint_100_reads 1000: 0.028 ms
+FOUNDATION graph 1000: 1.544 ms
+FOUNDATION graph 10000: 19.119 ms
+FOUNDATION generated 100 real transitions in 4222.165 ms
+FOUNDATION restore 100: 1529.514 ms
+FOUNDATION journal 100: 1556.838 ms
+FOUNDATION objective 100: 1531.057 ms
+FOUNDATION objective_cached 100: 13.548 ms
+FOUNDATION save 100: 3111.779 ms
+FOUNDATION load 100: 3107.794 ms
+FOUNDATION generated 1000 real transitions in 60638.075 ms
+FOUNDATION restore 1000: 14663.820 ms
+FOUNDATION journal 1000: 14725.433 ms
+FOUNDATION objective 1000: 15207.978 ms
+FOUNDATION objective_cached 1000: 42.279 ms
+FOUNDATION save 1000: 29652.163 ms
+FOUNDATION load 1000: 29878.662 ms
+FOUNDATION generated 4096 real transitions in 129308.870 ms
+FOUNDATION restore 4096: 60280.427 ms
+FOUNDATION journal 4096: 61815.114 ms
+FOUNDATION objective 4096: 63555.117 ms
+FOUNDATION objective_cached 4096: 174.557 ms
+FOUNDATION save 4096: 132556.778 ms
+FOUNDATION load 4096: 112653.088 ms
+FOUNDATION_AUDIT_OK
+
+
+ExitCode: 0

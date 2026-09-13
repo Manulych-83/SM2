@@ -1,0 +1,114 @@
+{
+  "ui_checks": 471.0,
+  "core": [
+    {
+      "suite": "rules",
+      "report": "core/rules.json",
+      "passed": true,
+      "checks": 92
+    },
+    {
+      "suite": "m4_effects",
+      "report": "core/m4_effects.json",
+      "passed": true,
+      "checks": 218
+    },
+    {
+      "suite": "m2_attacks",
+      "report": "core/m2_attacks.json",
+      "passed": true,
+      "checks": 350
+    },
+    {
+      "suite": "m4_magic",
+      "report": "core/m4_magic.json",
+      "passed": true,
+      "checks": 244
+    },
+    {
+      "suite": "m4_areas",
+      "report": "core/m4_areas.json",
+      "passed": true,
+      "checks": 176
+    },
+    {
+      "suite": "m4_ability_ai",
+      "report": "core/m4_ability_ai.json",
+      "passed": true,
+      "checks": 296
+    },
+    {
+      "suite": "combat_hud",
+      "report": "core/combat_hud.json",
+      "passed": true,
+      "checks": 81
+    },
+    {
+      "suite": "combat_profile",
+      "report": "core/combat_profile.json",
+      "passed": true,
+      "checks": 403
+    },
+    {
+      "suite": "after_battle",
+      "report": "core/after_battle.json",
+      "passed": true,
+      "checks": 429
+    },
+    {
+      "suite": "unit",
+      "report": "core/unit.json",
+      "passed": true,
+      "checks": 536
+    },
+    {
+      "suite": "content_packages",
+      "report": "core/content_packages.json",
+      "passed": true,
+      "checks": 173
+    },
+    {
+      "suite": "campaigns",
+      "report": "core/campaigns.json",
+      "passed": true,
+      "checks": 58
+    },
+    {
+      "suite": "integration",
+      "report": "core/integration.json",
+      "passed": true,
+      "checks": 114
+    },
+    {
+      "suite": "skill_scale",
+      "report": "core/skill_scale.json",
+      "passed": true,
+      "checks": 126
+    }
+  ],
+  "core_checks": 3296.0,
+  "ui": [
+    {
+      "suite": "ui-final",
+      "report": "ui-final/report.json",
+      "rendered": true,
+      "passed": true,
+      "checks": 78
+    },
+    {
+      "suite": "ui-m4",
+      "report": "ui-m4/report.json",
+      "rendered": true,
+      "passed": true,
+      "checks": 158
+    },
+    {
+      "suite": "ui-combat_hud",
+      "report": "ui-combat_hud/report.json",
+      "rendered": true,
+      "passed": true,
+      "checks": 235
+    }
+  ],
+  "passed": true
+}

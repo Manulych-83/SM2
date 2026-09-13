@@ -1,24 +1,24 @@
 class_name Sm2SurvivalContentLoader
 extends RefCounted
-static func load_scenario(with_devices: bool=false,with_layers: bool=false) -> Dictionary:
+static func load_scenario(with_devices: bool=false,with_layers: bool=false,item_manifest: String="res://content/packages/survival.json") -> Dictionary:
 	with_devices=with_devices or with_layers
 	var content: Dictionary=Sm2RegionContentLoader.load_scenario()
 	if not content.ok: return content
 	var raw: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://content/survival/rules.json"))
 	if not raw is Dictionary: return {"ok":false,"errors":PackedStringArray(["survival_content_file"])}
-	# Device physical defaults are explicit authoring data in the companion file.
-	var devices: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://content/survival/devices.json"))
-	if not devices is Array: return {"ok":false,"errors":PackedStringArray(["survival_device_file"])}
-	raw.items.append_array(devices)
+	var roots: Array[String]=["survival.tissues" if with_layers else "survival.repair" if with_devices else "survival.devices"]
+	var packages: Dictionary=Sm2ContentPackages.load_groups(item_manifest,roots)
+	if not packages.ok: return {"ok":false,"errors":PackedStringArray(["survival_packages: "+JSON.stringify(packages.errors)]),"diagnostics":packages.errors}
+	if packages.groups.keys()!=["items"]: return {"ok":false,"errors":PackedStringArray(["survival_package_groups"])}
+	raw.items=packages.groups.items
 	if with_devices:
 		var rules: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://content/survival/prostheses.json"))
 		if not rules is Dictionary: return {"ok":false,"errors":PackedStringArray(["survival_prostheses_file"])}
 		raw.version="sm2.survival.content.2"; raw["devices"]=rules
-		raw.items.append({"id":"repair_parts","name":"Комплект деталей","mass":100,"volume":1,"size":1,"capacity":0,"max_mass":0,"max_size":0,"quick":false,"slot":""})
 	if with_layers:
 		var extension: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://content/survival/tissues.json"))
 		if not extension is Dictionary or not Sm2Validate.fields(extension,["tissue_layers","supplies","items"]) or not extension.items is Array: return {"ok":false,"errors":PackedStringArray(["tissue_content_file"])}
-		raw.version="sm2.survival.content.3"; raw["tissue_layers"]=extension.tissue_layers; raw["supplies"]=extension.supplies; raw.items.append_array(extension.items)
+		raw.version="sm2.survival.content.3"; raw["tissue_layers"]=extension.tissue_layers; raw["supplies"]=extension.supplies
 	var catalog: Sm2SurvivalCatalog=Sm2SurvivalCatalog.new()
 	var errors: PackedStringArray=catalog.build(raw)
 	if not errors.is_empty(): return {"ok":false,"errors":errors}

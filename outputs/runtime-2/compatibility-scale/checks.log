@@ -1,0 +1,42 @@
+﻿[2026-09-13T01:10:06.0040247+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\compatibility-scale
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T01:10:06.0561249+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\compatibility-scale
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T01:10:10.1088014+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_checkpoint.gd -- --source E:\GPT\SM2\.local\foundation-3\verified\appdata\SM2\foundation\4096\survival_tissues.json --report E:\GPT\SM2\outputs\runtime-2\compatibility-scale\report.json
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\compatibility-scale
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CHECKPOINT legacy_import_4096: 72660.093 ms
+CHECKPOINT extend_to_4160: 3735.459 ms
+CHECKPOINT save_4160: 1738.608 ms
+CHECKPOINT load_4160: 424.955 ms
+CHECKPOINT journal_4160: 58.020 ms
+CHECKPOINT objective_4160: 0.963 ms
+CHECKPOINT cold_campaign_open_4160: 1402.583 ms
+CHECKPOINT_SCALE_OK
+
+
+ExitCode: 0

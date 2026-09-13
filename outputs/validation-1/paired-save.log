@@ -1,0 +1,25 @@
+﻿[2026-09-13T11:40:05.6304109+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\paired-save
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T11:40:05.6772947+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script E:\GPT\SM2\.local\validation-1\paired_save.gd
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\paired-save
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COMBAT_RUNTIME single_save_0 6862.553 ms
+COMBAT_RUNTIME single_load_0 3066.122 ms
+COMBAT_RUNTIME full_save_0 7272.112 ms
+COMBAT_RUNTIME full_load_0 3263.817 ms
+COMBAT_RUNTIME full_save_1 7176.484 ms
+COMBAT_RUNTIME full_load_1 3316.643 ms
+COMBAT_RUNTIME single_save_1 6799.214 ms
+COMBAT_RUNTIME single_load_1 3087.422 ms
+COMBAT_RUNTIME single_save_2 6861.084 ms
+COMBAT_RUNTIME single_load_2 3099.871 ms
+COMBAT_RUNTIME full_save_2 7211.977 ms
+COMBAT_RUNTIME full_load_2 3314.900 ms
+
+
+ExitCode: 0

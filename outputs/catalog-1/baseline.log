@@ -1,0 +1,14 @@
+﻿[2026-09-13T13:31:08.3715009+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\catalog-1\baseline
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T13:31:08.4190859+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://.local/catalog-1/capture_baseline.gd
+RuntimeRoot: E:\GPT\SM2\.local\catalog-1\baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BASELINE_OK
+
+
+ExitCode: 0

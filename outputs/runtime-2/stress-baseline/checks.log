@@ -1,0 +1,59 @@
+﻿[2026-09-13T01:01:40.3773476+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\stress-baseline
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T01:01:40.4289448+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\stress-baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T01:01:44.5145753+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_runtime.gd -- --report E:\GPT\SM2\outputs\runtime-2\stress-baseline\report.json
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\stress-baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RUNTIME content_service 42.214 ms
+RUNTIME envelope_read 16.566 ms
+RUNTIME world_decode 32.915 ms
+RUNTIME archive_restore_cold 940.691 ms
+RUNTIME campaign_open_cold 637.533 ms
+RUNTIME world_copy 1.904 ms
+RUNTIME session_copy 2.811 ms
+RUNTIME world_validate 11.544 ms
+RUNTIME session_capture 1.556 ms
+RUNTIME candidate_publish 16.164 ms
+RUNTIME journal_full 32.141 ms
+RUNTIME journal_page_30 0.481 ms
+RUNTIME menu_inspect 55.063 ms
+RUNTIME save_existing 276.451 ms
+RUNTIME load_warm 174.979 ms
+RUNTIME inventory_decode_100 5.378 ms
+RUNTIME inventory_copy_100 0.164 ms
+RUNTIME inventory_decode_1000 226.178 ms
+RUNTIME inventory_copy_1000 1.604 ms
+RUNTIME inventory_decode_10000 23671.970 ms
+RUNTIME inventory_copy_10000 21.562 ms
+RUNTIME developed_body_decode_100 2.559 ms
+RUNTIME developed_body_projection_100 0.317 ms
+RUNTIME developed_body_decode_1000 32.157 ms
+RUNTIME developed_body_projection_1000 3.255 ms
+
+
+ExitCode: 0

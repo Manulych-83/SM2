@@ -4,6 +4,23 @@ const STATS: Dictionary = {"melee_skill":"Ближний навык","ranged_ski
 const EFFECT_REASONS: Dictionary = {"effect_immune":"Цель невосприимчива к этому эффекту", "effect_already_full":"Эффект уже действует полный срок", "no_dispellable_effects":"Нет отрицательных эффектов для снятия", "effect_target_side":"Выберите подходящего союзника или противника", "effect_limit":"Достигнут предел эффектов", "effect_id_limit":"Исчерпан счётчик эффектов"}
 const ABILITIES: Dictionary = {"psionic_strike":"Псионический удар","hand_strike":"Удар по правой руке", "shield_hand_strike":"Удар по левой руке","sword_strike": "Удар мечом", "spear_thrust": "Укол копьём", "axe_strike": "Удар топором", "bow_shot": "Выстрел", "split_shield": "Разрубить щит", "shieldwall": "Защита щитом"}
 const MORALE: Dictionary = {"steady": "Уверен", "wavering": "Колеблется", "breaking": "На грани", "fleeing": "Бежит"}
+
+static func stat_calculation(stat: String, data: Dictionary) -> String:
+	var lines: PackedStringArray = ["%s: %s · основа %s" % [STATS.get(stat,stat),data.value,data.base]]
+	var labels: Dictionary = {"development":"Развитие","morale":"Мораль","nonnegative":"Нижний предел","fleeing_defense":"Бегство: защита снята"}
+	var shown: int = 0
+	var omitted: int = 0
+	for step: Dictionary in data.get("steps",[]):
+		if not step.applied or (step.before == step.after and step.source != "morale"): continue
+		if shown >= 8:
+			omitted += 1
+			continue
+		var source: String = data.get("effect_names",{}).get(step.source,labels.get(step.source,step.source))
+		var operation: String = {"add":"%+d" % step.amount,"scale_percent":"×%s%%" % step.amount,"minimum":"не ниже %s" % step.amount,"maximum":"не выше %s" % step.amount,"set":"= %s" % step.amount}.get(step.operation,step.operation)
+		lines.append("  %s: %s → %s" % [source,operation,step.after])
+		shown += 1
+	if omitted > 0: lines.append("  Ещё источников: %s; все учтены в итоге." % omitted)
+	return "\n".join(lines)
 const REASONS: Dictionary = {"area_cell_required":"Выберите центральный гекс", "area_center_blocked":"Здесь нельзя разместить центр области", "area_no_enemies":"В области нет противников", "target_out_of_bounds":"Выберите клетку поля", "not_active_actor": "Сейчас ходит другой боец", "insufficient_ap": "Не хватает очков действий", "fatigue_limit": "Не хватает сил", "attack_range": "Цель вне дальности", "line_of_sight_blocked": "Линия огня перекрыта", "ranged_in_control": "Враг рядом мешает стрелять", "elevation_gap": "Слишком большой перепад высоты", "target_shield_missing": "У цели нет целого щита", "shieldwall_already_used": "Защита уже использована в этом раунде", "no_ammunition": "Закончились стрелы", "wait_already_used": "Ожидание уже использовано", "wait_phase": "В отложенном ходе ждать нельзя", "escape_boundary_required": "Выход доступен только на краю поля", "battle_finished": "Бой завершён", "occupied": "Клетка занята", "impassable": "Непроходимая клетка", "not_player_turn": "Сейчас ход противника", "fleeing_cannot_wait": "Бегущий боец не может ждать", "fleeing_cannot_attack": "Бегущий боец не может атаковать"}
 
 static func effect_description(effect: Dictionary) -> String:
@@ -13,6 +30,19 @@ static func effect_description(effect: Dictionary) -> String:
 		if op.kind == "periodic_hp_damage": text_value += "\nТик: %s HP · сопротивление %s%%" % [op.tick_loss,op.resistance]
 		elif op.kind == "flat_stat_modifier": text_value += "\n%s: %+d" % [STATS.get(op.stat,op.stat),op.amount]
 	return text_value
+
+static func sequence_description(steps: Array) -> String:
+	var lines: PackedStringArray = ["По порядку:"]
+	var details: PackedStringArray = []
+	for index: int in steps.size():
+		var step: Dictionary = steps[index]
+		var title: String = step.get("description",{}).get("name","Снять отрицательные эффекты")
+		lines.append("%s. %s%s" % [index+1,title," · пропуск" if not step.applied else ""])
+		if step.applied:
+			var description: String = effect_description(step.description) if step.has("description") else "%s: %s" % [title,step.remove_definitions.size()]
+			details.append(description)
+		else: details.append("%s: %s" % [title,reason(step.reason)])
+	return "\n".join(lines)+"\n\nБез броска попадания.\n"+"\n".join(details)
 
 static func function_status(part: Dictionary) -> String:
 	if not str(part.get("prosthesis_id","")).is_empty(): return "протез работает" if part.working else "протез повреждён"
@@ -38,6 +68,8 @@ static func actor(data: Dictionary) -> String:
 	return "%s №%s" % [role, data.actor_id]
 
 static func reason(code: String) -> String:
+	if code == "effect_condition_unmet": return "Условие шага не выполнено"
+	if code == "effect_sequence_no_change": return "Все шаги недоступны; очки действия не тратятся"
 	if code == "self_target_required": return "Эта способность применяется только на себя"
 	if code == "insufficient_concentration": return "Не хватает концентрации"
 	if code == "insufficient_mana": return "Не хватает маны"
@@ -66,6 +98,8 @@ static func lines(events: Array[Dictionary]) -> Array[String]:
 			"body_part_lost": result.append("Участник №%s: %s — утрачена" % [event.target_actor_id,event.name])
 			"prosthesis_damaged": result.append("Участник №%s: %s — протез повреждён" % [event.target_actor_id,event.name])
 			"body_function_lost": result.append("Участник №%s: %s — тяжёлая травма" % [event.target_actor_id,event.name])
+			"battle_practice_accumulated": result.append("%s: %s +%s опыта · будет учтён после боя" % [source,event.name,event.amount])
+			"battle_growth_applied": result.append("%s: %s · +%s опыта · уровень %s → %s" % [source,event.name,event.amount,event.level_before,event.level_after])
 			"companion_experience_awarded": result.append("%s: общий опыт +%s · уровень %s" % [source,event.amount,event.level_after])
 			"battle_practice_awarded": result.append("%s: %s +%s опыта · уровень %s" % [source,event.name,event.amount,event.level_after])
 			"battle_node_purchased": result.append("%s изучил «%s» за %s опыта" % [source,event.name,event.cost])
@@ -78,6 +112,7 @@ static func lines(events: Array[Dictionary]) -> Array[String]:
 			"area_spell_cast": result.append("%s: %s · центр (%s, %s) · целей: %s" % [source,event.name,event.q,event.r,event.target_count])
 			"spell_cast": result.append("%s → %s: %s · %s HP" % [source,target,event.name,event.loss])
 			"effect_applied", "effect_refreshed": result.append("%s: %s · срок %s" % [target,event.name,event.remaining])
+			"effect_step_skipped": result.append("%s: шаг %s пропущен · %s" % [target,event.step,reason(event.reason)])
 			"effect_ticked": result.append("%s: %s, тик −%s HP" % [target,event.name,event.loss])
 			"effect_removed": result.append("%s: %s снят (%s)" % [target,event.name,{"expired":"срок истёк","dispelled":"очищение","death":"смерть","escaped":"выход","battle_finished":"конец боя"}.get(event.reason,event.reason)])
 			"round_started": result.append("— Раунд %s —" % event.round)

@@ -30,9 +30,8 @@ static func restore(raw: Dictionary, state: Sm2TacticalState, actor: Sm2Tactical
 	var dev: Sm2BattleDevelopment=state.development
 	if actor.spatial.actor_id!=dev.catalog.hero() or not actor.spatial.occupies(): return "barrier_owner"
 	var psi: Sm2PsionicCatalog=dev.catalog.psionics()
-	var body: Sm2ProgressBodyState=dev.bodies[actor.spatial.actor_id]
-	if psi.ability(raw.ability_id).get("operation")!="self_barrier" or not psi.available(body,raw.ability_id) or int(dev.counts[actor.spatial.actor_id].get(raw.ability_id,0))==0: return "barrier_source"
-	if int(raw.capacity)>int(psi.capacity(raw.ability_id,body,dev.progress,dev.track_modifiers(actor.spatial.actor_id)).total): return "barrier_capacity"
+	if psi.ability(raw.ability_id).get("operation")!="self_barrier" or not dev.psionic_available(actor.spatial.actor_id,raw.ability_id) or int(dev.counts[actor.spatial.actor_id].get(raw.ability_id,0))==0: return "barrier_source"
+	if int(raw.capacity)>int(dev.psionic_parameter(actor.spatial.actor_id,raw.ability_id,true).total): return "barrier_capacity"
 	if int(raw.expires_round)==state.round and actor.activation_started: return "barrier_expired"
 	actor.barrier.ability_id=raw.ability_id; actor.barrier.capacity=int(raw.capacity); actor.barrier.remaining=int(raw.remaining); actor.barrier.expires_round=int(raw.expires_round)
 	return ""

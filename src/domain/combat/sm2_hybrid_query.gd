@@ -9,7 +9,7 @@ static func details(state: Sm2TacticalState,actor_id: int,id: String) -> Diction
 	var entry: Dictionary=definition(state,id)
 	if entry.is_empty(): return {}
 	var dev: Sm2BattleDevelopment=state.development
-	if actor_id!=dev.catalog.hero() or not dev.bodies.has(actor_id): return {}
-	var cost: Dictionary=Sm2PsionicCostQuery.resolve(int(entry.concentration_cost),dev.catalog.upgrades(),dev.upgrades.get(actor_id))
-	var damage: Dictionary=dev.catalog.hybrids().damage(id,dev.bodies[actor_id],dev.progress,dev.track_modifiers(actor_id))
+	if actor_id!=dev.catalog.hero() or not dev.has_actor(actor_id): return {}
+	var cost: Dictionary=dev.concentration_cost(actor_id,int(entry.concentration_cost),id)
+	var damage: Dictionary=dev.hybrid_parameter(actor_id,id)
 	return {"name":entry.name,"mana_cost":cost.total,"cost_calculation":cost,"psionic_damage":damage.total,"damage_calculation":damage,"base_attack":entry.base_attack,"awards":entry.awards}

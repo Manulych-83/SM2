@@ -1,0 +1,105 @@
+{
+  "ui_checks": 343,
+  "passed": true,
+  "core": [
+    {
+      "passed": true,
+      "suite": "content_packages",
+      "report": "core/checks-20260913-135642-642-6f35e5df.json",
+      "checks": 173
+    },
+    {
+      "passed": true,
+      "suite": "p1_progression",
+      "report": "core/checks-20260913-135648-613-22886935.json",
+      "checks": 197
+    },
+    {
+      "passed": true,
+      "suite": "p2_development",
+      "report": "core/checks-20260913-135653-309-912b0223.json",
+      "checks": 349
+    },
+    {
+      "passed": true,
+      "suite": "p4_party",
+      "report": "core/checks-20260913-135659-707-6c08a57b.json",
+      "checks": 272
+    },
+    {
+      "passed": true,
+      "suite": "development_scale",
+      "report": "core/checks-20260913-135706-488-651f8bf0.json",
+      "checks": 94
+    },
+    {
+      "passed": true,
+      "suite": "after_battle",
+      "report": "core/checks-20260913-135723-346-cada9d7b.json",
+      "checks": 429
+    },
+    {
+      "passed": true,
+      "suite": "checkpoint",
+      "report": "core/checks-20260913-135824-981-d6d5d2bc.json",
+      "checks": 490
+    },
+    {
+      "passed": true,
+      "suite": "validation",
+      "report": "core/checks-20260913-135844-042-3029532d.json",
+      "checks": 68
+    },
+    {
+      "passed": true,
+      "suite": "combat_profile",
+      "report": "core/checks-20260913-135849-806-b1f01c07.json",
+      "checks": 403
+    },
+    {
+      "passed": true,
+      "suite": "campaigns",
+      "report": "core/checks-20260913-135902-215-fdb027ca.json",
+      "checks": 58
+    },
+    {
+      "passed": true,
+      "suite": "integration",
+      "report": "core/checks-20260913-135909-227-47765894.json",
+      "checks": 114
+    },
+    {
+      "passed": true,
+      "suite": "p4_hero_screen",
+      "report": "core/checks-20260913-135914-110-3f4219cd.json",
+      "checks": 69
+    },
+    {
+      "passed": true,
+      "suite": "skill_scale",
+      "report": "core/checks-20260913-135556-428-604f25ec.json",
+      "checks": 126
+    }
+  ],
+  "ui": [
+    {
+      "passed": true,
+      "checks": 77,
+      "report": "ui-final/report.json",
+      "rendered": true
+    },
+    {
+      "passed": true,
+      "checks": 88,
+      "report": "ui-nodes/report.json",
+      "rendered": true
+    },
+    {
+      "passed": true,
+      "checks": 178,
+      "report": "ui-ordinary/report.json",
+      "rendered": true
+    }
+  ],
+  "core_checks": 2842
+}

@@ -14,7 +14,7 @@ func build(screen: Sm2LifeScreen) -> void:
 	var page: VBoxContainer=VBoxContainer.new(); page.add_theme_constant_override("separation",12); margin.add_child(page)
 	var header: HBoxContainer=HBoxContainer.new(); frame(page).add_child(header)
 	var title: Label=label("КАРТА И ЛАГЕРЬ",24,Sm2BronzeTheme.GOLD); title.add_theme_font_override("font",Sm2BronzeTheme.SERIF); title.size_flags_horizontal=Control.SIZE_EXPAND_FILL; header.add_child(title)
-	header.add_child(button(Sm2Controls.caption("development","Развитие"),"WorldDevelopment",func() -> void: owner.development_requested.emit()))
+	var development: Button=button(Sm2Controls.caption("development","Развитие"),"WorldDevelopment",func() -> void: owner.development_requested.emit()); development.custom_minimum_size.x=145; header.add_child(development)
 	if not session.journey().busy() and not session.journey().receipt.is_empty():
 		header.add_child(button("Последний бой","CampBattleResults",func() -> void: owner.battle_requested.emit()))
 	header.add_child(button("Сохранить","WorldSave",owner._save)); header.add_child(button("Загрузить","WorldLoad",owner._load)); header.add_child(button("Меню","WorldMenu",func() -> void: owner.menu_requested.emit()))
@@ -27,6 +27,7 @@ func build(screen: Sm2LifeScreen) -> void:
 		var panel: PanelContainer=frame(columns); panel.custom_minimum_size.x=210; party(scroll(panel))
 	var map_panel: PanelContainer=frame(columns); map_panel.size_flags_horizontal=Control.SIZE_EXPAND_FILL; map_panel.size_flags_stretch_ratio=1.15
 	var map_column: VBoxContainer=scroll(map_panel)
+	Sm2ExpeditionScreen.card(owner,map_column)
 	var valid: bool=false
 	for place: Dictionary in model.places:
 		if place.id==owner._map_selection: valid=true

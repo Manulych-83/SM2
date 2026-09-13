@@ -1,0 +1,56 @@
+﻿[
+    {
+        "suite":  "survival",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133830-061-c0e9e1c1.json",
+        "checks":  79,
+        "passed":  true
+    },
+    {
+        "suite":  "survival_devices",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133838-604-19a9833d.json",
+        "checks":  113,
+        "passed":  true
+    },
+    {
+        "suite":  "survival_tissues",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133846-999-a46d7ffe.json",
+        "checks":  113,
+        "passed":  true
+    },
+    {
+        "suite":  "checkpoint",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133856-346-1b25a28c.json",
+        "checks":  490,
+        "passed":  true
+    },
+    {
+        "suite":  "campaigns",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133928-329-b504be95.json",
+        "checks":  58,
+        "passed":  true
+    },
+    {
+        "suite":  "combat_profile",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133935-347-c025806e.json",
+        "checks":  403,
+        "passed":  true
+    },
+    {
+        "suite":  "integration",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133948-213-a46d5493.json",
+        "checks":  114,
+        "passed":  true
+    },
+    {
+        "suite":  "survival_workspace",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133953-253-bed04420.json",
+        "checks":  184,
+        "passed":  true
+    },
+    {
+        "suite":  "m2_content",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-133958-799-054f4155.json",
+        "checks":  222,
+        "passed":  true
+    }
+]

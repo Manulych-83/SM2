@@ -1,0 +1,286 @@
+{
+	"app_version": "0.8.21-loop.2",
+	"blockers": [
+		{
+			"errors": [
+				"progress_content_group"
+			],
+			"kind": "catalog_limit",
+			"rejected_group_size": 1001,
+			"supported_group_size": 1000
+		},
+		{
+			"budget_ms": 100,
+			"count": 100,
+			"kind": "latency",
+			"ms": 1610.318,
+			"operation": "journal"
+		},
+		{
+			"budget_ms": 100,
+			"count": 100,
+			"kind": "latency",
+			"ms": 1691.437,
+			"operation": "objective"
+		},
+		{
+			"budget_ms": 3000,
+			"count": 100,
+			"kind": "latency",
+			"ms": 3177.601,
+			"operation": "save"
+		},
+		{
+			"budget_ms": 3000,
+			"count": 100,
+			"kind": "latency",
+			"ms": 3315.352,
+			"operation": "load"
+		},
+		{
+			"budget_ms": 2000,
+			"count": 1000,
+			"kind": "latency",
+			"ms": 15468.318,
+			"operation": "restore"
+		},
+		{
+			"budget_ms": 100,
+			"count": 1000,
+			"kind": "latency",
+			"ms": 15579.486,
+			"operation": "journal"
+		},
+		{
+			"budget_ms": 100,
+			"count": 1000,
+			"kind": "latency",
+			"ms": 16188.786,
+			"operation": "objective"
+		},
+		{
+			"budget_ms": 3000,
+			"count": 1000,
+			"kind": "latency",
+			"ms": 31715.169,
+			"operation": "save"
+		},
+		{
+			"budget_ms": 3000,
+			"count": 1000,
+			"kind": "latency",
+			"ms": 30384.192,
+			"operation": "load"
+		},
+		{
+			"budget_ms": 2000,
+			"count": 4096,
+			"kind": "latency",
+			"ms": 60215.15,
+			"operation": "restore"
+		},
+		{
+			"budget_ms": 100,
+			"count": 4096,
+			"kind": "latency",
+			"ms": 61165.636,
+			"operation": "journal"
+		},
+		{
+			"budget_ms": 100,
+			"count": 4096,
+			"kind": "latency",
+			"ms": 40282.636,
+			"operation": "objective"
+		},
+		{
+			"budget_ms": 3000,
+			"count": 4096,
+			"kind": "latency",
+			"ms": 99496.35,
+			"operation": "save"
+		},
+		{
+			"budget_ms": 3000,
+			"count": 4096,
+			"kind": "latency",
+			"ms": 122355.048,
+			"operation": "load"
+		},
+		{
+			"checkpoint_archive": false,
+			"entries": 4096,
+			"kind": "history_limit"
+		}
+	],
+	"budgets_ms": {
+		"catalog_build": 1000,
+		"graph": 250,
+		"journal": 100,
+		"load": 3000,
+		"objective": 100,
+		"restore": 2000,
+		"save": 3000
+	},
+	"content": {
+		"diagnostics": [],
+		"fingerprint": "c46001167cb8c820d2b2e4893a3aca674eee87d1fcfd9900a392db7e518f1d13",
+		"journey_fingerprint": "13c3c73aff757015a3df227e29dfc46913b26a4bdd577dbef19b587cc7d54951",
+		"nodes": 15,
+		"ok": true,
+		"validation": []
+	},
+	"engine": "4.7.2-stable (official)",
+	"failures": [],
+	"format": "sm2.foundation.audit.1",
+	"metrics": [
+		{
+			"count": 100,
+			"ms": 2.98,
+			"operation": "catalog_build"
+		},
+		{
+			"count": 100,
+			"ms": 107.365,
+			"operation": "fingerprint_100_reads"
+		},
+		{
+			"count": 1000,
+			"ms": 829.456,
+			"operation": "catalog_build"
+		},
+		{
+			"count": 1000,
+			"ms": 1107.354,
+			"operation": "fingerprint_100_reads"
+		},
+		{
+			"count": 1000,
+			"ms": 1.453,
+			"operation": "graph"
+		},
+		{
+			"count": 10000,
+			"ms": 17.605,
+			"operation": "graph"
+		},
+		{
+			"count": 100,
+			"ms": 1509.652,
+			"operation": "restore"
+		},
+		{
+			"count": 100,
+			"ms": 1610.318,
+			"operation": "journal"
+		},
+		{
+			"count": 100,
+			"ms": 1691.437,
+			"operation": "objective"
+		},
+		{
+			"count": 100,
+			"ms": 14.161,
+			"operation": "objective_cached"
+		},
+		{
+			"count": 100,
+			"ms": 3177.601,
+			"operation": "save"
+		},
+		{
+			"bytes": 51692,
+			"count": 100,
+			"operation": "payload",
+			"save_errors": [],
+			"save_ok": true,
+			"tree_values": 3478
+		},
+		{
+			"count": 100,
+			"ms": 3315.352,
+			"operation": "load"
+		},
+		{
+			"count": 1000,
+			"ms": 15468.318,
+			"operation": "restore"
+		},
+		{
+			"count": 1000,
+			"ms": 15579.486,
+			"operation": "journal"
+		},
+		{
+			"count": 1000,
+			"ms": 16188.786,
+			"operation": "objective"
+		},
+		{
+			"count": 1000,
+			"ms": 45.598,
+			"operation": "objective_cached"
+		},
+		{
+			"count": 1000,
+			"ms": 31715.169,
+			"operation": "save"
+		},
+		{
+			"bytes": 196145,
+			"count": 1000,
+			"operation": "payload",
+			"save_errors": [],
+			"save_ok": true,
+			"tree_values": 12478
+		},
+		{
+			"count": 1000,
+			"ms": 30384.192,
+			"operation": "load"
+		},
+		{
+			"count": 4096,
+			"ms": 60215.15,
+			"operation": "restore"
+		},
+		{
+			"count": 4096,
+			"ms": 61165.636,
+			"operation": "journal"
+		},
+		{
+			"count": 4096,
+			"ms": 40282.636,
+			"operation": "objective"
+		},
+		{
+			"count": 4096,
+			"ms": 72.898,
+			"operation": "objective_cached"
+		},
+		{
+			"count": 4096,
+			"ms": 99496.35,
+			"operation": "save"
+		},
+		{
+			"bytes": 696149,
+			"count": 4096,
+			"operation": "payload",
+			"save_errors": [],
+			"save_ok": true,
+			"tree_values": 43438
+		},
+		{
+			"count": 4096,
+			"ms": 122355.048,
+			"operation": "load"
+		}
+	],
+	"passed": true,
+	"processor": "Intel(R) Core(TM) i7-14700",
+	"ready_for_large_campaign": false,
+	"static_memory_bytes": 64309692
+}

@@ -1,0 +1,59 @@
+﻿[2026-09-13T01:00:55.4580455+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\stress-before
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T01:00:55.5086804+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\stress-before
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T01:00:59.7579577+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_runtime.gd -- --report E:\GPT\SM2\outputs\runtime-2\stress-before\report.json
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\stress-before
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RUNTIME content_service 37.867 ms
+RUNTIME envelope_read 17.208 ms
+RUNTIME world_decode 32.333 ms
+RUNTIME archive_restore_cold 992.336 ms
+RUNTIME campaign_open_cold 624.975 ms
+RUNTIME world_copy 1.901 ms
+RUNTIME session_copy 2.825 ms
+RUNTIME world_validate 11.247 ms
+RUNTIME session_capture 1.524 ms
+RUNTIME candidate_publish 15.755 ms
+RUNTIME journal_full 30.245 ms
+RUNTIME journal_page_30 0.434 ms
+RUNTIME menu_inspect 53.450 ms
+RUNTIME save_existing 275.719 ms
+RUNTIME load_warm 189.262 ms
+RUNTIME inventory_decode_100 0.417 ms
+RUNTIME inventory_copy_100 0.112 ms
+RUNTIME inventory_decode_1000 4.220 ms
+RUNTIME inventory_copy_1000 1.207 ms
+RUNTIME inventory_decode_10000 52.919 ms
+RUNTIME inventory_copy_10000 15.352 ms
+RUNTIME developed_body_decode_100 4.386 ms
+RUNTIME developed_body_projection_100 0.567 ms
+RUNTIME developed_body_decode_1000 51.459 ms
+RUNTIME developed_body_projection_1000 6.206 ms
+
+
+ExitCode: 1

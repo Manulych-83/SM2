@@ -1,0 +1,114 @@
+﻿[
+    {
+        "passed":  true,
+        "suite":  "validation",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120552-953-2be67d5e.json",
+        "checks":  68,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "combat_runtime",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120559-108-dc31bc74.json",
+        "checks":  506,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "combat_io",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120616-830-b917be5c.json",
+        "checks":  38,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "checkpoint",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120623-057-04f22b21.json",
+        "checks":  490,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "development_scale",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120655-868-12ad928b.json",
+        "checks":  94,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "p2_development",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120723-696-aea18281.json",
+        "checks":  349,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "p5_hybrids",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120730-150-2061474b.json",
+        "checks":  446,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "p5_shield",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120745-872-22555505.json",
+        "checks":  208,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "p5_growth",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120753-358-690be1fa.json",
+        "checks":  148,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "p5_cross_nodes",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120800-462-818a82df.json",
+        "checks":  150,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "m2_ai",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120806-680-c1bf5d5f.json",
+        "checks":  183,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "survival_tissues",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120815-436-d6878edc.json",
+        "checks":  113,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "campaigns",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120824-861-9195fa35.json",
+        "checks":  58,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "expedition",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120831-990-8cc1cd3d.json",
+        "checks":  155,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "battle_results",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120858-409-df571aae.json",
+        "checks":  158,
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "suite":  "integration",
+        "report":  "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-120921-545-a231c308.json",
+        "checks":  114,
+        "exit_code":  0
+    }
+]

@@ -64,7 +64,7 @@ static func campaigns(owner: Control,rows: Array[Dictionary]) -> void:
 		if row.occupied:
 			header.add_child(owner._button("Удалить","CampaignDelete_"+str(row.index),owner._request_campaign_delete.bind(row.index,row.token)))
 		var text: String="Пустой слот" if not row.occupied else "Сохранение повреждено или несовместимо"
-		if row.ok: text=("Резервная копия · " if row.recovered else "Сохранено · ")+row.date+"\n"+row.location+" · "+row.state
+		if row.ok: text=("Резервная копия · " if row.recovered else "Сохранено · ")+row.date+"\n"+row.location+" · "+row.state+"\nПолная проверка — при загрузке."
 		var info: Label=label(text,15,B.PSI if row.recovered else B.MUTED); info.name="CampaignInfo_"+str(row.index); body.add_child(info)
 		body.add_child(owner._button("Восстановить резервную копию" if row.recovered else "Загрузить" if row.occupied else "Начать кампанию","CampaignOpen_"+str(row.index),owner._open_campaign.bind(row.index,row.occupied),row.occupied and not row.ok))
 	if not owner._notice.is_empty(): column.add_child(label(owner._notice,14,Color("f0a491")))

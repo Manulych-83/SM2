@@ -1,0 +1,191 @@
+{
+  "passed": true,
+  "core_checks": 4581,
+  "ui_checks": 804,
+  "core": [
+    {
+      "suite": "combat_runtime",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 506,
+      "report": "E:/GPT/SM2/.local/logs/checks-20260913-110246-208-aade0cf4.json",
+      "artifact": "outputs/combat-runtime-1/core/combat_runtime.json"
+    },
+    {
+      "passed": true,
+      "suite": "checkpoint",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110438-498-93f36aa6.json",
+      "checks": 490,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/checkpoint.json"
+    },
+    {
+      "passed": true,
+      "suite": "development_scale",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110505-091-b35b1774.json",
+      "checks": 94,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/development_scale.json"
+    },
+    {
+      "passed": true,
+      "suite": "p2_development",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110533-361-7aa1ea88.json",
+      "checks": 349,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/p2_development.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_hybrids",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110539-505-c7a37215.json",
+      "checks": 446,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/p5_hybrids.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_shield",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110554-979-6f09da0e.json",
+      "checks": 208,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/p5_shield.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_growth",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110602-112-12a0b73b.json",
+      "checks": 148,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/p5_growth.json"
+    },
+    {
+      "passed": true,
+      "suite": "p5_cross_nodes",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110608-975-094364fe.json",
+      "checks": 150,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/p5_cross_nodes.json"
+    },
+    {
+      "passed": true,
+      "suite": "m2_ai",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110614-998-38cd0e1b.json",
+      "checks": 183,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/m2_ai.json"
+    },
+    {
+      "passed": true,
+      "suite": "m4_areas",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110623-335-c1957d99.json",
+      "checks": 176,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/m4_areas.json"
+    },
+    {
+      "passed": true,
+      "suite": "m4_effects",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110851-135-3ed5284e.json",
+      "checks": 218,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/m4_effects.json"
+    },
+    {
+      "passed": true,
+      "suite": "m4_magic",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110855-984-674b6134.json",
+      "checks": 244,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/m4_magic.json"
+    },
+    {
+      "passed": true,
+      "suite": "survival_tissues",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110903-153-beb73603.json",
+      "checks": 113,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/survival_tissues.json"
+    },
+    {
+      "passed": true,
+      "suite": "campaigns",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110911-718-bc942617.json",
+      "checks": 58,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/campaigns.json"
+    },
+    {
+      "passed": true,
+      "suite": "expedition",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110919-360-59fd8482.json",
+      "checks": 155,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/expedition.json"
+    },
+    {
+      "passed": true,
+      "suite": "battle_results",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-110948-943-3ddf800c.json",
+      "checks": 158,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/battle_results.json"
+    },
+    {
+      "passed": true,
+      "suite": "integration",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-111014-438-674f5e6e.json",
+      "checks": 114,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/integration.json"
+    },
+    {
+      "passed": true,
+      "suite": "m2_snapshot",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-111019-474-499ea96d.json",
+      "checks": 642,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/m2_snapshot.json"
+    },
+    {
+      "passed": true,
+      "suite": "m2_turn_storage",
+      "report": "E:\\GPT\\SM2\\.local\\logs\\checks-20260913-111024-546-93c212b9.json",
+      "checks": 129,
+      "exit_code": 0,
+      "artifact": "outputs/combat-runtime-1/core/m2_turn_storage.json"
+    }
+  ],
+  "ui": [
+    {
+      "output": "outputs/combat-runtime-1/ui-combat_hud",
+      "suite": "combat_hud",
+      "exit_code": 0,
+      "checks": 235,
+      "passed": true
+    },
+    {
+      "output": "outputs/combat-runtime-1/ui-battle_results",
+      "suite": "battle_results",
+      "exit_code": 0,
+      "checks": 262,
+      "passed": true
+    },
+    {
+      "output": "outputs/combat-runtime-1/ui-campaigns",
+      "suite": "campaigns",
+      "exit_code": 0,
+      "checks": 219,
+      "passed": true
+    },
+    {
+      "output": "outputs/combat-runtime-1/ui-development_scale",
+      "suite": "development_scale",
+      "exit_code": 0,
+      "checks": 88,
+      "passed": true
+    }
+  ],
+  "initial_contract_test": "The first contract run failed on an incorrect test field access. Corrected to spatial.fatigue; the final 506-check run completed all branches.",
+  "total_checks": 5385
+}

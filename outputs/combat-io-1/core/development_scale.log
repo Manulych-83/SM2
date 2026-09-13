@@ -1,0 +1,46 @@
+﻿[2026-09-13T11:23:26.2587887+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\combat-io-1\core-development_scale
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T11:23:26.3114460+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\combat-io-1\core-development_scale
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T11:23:30.0747638+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tests/test_runner.gd -- --suite development_scale --report E:\GPT\SM2\.local\logs\checks-20260913-112326-099-59761dcc.json
+RuntimeRoot: E:\GPT\SM2\.local\combat-io-1\core-development_scale
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCALE {"all_tracks_ms":1.538,"build_ms":3.168,"decode_ms":2.138,"nodes":100,"purchase_all_ms":1.85,"tracks":200,"unrelated_track_ms":0.017}
+SCALE {"all_tracks_ms":1.852,"build_ms":14.576,"decode_ms":8.345,"nodes":1000,"purchase_all_ms":18.845,"tracks":200,"unrelated_track_ms":0.018}
+SCALE {"all_tracks_ms":5.941,"build_ms":147.323,"decode_ms":75.487,"nodes":10000,"purchase_all_ms":213.222,"tracks":200,"unrelated_track_ms":0.022}
+SCALE integration
+SCALE combat started
+SCALE combat step 0 241.447 ms
+SCALE combat step 1 234.478 ms
+SCALE combat step 2 219.868 ms
+SCALE combat step 3 1571.382 ms
+SCALE combat settled
+DEVELOPMENT_SCALE [{"all_tracks_ms":1.538,"build_ms":3.168,"decode_ms":2.138,"nodes":100,"purchase_all_ms":1.85,"tracks":200,"unrelated_track_ms":0.017},{"all_tracks_ms":1.852,"build_ms":14.576,"decode_ms":8.345,"nodes":1000,"purchase_all_ms":18.845,"tracks":200,"unrelated_track_ms":0.018},{"all_tracks_ms":5.941,"build_ms":147.323,"decode_ms":75.487,"nodes":10000,"purchase_all_ms":213.222,"tracks":200,"unrelated_track_ms":0.022},{"ms":10.844,"name":"large_view_first_page"},{"ms":1252.578,"name":"large_campaign_save","owned_fixture_nodes":9985},{"ms":986.182,"name":"large_campaign_load"}]
+SM2_TEST_REPORT {"checks":94,"engine_version":"4.7.2-stable (official)","failures":[],"passed":true,"suites":["development_scale"]}
+
+
+ExitCode: 0

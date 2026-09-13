@@ -1,0 +1,59 @@
+﻿[2026-09-13T01:03:05.5091831+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\verified
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T01:03:05.5582083+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\verified
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T01:03:09.5136350+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_runtime.gd -- --report E:\GPT\SM2\outputs\runtime-2\verified\report.json
+RuntimeRoot: E:\GPT\SM2\.local\runtime-2\verified
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+RUNTIME content_service 38.628 ms
+RUNTIME envelope_read 16.924 ms
+RUNTIME world_decode 31.117 ms
+RUNTIME archive_restore_cold 999.261 ms
+RUNTIME campaign_open_cold 630.695 ms
+RUNTIME world_copy 1.887 ms
+RUNTIME session_copy 2.712 ms
+RUNTIME world_validate 10.318 ms
+RUNTIME session_capture 1.541 ms
+RUNTIME candidate_publish 15.095 ms
+RUNTIME journal_full 33.243 ms
+RUNTIME journal_page_30 0.479 ms
+RUNTIME menu_inspect 51.170 ms
+RUNTIME save_existing 272.380 ms
+RUNTIME load_warm 190.824 ms
+RUNTIME inventory_decode_100 2.007 ms
+RUNTIME inventory_copy_100 0.145 ms
+RUNTIME inventory_decode_1000 19.568 ms
+RUNTIME inventory_copy_1000 1.601 ms
+RUNTIME inventory_decode_10000 226.443 ms
+RUNTIME inventory_copy_10000 17.931 ms
+RUNTIME developed_body_decode_100 5.122 ms
+RUNTIME developed_body_projection_100 0.631 ms
+RUNTIME developed_body_decode_1000 53.245 ms
+RUNTIME developed_body_projection_1000 6.189 ms
+
+
+ExitCode: 0

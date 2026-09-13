@@ -5,6 +5,10 @@ var earned: int = 0
 var spent: int = 0
 var nodes: Array[String] = []
 
+func owns(id: String) -> bool:
+	var position: int=nodes.bsearch(id)
+	return position<nodes.size() and nodes[position]==id
+
 func to_data() -> Dictionary:
 	return {"track_id":track_id,"earned_total":earned,"spent_total":spent,"owned_nodes":nodes.duplicate()}
 

@@ -31,7 +31,13 @@ var _attempts: int = 0
 var _error: String = ""
 
 func _init(turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, profile: Sm2AiProfile,
-	store: Sm2SaveStore = null, self_play: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}, survival: Sm2SurvivalState = null) -> void:
+	store: Sm2SaveStore = null, self_play: bool = false, effects: Sm2EffectCatalog = null, magic: Sm2MagicCatalog = null, development: Sm2DevelopmentCatalog = null, origin: Dictionary = {}, survival: Sm2SurvivalState = null, shared_content: bool=false) -> void:
+	if shared_content:
+		_turns=turns; _combat=combat; _profile=profile; _store=store; _self_play=self_play
+		_effects=effects; _magic=magic; _development=development
+		_origin=origin.duplicate(true); _survival=survival.copy() if survival!=null else null
+		_session=Sm2TacticalSession.new(_turns,store,_combat,true,_effects,_magic,_development,_origin,_survival,true)
+		return
 	_turns = Sm2TurnCatalog.new()
 	_turns.build(turns.to_data())
 	_combat = Sm2CombatCatalog.new()
@@ -51,20 +57,31 @@ func _init(turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, profile: Sm2AiProfil
 	_profile.build(profile.to_data())
 	_store = store
 	_self_play = self_play
-	_session = Sm2TacticalSession.new(_turns, store, _combat, true, _effects, _magic, _development, _origin, _survival)
+	_session = Sm2TacticalSession.new(_turns, store, _combat, true, _effects, _magic, _development, _origin, _survival, true)
 
 func new_battle(setup: Dictionary) -> Dictionary:
 	if _profile.to_data().is_empty():
 		return {"ok": false, "errors": PackedStringArray(["ai_profile_missing"])}
 	var result: Dictionary = _session.new_battle(setup)
 	if result.ok:
-		_key = _activation_key(_session.view())
+		_key = _activation_key(_session.status())
 		_attempts = 0
 		_error = ""
 	return result
 
 func view() -> Dictionary:
 	return _session.view()
+
+func status() -> Dictionary:
+	return _session.status()
+
+func state_copy() -> Sm2TacticalState:
+	return _session.state_copy()
+
+func copy() -> Sm2BattleRunner:
+	var result: Sm2BattleRunner=Sm2BattleRunner.new(_turns,_combat,_profile,_store,_self_play,_effects,_magic,_development,_origin,_survival,true)
+	result._session=_session.copy(); result._key=_key; result._attempts=_attempts; result._error=_error
+	return result
 
 func preview(command: Sm2Command) -> Dictionary:
 	return _session.preview(command)
@@ -84,8 +101,8 @@ func record_outcome() -> Dictionary:
 func error_reason() -> String:
 	return _error
 
-func capture() -> Dictionary:
-	return {"format": format_id(), "profile": _profile.fingerprint(), "self_play": _self_play, "session": _session.capture(),
+func capture(compact: bool=false) -> Dictionary:
+	return {"format": format_id(), "profile": _profile.fingerprint(), "self_play": _self_play, "session": _session.capture(compact),
 		"activation_key": _key, "attempts": _attempts, "error": _error}
 
 func state_hash() -> String:
@@ -94,7 +111,7 @@ func state_hash() -> String:
 func step() -> Dictionary:
 	if not _error.is_empty():
 		return {"ok": false, "reason": _error}
-	var current: Dictionary = view()
+	var current: Dictionary = status()
 	if current.is_empty():
 		return {"ok": false, "reason": "no_session"}
 	if current.finished:
@@ -116,8 +133,8 @@ func step() -> Dictionary:
 		var result: Sm2CommandResult = _session.execute(decision.command)
 		if result.accepted:
 			_sync()
-			var record: Dictionary = _session.record_outcome() if view().finished else {}
-			return {"ok": true, "status": "finished" if view().finished else "advanced", "choice": decision.choice,
+			var record: Dictionary = _session.record_outcome() if status().finished else {}
+			return {"ok": true, "status": "finished" if status().finished else "advanced", "choice": decision.choice,
 				"command": Sm2TacticalAi.command_data(decision.command), "code": result.code, "events": result.events,
 				"retries": retry, "record": record}
 		if retry == 1:
@@ -125,7 +142,7 @@ func step() -> Dictionary:
 	return _fail("ai_internal_error")
 
 func execute_player(command: Sm2Command) -> Sm2CommandResult:
-	var current: Dictionary = view()
+	var current: Dictionary = status()
 	if command != null and command.kind == "buy_node" and _development != null and _error.is_empty():
 		return _session.execute(command)
 	var allowed: bool = false
@@ -162,11 +179,11 @@ func restore(payload: Dictionary) -> Dictionary:
 		return {"ok": false, "errors": PackedStringArray(["ai_run_version"])}
 	if not payload.session is Dictionary or not payload.activation_key is String or not payload.error is String or payload.error.length() > 256 or not Sm2Validate.integer(payload.attempts, 0, int(_profile.to_data().get("attempt_limit", 0))):
 		return {"ok": false, "errors": PackedStringArray(["ai_run_fields"])}
-	var candidate: Sm2TacticalSession = Sm2TacticalSession.new(_turns, _store, _combat, true, _effects, _magic, _development, _origin, _survival)
+	var candidate: Sm2TacticalSession = Sm2TacticalSession.new(_turns, _store, _combat, true, _effects, _magic, _development, _origin, _survival, true)
 	var checked: Dictionary = candidate.restore_payload(payload.session)
 	if not checked.ok:
 		return checked
-	if payload.activation_key != _activation_key(candidate.view()) or (candidate.view().finished and int(payload.attempts) != 0):
+	if payload.activation_key != _activation_key(candidate.status()) or (candidate.status().finished and int(payload.attempts) != 0):
 		return {"ok": false, "errors": PackedStringArray(["ai_run_activation"])}
 	_session = candidate
 	_key = payload.activation_key
@@ -175,7 +192,7 @@ func restore(payload: Dictionary) -> Dictionary:
 	return {"ok": true, "errors": PackedStringArray()}
 
 func save_game() -> Dictionary:
-	if _store == null or view().is_empty():
+	if _store == null or status().is_empty():
 		return {"ok": false, "errors": PackedStringArray(["no_session_or_store"])}
 	return _store.save_slot(capture(), save_slot())
 
@@ -186,7 +203,7 @@ func load_game() -> Dictionary:
 	return restore(loaded.payload) if loaded.ok else loaded
 
 func _sync() -> void:
-	var next: String = _activation_key(view())
+	var next: String = _activation_key(status())
 	if next != _key:
 		_key = next
 		_attempts = 0
@@ -199,3 +216,8 @@ static func _activation_key(data: Dictionary) -> String:
 func _fail(reason: String) -> Dictionary:
 	_error = reason
 	return {"ok": false, "reason": reason}
+
+## Internal immutable input identity for the coordinator's size certificate.
+func growth_profile() -> Sm2CombatGrowthProfile:
+	if _session._battle==null or _session._battle._state==null or _session._battle._state.development==null: return null
+	return _session._battle._state.development._profile

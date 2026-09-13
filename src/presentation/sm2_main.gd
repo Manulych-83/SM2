@@ -14,6 +14,7 @@ var _campaign_delete: int=-1
 var _campaign_token: String=""
 var _start_resize_pending: bool=false
 var _settings_return: String="menu"
+var _expedition_seen: Dictionary={}
 var _notice: String = ""
 var _is_error: bool = false
 var _body: Control
@@ -44,6 +45,9 @@ var _development_store: Sm2SaveStore = Sm2SaveStore.new("user://development")
 var _magic_store: Sm2SaveStore = Sm2SaveStore.new("user://magic")
 var _area_store: Sm2SaveStore = Sm2SaveStore.new("user://areas")
 var _effects_store: Sm2SaveStore = Sm2SaveStore.new("user://effects")
+var _sequence_store: Sm2SaveStore = Sm2SaveStore.new("user://effect_sequences")
+var _creature_content: Dictionary = {}
+var _creature_page: int = 0
 var _battle_store: Sm2SaveStore = Sm2SaveStore.new("user://battles")
 
 func _ready() -> void:
@@ -92,6 +96,7 @@ func _redraw_page() -> void:
 	if _page == "life" and _life != null:
 		var life_screen: Sm2LifeScreen=Sm2LifeScreen.new()
 		life_screen.name="LifeScreen"; life_screen.session=_life
+		life_screen.expedition_seen=_expedition_seen
 		life_screen.menu_requested.connect(_show_menu)
 		life_screen.settings_requested.connect(_open_settings.bind("life"))
 		life_screen.development_requested.connect(func() -> void: _page="hero_development"; _redraw_page())
@@ -338,6 +343,23 @@ func _build_other_modes(left: VBoxContainer, right: VBoxContainer) -> void:
 	var row_Effects: HBoxContainer=HBoxContainer.new(); right.add_child(row_Effects)
 	row_Effects.add_child(_button("Бой с эффектами", "NewEffectsButton", _start_effects.bind(false)))
 	row_Effects.add_child(_button("Продолжить", "ContinueEffectsButton", _start_effects.bind(true),not _effects_store.has_slot(Sm2BattleRunner.EFFECT_SLOT)))
+	var row_sequences: HBoxContainer = HBoxContainer.new()
+	row_Effects.get_parent().add_child(row_sequences)
+	row_sequences.add_child(_button("Составные воздействия", "NewSequencesButton", _start_effects.bind(false,true)))
+	row_sequences.add_child(_button("Продолжить", "ContinueSequencesButton", _start_effects.bind(true,true),not _sequence_store.has_slot(Sm2BattleRunner.EFFECT_SLOT)))
+	if _creature_content.is_empty(): _creature_content = Sm2CreatureContentLoader.load_catalog()
+	if _creature_content.ok:
+		right.add_child(_label("ВСТРЕЧИ ИЗ ШАБЛОНОВ",12,GOLD))
+		var creature_ids: Array[String] = _creature_content.catalog.encounters()
+		for index: int in range(_creature_page*12,mini((_creature_page+1)*12,creature_ids.size())):
+			var id: String = creature_ids[index]
+			var row: HBoxContainer = HBoxContainer.new(); right.add_child(row)
+			row.add_child(_button(_creature_content.catalog.encounter(id).name,"NewCreature_%s" % index,_start_creatures.bind(id,false)))
+			row.add_child(_button("Продолжить","ContinueCreature_%s" % index,_start_creatures.bind(id,true),not _creature_store(id).has_slot(Sm2BattleRunner.EFFECT_SLOT)))
+		if creature_ids.size() > 12:
+			var pages: HBoxContainer = HBoxContainer.new(); right.add_child(pages)
+			pages.add_child(_button("Предыдущие","CreaturePrevious",_show_creature_page.bind(_creature_page-1),_creature_page == 0))
+			pages.add_child(_button("Следующие","CreatureNext",_show_creature_page.bind(_creature_page+1),(_creature_page+1)*12 >= creature_ids.size()))
 
 	var row_Magic: HBoxContainer=HBoxContainer.new(); right.add_child(row_Magic)
 	row_Magic.add_child(_button("Бой с магией", "NewMagicButton", _start_magic.bind(false)))
@@ -580,19 +602,39 @@ func _start_magic(from_save: bool) -> void:
 		_page = "battle"
 	_redraw_page()
 
-func _start_effects(from_save: bool) -> void:
-	var content: Dictionary = Sm2EffectContentLoader.load_scenario()
-	var ai: Dictionary = _expanded_ai(_effects_store,Sm2BattleRunner.EFFECT_SLOT,from_save)
+func _start_effects(from_save: bool, sequences: bool = false) -> void:
+	var content: Dictionary = Sm2EffectSequenceContentLoader.load_scenario() if sequences else Sm2EffectContentLoader.load_scenario()
+	var store: Sm2SaveStore = _sequence_store if sequences else _effects_store
+	var ai: Dictionary = _expanded_ai(store,Sm2BattleRunner.EFFECT_SLOT,from_save)
 	if not content.ok or not ai.ok:
 		_notice = "Не удалось загрузить набор эффектов."
 		_is_error = true
 		_redraw_page()
 		return
-	var candidate: Sm2BattleRunner = Sm2BattleRunner.new(content.catalog,content.combat,ai.profile,_effects_store,false,content.effects)
+	var candidate: Sm2BattleRunner = Sm2BattleRunner.new(content.catalog,content.combat,ai.profile,store,false,content.effects)
 	var result: Dictionary = candidate.load_game() if from_save else candidate.new_battle(content.setup)
 	if _handle_result(result,""):
 		_battle = candidate
 		_page = "battle"
+	_redraw_page()
+
+func _show_creature_page(page: int) -> void:
+	_creature_page = maxi(0,page); _modes_expanded = true; _redraw_page()
+
+func _creature_store(id: String) -> Sm2SaveStore:
+	return Sm2SaveStore.new("user://creature_encounters/"+id.sha256_text())
+
+func _start_creatures(id: String, from_save: bool) -> void:
+	if _creature_content.is_empty(): _creature_content = Sm2CreatureContentLoader.load_catalog()
+	if not _creature_content.ok:
+		_notice = "Не удалось загрузить шаблоны существ."; _is_error = true; _redraw_page(); return
+	var compiled: Dictionary = _creature_content.catalog.compile(id)
+	if not compiled.ok:
+		_notice = "Не удалось подготовить встречу."; _is_error = true; _redraw_page(); return
+	var candidate: Sm2CreatureBattleRunner = Sm2CreatureBattleRunner.new(compiled,_creature_content.profile,_creature_store(id),false,_creature_content.visuals)
+	var result: Dictionary = candidate.load_game() if from_save else candidate.new_battle(compiled.setup)
+	if _handle_result(result,""):
+		_battle = candidate; _page = "battle"
 	_redraw_page()
 
 func _expanded_ai(store: Sm2SaveStore, slot: String, from_save: bool) -> Dictionary:

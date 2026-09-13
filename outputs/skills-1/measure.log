@@ -1,0 +1,14 @@
+﻿[2026-09-13T13:59:29.3558629+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\skills-1\measure
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T13:59:29.4086267+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://.local/skills-1/measure.gd
+RuntimeRoot: E:\GPT\SM2\.local\skills-1\measure
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+{"attributes":8,"catalog_pipeline_ms":709.155,"dense_world_bytes":4552898,"note":"One generated fixture, all hero tracks practiced. World JSON size only, not whole save. No battle timing claim.","passed":true,"query_1000_ms":32.962,"search_rows":5008,"skills":5000,"sources_ms":0.476,"sparse_world_bytes":446660,"view_ms":6.024}
+
+
+ExitCode: 0

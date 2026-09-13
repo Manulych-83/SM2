@@ -9,6 +9,9 @@ static func load_scenario() -> Dictionary:
 	var data: Dictionary=content.development.progression().to_data(); data.version=Sm2ProgressCatalog.CROSS_VERSION
 	for existing: Dictionary in data.nodes: existing["extra_requirements"]=[]; existing["extra_costs"]=[]
 	data.nodes.append(node)
+	var expanded: Dictionary=Sm2ProgressPackageLoader.load_extensions(data)
+	if not expanded.ok: return expanded
+	data=expanded.raw
 	var progress: Sm2ProgressCatalog=Sm2ProgressCatalog.new(); var errors: PackedStringArray=progress.build(data)
 	if not errors.is_empty(): return {"ok":false,"errors":errors}
 	var physical: Dictionary=content.combat.to_data()

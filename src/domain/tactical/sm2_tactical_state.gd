@@ -65,7 +65,7 @@ func occupancy() -> Array[Vector2i]:
 			positions.append(entry.spatial.position)
 	return positions
 
-func copy() -> Sm2TacticalState:
+func copy(compact: bool=false) -> Sm2TacticalState:
 	var result: Sm2TacticalState = Sm2TacticalState.new()
 	result.survival=survival.copy() if survival!=null else null
 	result.survival_initial=survival_initial; result.survival_error=survival_error
@@ -94,14 +94,14 @@ func copy() -> Sm2TacticalState:
 	result.consequences = consequences
 	result.winner = winner
 	result.magic_catalog = magic_catalog
-	if development != null: result.development = development.copy()
+	if development != null: result.development = development.copy(compact)
 	for id: int in mana: result.mana[id] = mana[id].copy()
 	result.effect_catalog = effect_catalog
 	result.next_effect_id = next_effect_id
 	for id: int in sorted_effect_ids(): result.effects[id] = effects[id].copy()
 	return result
 
-func to_data(catalog_fingerprint: String) -> Dictionary:
+func to_data(catalog_fingerprint: String,compact: bool=false) -> Dictionary:
 	var actor_data: Array[Dictionary] = []
 	for id: int in sorted_ids():
 		actor_data.append(actor(id).to_data())
@@ -143,9 +143,9 @@ func to_data(catalog_fingerprint: String) -> Dictionary:
 		for id: int in sorted_ids(): pools.append({"actor_id":str(id),"current":mana[id].current})
 		data["mana"] = pools
 	if development != null:
-		data.schema_version = Sm2EncounterOrigin.schema(development.catalog,development.origin)
-		data.ruleset = Sm2DevelopmentSnapshot.RULESET if development.origin.is_empty() else str(development.origin.version)
-		data["development"] = development.to_data()
+		data.schema_version = Sm2EncounterOrigin.schema(development.catalog,{} if development.origin_version().is_empty() else {"version":development.origin_version()})
+		data.ruleset = Sm2DevelopmentSnapshot.RULESET if development.origin_version().is_empty() else development.origin_version()
+		data["development"] = development.to_data(compact)
 		if development.catalog.has_body_functions(): data["body_changes"]=body_changes.duplicate(true)
 	if survival!=null:
 		data.schema_version=survival.catalog.battle_schema(); data.ruleset=survival.catalog.battle_ruleset()

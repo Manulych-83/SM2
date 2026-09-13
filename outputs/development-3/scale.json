@@ -1,0 +1,42 @@
+[
+	{
+		"all_tracks_ms": 1.573,
+		"build_ms": 2.972,
+		"decode_ms": 2.26,
+		"nodes": 100,
+		"purchase_all_ms": 1.824,
+		"tracks": 200,
+		"unrelated_track_ms": 0.016
+	},
+	{
+		"all_tracks_ms": 1.991,
+		"build_ms": 14.674,
+		"decode_ms": 8.38,
+		"nodes": 1000,
+		"purchase_all_ms": 18.93,
+		"tracks": 200,
+		"unrelated_track_ms": 0.02
+	},
+	{
+		"all_tracks_ms": 5.989,
+		"build_ms": 141.401,
+		"decode_ms": 76.315,
+		"nodes": 10000,
+		"purchase_all_ms": 211.4,
+		"tracks": 200,
+		"unrelated_track_ms": 0.028
+	},
+	{
+		"ms": 11.35,
+		"name": "large_view_first_page"
+	},
+	{
+		"ms": 2558.089,
+		"name": "large_campaign_save",
+		"owned_fixture_nodes": 9985
+	},
+	{
+		"ms": 1754.022,
+		"name": "large_campaign_load"
+	}
+]

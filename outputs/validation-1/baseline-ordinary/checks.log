@@ -1,0 +1,94 @@
+﻿[2026-09-13T11:31:36.0295832+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\baseline-ordinary
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T11:31:36.0786613+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\baseline-ordinary
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T11:31:40.1525130+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_combat_io.gd -- --output E:\GPT\SM2\outputs\validation-1\baseline-ordinary --ordinary
+RuntimeRoot: E:\GPT\SM2\.local\validation-1\baseline-ordinary
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COMBAT_RUNTIME start_battle 73.464 ms
+COMBAT_RUNTIME prepare 8.352 ms
+COMBAT_RUNTIME check_battle 22.089 ms
+COMBAT_RUNTIME action_0_move 26.898 ms
+COMBAT_RUNTIME action_1_move 28.057 ms
+COMBAT_RUNTIME action_2_use_ability 29.114 ms
+COMBAT_RUNTIME action_3_end_turn 27.102 ms
+COMBAT_RUNTIME action_4_move 27.513 ms
+COMBAT_RUNTIME action_5_move 26.616 ms
+COMBAT_RUNTIME action_6_use_ability 28.686 ms
+COMBAT_RUNTIME active_save 146.865 ms
+COMBAT_RUNTIME active_resave 263.891 ms
+COMBAT_RUNTIME active_load 143.716 ms
+COMBAT_RUNTIME action_7_end_turn 27.705 ms
+COMBAT_RUNTIME action_8_ai 32.158 ms
+COMBAT_RUNTIME action_9_ai 32.228 ms
+COMBAT_RUNTIME action_10_ai 29.917 ms
+COMBAT_RUNTIME action_11_ai 46.715 ms
+COMBAT_RUNTIME action_12_ai 33.799 ms
+COMBAT_RUNTIME action_13_ai 34.791 ms
+COMBAT_RUNTIME action_14_use_ability 31.302 ms
+COMBAT_RUNTIME action_15_use_ability 30.280 ms
+COMBAT_RUNTIME action_16_end_turn 27.068 ms
+COMBAT_RUNTIME action_17_use_ability 29.567 ms
+COMBAT_RUNTIME action_18_use_ability 32.069 ms
+COMBAT_RUNTIME action_19_end_turn 28.853 ms
+COMBAT_RUNTIME action_20_ai 30.352 ms
+COMBAT_RUNTIME action_21_ai 32.747 ms
+COMBAT_RUNTIME action_22_ai 32.061 ms
+COMBAT_RUNTIME action_23_move 56.110 ms
+COMBAT_RUNTIME action_24_move 54.222 ms
+COMBAT_RUNTIME action_25_use_ability 57.904 ms
+COMBAT_RUNTIME action_26_end_turn 55.052 ms
+COMBAT_RUNTIME action_27_use_ability 59.173 ms
+COMBAT_RUNTIME action_28_use_ability 72.747 ms
+COMBAT_RUNTIME action_29_end_turn 58.839 ms
+COMBAT_RUNTIME action_30_ai 76.849 ms
+COMBAT_RUNTIME action_31_ai 81.936 ms
+COMBAT_RUNTIME action_32_ai 77.475 ms
+COMBAT_RUNTIME action_33_use_ability 56.843 ms
+COMBAT_RUNTIME action_34_use_ability 57.826 ms
+COMBAT_RUNTIME action_35_end_turn 55.166 ms
+COMBAT_RUNTIME action_36_ai 64.535 ms
+COMBAT_RUNTIME action_37_ai 60.612 ms
+COMBAT_RUNTIME action_38_ai 67.120 ms
+COMBAT_RUNTIME action_39_use_ability 57.324 ms
+COMBAT_RUNTIME action_40_use_ability 57.956 ms
+COMBAT_RUNTIME action_41_end_turn 70.809 ms
+COMBAT_RUNTIME action_42_ai 61.488 ms
+COMBAT_RUNTIME action_43_ai 76.201 ms
+COMBAT_RUNTIME action_44_ai 74.335 ms
+COMBAT_RUNTIME action_45_use_ability 210.183 ms
+COMBAT_RUNTIME results_view 41.601 ms
+COMBAT_RUNTIME finished_save 678.688 ms
+COMBAT_RUNTIME finished_load 323.922 ms
+
+SCRIPT ERROR: Invalid access to property or key 'scale:skill.000' on a base object of type 'Dictionary[String, Sm2ProgressTrackState]'.
+   at: award (res://src/domain/progression/sm2_progress_rules.gd:13)
+   GDScript backtrace (most recent call first):
+       [0] award (res://src/domain/progression/sm2_progress_rules.gd:13)
+       [1] run (res://tools/check_combat_io.gd:14)
+
+ExitCode: 0

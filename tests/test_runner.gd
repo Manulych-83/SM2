@@ -2,6 +2,20 @@ extends SceneTree
 ## Structured, non-empty acceptance report; unknown arguments always fail.
 
 const SUITES: Dictionary = {
+ "creatures":"res://tests/scenarios/test_creatures.gd",
+ "sequences":"res://tests/scenarios/test_sequences.gd",
+ "rules":"res://tests/scenarios/test_rules.gd",
+ "skill_scale":"res://tests/scenarios/test_skill_scale.gd",
+ "content_packages":"res://tests/scenarios/test_content_packages.gd",
+ "combat_profile":"res://tests/scenarios/test_combat_profile.gd",
+ "after_battle":"res://tests/scenarios/test_after_battle.gd",
+ "validation":"res://tests/scenarios/test_validation.gd",
+ "combat_io":"res://tests/scenarios/test_combat_io.gd",
+ "combat_runtime":"res://tests/scenarios/test_combat_runtime.gd",
+ "development_scale":"res://tests/scenarios/test_development_scale.gd",
+ "checkpoint":"res://tests/scenarios/test_checkpoint.gd",
+ "foundation":"res://tests/scenarios/test_foundation.gd",
+ "expedition":"res://tests/scenarios/test_expedition.gd",
  "battle_results":"res://tests/scenarios/test_battle_results.gd",
  "campaigns":"res://tests/scenarios/test_campaigns.gd",
  "journey_guide":"res://tests/scenarios/test_journey_guide.gd",

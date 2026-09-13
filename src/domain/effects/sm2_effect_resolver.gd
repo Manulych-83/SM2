@@ -31,9 +31,17 @@ static func preview(state: Sm2TacticalState, command: Sm2Command) -> Dictionary:
 	var distance: int = Sm2Hex.distance(source.spatial.position,target.spatial.position)
 	if distance < action.range_min or distance > action.range_max: return _deny(result,"attack_range")
 	if distance > 0 and not Sm2SpatialQueries.los(state.field,source.spatial.position,target.spatial.position,state.occupancy()).visible: return _deny(result,"line_of_sight_blocked")
-	if source.spatial.ap < action.ap_cost: return _deny(result,"insufficient_ap")
-	if source.spatial.fatigue_max-source.spatial.fatigue < action.fatigue_cost: return _deny(result,"fatigue_limit")
-	if action.operation == "apply_effect":
+	var requirements: Dictionary = Sm2ActionRequirements.resources(source,action.ap_cost,action.fatigue_cost)
+	if not requirements.matches: return _deny(result,requirements.reason)
+	if action.operation == "effect_sequence":
+		var plan: Dictionary = Sm2EffectSequence.preview(state,command,action)
+		result.merge(plan,true)
+		if not plan.allowed: return result
+		for row: Dictionary in result.sequence:
+			if row.operation == "apply_effect":
+				var definition: Sm2EffectDefinition = catalog.definition(row.effect_id)
+				row["description"] = _describe(state,definition,target,definition.duration)
+	elif action.operation == "apply_effect":
 		var definition: Sm2EffectDefinition = catalog.definition(action.effect_id)
 		if catalog.immune(target.loadout_id,definition.id): return _deny(result,"effect_immune")
 		var previous: Sm2EffectInstance = find(state,command.target_actor_id,definition.id)
@@ -66,23 +74,28 @@ static func resolve(state: Sm2TacticalState, command: Sm2Command) -> Dictionary:
 	source.spatial.fatigue += int(check.fatigue_cost)
 	events.append({"type":"resources_spent","actor_id":str(command.actor_id),"ap":check.ap_cost,"fatigue":check.fatigue_cost})
 	var action: Sm2EffectAction = state.effect_catalog.action(command.ability_id)
-	if action.operation == "dispel_effects":
+	if action.operation == "effect_sequence":
+		Sm2EffectSequence.execute(state,command,check.sequence,events)
+	elif action.operation == "dispel_effects":
 		for id: int in check.remove_ids: remove(state,id,"dispelled",events)
 	else:
-		var instance: Sm2EffectInstance = find(state,command.target_actor_id,action.effect_id)
-		var refreshed: bool = instance != null
-		if instance == null:
-			instance = Sm2EffectInstance.new()
-			instance.effect_id = state.next_effect_id
-			state.next_effect_id += 1
-			instance.definition_id = action.effect_id
-			instance.target_actor_id = command.target_actor_id
-			state.effects[instance.effect_id] = instance
-		instance.remaining = state.effect_catalog.definition(action.effect_id).duration
-		instance.source_actor_id = command.actor_id
-		instance.applied_revision = state.revision+1
-		events.append({"type":"effect_refreshed" if refreshed else "effect_applied","effect_id":str(instance.effect_id),"definition_id":action.effect_id,"name":state.effect_catalog.definition(action.effect_id).name,"actor_id":str(command.actor_id),"target_actor_id":str(command.target_actor_id),"remaining":instance.remaining})
+		apply_definition(state,command.actor_id,command.target_actor_id,action.effect_id,events)
 	return {"accepted":true,"code":"accepted","events":events}
+
+static func apply_definition(state: Sm2TacticalState, source_id: int, target_id: int, definition_id: String, events: Array[Dictionary]) -> void:
+	var instance: Sm2EffectInstance = find(state,target_id,definition_id)
+	var refreshed: bool = instance != null
+	if instance == null:
+		instance = Sm2EffectInstance.new()
+		instance.effect_id = state.next_effect_id
+		state.next_effect_id += 1
+		instance.definition_id = definition_id
+		instance.target_actor_id = target_id
+		state.effects[instance.effect_id] = instance
+	instance.remaining = state.effect_catalog.definition(definition_id).duration
+	instance.source_actor_id = source_id
+	instance.applied_revision = state.revision+1
+	events.append({"type":"effect_refreshed" if refreshed else "effect_applied","effect_id":str(instance.effect_id),"definition_id":definition_id,"name":state.effect_catalog.definition(definition_id).name,"actor_id":str(source_id),"target_actor_id":str(target_id),"remaining":instance.remaining})
 
 static func end_activation(state: Sm2TacticalState, target_id: int, combat: Sm2CombatCatalog, context: Sm2ConsequenceContext, events: Array[Dictionary]) -> String:
 	var target: Sm2TacticalActor = state.actor(target_id)

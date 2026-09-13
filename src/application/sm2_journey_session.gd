@@ -34,18 +34,21 @@ const HISTORY_LIMIT: int=4096
 var history: Array[Dictionary]=[]
 var _encounter: Dictionary={}
 
-func _init(content: Dictionary, profile: Sm2AiProfile, store: Sm2SaveStore=null) -> void:
-	super(content,profile,store)
-	_content["meetings"]=content.meetings.duplicate(true)
+## Optional materialized read models; legacy profiles still derive these from replay.
+func checkpoint_projection(_kind: String) -> Variant: return null
+
+func _init(content: Dictionary, profile: Sm2AiProfile, store: Sm2SaveStore=null, shared_content: bool=false) -> void:
+	super(content,profile,store,shared_content)
+	_content["meetings"]=content.meetings if shared_content else content.meetings.duplicate(true)
 	_content["journey_fingerprint"]=content.journey_fingerprint
 	_content["initial_loadout"]=content.initial_loadout
-	if content.has("care"):
+	if content.has("care") and not shared_content:
 		var care: Sm2CareCatalog=Sm2CareCatalog.new(); care.build(content.care.to_data()); _content["care"]=care
-	if content.has("exploration"):
+	if content.has("exploration") and not shared_content:
 		var exploration: Sm2ExplorationCatalog=Sm2ExplorationCatalog.new(); exploration.build(content.exploration.to_data(),_content.care,_content.meetings.size(),_content.development.progression()); _content["exploration"]=exploration
-	world=Sm2JourneyWorld.new(_content.development.progression(),_content.world_definition,_content.combat,_content.meetings,_content.initial_loadout,_content.development.body_functions(),_content.get("care"),_content.get("exploration"),_content.development.psionics(),_content.development.upgrades(),_content.development.hybrids())
+	world=Sm2JourneyWorld.new(_content.development._shared_progression() if shared_content else _content.development.progression(),_content.world_definition,_content.combat,_content.meetings,_content.initial_loadout,_content.development.body_functions(),_content.get("care"),_content.get("exploration"),_content.development.psionics(),_content.development.upgrades(),_content.development.hybrids(),shared_content)
 	if content.has("region"):
-		_content["region"]=content.region.copy()
+		_content["region"]=content.region if shared_content else content.region.copy()
 		journey().region_catalog=_content.region
 		journey().region=Sm2RegionState.new()
 	if content.has("survival"):
@@ -109,12 +112,12 @@ func _prepare() -> Dictionary:
 	_encounter=Sm2EncounterFactory.build(_content,journey())
 	if not _encounter.ok: return _encounter
 	if journey().survival!=null: _encounter["survival"]=journey().survival.copy()
-	runner=Sm2BattleRunner.new(_encounter.catalog,_encounter.combat,_profile,null,false,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin,_encounter.get("survival"))
+	runner=Sm2BattleRunner.new(_encounter.catalog,_encounter.combat,_profile,null,false,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin,_encounter.get("survival"),true)
 	return {"ok":true}
 
 func attack(value: Sm2Command) -> Sm2CommandResult:
 	var denied: Sm2CommandResult=Sm2CommandResult.new()
-	denied.revision=int(runner.view().revision) if runner!=null else 0
+	denied.revision=int(runner.status().revision) if runner!=null else 0
 	if not world.busy() or value==null or value.kind=="buy_node": denied.code="world_battle_locked"; return denied
 	if world.revision>=1000000 or history.size()>=HISTORY_LIMIT: denied.code="world_limit"; return denied
 	var candidate: Sm2JourneySession=_copy() as Sm2JourneySession
@@ -123,7 +126,7 @@ func attack(value: Sm2Command) -> Sm2CommandResult:
 	if not result.accepted: return result
 	candidate.world.revision+=1
 	var finished: Dictionary=candidate._finish()
-	var published: Dictionary=_publish(candidate) if finished.ok else finished
+	var published: Dictionary=_commit_battle_action(candidate) if finished.ok else finished
 	if not published.ok: denied.code=str(published.errors[0]); return denied
 	return result
 
@@ -136,11 +139,11 @@ func step() -> Dictionary:
 	if not result.ok or not result.has("command"): return result
 	candidate.world.revision+=1
 	var finished: Dictionary=candidate._finish()
-	var published: Dictionary=_publish(candidate) if finished.ok else finished
+	var published: Dictionary=_commit_battle_action(candidate) if finished.ok else finished
 	return result if published.ok else {"ok":false,"reason":str(published.errors[0])}
 
 func _finish() -> Dictionary:
-	if not runner.view().finished: return {"ok":true}
+	if not runner.status().finished: return {"ok":true}
 	runner.record_outcome()
 	var checked: Dictionary=_check_battle(runner.capture())
 	if not checked.ok: return checked
@@ -152,15 +155,16 @@ func _finish() -> Dictionary:
 func _check_battle(raw: Dictionary) -> Dictionary:
 	var loaded: Dictionary=runner.restore(raw)
 	if not loaded.ok: return loaded
-	var decoded: Dictionary=Sm2SurvivalBattle.decode(runner.capture().session.battle,_encounter.catalog,_encounter.combat,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin,_encounter.survival) if _encounter.has("survival") else Sm2DevelopmentSnapshot.decode(runner.capture().session.battle,_encounter.catalog,_encounter.combat,_encounter.get("effects"),_encounter.get("magic"),_encounter.development,_encounter.origin)
-	if not decoded.ok: return decoded
-	var state: Sm2TacticalState=decoded.state
+	# restore() has already checked this exact payload through the battle decoder.
+	# Retain encounter-specific checks below on an isolated copy of that result.
+	var state: Sm2TacticalState=runner.state_copy()
+	if state==null: return _error("encounter_state_missing")
 	if state.scenario_id!=_encounter.setup.scenario_id or state.field.to_data()!=_encounter.setup.field or state.round_limit!=int(_encounter.setup.round_limit) or state.actors.size()!=4: return _error("encounter_definition")
 	for entry: Dictionary in _encounter.setup.actors:
 		var actor: Sm2TacticalActor=state.actor(int(entry.actor_id))
 		if actor==null or actor.loadout_id!=entry.loadout_id or actor.spatial.side!=entry.side or actor.spatial.controller!=entry.controller or actor.spatial.owner!=entry.owner: return _error("encounter_binding")
 	if state.finished and not raw.session.result_recorded: return _error("encounter_receipt_missing")
-	return decoded
+	return {"ok":true,"state":state,"errors":PackedStringArray()}
 
 func restore(raw: Dictionary) -> Dictionary:
 	if not Sm2Validate.fields(raw,["format","fingerprint","world","history","active"]) or raw.format!=format_id() or raw.fingerprint!=_content.journey_fingerprint or not raw.world is Dictionary or not raw.history is Array or raw.history.size()>HISTORY_LIMIT or not raw.active is Dictionary: return _error("journey_save_version")
@@ -215,6 +219,10 @@ func _publish(value: Sm2LifeSession) -> Dictionary:
 		if not checked.ok: return checked
 	world=candidate.world; runner=candidate.runner; history=candidate.history; _encounter=candidate._encounter
 	return {"ok":true,"errors":PackedStringArray()}
+
+## Called only after an accepted command on an isolated internal candidate.
+func _commit_battle_action(value: Sm2JourneySession) -> Dictionary:
+	return _publish(value)
 
 func save_game() -> Dictionary:
 	if _store==null: return _error("no_store")

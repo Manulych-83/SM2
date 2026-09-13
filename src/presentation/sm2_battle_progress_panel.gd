@@ -37,6 +37,10 @@ func refresh() -> void:
 		button.toggle_mode=true; button.button_pressed=int(actor.actor_id) == selected_actor; selectors.add_child(button)
 		if int(actor.actor_id) == selected_actor: selected=actor
 	var data: Dictionary=selected.development
+	if data.get("growth_deferred",false):
+		_content.add_child(_label("Уровни и прибавки зафиксированы до конца боя. Накопленный опыт будет учтён в итогах.",16))
+		for practice: Dictionary in data.get("pending_practice",[]):
+			_content.add_child(_label("%s: +%s опыта после боя" % [practice.title,practice.xp],16))
 	var status: String="Герой · Душа помнит: "+", ".join(data.knowledge) if data.role == "hero" else "Спутник · Собственное тело и собственный опыт"
 	if not selected.alive: status += " · Погиб"
 	_content.add_child(_label(status,16))
@@ -48,7 +52,7 @@ func refresh() -> void:
 		box.add_child(_label("До следующего: %s / %s\nЗаработано: %s · потрачено: %s\nДля узлов: %s\nИтоговое значение: %s" % [track.progress,track.needed,track.earned,track.spent,track.available,track.effective],14))
 		for source: Dictionary in track.sources: box.add_child(_label("%s: +%s" % [source.name,source.amount],14))
 	_content.add_child(_label("Навык попадания: %s · основа %s · развитие %+d · мораль %s%%" % [selected.melee_stat.value,selected.melee_stat.base,data.melee_bonus,selected.melee_stat.morale_percent],16))
-	_content.add_child(_label("Узлы можно изучить сейчас. Уровни и продвижение сохраняются." if state.finished else "Новые уровни уже влияют на следующие действия. Узлы — после завершения боя.",14,Color("e3bf7b")))
+	_content.add_child(_label("Полное дерево и изучение узлов доступны на экране развития в лагере." if data.get("nodes_in_camp",false) else "Узлы можно изучить сейчас. Уровни и продвижение сохраняются." if state.finished else "Опыт накапливается; рост будет применён после боя." if data.get("growth_deferred",false) else "Новые уровни уже влияют на следующие действия. Узлы — после завершения боя.",14,Color("e3bf7b")))
 	var scroll: ScrollContainer=ScrollContainer.new(); scroll.name="DevelopmentNodes"; scroll.size_flags_vertical=SIZE_EXPAND_FILL; scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED; _content.add_child(scroll)
 	var nodes: VBoxContainer=VBoxContainer.new(); nodes.size_flags_horizontal=SIZE_EXPAND_FILL; nodes.add_theme_constant_override("separation",10); scroll.add_child(nodes)
 	for node: Dictionary in data.nodes:
@@ -93,6 +97,10 @@ func _party(state: Dictionary) -> void:
 		selectors.add_child(_button(Sm2BattleText.actor(actor),"DevelopActor"+str(actor.actor_id),func() -> void: selected_actor=int(actor.actor_id); refresh()))
 		if int(actor.actor_id)==selected_actor: selected=actor
 	var data: Dictionary=selected.development
+	if data.get("growth_deferred",false):
+		_content.add_child(_label("Уровни и прибавки зафиксированы до конца боя. Накопленный опыт будет учтён в итогах.",16))
+		for practice: Dictionary in data.get("pending_practice",[]):
+			_content.add_child(_label("%s: +%s опыта после боя" % [practice.title,practice.xp],16))
 	_content.add_child(_label("Погиб" if not selected.alive else "Герой: собственная практика и узлы" if data.role=="hero" else "Спутник: общий опыт и автоматический рост",18))
 	if data.has("growth"):
 		_content.add_child(_label("Уровень %s · общий опыт %s · до следующего %s/%s" % [data.growth.level,data.growth.earned,data.growth.progress,data.growth.needed],18))

@@ -6,6 +6,10 @@ const SCHEMA_VERSION: int = 2
 const MAX_FILE_BYTES: int = 8 * 1024 * 1024
 const MAX_DEPTH: int = 32
 const MAX_NODES: int = 50000
+const LARGE_MAX_NODES: int = 200000
+## Selected by the trusted content/session, never by fields inside a save file.
+var large_profile: bool=false
+func node_budget() -> int: return LARGE_MAX_NODES if large_profile else MAX_NODES
 const MAX_COLLECTION_SIZE: int = 10000
 const MAX_STRING_LENGTH: int = 1024 * 1024
 const MAX_SAFE_INTEGER: int = 9007199254740991
@@ -27,7 +31,7 @@ func save_slot(payload: Dictionary, slot_name: String = "session") -> Dictionary
 	var problem: String = _location_error(slot_name)
 	if not problem.is_empty():
 		return _failure(problem)
-	var budget: Array[int] = [MAX_NODES]
+	var budget: Array[int] = [node_budget()]
 	problem = _validate_value(payload, 0, budget)
 	if not problem.is_empty():
 		return _failure("Некорректные данные сохранения: " + problem)
@@ -46,7 +50,7 @@ func save_slot(payload: Dictionary, slot_name: String = "session") -> Dictionary
 	var backup_path: String = current_path + ".bak"
 	var had_previous: bool = FileAccess.file_exists(current_path)
 	if had_previous:
-		var previous: Dictionary = _read_envelope(current_path)
+		var previous: Dictionary = _read_envelope(current_path,large_profile)
 		if not previous["ok"]:
 			return _failure("Предыдущий слот повреждён; он сохранён без изменений.")
 	var temporary: FileAccess = FileAccess.open(temporary_path, FileAccess.WRITE)
@@ -59,7 +63,7 @@ func save_slot(payload: Dictionary, slot_name: String = "session") -> Dictionary
 	if write_error != OK:
 		_remove_if_present(temporary_path)
 		return _failure("Ошибка записи временного файла: %s" % error_string(write_error))
-	var reloaded: Dictionary = _read_envelope(temporary_path)
+	var reloaded: Dictionary = _read_envelope(temporary_path,large_profile)
 	if not reloaded["ok"] or Sm2Canonical.hash(reloaded["payload"]) != envelope["checksum"]:
 		_remove_if_present(temporary_path)
 		return _failure("Проверка временного сохранения не пройдена; слот не изменён.")
@@ -90,7 +94,7 @@ func load_slot(slot_name: String = "session") -> Dictionary:
 	var problem: String = _location_error(slot_name)
 	if not problem.is_empty():
 		return _failure(problem)
-	return _read_envelope(_slot_path(slot_name))
+	return _read_envelope(_slot_path(slot_name),large_profile)
 
 
 func _slot_path(slot_name: String) -> String:
@@ -157,7 +161,7 @@ func _ensure_directory() -> Error:
 	return OK
 
 
-static func _read_envelope(path: String) -> Dictionary:
+static func _read_envelope(path: String,large: bool=false) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return _failure("Сохранение не найдено.")
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
@@ -197,7 +201,7 @@ static func _read_envelope(path: String) -> Dictionary:
 	if typeof(envelope["checksum"]) != TYPE_STRING or not _valid_checksum(envelope["checksum"]):
 		return _failure("Некорректный формат контрольной суммы.")
 	var payload: Dictionary = envelope[payload_key]
-	var budget: Array[int] = [MAX_NODES]
+	var budget: Array[int] = [LARGE_MAX_NODES if large else MAX_NODES]
 	var problem: String = _validate_value(payload, 0, budget)
 	if not problem.is_empty():
 		return _failure("Некорректные данные сохранения: " + problem)

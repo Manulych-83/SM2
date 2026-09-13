@@ -1,0 +1,9 @@
+{
+	"checks": 158,
+	"engine_version": "4.7.2-stable (official)",
+	"failures": [],
+	"passed": true,
+	"suites": [
+		"battle_results"
+	]
+}

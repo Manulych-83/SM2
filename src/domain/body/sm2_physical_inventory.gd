@@ -92,18 +92,22 @@ func bandage_for(body: int,catalog: Sm2SurvivalCatalog) -> String:
 
 func validate(catalog: Sm2SurvivalCatalog, bodies: Array, places: Array) -> String:
 	if items.size()>10000: return "physical_item_limit"
+	var definitions: Dictionary={}
 	# Validate every referenced row before following any edge to a parent.
 	for id: Variant in items:
 		var entry: Variant=items[id]
 		if not id is String or not entry is Dictionary or not Sm2Validate.fields(entry,["id","definition_id","place","holder","slot","current","ammo"]): return "physical_item_shape"
 		for key: String in ["id","definition_id","place","holder","slot"]:
 			if not entry[key] is String: return "physical_item_shape"
-		if catalog.item(entry.definition_id).is_empty(): return "physical_item_definition"
+		if not definitions.has(entry.definition_id): definitions[entry.definition_id]=catalog.item(entry.definition_id)
+		if definitions[entry.definition_id].is_empty(): return "physical_item_definition"
 	var slots: Dictionary={}
-	for id: String in ids():
+	var totals: Dictionary={}
+	var sorted_ids: Array[String]=ids()
+	for id: String in sorted_ids:
 		var entry: Dictionary=items[id]
 		if not Sm2Validate.fields(entry,["id","definition_id","place","holder","slot","current","ammo"]) or entry.id!=id or not Sm2Validate.decimal(id,1,1000000) or not entry.definition_id is String or not entry.place is String or not entry.holder is String or not entry.slot is String: return "physical_item_fields"
-		var definition: Dictionary=catalog.item(entry.definition_id)
+		var definition: Dictionary=definitions[entry.definition_id]
 		if definition.is_empty() or not Sm2Validate.integer(entry.current,0,10000) or not Sm2Validate.integer(entry.ammo,0,10000): return "physical_item_definition"
 		match entry.place:
 			"equipped","installed":
@@ -116,13 +120,16 @@ func validate(catalog: Sm2SurvivalCatalog, bodies: Array, places: Array) -> Stri
 				if entry.holder not in places or not entry.slot.is_empty(): return "physical_ground"
 			"container":
 				if not entry.slot.is_empty() or int(definition.capacity)>0 or not items.has(entry.holder) or entry.id==entry.holder: return "physical_container_reference"
-				var target: Dictionary=catalog.item(items[entry.holder].definition_id)
+				var target: Dictionary=definitions[items[entry.holder].definition_id]
 				if target.is_empty() or int(target.capacity)<1 or int(definition.size)>int(target.max_size) or items[entry.holder].place not in ["ground","equipped"]: return "physical_container_size"
+				if not totals.has(entry.holder): totals[entry.holder]={"mass":0,"volume":0}
+				totals[entry.holder].mass+=int(definition.mass)
+				totals[entry.holder].volume+=int(definition.volume)
 			_: return "physical_placement"
-	for id: String in ids():
-		var definition: Dictionary=catalog.item(items[id].definition_id)
+	for id: String in sorted_ids:
+		var definition: Dictionary=definitions[items[id].definition_id]
 		if int(definition.capacity)>0:
-			var used: Dictionary=usage(id,catalog)
+			var used: Dictionary=totals.get(id,{"mass":0,"volume":0})
 			if int(used.volume)>int(definition.capacity) or int(used.mass)>int(definition.max_mass): return "physical_capacity"
 	return ""
 

@@ -1,0 +1,32 @@
+{
+  "version": "sm2.effects.sequences.1",
+  "actions": [
+    {
+      "id": "sequences:ability.exhaustion",
+      "name": "Ослабление и яд",
+      "operation": "effect_sequence", "effect_id": "", "target_side": "enemy",
+      "ap_cost": 3, "fatigue_cost": 6, "range_min": 1, "range_max": 3,
+      "steps": [
+        {"operation": "apply_effect", "effect_id": "m4:effect.weakness", "on_unavailable": "skip"},
+        {"operation": "apply_effect", "effect_id": "m4:effect.poison", "on_unavailable": "skip",
+         "when": {"kind": "compare", "fact": "target_harmful_count", "op": "gte", "value": 1, "reason": "harmful_required"}}
+      ]
+    },
+    {
+      "id": "sequences:ability.protection",
+      "name": "Очищение и прикрытие",
+      "operation": "effect_sequence", "effect_id": "", "target_side": "ally",
+      "ap_cost": 3, "fatigue_cost": 6, "range_min": 0, "range_max": 3,
+      "steps": [
+        {"operation": "dispel_effects", "effect_id": "", "on_unavailable": "skip"},
+        {"operation": "apply_effect", "effect_id": "m4:effect.cover", "on_unavailable": "skip"}
+      ]
+    }
+  ],
+  "grants": [
+    {"profile_id": "m2:loadout.sword_fighter", "actions": ["sequences:ability.exhaustion", "sequences:ability.protection"]},
+    {"profile_id": "m2:loadout.spear_guard", "actions": ["sequences:ability.exhaustion", "sequences:ability.protection"]},
+    {"profile_id": "m2:loadout.bow_archer", "actions": ["sequences:ability.exhaustion", "sequences:ability.protection"]},
+    {"profile_id": "m2:loadout.axe_fighter", "actions": ["sequences:ability.exhaustion", "sequences:ability.protection"]}
+  ]
+}

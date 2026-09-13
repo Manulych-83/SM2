@@ -1,0 +1,66 @@
+{
+  "checks": 1949,
+  "passed": true,
+  "suites": [
+    {
+      "checks": 79,
+      "passed": true,
+      "report": "core/checks-20260913-133830-061-c0e9e1c1.json",
+      "suite": "survival"
+    },
+    {
+      "checks": 113,
+      "passed": true,
+      "report": "core/checks-20260913-133838-604-19a9833d.json",
+      "suite": "survival_devices"
+    },
+    {
+      "checks": 113,
+      "passed": true,
+      "report": "core/checks-20260913-133846-999-a46d7ffe.json",
+      "suite": "survival_tissues"
+    },
+    {
+      "checks": 490,
+      "passed": true,
+      "report": "core/checks-20260913-133856-346-1b25a28c.json",
+      "suite": "checkpoint"
+    },
+    {
+      "checks": 58,
+      "passed": true,
+      "report": "core/checks-20260913-133928-329-b504be95.json",
+      "suite": "campaigns"
+    },
+    {
+      "checks": 403,
+      "passed": true,
+      "report": "core/checks-20260913-133935-347-c025806e.json",
+      "suite": "combat_profile"
+    },
+    {
+      "checks": 114,
+      "passed": true,
+      "report": "core/checks-20260913-133948-213-a46d5493.json",
+      "suite": "integration"
+    },
+    {
+      "checks": 184,
+      "passed": true,
+      "report": "core/checks-20260913-133953-253-bed04420.json",
+      "suite": "survival_workspace"
+    },
+    {
+      "checks": 222,
+      "passed": true,
+      "report": "core/checks-20260913-133958-799-054f4155.json",
+      "suite": "m2_content"
+    },
+    {
+      "checks": 173,
+      "passed": true,
+      "report": "core/checks-20260913-133610-146-0fdf0897.json",
+      "suite": "content_packages"
+    }
+  ]
+}

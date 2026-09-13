@@ -1,7 +1,7 @@
 class_name Sm2DevelopmentSnapshot
 extends RefCounted
 const RULESET: String = "sm2.p2.development.1"
-static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog, magic: Sm2MagicCatalog, development: Sm2DevelopmentCatalog, origin: Dictionary = {}, anatomical: bool = false) -> Dictionary:
+static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCatalog, effects: Sm2EffectCatalog, magic: Sm2MagicCatalog, development: Sm2DevelopmentCatalog, origin: Dictionary = {}, anatomical: bool = false, cache: Sm2ProgressDecodeCache=null,proof: Sm2CombatGrowthProfile=null) -> Dictionary:
 	if development == null or not development.ready() or data.get("ruleset") != (RULESET if origin.is_empty() else str(origin.get("version",""))) or not Sm2Validate.integer(data.get("schema_version"),Sm2EncounterOrigin.schema(development,origin),Sm2EncounterOrigin.schema(development,origin)) or not data.get("development") is Dictionary:
 		return {"ok":false,"errors":PackedStringArray(["development_snapshot_version"])}
 	if development.has_psionics() and (origin.is_empty() or magic==null or not magic.is_psionic()): return {"ok":false,"errors":PackedStringArray(["psionic_layers_required"])}
@@ -26,7 +26,7 @@ static func decode(data: Dictionary, turns: Sm2TurnCatalog, combat: Sm2CombatCat
 	elif effects != null: decoded = Sm2EffectSnapshot.decode(base,turns,combat,effects,anatomical)
 	else: decoded = Sm2CombatSnapshot.decode(base,turns,combat,true,anatomical)
 	if not decoded.ok: return decoded
-	var result: Dictionary = Sm2BattleDevelopment.decode(data.development,decoded.state,development) if origin.is_empty() else Sm2EncounterOrigin.decode(data.development,decoded.state,development,combat,origin)
+	var result: Dictionary = Sm2EncounterOrigin.decode_compact(data.development,decoded.state,development,combat,origin,proof) if proof!=null else Sm2BattleDevelopment.decode(data.development,decoded.state,development,cache) if origin.is_empty() else Sm2EncounterOrigin.decode(data.development,decoded.state,development,combat,origin,cache)
 	if not result.ok: return result
 	decoded.state.development = result.development
 	if development.has_body_functions() and not anatomical:

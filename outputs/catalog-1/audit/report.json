@@ -1,0 +1,159 @@
+{
+	"errors": [],
+	"expedition": {
+		"brief": "Пройдите встречу «Тропа у руин», осмотрите старую санитарную сумку и доставьте четыре найденных медикамента в лагерный сундук. Припасы можно найти до боя; все три встречи проходить не требуется. Отступление допустимо и будет отдельно отражено в итоге.",
+		"encounter": 0,
+		"home": "camp",
+		"id": "first_supplies",
+		"quantity": 4,
+		"resource": "medicine",
+		"site": "first_aid",
+		"source_location": "ruins",
+		"title": "Первый поход · медикаменты для лагеря",
+		"version": "sm2.expedition.brief.1"
+	},
+	"format": "sm2.content.audit.1",
+	"items": {
+		"definitions": 20,
+		"origins": {
+			"items": {
+				"backpack": {
+					"field": "items",
+					"index": 3,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"bandage": {
+					"field": "items",
+					"index": 0,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"belt": {
+					"field": "items",
+					"index": 2,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"genetic_dose": {
+					"field": "items",
+					"index": 1,
+					"package": "survival.tissues",
+					"path": "res://content/survival/tissues.json"
+				},
+				"m2:equipment.axe": {
+					"field": "items",
+					"index": 7,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"m2:equipment.bow": {
+					"field": "items",
+					"index": 8,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"m2:equipment.helmet": {
+					"field": "items",
+					"index": 12,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"m2:equipment.mail": {
+					"field": "items",
+					"index": 11,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"m2:equipment.padded": {
+					"field": "items",
+					"index": 10,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"m2:equipment.shield": {
+					"field": "items",
+					"index": 9,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"m2:equipment.spear": {
+					"field": "items",
+					"index": 6,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"m2:equipment.sword": {
+					"field": "items",
+					"index": 5,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"medical_kit": {
+					"field": "items",
+					"index": 0,
+					"package": "survival.tissues",
+					"path": "res://content/survival/tissues.json"
+				},
+				"p4:prosthesis.alien": {
+					"field": "",
+					"index": 2,
+					"package": "survival.devices",
+					"path": "res://content/survival/devices.json"
+				},
+				"p4:prosthesis.left": {
+					"field": "",
+					"index": 1,
+					"package": "survival.devices",
+					"path": "res://content/survival/devices.json"
+				},
+				"p4:prosthesis.right": {
+					"field": "",
+					"index": 0,
+					"package": "survival.devices",
+					"path": "res://content/survival/devices.json"
+				},
+				"pockets": {
+					"field": "items",
+					"index": 1,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				},
+				"psi_implant_kit": {
+					"field": "items",
+					"index": 2,
+					"package": "survival.tissues",
+					"path": "res://content/survival/tissues.json"
+				},
+				"repair_parts": {
+					"field": "",
+					"index": 0,
+					"package": "survival.repair",
+					"path": "res://content/survival/repair_items.json"
+				},
+				"stash": {
+					"field": "items",
+					"index": 4,
+					"package": "survival.base",
+					"path": "res://content/survival/rules.json"
+				}
+			}
+		},
+		"packages": [
+			"survival.base",
+			"survival.devices",
+			"survival.repair",
+			"survival.tissues"
+		]
+	},
+	"journey_fingerprint": "13c3c73aff757015a3df227e29dfc46913b26a4bdd577dbef19b587cc7d54951",
+	"ok": true,
+	"progression": {
+		"diagnostics": [],
+		"fingerprint": "c46001167cb8c820d2b2e4893a3aca674eee87d1fcfd9900a392db7e518f1d13",
+		"nodes": 15,
+		"ok": true,
+		"validation": []
+	},
+	"source": "res://content/packages/survival.json"
+}

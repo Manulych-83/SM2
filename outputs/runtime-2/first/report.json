@@ -1,0 +1,67 @@
+{
+	"failures": [],
+	"metrics": [
+		{
+			"ms": 37.996,
+			"name": "content_service"
+		},
+		{
+			"ms": 14.539,
+			"name": "envelope_read"
+		},
+		{
+			"ms": 32.169,
+			"name": "world_decode"
+		},
+		{
+			"ms": 938.181,
+			"name": "archive_restore_cold"
+		},
+		{
+			"ms": 657.671,
+			"name": "campaign_open_cold"
+		},
+		{
+			"ms": 1.938,
+			"name": "world_copy"
+		},
+		{
+			"ms": 12.204,
+			"name": "session_copy"
+		},
+		{
+			"ms": 11.342,
+			"name": "world_validate"
+		},
+		{
+			"ms": 1.58,
+			"name": "session_capture"
+		},
+		{
+			"ms": 16.331,
+			"name": "candidate_publish"
+		},
+		{
+			"ms": 31.082,
+			"name": "journal_full"
+		},
+		{
+			"ms": 53.963,
+			"name": "menu_inspect"
+		},
+		{
+			"ms": 288.131,
+			"name": "save_existing"
+		},
+		{
+			"ms": 262.095,
+			"name": "load_warm"
+		},
+		{
+			"ms": 86.3731,
+			"name": "travel_mean_10"
+		}
+	],
+	"passed": true,
+	"version": "0.8.23-checkpoint.1"
+}

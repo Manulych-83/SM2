@@ -26,7 +26,7 @@ static func available_abilities(actor: Sm2TacticalActor, catalog: Sm2CombatCatal
 		var dev: Sm2BattleDevelopment=state.development
 		if actor.spatial.actor_id==dev.catalog.hero():
 			for id: String in dev.catalog.hybrids().ids():
-				if dev.catalog.hybrids().ability(id).base_attack in result and dev.catalog.hybrids().available(dev.bodies[actor.spatial.actor_id],id): result.append(id)
+				if dev.catalog.hybrids().ability(id).base_attack in result and dev.hybrid_available(actor.spatial.actor_id,id): result.append(id)
 	result.sort()
 	return result
 
@@ -80,10 +80,9 @@ static func preview(state: Sm2TacticalState, catalog: Sm2CombatCatalog, command:
 	var price: Dictionary = costs(state,ability,command.actor_id,reaction)
 	var ap_cost: int = int(price.ap_cost)
 	var fatigue_cost: int = int(price.fatigue_cost)
-	if not position_only and source.spatial.ap < ap_cost:
-		return _deny(result, "insufficient_ap")
-	if not position_only and source.spatial.fatigue_max - source.spatial.fatigue < fatigue_cost:
-		return _deny(result, "fatigue_limit")
+	if not position_only:
+		var requirements: Dictionary = Sm2ActionRequirements.resources(source,ap_cost,fatigue_cost)
+		if not requirements.matches: return _deny(result,requirements.reason)
 	if not position_only and ability.ammo_cost > 0 and source.combat.item("weapon").ammo < ability.ammo_cost:
 		return _deny(result, "no_ammunition")
 	if not position_only and ability.operation == "damage" and state.rng.draws >= MAX_COUNTER:

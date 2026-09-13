@@ -16,8 +16,8 @@ static func validate(raw: Variant, progress: Sm2ProgressCatalog, base: int) -> S
 static func resolve(base: int, raw: Dictionary, body: Sm2ProgressBodyState, progress: Sm2ProgressCatalog, modifiers: Array[Dictionary]=[]) -> Dictionary:
 	var result: Dictionary={"base":base,"bonus":0,"unclamped":base,"total":base,"maximum":int(raw.maximum),"terms":[]}
 	var tracks: Dictionary={}
-	for row: Dictionary in Sm2ProgressRules.tracks(body,progress,modifiers): tracks[row.id]=row
 	for rule: Dictionary in raw.terms:
+		if not tracks.has(rule.track_id): tracks[rule.track_id]=Sm2ProgressRules.track(body,progress,rule.track_id,modifiers)
 		var track: Dictionary=tracks[rule.track_id]
 		var delta: int=maxi(0,int(track.effective)-int(rule.baseline))
 		@warning_ignore("integer_division")

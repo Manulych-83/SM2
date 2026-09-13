@@ -1,0 +1,29 @@
+{
+	"rows": [
+		{
+			"definitions": 3,
+			"median_ms": 432.672,
+			"previews": 1000,
+			"samples_ms": [
+				432.672,
+				430.076,
+				432.309,
+				440.588,
+				443.397
+			]
+		},
+		{
+			"definitions": 2000,
+			"median_ms": 907.512,
+			"previews": 1000,
+			"samples_ms": [
+				907.512,
+				949.026,
+				967.716,
+				906.136,
+				867.779
+			]
+		}
+	],
+	"scope": "Two-step tactical preview; 2 actors, zero initial active effects. Catalog construction excluded. Not full battle/save/UI or simultaneous-catalog acceptance."
+}

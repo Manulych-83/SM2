@@ -1,0 +1,47 @@
+﻿[2026-09-13T10:49:32.0468618+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --version
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\baseline
+4.7.2.stable.official.ed1daf0bf
+
+
+ExitCode: 0
+[2026-09-13T10:49:32.1059323+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --editor --import
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Инициализация проекта (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Сканирование структуры файлов…[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Загрузка глобальных имен классов…[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Проверка GDExtensions…[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Создание скриптов автозагрузки…[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Инициализация плагинов…[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Начало сканирование файлов…[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Загрузка редактора (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Загрузка макета редактора…[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Загрузка док-панели…[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+
+ExitCode: 0
+[2026-09-13T10:49:36.8141445+03:00] C:\Users\Alexandr\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_Microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64.exe --headless --path E:\GPT\SM2 --script res://tools/check_combat_runtime.gd -- --output E:\GPT\SM2\outputs\combat-runtime-1\baseline
+RuntimeRoot: E:\GPT\SM2\.local\combat-runtime-1\baseline
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+COMBAT_RUNTIME start_battle 5675.285 ms
+COMBAT_RUNTIME runner_view 13.808 ms
+COMBAT_RUNTIME world_copy 504.653 ms
+COMBAT_RUNTIME world_validate 224.904 ms
+COMBAT_RUNTIME session_copy 1344.916 ms
+COMBAT_RUNTIME publish_unchanged 1573.459 ms
+COMBAT_RUNTIME battle_copy 2.433 ms
+COMBAT_RUNTIME battle_decode 393.459 ms
+COMBAT_RUNTIME runner_restore 434.544 ms
+COMBAT_RUNTIME action_0_move 3352.264 ms
+COMBAT_RUNTIME action_1_escape 3342.685 ms
+COMBAT_RUNTIME action_2_move 3345.343 ms
+COMBAT_RUNTIME action_3_escape 5881.367 ms
+
+
+ExitCode: 0

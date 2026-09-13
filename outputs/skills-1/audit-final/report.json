@@ -1,0 +1,17 @@
+{
+	"errors": [],
+	"format": "sm2.content.audit.1",
+	"ok": true,
+	"origins": {},
+	"progression": {
+		"activities": 10,
+		"attributes": 8,
+		"diagnostics": [],
+		"fingerprint": "c46001167cb8c820d2b2e4893a3aca674eee87d1fcfd9900a392db7e518f1d13",
+		"nodes": 15,
+		"ok": true,
+		"skills": 3,
+		"validation": []
+	},
+	"source": "res://content/packages/progression.json"
+}

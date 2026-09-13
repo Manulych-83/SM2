@@ -5,6 +5,8 @@ signal battle_requested
 signal development_requested
 signal settings_requested
 var session: Sm2LifeSession
+var expedition: Sm2ExpeditionView=Sm2ExpeditionView.new()
+var expedition_seen: Dictionary={}
 var _workspace_state: Dictionary={}
 var _content: Control
 var _notice: String=""
@@ -34,7 +36,7 @@ func redraw() -> void:
 	if session is Sm2JourneySession:
 		var world: Sm2JourneyWorld=(session as Sm2JourneySession).journey()
 		if world.survival!=null and world.survival.catalog.has_layers():
-			Sm2CampScreen.new().build(self); return
+			Sm2CampScreen.new().build(self); call_deferred("_expedition_completed"); return
 	var margin: MarginContainer=MarginContainer.new(); _content=margin
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	for side: String in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,24)
@@ -42,7 +44,7 @@ func redraw() -> void:
 	var outer: VBoxContainer=VBoxContainer.new(); margin.add_child(outer)
 	var header: HBoxContainer=HBoxContainer.new(); outer.add_child(header)
 	var title: Label=_label("ПОЛЯНА У РУИН",24,GOLD); title.size_flags_horizontal=Control.SIZE_EXPAND_FILL; header.add_child(title)
-	if session is Sm2JourneySession and session._content.development.progression().is_party(): header.add_child(_button("Развитие","WorldDevelopment",func() -> void: development_requested.emit()))
+	if session is Sm2JourneySession and session.world._progress.is_party(): header.add_child(_button("Развитие","WorldDevelopment",func() -> void: development_requested.emit()))
 	header.add_child(_button("Сохранить","WorldSave",_save))
 	header.add_child(_button("Загрузить","WorldLoad",_load))
 	header.add_child(_button("Меню","WorldMenu",func() -> void: menu_requested.emit()))
@@ -123,7 +125,7 @@ func redraw() -> void:
 				left.add_child(_label("%s: уровень %s · опыт %s · доступно %s" % [track.name,track.level,track.earned,track.available],14,MUTED))
 			var practice: Sm2WorldCommand=session.command("practice",body.id)
 			left.add_child(_button("Упражнение с мечом","WorldPractice",_act.bind("practice",body.id,""),not session.world.check(practice).is_empty()))
-			var catalog: Sm2ProgressCatalog=session._content.development.progression()
+			var catalog: Sm2ProgressCatalog=session.world._progress
 			if catalog.is_party():
 				var choices: OptionButton=OptionButton.new(); choices.name="HeroExercise"
 				var ids: Array[String]=catalog.activity_ids()
@@ -181,7 +183,7 @@ func _upgrades(parent: VBoxContainer) -> void:
 		var a: Dictionary=world.upgrade_catalog.definition(id)
 		parent.add_child(_label(a.name,18,INK))
 		for m: Dictionary in a.modifiers:
-			parent.add_child(_label(("+%s к эффективной характеристике «%s»" % [int(m.amount),session._content.development.progression().track(m.track_id).title]) if m.kind=="track_bonus" else "+%s концентрации за псионическое применение" % int(m.amount) if m.kind=="psionic_focus_cost" else "+%s усталости за физическую атаку, включая ответный удар" % int(m.amount),14,MUTED))
+			parent.add_child(_label(("+%s к эффективной характеристике «%s»" % [int(m.amount),session.world._progress.track(m.track_id).title]) if m.kind=="track_bonus" else "+%s концентрации за псионическое применение" % int(m.amount) if m.kind=="psionic_focus_cost" else "+%s усталости за физическую атаку, включая ответный удар" % int(m.amount),14,MUTED))
 		var active: bool=world.hero_id()!=0 and id in world.bodies[world.hero_id()].upgrades.installed
 		var status: Label=_label("Действует в этом теле" if active else "Не установлено в текущем теле",14,GOLD); status.name="UpgradeStatus_"+id.get_slice(".",1); parent.add_child(status)
 		parent.add_child(_label(a.cache_name+" · "+("собран" if id in world.upgrade_supply.collected else "не собран")+(" · комплектов: %s" if a.path=="cybernetics" else " · доз в запасе: %s") % int(world.upgrade_supply.remaining[id]),14,MUTED))
@@ -197,7 +199,7 @@ func _exploration(parent: VBoxContainer,v: Dictionary) -> void:
 	var world: Sm2JourneyWorld=(session as Sm2JourneySession).journey()
 	parent.add_child(_label("Места для осмотра",21,GOLD))
 	parent.add_child(_label("На осмотр затрачено: %s мин. Каждое место можно собрать один раз." % v.exploration.minutes,14,MUTED))
-	var progress: Sm2ProgressCatalog=session._content.development.progression()
+	var progress: Sm2ProgressCatalog=session.world._progress
 	if world.exploration_catalog.has_practice():
 		parent.add_child(_label("Узлы открывают новые места. Практика и узлы принадлежат телу и изучаются заново при воплощении." if world.exploration_catalog.has_requirements() else "Практику получает герой. В новом теле она начинается заново. Уровень пока не меняет находки.",14,MUTED))
 		if world.hero_id()!=0:
@@ -400,6 +402,20 @@ func _open_workspace() -> void:
 	workspace.closed.connect(func(state: Dictionary,message: String) -> void:
 		_workspace_state=state; _notice=message; remove_child(workspace); workspace.queue_free(); redraw())
 	add_child(workspace)
+
+func _expedition_completed() -> void:
+	if not is_inside_tree() or not is_instance_valid(_content) or not _content.visible: return
+	var view: Dictionary=expedition.build(session as Sm2JourneySession)
+	if not view.ok or not view.complete: return
+	var key: String=str(view.world_id)+":"+Sm2Canonical.hash(view.summary)
+	if not expedition_seen.has(key): _open_expedition()
+
+func _open_expedition() -> void:
+	var view: Dictionary=expedition.build(session as Sm2JourneySession)
+	if not view.ok: _notice="Не удалось восстановить сведения о походе."; return
+	if view.complete: expedition_seen[str(view.world_id)+":"+Sm2Canonical.hash(view.summary)]=true
+	var page: Sm2ExpeditionScreen=Sm2ExpeditionScreen.new(); page.name="ExpeditionScreen"; page.owner_screen=self; page.model=view
+	_content.hide(); page.closed.connect(func() -> void: remove_child(page); page.queue_free(); redraw()); add_child(page)
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not is_instance_valid(_content) or not _content.is_visible_in_tree() or Sm2Controls.text_focused(self): return
